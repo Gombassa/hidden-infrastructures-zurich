@@ -36,7 +36,12 @@ Stadelhofen Bahnhof → Bahnhofstrasse 45
   - Source: https://data.stadt-zuerich.ch/dataset/geo_vbz_infrastruktur_ogd
   - License: Open Government Data
   - Update: Weekly
-
+  - **Route data files:**
+    - `route-tram-powerlines.geojson` - 1,689 overhead wire segments
+    - `route-tram-masts.geojson` - 258 support poles
+    - `route-tram-feeders.geojson` - 366 power feeders
+    - `route-buildings.geojson` - Buildings along route
+    
 ## 🛠️ Tech Stack (Planned)
 
 - **Spatial Audio**: Three.js + Tone.js

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Substation Locations</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { height: 100vh; width: 100vw; }
+        .info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .info h3 { margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h3>🔌 Substations Found: 71</h3>
+        <p>Red markers = Likely substation locations</p>
+        <p>Click markers for details</p>
+    </div>
+    <div id="map"></div>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize map centered on route
+        const map = L.map('map').setView([47.3667, 8.5490], 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        
+        // Substation locations
+        const substations = [{"lat": 47.3664250910194, "lon": 8.540702445719795, "count": 13}, {"lat": 47.370503484799485, "lon": 8.549158974749291, "count": 10}, {"lat": 47.36952656125822, "lon": 8.538462699655634, "count": 9}, {"lat": 47.37051523366557, "lon": 8.549328032739625, "count": 8}, {"lat": 47.366274905174265, "lon": 8.54054559465714, "count": 6}, {"lat": 47.37002347804398, "lon": 8.537835422785447, "count": 6}, {"lat": 47.372644858973416, "lon": 8.547482599332351, "count": 6}, {"lat": 47.37042189395586, "lon": 8.549688163468485, "count": 6}, {"lat": 47.365635341856155, "lon": 8.547355726008105, "count": 6}, {"lat": 47.36470483018206, "lon": 8.554479655723782, "count": 6}, {"lat": 47.369417148306546, "lon": 8.538531438641687, "count": 5}, {"lat": 47.37466576288752, "lon": 8.54995480251866, "count": 5}, {"lat": 47.36898642655266, "lon": 8.539556532563612, "count": 4}, {"lat": 47.36923482848768, "lon": 8.53946869094299, "count": 4}, {"lat": 47.36953035064397, "lon": 8.539418686679511, "count": 4}, {"lat": 47.36653898489448, "lon": 8.540498175264728, "count": 4}, {"lat": 47.36670443838622, "lon": 8.54041793205694, "count": 4}, {"lat": 47.36650558107772, "lon": 8.541316516007505, "count": 4}, {"lat": 47.37428488083731, "lon": 8.542994874291978, "count": 4}, {"lat": 47.37341232485035, "lon": 8.542792069340729, "count": 4}, {"lat": 47.37051661331502, "lon": 8.543096986641219, "count": 4}, {"lat": 47.369457205594614, "lon": 8.543514631341512, "count": 4}, {"lat": 47.36917479322925, "lon": 8.543512544767896, "count": 4}, {"lat": 47.36897364836824, "lon": 8.54359006946923, "count": 4}, {"lat": 47.37286411816176, "lon": 8.547363050505034, "count": 4}, {"lat": 47.37482698621529, "lon": 8.543159573719848, "count": 4}, {"lat": 47.370111221888926, "lon": 8.53922917404142, "count": 4}, {"lat": 47.36930765459019, "lon": 8.538410076690031, "count": 4}, {"lat": 47.36886555401587, "lon": 8.537830603927349, "count": 4}, {"lat": 47.369831580777685, "lon": 8.538077124621346, "count": 4}, {"lat": 47.3681582634305, "lon": 8.536472212466373, "count": 4}, {"lat": 47.36782557947803, "lon": 8.535455201718566, "count": 4}, {"lat": 47.36795389847234, "lon": 8.535901858940539, "count": 4}, {"lat": 47.372353200363015, "lon": 8.538315632580609, "count": 4}, {"lat": 47.373697400957916, "lon": 8.538258214309957, "count": 4}, {"lat": 47.37474025572668, "lon": 8.538743917019826, "count": 4}, {"lat": 47.37187852457972, "lon": 8.550533683411466, "count": 4}, {"lat": 47.37208642778755, "lon": 8.55062453202908, "count": 4}, {"lat": 47.37230162280288, "lon": 8.550594249565329, "count": 4}, {"lat": 47.3743817177266, "lon": 8.54972119601905, "count": 4}, {"lat": 47.374800917602855, "lon": 8.5495342979669, "count": 4}, {"lat": 47.37470113717136, "lon": 8.550255823139398, "count": 4}, {"lat": 47.374776881224115, "lon": 8.551697093281145, "count": 4}, {"lat": 47.374795128124404, "lon": 8.552034011831005, "count": 4}, {"lat": 47.374819588475944, "lon": 8.552255365507474, "count": 4}, {"lat": 47.3749080957827, "lon": 8.552485857353462, "count": 4}, {"lat": 47.36951839501498, "lon": 8.548324457008924, "count": 4}, {"lat": 47.36930336751254, "lon": 8.548119194054488, "count": 4}, {"lat": 47.370658072702156, "lon": 8.549388103880219, "count": 4}, {"lat": 47.37065326924375, "lon": 8.54886394827053, "count": 4}, {"lat": 47.370290988203465, "lon": 8.54898262761833, "count": 4}, {"lat": 47.37011684581641, "lon": 8.548865705548367, "count": 4}, {"lat": 47.37090391380532, "lon": 8.548276469563394, "count": 4}, {"lat": 47.371005081418495, "lon": 8.548105687884775, "count": 4}, {"lat": 47.370807094895454, "lon": 8.5495305801116, "count": 4}, {"lat": 47.36933022423354, "lon": 8.554802139411905, "count": 4}, {"lat": 47.365149060284644, "lon": 8.547945785322938, "count": 4}, {"lat": 47.36550000473824, "lon": 8.547527354463941, "count": 4}, {"lat": 47.364125842906375, "lon": 8.548842294709033, "count": 4}, {"lat": 47.36430727901187, "lon": 8.548674921633829, "count": 4}, {"lat": 47.36454792059064, "lon": 8.54846642052152, "count": 4}, {"lat": 47.36517155226932, "lon": 8.55331291310462, "count": 4}, {"lat": 47.36478930039333, "lon": 8.554270229977575, "count": 4}, {"lat": 47.3645459309906, "lon": 8.554865080788595, "count": 4}, {"lat": 47.36536718387812, "lon": 8.552722379731748, "count": 4}, {"lat": 47.3654599439549, "lon": 8.552438229693683, "count": 4}, {"lat": 47.36353364539311, "lon": 8.535021723872012, "count": 3}, {"lat": 47.37497658020349, "lon": 8.549455812496491, "count": 3}, {"lat": 47.36511017352803, "lon": 8.555017117374208, "count": 3}, {"lat": 47.365999505863876, "lon": 8.547877792208537, "count": 3}, {"lat": 47.36617150990807, "lon": 8.548834406993171, "count": 3}];
+        
+        // Add markers
+        substations.forEach((sub, i) => {
+            const marker = L.marker([sub.lat, sub.lon], {
+                icon: L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+                    iconSize: [25, 41],
+                    iconAnchor: [12, 41],
+                    popupAnchor: [1, -34],
+                    shadowSize: [41, 41]
+                })
+            }).addTo(map);
+            
+            marker.bindPopup(`
+                <b>Substation #${i+1}</b><br>
+                Feeders: ${sub.count}<br>
+                Location: ${sub.lat.toFixed(6)}, ${sub.lon.toFixed(6)}
+            `);
+        });
+        
+        // Fit map to show all substations
+        if (substations.length > 0) {
+            const bounds = L.latLngBounds(substations.map(s => [s.lat, s.lon]));
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+    </script>
+</body>
+</html>

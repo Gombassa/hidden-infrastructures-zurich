@@ -1,0 +1,1790 @@
+{
+  "station": {
+    "id": "8503003",
+    "name": "Zürich Stadelhofen",
+    "score": null,
+    "coordinate": {
+      "type": "WGS84",
+      "x": 47.366598,
+      "y": 8.548478
+    },
+    "distance": null
+  },
+  "stationboard": [
+    {
+      "stop": {
+        "station": {
+          "id": "8503003",
+          "name": "Zürich Stadelhofen",
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": 47.366598,
+            "y": 8.548478
+          },
+          "distance": null
+        },
+        "arrival": null,
+        "arrivalTimestamp": null,
+        "departure": "2026-02-01T18:20:00+0100",
+        "departureTimestamp": 1769966400,
+        "delay": 0,
+        "platform": "3",
+        "prognosis": {
+          "platform": null,
+          "arrival": "2026-02-01T18:19:39+0100",
+          "departure": "2026-02-01T18:20:00+0100",
+          "capacity1st": null,
+          "capacity2nd": null
+        },
+        "realtimeAvailability": null,
+        "location": {
+          "id": "8503424",
+          "name": null,
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": null,
+            "y": null
+          },
+          "distance": null
+        }
+      },
+      "name": "019269",
+      "category": "S",
+      "subcategory": null,
+      "categoryCode": null,
+      "number": "12",
+      "operator": "SBB",
+      "to": "Schaffhausen",
+      "passList": [
+        {
+          "station": {
+            "id": "8503424",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          },
+          "arrival": null,
+          "arrivalTimestamp": null,
+          "departure": "2026-02-01T18:20:00+0100",
+          "departureTimestamp": 1769966400,
+          "delay": 0,
+          "platform": "3",
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:19:39+0100",
+            "departure": "2026-02-01T18:20:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503424",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503147",
+            "name": "Stettbach",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.397209,
+              "y": 8.596144
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:25:00+0100",
+          "arrivalTimestamp": 1769966700,
+          "departure": "2026-02-01T18:26:00+0100",
+          "departureTimestamp": 1769966760,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:25:00+0100",
+            "departure": "2026-02-01T18:26:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503147",
+            "name": "Stettbach",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.397209,
+              "y": 8.596144
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8506000",
+            "name": "Winterthur",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.500322,
+              "y": 8.723808
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:38:00+0100",
+          "arrivalTimestamp": 1769967480,
+          "departure": "2026-02-01T18:42:00+0100",
+          "departureTimestamp": 1769967720,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:38:00+0100",
+            "departure": "2026-02-01T18:42:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8506000",
+            "name": "Winterthur",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.500322,
+              "y": 8.723808
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8506045",
+            "name": "Hettlingen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.545436,
+              "y": 8.694822
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:48:00+0100",
+          "arrivalTimestamp": 1769968080,
+          "departure": "2026-02-01T18:48:00+0100",
+          "departureTimestamp": 1769968080,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:48:00+0100",
+            "departure": "2026-02-01T18:48:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8506045",
+            "name": "Hettlingen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.545436,
+              "y": 8.694822
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8506046",
+            "name": "Henggart",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.56425,
+              "y": 8.685074
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:50:00+0100",
+          "arrivalTimestamp": 1769968200,
+          "departure": "2026-02-01T18:50:00+0100",
+          "departureTimestamp": 1769968200,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:50:00+0100",
+            "departure": "2026-02-01T18:51:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8506046",
+            "name": "Henggart",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.56425,
+              "y": 8.685074
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8506047",
+            "name": "Andelfingen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.593757,
+              "y": 8.677987
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:54:00+0100",
+          "arrivalTimestamp": 1769968440,
+          "departure": "2026-02-01T18:54:00+0100",
+          "departureTimestamp": 1769968440,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:54:00+0100",
+            "departure": "2026-02-01T18:55:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8506047",
+            "name": "Andelfingen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.593757,
+              "y": 8.677987
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8506048",
+            "name": "Marthalen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.631371,
+              "y": 8.656059
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:00:00+0100",
+          "arrivalTimestamp": 1769968800,
+          "departure": "2026-02-01T19:00:00+0100",
+          "departureTimestamp": 1769968800,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:00:00+0100",
+            "departure": "2026-02-01T19:00:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8506048",
+            "name": "Marthalen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.631371,
+              "y": 8.656059
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8506049",
+            "name": "Dachsen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.667082,
+              "y": 8.613817
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:05:00+0100",
+          "arrivalTimestamp": 1769969100,
+          "departure": "2026-02-01T19:05:00+0100",
+          "departureTimestamp": 1769969100,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:05:00+0100",
+            "departure": "2026-02-01T19:05:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8506049",
+            "name": "Dachsen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.667082,
+              "y": 8.613817
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8506039",
+            "name": "Schloss Laufen am Rheinfall",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.676558,
+              "y": 8.614254
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:06:00+0100",
+          "arrivalTimestamp": 1769969160,
+          "departure": "2026-02-01T19:06:00+0100",
+          "departureTimestamp": 1769969160,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:07:00+0100",
+            "departure": "2026-02-01T19:07:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8506039",
+            "name": "Schloss Laufen am Rheinfall",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.676558,
+              "y": 8.614254
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503423",
+            "name": "Neuhausen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.683123,
+              "y": 8.624921
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:09:00+0100",
+          "arrivalTimestamp": 1769969340,
+          "departure": "2026-02-01T19:09:00+0100",
+          "departureTimestamp": 1769969340,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:09:00+0100",
+            "departure": "2026-02-01T19:09:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503423",
+            "name": "Neuhausen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.683123,
+              "y": 8.624921
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503424",
+            "name": "Schaffhausen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.69828,
+              "y": 8.632748
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:13:00+0100",
+          "arrivalTimestamp": 1769969580,
+          "departure": null,
+          "departureTimestamp": null,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:13:00+0100",
+            "departure": null,
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503424",
+            "name": "Schaffhausen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.69828,
+              "y": 8.632748
+            },
+            "distance": null
+          }
+        }
+      ],
+      "capacity1st": null,
+      "capacity2nd": null
+    },
+    {
+      "stop": {
+        "station": {
+          "id": "8503003",
+          "name": "Zürich Stadelhofen",
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": 47.366598,
+            "y": 8.548478
+          },
+          "distance": null
+        },
+        "arrival": null,
+        "arrivalTimestamp": null,
+        "departure": "2026-02-01T18:22:00+0100",
+        "departureTimestamp": 1769966520,
+        "delay": 1,
+        "platform": "1",
+        "prognosis": {
+          "platform": null,
+          "arrival": "2026-02-01T18:19:39+0100",
+          "departure": "2026-02-01T18:23:00+0100",
+          "capacity1st": null,
+          "capacity2nd": null
+        },
+        "realtimeAvailability": null,
+        "location": {
+          "id": "8502113",
+          "name": null,
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": null,
+            "y": null
+          },
+          "distance": null
+        }
+      },
+      "name": "018368",
+      "category": "S",
+      "subcategory": null,
+      "categoryCode": null,
+      "number": "3",
+      "operator": "SBB",
+      "to": "Aarau",
+      "passList": [
+        {
+          "station": {
+            "id": "8502113",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          },
+          "arrival": null,
+          "arrivalTimestamp": null,
+          "departure": "2026-02-01T18:22:00+0100",
+          "departureTimestamp": 1769966520,
+          "delay": 1,
+          "platform": "1",
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:19:39+0100",
+            "departure": "2026-02-01T18:23:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8502113",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503000",
+            "name": "Zürich HB",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.377847,
+              "y": 8.540502
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:25:00+0100",
+          "arrivalTimestamp": 1769966700,
+          "departure": "2026-02-01T18:26:00+0100",
+          "departureTimestamp": 1769966760,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:25:00+0100",
+            "departure": "2026-02-01T18:27:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503000",
+            "name": "Zürich HB",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.377847,
+              "y": 8.540502
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503020",
+            "name": "Zürich Hardbrücke",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.385087,
+              "y": 8.517686
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:29:00+0100",
+          "arrivalTimestamp": 1769966940,
+          "departure": null,
+          "departureTimestamp": null,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:29:00+0100",
+            "departure": "2026-02-01T18:19:39+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503020",
+            "name": "Zürich Hardbrücke",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.385087,
+              "y": 8.517686
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8502119",
+            "name": "Lenzburg",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.39119,
+              "y": 8.170394
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:57:00+0100",
+          "arrivalTimestamp": 1769968620,
+          "departure": "2026-02-01T18:58:00+0100",
+          "departureTimestamp": 1769968680,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:57:00+0100",
+            "departure": "2026-02-01T18:58:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8502119",
+            "name": "Lenzburg",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.39119,
+              "y": 8.170394
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8502113",
+            "name": "Aarau",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.391352,
+              "y": 8.05127
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:05:00+0100",
+          "arrivalTimestamp": 1769969100,
+          "departure": null,
+          "departureTimestamp": null,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:05:00+0100",
+            "departure": null,
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8502113",
+            "name": "Aarau",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.391352,
+              "y": 8.05127
+            },
+            "distance": null
+          }
+        }
+      ],
+      "capacity1st": null,
+      "capacity2nd": null
+    },
+    {
+      "stop": {
+        "station": {
+          "id": "8503003",
+          "name": "Zürich Stadelhofen",
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": 47.366598,
+            "y": 8.548478
+          },
+          "distance": null
+        },
+        "arrival": null,
+        "arrivalTimestamp": null,
+        "departure": "2026-02-01T18:25:00+0100",
+        "departureTimestamp": 1769966700,
+        "delay": 2,
+        "platform": "2",
+        "prognosis": {
+          "platform": null,
+          "arrival": "2026-02-01T18:20:39+0100",
+          "departure": "2026-02-01T18:27:00+0100",
+          "capacity1st": null,
+          "capacity2nd": null
+        },
+        "realtimeAvailability": null,
+        "location": {
+          "id": "8502113",
+          "name": null,
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": null,
+            "y": null
+          },
+          "distance": null
+        }
+      },
+      "name": "019170",
+      "category": "S",
+      "subcategory": null,
+      "categoryCode": null,
+      "number": "11",
+      "operator": "SBB",
+      "to": "Aarau",
+      "passList": [
+        {
+          "station": {
+            "id": "8502113",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          },
+          "arrival": null,
+          "arrivalTimestamp": null,
+          "departure": "2026-02-01T18:25:00+0100",
+          "departureTimestamp": 1769966700,
+          "delay": 2,
+          "platform": "2",
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:20:39+0100",
+            "departure": "2026-02-01T18:27:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8502113",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503000",
+            "name": "Zürich HB",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.377847,
+              "y": 8.540502
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:28:00+0100",
+          "arrivalTimestamp": 1769966880,
+          "departure": "2026-02-01T18:29:00+0100",
+          "departureTimestamp": 1769966940,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:28:00+0100",
+            "departure": "2026-02-01T18:30:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503000",
+            "name": "Zürich HB",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.377847,
+              "y": 8.540502
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503020",
+            "name": "Zürich Hardbrücke",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.385087,
+              "y": 8.517686
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:31:00+0100",
+          "arrivalTimestamp": 1769967060,
+          "departure": "2026-02-01T18:31:00+0100",
+          "departureTimestamp": 1769967060,
+          "delay": 2,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:32:00+0100",
+            "departure": "2026-02-01T18:33:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503020",
+            "name": "Zürich Hardbrücke",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.385087,
+              "y": 8.517686
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503001",
+            "name": "Zürich Altstetten",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.391478,
+              "y": 8.488952
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:35:00+0100",
+          "arrivalTimestamp": 1769967300,
+          "departure": "2026-02-01T18:35:00+0100",
+          "departureTimestamp": 1769967300,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:35:00+0100",
+            "departure": "2026-02-01T18:36:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503001",
+            "name": "Zürich Altstetten",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.391478,
+              "y": 8.488952
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503509",
+            "name": "Schlieren",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.399171,
+              "y": 8.447241
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:38:00+0100",
+          "arrivalTimestamp": 1769967480,
+          "departure": "2026-02-01T18:38:00+0100",
+          "departureTimestamp": 1769967480,
+          "delay": 2,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:39:00+0100",
+            "departure": "2026-02-01T18:40:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503509",
+            "name": "Schlieren",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.399171,
+              "y": 8.447241
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503512",
+            "name": "Glanzenberg",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.398871,
+              "y": 8.420436
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:41:00+0100",
+          "arrivalTimestamp": 1769967660,
+          "departure": "2026-02-01T18:41:00+0100",
+          "departureTimestamp": 1769967660,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:41:00+0100",
+            "departure": "2026-02-01T18:42:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503512",
+            "name": "Glanzenberg",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.398871,
+              "y": 8.420436
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503508",
+            "name": "Dietikon",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.405775,
+              "y": 8.404982
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:44:00+0100",
+          "arrivalTimestamp": 1769967840,
+          "departure": "2026-02-01T18:45:00+0100",
+          "departureTimestamp": 1769967900,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:44:00+0100",
+            "departure": "2026-02-01T18:45:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503508",
+            "name": "Dietikon",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.405775,
+              "y": 8.404982
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503506",
+            "name": "Killwangen-Spreitenbach",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.433325,
+              "y": 8.354207
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:49:00+0100",
+          "arrivalTimestamp": 1769968140,
+          "departure": "2026-02-01T18:49:00+0100",
+          "departureTimestamp": 1769968140,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:49:00+0100",
+            "departure": "2026-02-01T18:50:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503506",
+            "name": "Killwangen-Spreitenbach",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.433325,
+              "y": 8.354207
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8516219",
+            "name": "Mellingen Heitersberg",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.428068,
+              "y": 8.276366
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:54:00+0100",
+          "arrivalTimestamp": 1769968440,
+          "departure": "2026-02-01T18:54:00+0100",
+          "departureTimestamp": 1769968440,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:54:00+0100",
+            "departure": "2026-02-01T18:54:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8516219",
+            "name": "Mellingen Heitersberg",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.428068,
+              "y": 8.276366
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8502106",
+            "name": "Mägenwil",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.414499,
+              "y": 8.235154
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:57:00+0100",
+          "arrivalTimestamp": 1769968620,
+          "departure": "2026-02-01T18:57:00+0100",
+          "departureTimestamp": 1769968620,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:57:00+0100",
+            "departure": "2026-02-01T18:58:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8502106",
+            "name": "Mägenwil",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.414499,
+              "y": 8.235154
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8502105",
+            "name": "Othmarsingen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.407424,
+              "y": 8.214803
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:00:00+0100",
+          "arrivalTimestamp": 1769968800,
+          "departure": "2026-02-01T19:00:00+0100",
+          "departureTimestamp": 1769968800,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:00:00+0100",
+            "departure": "2026-02-01T19:00:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8502105",
+            "name": "Othmarsingen",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.407424,
+              "y": 8.214803
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8502119",
+            "name": "Lenzburg",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.39119,
+              "y": 8.170394
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:04:00+0100",
+          "arrivalTimestamp": 1769969040,
+          "departure": "2026-02-01T19:05:00+0100",
+          "departureTimestamp": 1769969100,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:04:00+0100",
+            "departure": "2026-02-01T19:05:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8502119",
+            "name": "Lenzburg",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.39119,
+              "y": 8.170394
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8502113",
+            "name": "Aarau",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.391352,
+              "y": 8.05127
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:12:00+0100",
+          "arrivalTimestamp": 1769969520,
+          "departure": null,
+          "departureTimestamp": null,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:12:00+0100",
+            "departure": null,
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8502113",
+            "name": "Aarau",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.391352,
+              "y": 8.05127
+            },
+            "distance": null
+          }
+        }
+      ],
+      "capacity1st": null,
+      "capacity2nd": null
+    },
+    {
+      "stop": {
+        "station": {
+          "id": "8503003",
+          "name": "Zürich Stadelhofen",
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": 47.366598,
+            "y": 8.548478
+          },
+          "distance": null
+        },
+        "arrival": null,
+        "arrivalTimestamp": null,
+        "departure": "2026-02-01T18:27:00+0100",
+        "departureTimestamp": 1769966820,
+        "delay": 0,
+        "platform": "3",
+        "prognosis": {
+          "platform": null,
+          "arrival": "2026-02-01T18:19:39+0100",
+          "departure": "2026-02-01T18:27:00+0100",
+          "capacity1st": null,
+          "capacity2nd": null
+        },
+        "realtimeAvailability": null,
+        "location": {
+          "id": "8503209",
+          "name": null,
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": null,
+            "y": null
+          },
+          "distance": null
+        }
+      },
+      "name": "018569",
+      "category": "S",
+      "subcategory": null,
+      "categoryCode": null,
+      "number": "5",
+      "operator": "SBB",
+      "to": "Pfäffikon SZ",
+      "passList": [
+        {
+          "station": {
+            "id": "8503209",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          },
+          "arrival": null,
+          "arrivalTimestamp": null,
+          "departure": "2026-02-01T18:27:00+0100",
+          "departureTimestamp": 1769966820,
+          "delay": 0,
+          "platform": "3",
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:19:39+0100",
+            "departure": "2026-02-01T18:27:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503209",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503125",
+            "name": "Uster",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.350364,
+              "y": 8.7187
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:38:00+0100",
+          "arrivalTimestamp": 1769967480,
+          "departure": "2026-02-01T18:39:00+0100",
+          "departureTimestamp": 1769967540,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:38:00+0100",
+            "departure": "2026-02-01T18:39:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503125",
+            "name": "Uster",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.350364,
+              "y": 8.7187
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503123",
+            "name": "Wetzikon ZH",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.318021,
+              "y": 8.792281
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:45:00+0100",
+          "arrivalTimestamp": 1769967900,
+          "departure": "2026-02-01T18:45:00+0100",
+          "departureTimestamp": 1769967900,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:45:00+0100",
+            "departure": "2026-02-01T18:46:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503123",
+            "name": "Wetzikon ZH",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.318021,
+              "y": 8.792281
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503122",
+            "name": "Bubikon",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.270837,
+              "y": 8.822713
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:50:00+0100",
+          "arrivalTimestamp": 1769968200,
+          "departure": "2026-02-01T18:50:00+0100",
+          "departureTimestamp": 1769968200,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:50:00+0100",
+            "departure": "2026-02-01T18:50:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503122",
+            "name": "Bubikon",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.270837,
+              "y": 8.822713
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503121",
+            "name": "Rüti ZH",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.260479,
+              "y": 8.854066
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:53:00+0100",
+          "arrivalTimestamp": 1769968380,
+          "departure": "2026-02-01T18:54:00+0100",
+          "departureTimestamp": 1769968440,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:53:00+0100",
+            "departure": "2026-02-01T18:54:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503121",
+            "name": "Rüti ZH",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.260479,
+              "y": 8.854066
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503120",
+            "name": "Jona",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.230967,
+              "y": 8.83461
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:58:00+0100",
+          "arrivalTimestamp": 1769968680,
+          "departure": "2026-02-01T18:58:00+0100",
+          "departureTimestamp": 1769968680,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:58:00+0100",
+            "departure": "2026-02-01T18:59:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503120",
+            "name": "Jona",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.230967,
+              "y": 8.83461
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503110",
+            "name": "Rapperswil SG",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.224876,
+              "y": 8.816742
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:01:00+0100",
+          "arrivalTimestamp": 1769968860,
+          "departure": "2026-02-01T19:10:00+0100",
+          "departureTimestamp": 1769969400,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:01:00+0100",
+            "departure": "2026-02-01T19:10:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503110",
+            "name": "Rapperswil SG",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.224876,
+              "y": 8.816742
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "0000139",
+            "name": "Seedamm",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.217314,
+              "y": 8.80506
+            },
+            "distance": null
+          },
+          "arrival": null,
+          "arrivalTimestamp": null,
+          "departure": null,
+          "departureTimestamp": null,
+          "delay": null,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:19:39+0100",
+            "departure": "2026-02-01T18:19:39+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "0000139",
+            "name": "Seedamm",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.217314,
+              "y": 8.80506
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503209",
+            "name": "Pfäffikon SZ",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.202985,
+              "y": 8.778123
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T19:15:00+0100",
+          "arrivalTimestamp": 1769969700,
+          "departure": null,
+          "departureTimestamp": null,
+          "delay": 0,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T19:15:00+0100",
+            "departure": null,
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503209",
+            "name": "Pfäffikon SZ",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.202985,
+              "y": 8.778123
+            },
+            "distance": null
+          }
+        }
+      ],
+      "capacity1st": null,
+      "capacity2nd": null
+    },
+    {
+      "stop": {
+        "station": {
+          "id": "8503003",
+          "name": "Zürich Stadelhofen",
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": 47.366598,
+            "y": 8.548478
+          },
+          "distance": null
+        },
+        "arrival": null,
+        "arrivalTimestamp": null,
+        "departure": "2026-02-01T18:27:00+0100",
+        "departureTimestamp": 1769966820,
+        "delay": 1,
+        "platform": "1",
+        "prognosis": {
+          "platform": null,
+          "arrival": "2026-02-01T18:19:39+0100",
+          "departure": "2026-02-01T18:28:00+0100",
+          "capacity1st": null,
+          "capacity2nd": null
+        },
+        "realtimeAvailability": null,
+        "location": {
+          "id": "8503000",
+          "name": null,
+          "score": null,
+          "coordinate": {
+            "type": "WGS84",
+            "x": null,
+            "y": null
+          },
+          "distance": null
+        }
+      },
+      "name": "018670",
+      "category": "S",
+      "subcategory": null,
+      "categoryCode": null,
+      "number": "6",
+      "operator": "SBB",
+      "to": "Zürich HB",
+      "passList": [
+        {
+          "station": {
+            "id": "8503000",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          },
+          "arrival": null,
+          "arrivalTimestamp": null,
+          "departure": "2026-02-01T18:27:00+0100",
+          "departureTimestamp": 1769966820,
+          "delay": 1,
+          "platform": "1",
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:19:39+0100",
+            "departure": "2026-02-01T18:28:00+0100",
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503000",
+            "name": null,
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": null,
+              "y": null
+            },
+            "distance": null
+          }
+        },
+        {
+          "station": {
+            "id": "8503000",
+            "name": "Zürich HB",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.377847,
+              "y": 8.540502
+            },
+            "distance": null
+          },
+          "arrival": "2026-02-01T18:29:00+0100",
+          "arrivalTimestamp": 1769966940,
+          "departure": null,
+          "departureTimestamp": null,
+          "delay": 1,
+          "platform": null,
+          "prognosis": {
+            "platform": null,
+            "arrival": "2026-02-01T18:30:00+0100",
+            "departure": null,
+            "capacity1st": null,
+            "capacity2nd": null
+          },
+          "realtimeAvailability": null,
+          "location": {
+            "id": "8503000",
+            "name": "Zürich HB",
+            "score": null,
+            "coordinate": {
+              "type": "WGS84",
+              "x": 47.377847,
+              "y": 8.540502
+            },
+            "distance": null
+          }
+        }
+      ],
+      "capacity1st": null,
+      "capacity2nd": null
+    }
+  ]
+}

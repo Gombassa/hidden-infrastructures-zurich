@@ -137,3 +137,32 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Audio files (large)
+*.wav
+*.aif
+*.aiff
+*.flac
+*.mp3
+*.ogg
+*.m4a
+
+# Data exports (keep only processed versions)
+data/raw/*.kml
+data/raw/*.shp
+data/raw/*.zip
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build outputs
+dist/
+build/
+.cache/

@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-02-01T18:33:24.331605",
+  "active_trams": [
+    {
+      "line": "9",
+      "from_stop": "Bellevue",
+      "to_stop": "Paradeplatz",
+      "destination": "Zürich, Heuried",
+      "progress": 0.18390344573384634,
+      "position": {
+        "lat": 47.36756568900019,
+        "lon": 8.543972718153679
+      },
+      "departed": "2026-02-01T18:33:00",
+      "arriving": "2026-02-01T18:35:12.306412"
+    },
+    {
+      "line": "9",
+      "from_stop": "Bellevue",
+      "to_stop": "Paradeplatz",
+      "destination": "Zürich, Hirzenbach",
+      "progress": 0.18390344573384634,
+      "position": {
+        "lat": 47.36756568900019,
+        "lon": 8.543972718153679
+      },
+      "departed": "2026-02-01T18:33:00",
+      "arriving": "2026-02-01T18:35:12.306412"
+    },
+    {
+      "line": "13",
+      "from_stop": "Paradeplatz",
+      "to_stop": "Rennweg",
+      "destination": "Zürich, Bahnhofstrasse/HB",
+      "progress": 0.2723592867452091,
+      "position": {
+        "lat": 47.37062877350272,
+        "lon": 8.53879144236881
+      },
+      "departed": "2026-02-01T18:33:00",
+      "arriving": "2026-02-01T18:34:29.336425"
+    },
+    {
+      "line": "13",
+      "from_stop": "Rennweg",
+      "to_stop": "Bahnhofstrasse/HB",
+      "destination": "Zürich, Albisgütli",
+      "progress": 0.28230354848426054,
+      "position": {
+        "lat": 47.37394523230257,
+        "lon": 8.538739997369776
+      },
+      "departed": "2026-02-01T18:33:00",
+      "arriving": "2026-02-01T18:34:26.189512"
+    },
+    {
+      "line": "11",
+      "from_stop": "Bürkliplatz",
+      "to_stop": "Opernhaus",
+      "destination": "Zürich Tiefenbrunnen, Bahnhof",
+      "progress": 0.1907302613394555,
+      "position": {
+        "lat": 47.36631476356782,
+        "lon": 8.542092791053312
+      },
+      "departed": "2026-02-01T18:33:00",
+      "arriving": "2026-02-01T18:35:07.570763"
+    }
+  ],
+  "count": 5
+}

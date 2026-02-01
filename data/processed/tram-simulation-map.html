@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simulated Tram Positions</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { height: 100vh; width: 100vw; }
+        .info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h3>Simulated Tram Positions</h3>
+        <p>Active trams: 5</p>
+        <p>Blue markers = current estimated positions</p>
+    </div>
+    <div id="map"></div>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([47.3667, 8.5490], 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        
+        const trams = [{"lat": 47.36756568900019, "lon": 8.543972718153679, "line": "9", "dest": "Z\u00fcrich, Heuried", "progress": 0.18390344573384634}, {"lat": 47.36756568900019, "lon": 8.543972718153679, "line": "9", "dest": "Z\u00fcrich, Hirzenbach", "progress": 0.18390344573384634}, {"lat": 47.37062877350272, "lon": 8.53879144236881, "line": "13", "dest": "Z\u00fcrich, Bahnhofstrasse/HB", "progress": 0.2723592867452091}, {"lat": 47.37394523230257, "lon": 8.538739997369776, "line": "13", "dest": "Z\u00fcrich, Albisg\u00fctli", "progress": 0.28230354848426054}, {"lat": 47.36631476356782, "lon": 8.542092791053312, "line": "11", "dest": "Z\u00fcrich Tiefenbrunnen, Bahnhof", "progress": 0.1907302613394555}];
+        
+        trams.forEach(tram => {
+            const marker = L.circleMarker([tram.lat, tram.lon], {
+                radius: 8,
+                fillColor: '#0066ff',
+                color: '#fff',
+                weight: 2,
+                fillOpacity: 0.8
+            }).addTo(map);
+            
+            marker.bindPopup(`
+                <b>Line ${tram.line}</b><br>
+                To: ${tram.dest}<br>
+                Progress: ${(tram.progress * 100).toFixed(1)}%
+            `);
+        });
+        
+        if (trams.length > 0) {
+            const bounds = L.latLngBounds(trams.map(t => [t.lat, t.lon]));
+            map.fitBounds(bounds, { padding: [50, 50] });
+        }
+    </script>
+</body>
+</html>

@@ -1,12 +1,11 @@
 # Invisible Infrastructures: Zurich Tram Power Network
 ## Master Project Document
 
-**Version:** 3.0 - TRAM NETWORK FOCUS  
-**Date:** January 31, 2026  
+**Version:** 3.1 - PHASE 0 COMPLETE
+**Date:** February 1, 2026  
 **Project Lead:** Robin  
 **Timeline:** 6-9 months  
-**Status:** Phase 0 Complete ✅ - Ready for Phase 1
-
+**Status:** Phase 0 Complete ✅ | Phase 1 Ready to Start
 ---
 
 ## Elevator Pitch
@@ -77,6 +76,104 @@ This master document contains four integrated sections:
 - ✅ Can expand to full grid in Phase 2
 
 **Decision:** PROCEED TO PHASE 1 immediately!
+
+---
+
+## PHASE 0 COMPLETION SUMMARY (February 1, 2026)
+
+### Major Achievements
+
+**1. Complete Infrastructure Data Acquired ✅**
+- 1,689 overhead wire segments mapped
+- 258 support poles with GPS coordinates
+- 366 power feeders traced
+- 71 substations identified via clustering
+- 1,872 buildings along route
+
+**2. Tram Network Analysis Complete ✅**
+- 9 tram lines confirmed: 2, 4, 7, 8, 9, 10, 11, 13, 15
+- 100% coverage across 7 route stops
+- VBZ real-time API tested successfully
+- Schedule data accessible for all stops
+
+**3. Position Simulation System Built ✅**
+- Schedule-based interpolation algorithm
+- Live-updating visualization (10-second refresh)
+- Real-time delay integration
+- Proven realistic movement
+
+**4. Development Infrastructure ✅**
+- GitHub repository structured
+- Python analysis scripts created
+- Interactive maps generated
+- Documentation complete
+
+### Tram Position Simulation: Technical Approach
+
+**Method:** Schedule-based interpolation without GPS tracking
+
+**How It Works:**
+1. Fetch tram schedules from VBZ API
+2. Calculate travel time between stops (distance / 15 km/h avg speed)
+3. Determine which trams are currently in transit
+4. Interpolate position along route based on elapsed time
+5. Apply real-time delays for accuracy
+6. Update positions every 10 seconds
+
+**Example Calculation:**
+```
+Tram 11: Rennweg → Bahnhofstrasse/HB
+- Distance: 359m
+- Travel time: 86 seconds
+- Departed: 18:21:00 (actual, +1 min delay)
+- Current time: 18:21:30
+- Progress: 30s / 86s = 35% complete
+- Position: 35% along line between stops
+```
+
+### Known Limitation: Straight-Line Interpolation
+
+**Issue:** Current simulation uses straight-line interpolation between stop GPS coordinates. Actual tram tracks follow curved paths, creating 10-20m positional offset in some areas.
+
+**Impact:**
+- GPS phone accuracy: ±5-10m
+- Simulation offset: ±10-20m  
+- Combined error budget: ±15-30m
+- Requires wider audio trigger radius
+
+**Decision:**
+- ✅ **Phase 1 (MVP):** Use straight-line method, set trigger radius to 30-40m
+- 📋 **Phase 1.5:** Implement geometry-snapping to actual powerline curves
+- 📋 **Phase 2:** Reduce trigger radius to 15-20m with improved accuracy
+
+### Tools & Scripts Created
+
+**Analysis Tools:**
+- `tests/find-substations.py` - Clusters feeders to identify substations
+- `tests/test-vbz-realtime.py` - Tests VBZ API endpoints
+- `tests/test-tram-stops.py` - Analyzes tram coverage on route
+- `tests/simulate-tram-positions.py` - Snapshot position simulator
+- `tests/simulate-tram-positions-live.py` - Live-updating visualization
+
+**Outputs:**
+- `data/processed/substations.geojson` - 71 substation locations
+- `data/processed/substations-map.html` - Interactive substation map
+- `data/processed/route-tram-stops.json` - Tram line analysis
+- `data/processed/tram-simulation-live.html` - Live tram position map
+
+### Ready for Phase 1
+
+**All prerequisites met:**
+- ✅ Complete and accurate infrastructure data
+- ✅ Real-time data access confirmed
+- ✅ Simulation engine proven
+- ✅ Development environment set up
+- ✅ Route validated digitally
+
+**Next immediate actions:**
+1. Physical route walk (validate data on ground)
+2. Audio concept sketches (3-5 sonification approaches)
+3. Minimal spatial audio prototype (single sound source)
 
 ---
 
@@ -1851,6 +1948,84 @@ function mapTimeToTimbre(hour) {
 
 ---
 
+## PHASE 1.5 - POST-MVP REFINEMENTS
+
+**Timeline:** Month 7-8 (after initial launch)  
+**Goal:** Improve accuracy and add polish based on user feedback
+
+### Priority Enhancement: Geometry-Snapping Algorithm
+
+**Problem:** Straight-line interpolation creates 10-20m offset from actual tracks
+
+**Solution:** Snap tram positions to actual overhead wire geometry
+
+**Implementation Approach:**
+```javascript
+// Load wire segments between two stops
+function getWirePathBetweenStops(stopA, stopB) {
+  // 1. Find all powerline segments near both stops
+  // 2. Build graph of connected segments
+  // 3. Find shortest path along wires between stops
+  // 4. Return ordered array of LineString coordinates
+}
+
+// Calculate position along curved path
+function snapTramToWires(stopA, stopB, progress) {
+  const wireSegments = getWirePathBetweenStops(stopA, stopB);
+  
+  // Calculate total distance along curved path
+  const totalDistance = wireSegments.reduce((sum, seg) => 
+    sum + segmentLength(seg), 0);
+  
+  // Find position at progress% of total distance
+  const targetDistance = totalDistance * progress;
+  let cumulative = 0;
+  
+  for (const segment of wireSegments) {
+    const segLen = segmentLength(segment);
+    if (cumulative + segLen >= targetDistance) {
+      const segProgress = (targetDistance - cumulative) / segLen;
+      return interpolateAlongSegment(segment, segProgress);
+    }
+    cumulative += segLen;
+  }
+}
+```
+
+**Benefits:**
+- Reduces positional error from ±20m to ±5m
+- Allows tighter audio trigger radius (15-20m)
+- More immersive spatial accuracy
+- Better alignment with visible infrastructure
+
+**Files to Modify:**
+- `src/js/tram-simulator.js` - Add geometry loading and snapping
+- `src/js/spatial-audio.js` - Update proximity calculations
+- `data/processed/` - Preprocess wire paths between stops
+
+**Effort Estimate:** 2-3 days implementation + 1 day testing
+
+### Additional Phase 1.5 Enhancements
+
+**Time-Dependent Soundscapes**
+- Rush hour (7-9am, 5-7pm): Dense, overlapping audio events
+- Midday: Moderate frequency
+- Late night (11pm-5am): Sparse, isolated events
+- Adjust ambient density based on tram schedule analysis
+
+**Per-Line Sonic Characteristics**
+- Assign subtle audio signatures to different tram lines
+- Heavy-use lines (4, 11): Deeper, more constant hum
+- Less frequent lines (13, 15): Sharper, more noticeable events
+
+**Performance Optimization**
+- Reduce API polling frequency (60s → 120s off-peak)
+- Implement smart caching of wire geometry
+- Battery usage profiling and optimization
+
+---
+---
+
 ### Phase 2: Audio Prototyping (Weeks 2-3)
 
 **Tasks:**
@@ -2923,7 +3098,20 @@ Website: [to be created]
 
 ### Appendix D: Version History
 
-**Version 2.0 (Current)** - January 2026  
+**Version 3.1** - February 1, 2026  
+- Phase 0 completion documented
+- Tram simulation system detailed
+- Straight-line interpolation limitation identified
+- Phase 1.5 geometry-snapping scoped
+- Ready for Phase 1 audio design
+
+**Version 3.0** - January 31, 2026  
+- Master project document created
+- Integrated 4 sections: Data Research, Brief, Tech Spec, Charter
+- Focused on Zurich tram power network MVP
+- 6-9 month timeline defined
+
+**Version 2.0** - January 2026  
 - Master project document created
 - Integrated 4 sections: Data Research, Brief, Tech Spec, Charter
 - Focused on Zurich electrical grid MVP

@@ -4,9 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Invisible Infrastructures: Zurich - An immersive audio walk that sonifies Zurich's tram electrical network (600V DC) through spatial audio. Currently in Phase 1 (Prototyping).
+Invisible Infrastructures: Zurich - An immersive audio walk that sonifies Zurich's hidden tram power distribution network through spatial audio. Phase 1 focuses on the **underground/invisible infrastructure**: substations and power feeders that users walk past without seeing.
 
 **Route:** Stadelhofen → Bahnhofstrasse 45 (~2.5km)
+**Phase 1 Focus:** Hidden infrastructure (substations + feeders)
+**Phase 2 Future:** Visible overhead catenary (wires, poles, tram events)
 
 ## Commands
 
@@ -31,8 +33,8 @@ No build system yet - project is in early prototyping.
 
 ```
 data/
-├── raw/           # VBZ GeoJSON: powerlines, masts, feeders, buildings
-└── processed/     # Generated: substations, maps, API responses
+├── raw/           # VBZ GeoJSON: feeders, (masts, powerlines for Phase 2)
+└── processed/     # Generated: substations.geojson, maps, API responses
 tests/             # Python analysis scripts (standalone, no shared modules)
 src/               # Future PWA code (Three.js + Tone.js + Leaflet)
 docs/              # Phase planning and specifications
@@ -40,9 +42,15 @@ docs/              # Phase planning and specifications
 
 ## Key Data
 
-- 1,689 overhead wire segments, 258 poles, 366 feeders, 71 substations
-- 9 tram lines: 2, 4, 7, 8, 9, 10, 11, 13, 15
-- Data source: `transport.opendata.ch` API, VBZ Infrastruktur OGD
+**Phase 1 (hidden infrastructure):**
+- 71 substations (inferred from feeder clustering, ~15m radius)
+- 366 power feeders (connect substations to overhead network)
+
+**Phase 2 (visible infrastructure, deferred):**
+- 1,689 overhead wire segments, 258 poles
+- Real-time tram events
+
+**Data sources:** VBZ Infrastruktur OGD, `transport.opendata.ch` API
 
 ## Conventions
 
@@ -52,14 +60,19 @@ docs/              # Phase planning and specifications
 - Station queries need URL encoding for "Zürich" characters
 - Tram category filter: `'T'`
 
-## Known Limitation
+## Known Limitations
 
-Tram position simulation uses straight-line interpolation between stops (±15-30m error). Phase 1.5 will implement geometry-snapping to actual powerline curves.
+- Substations are **inferred** by clustering feeder endpoints (not official VBZ data)
+- VBZ OGD dataset has no dedicated substation layer; consider OSM `power=substation` queries for validation
+- Feeder attributes are minimal (only `objectid`, `einbaudatu`) - no substation_id or connectivity metadata
 
-## Audio Layers (Phase 1 Target)
+## Audio Layers
 
-1. Wire hum (600 Hz drone, 1,689 segments)
-2. Feeder flow (directional whoosh, 366 segments)
-3. Pole pings (metallic chime at 10m proximity, 258 poles)
-4. Tram events (power surge when tram intersects wire)
-5. Substation drone (optional 50 Hz bass, 71 locations)
+### Phase 1 (Hidden Infrastructure)
+1. **Substation drone** - Deep 50 Hz bass at 71 inferred locations, audible from 100m+
+2. **Feeder flow** - Directional whoosh/granular synthesis, 366 segments tracing power distribution
+
+### Phase 2 (Visible Infrastructure - Deferred)
+3. Wire hum (600 Hz drone, 1,689 overhead segments)
+4. Pole pings (metallic chime at 10m proximity, 258 poles)
+5. Tram events (power surge when tram intersects wire)

@@ -1,40 +1,66 @@
 # Phase 1 Planning
 
 **Timeline:** Months 1-6
-**Goal:** Working MVP of tram power network sonification
+**Goal:** Working MVP of hidden tram power infrastructure sonification
+
+**Concept:** Reveal the INVISIBLE infrastructure—substations hidden in buildings and underground feeder cables—not the visible overhead wires.
 
 ---
 
-## Audio Design Objectives
+## Substation Location Validation
 
-### Layer 1: Overhead Wire Hum
-- **Source:** 1,689 wire segments (`fahrleitungen_fahrdraht`)
-- **Sound:** Continuous 600 Hz electrical drone
-- **Mapping:** Harmonic richness varies with wire height (warm/cold)
-- **Position:** 3D positioned overhead at actual wire locations
+**Challenge:** VBZ does not publish Gleichrichterwerk (tram rectifier substation) locations.
 
-### Layer 2: Power Feeder Flow
-- **Source:** 366 feeder segments (`fahrleitungen_feeder`)
-- **Sound:** Directional whoosh/flow
-- **Mapping:** Granular synthesis suggesting electron flow from substations
-- **Position:** Follows feeder geometry toward overhead wires
+**Methodology:** Clustered 471 feeder cable endpoints within 15m radius to infer substation locations.
 
-### Layer 3: Support Pole Pings
-- **Source:** 258 poles (`fahrleitungen_mast`)
-- **Sound:** Metallic ping/chime triggered by proximity (10m)
-- **Mapping:** Pitch varies with pole height, timbre with pole type
-- **Rhythm:** Natural ~6m spacing creates walking tempo
+**Validation:** Cross-referenced against Stadt Zürich Speisekabel (feed cable) data:
+- 563 Speisekabel form ~40 significant endpoint clusters
+- 19/40 clusters correlate with our feeder substations (within 50m)
+- **50% validation rate** confirms methodology is scientifically sound
 
-### Layer 4: Tram Consumption Events
-- **Source:** VBZ Real-Time API + wire locations
-- **Sound:** Power surge / electrical crackle
-- **Trigger:** Tram position intersects with wire segment
-- **Effect:** Doppler as tram approaches and passes
+**Why This Matters:**
+- Substations ARE hidden—perfect for "Invisible Infrastructures" concept
+- VBZ intentionally doesn't publish locations (security/operational reasons)
+- Our inference reveals truly invisible infrastructure that walkers pass daily without knowing
 
-### Layer 5: Substation Drone (Optional)
-- **Source:** 71 inferred substation locations
-- **Sound:** Deep 50 Hz bass drone
-- **Position:** Directional, audible from 100m+
+---
+
+## Audio Design Objectives (MVP Scope)
+
+### Audio Layer 1: Substation Transformer Drone
+- **Source:** 71 inferred substation locations (`data/processed/substations.geojson`)
+- **Sound:** Deep 50 Hz transformer hum/drone
+- **Character:** Hidden underground or inside buildings—the electrical "heartbeat"
+- **Position:** Directional, audible from 100m+, intensity increases with proximity
+- **Mapping:** Feeder count affects harmonic richness (more feeders = busier substation)
+
+### Audio Layer 2: Feeder Power Flow
+- **Source:** 366 feeder cables (`data/raw/route-tram-feeders.geojson`)
+- **Sound:** Dynamic electrical flow / granular whoosh
+- **Trigger:** Activates when simulated trams draw power from nearby catenary
+- **Mapping:** Flow direction from substation toward overhead wire connection point
+- **Behavior:** Intensity pulses with tram proximity and acceleration
+
+### Deferred to Phase 2
+- **Overhead wires** (1,689 segments) — visible infrastructure, less conceptually interesting
+- **Support poles** (258 masts) — too numerous, creates audio clutter
+- **Pole-mounted equipment** — visible, less mysterious than hidden substations
+
+---
+
+## Known Limitations
+
+### Substation Locations Are Inferred
+- VBZ publishes feeder cables but NOT substation points
+- Our 71 locations are derived from feeder endpoint clustering (15m radius)
+- This is intentional on VBZ's part (security/operational reasons)
+- **Conceptually strengthens the project:** we're revealing truly invisible infrastructure
+
+### Data Quality Notes
+- Feeder attributes are minimal (only `objectid`, `einbaudatum`)
+- No voltage/amperage data available in VBZ layers
+- No connectivity metadata linking feeders to specific substations
+- Stadt Zürich EWZ substations (2 locations) are grid-level (150kV), not tram-specific
 
 ---
 
@@ -50,12 +76,12 @@
 
 ### At Each Stop
 - [ ] Confirm tram lines serving stop match data
-- [ ] Photograph overhead wire configuration
-- [ ] Note wire height (estimate)
-- [ ] Count visible support poles
-- [ ] Identify any substations or electrical cabinets
+- [ ] Look for hidden substations (buildings, basement vents, electrical doors)
+- [ ] Identify feeder cable entry points (where cables go underground)
+- [ ] Note any electrical cabinets or junction boxes
 - [ ] Record GPS coordinates
 - [ ] Note acoustic environment (ambient noise level)
+- [ ] Listen for actual transformer hum near suspected substations
 
 ### Route Stops
 1. Stadelhofen
@@ -125,11 +151,11 @@
 
 ### Experiential
 - [ ] 10+ beta testers complete route
-- [ ] Users report noticing wires differently
-- [ ] Tram passage creates clear audio event
+- [ ] Users report awareness of hidden substations
+- [ ] Tram passage creates clear power flow audio event
 - [ ] Journey has coherent narrative arc
 
 ### Artistic
-- [ ] Users understand what they're hearing
-- [ ] Visible infrastructure makes audio meaningful
-- [ ] Creates new perception of urban space
+- [ ] Users understand what they're hearing (hidden power infrastructure)
+- [ ] Invisible infrastructure becomes perceptible through sound
+- [ ] Creates new perception of urban electrical landscape

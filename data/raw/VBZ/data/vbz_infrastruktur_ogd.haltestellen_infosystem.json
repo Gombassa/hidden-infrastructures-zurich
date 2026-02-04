@@ -1,0 +1,1735 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.haltestellen_infosystem",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5525075484, 47.3600971435 ]
+			},
+			"properties" : {
+				"objectid" : 37,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "233.79"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531636008, 47.3608662234 ]
+			},
+			"properties" : {
+				"objectid" : 88,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "261.87"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5435008572, 47.3699255937 ]
+			},
+			"properties" : {
+				"objectid" : 90,
+				"typ" : "88",
+				"einbaudatum" : "20211029",
+				"orientierung" : "254.92"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5307848182, 47.3646398749 ]
+			},
+			"properties" : {
+				"objectid" : 120,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "320.37"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5454918497, 47.3666109083 ]
+			},
+			"properties" : {
+				"objectid" : 147,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "327.01"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5328466647, 47.366302749 ]
+			},
+			"properties" : {
+				"objectid" : 148,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "306.91"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5489697237, 47.3703672359 ]
+			},
+			"properties" : {
+				"objectid" : 184,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "121.95"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5527544955, 47.3674294134 ]
+			},
+			"properties" : {
+				"objectid" : 202,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "220.55"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5348202404, 47.3721304843 ]
+			},
+			"properties" : {
+				"objectid" : 219,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "45.89"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5517651488, 47.3678888648 ]
+			},
+			"properties" : {
+				"objectid" : 331,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "310.33"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5353639803, 47.3593615713 ]
+			},
+			"properties" : {
+				"objectid" : 386,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "357.52"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5502844503, 47.3626677226 ]
+			},
+			"properties" : {
+				"objectid" : 495,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "151.19"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5489695512, 47.3703672195 ]
+			},
+			"properties" : {
+				"objectid" : 508,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "210.66"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5485714045, 47.3702905306 ]
+			},
+			"properties" : {
+				"objectid" : 513,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "229.27"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486526985, 47.3704543609 ]
+			},
+			"properties" : {
+				"objectid" : 514,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "147.60"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381856018, 47.3732161975 ]
+			},
+			"properties" : {
+				"objectid" : 517,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "267.64"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381932716, 47.3732163403 ]
+			},
+			"properties" : {
+				"objectid" : 520,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "267.64"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5392670592, 47.3697716669 ]
+			},
+			"properties" : {
+				"objectid" : 521,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "253.37"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5454918497, 47.3666109083 ]
+			},
+			"properties" : {
+				"objectid" : 522,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "235.23"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5434222141, 47.3696154282 ]
+			},
+			"properties" : {
+				"objectid" : 523,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "260.80"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427122076, 47.371855283 ]
+			},
+			"properties" : {
+				"objectid" : 524,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "0.38"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427736386, 47.3737930698 ]
+			},
+			"properties" : {
+				"objectid" : 525,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "8.32"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5459417167, 47.3668289837 ]
+			},
+			"properties" : {
+				"objectid" : 526,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "47.48"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5383626185, 47.3730321897 ]
+			},
+			"properties" : {
+				"objectid" : 536,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "267.67"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5445139068, 47.3671908582 ]
+			},
+			"properties" : {
+				"objectid" : 587,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "61.40"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5417506141, 47.3665565803 ]
+			},
+			"properties" : {
+				"objectid" : 614,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "157.49"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5355505108, 47.3598219357 ]
+			},
+			"properties" : {
+				"objectid" : 617,
+				"typ" : "81",
+				"einbaudatum" : "20000101",
+				"orientierung" : "176.74"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427736386, 47.3737930698 ]
+			},
+			"properties" : {
+				"objectid" : 721,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "98.32"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.538737647, 47.3696518219 ]
+			},
+			"properties" : {
+				"objectid" : 732,
+				"typ" : "105",
+				"einbaudatum" : "20000101",
+				"orientierung" : "157.55"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427122076, 47.371855283 ]
+			},
+			"properties" : {
+				"objectid" : 738,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "90.38"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5346522031, 47.372431581 ]
+			},
+			"properties" : {
+				"objectid" : 739,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "236.46"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315387188, 47.3709267999 ]
+			},
+			"properties" : {
+				"objectid" : 740,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "219.58"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429072805, 47.3721002542 ]
+			},
+			"properties" : {
+				"objectid" : 741,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "269.95"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.535270006, 47.3678832495 ]
+			},
+			"properties" : {
+				"objectid" : 745,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "159.67"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474225179, 47.3725983541 ]
+			},
+			"properties" : {
+				"objectid" : 746,
+				"typ" : "88",
+				"einbaudatum" : "20211112",
+				"orientierung" : "69.63"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5325681223, 47.366178691 ]
+			},
+			"properties" : {
+				"objectid" : 749,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "126.18"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5473822716, 47.3729361038 ]
+			},
+			"properties" : {
+				"objectid" : 750,
+				"typ" : "88",
+				"einbaudatum" : "20211112",
+				"orientierung" : "245.19"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5502316886, 47.3729848161 ]
+			},
+			"properties" : {
+				"objectid" : 763,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "72.79"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486505093, 47.3707866993 ]
+			},
+			"properties" : {
+				"objectid" : 764,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "211.32"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486505093, 47.3707866993 ]
+			},
+			"properties" : {
+				"objectid" : 765,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "121.32"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5487941499, 47.3706386976 ]
+			},
+			"properties" : {
+				"objectid" : 780,
+				"typ" : "92",
+				"einbaudatum" : "20000101",
+				"orientierung" : "121.32"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5487926014, 47.3706393691 ]
+			},
+			"properties" : {
+				"objectid" : 781,
+				"typ" : "87",
+				"einbaudatum" : "20000101",
+				"orientierung" : "31.32"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5355505108, 47.3598219357 ]
+			},
+			"properties" : {
+				"objectid" : 1013,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "266.58"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.543012921, 47.3740572725 ]
+			},
+			"properties" : {
+				"objectid" : 1467,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "280.02"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5495122424, 47.3633484701 ]
+			},
+			"properties" : {
+				"objectid" : 1516,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "58.75"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315317302, 47.3605666278 ]
+			},
+			"properties" : {
+				"objectid" : 1518,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "78.43"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5360255251, 47.3679221915 ]
+			},
+			"properties" : {
+				"objectid" : 1625,
+				"typ" : "105",
+				"einbaudatum" : null,
+				"orientierung" : "149.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314549681, 47.3641903083 ]
+			},
+			"properties" : {
+				"objectid" : 1626,
+				"typ" : "94",
+				"einbaudatum" : null,
+				"orientierung" : "278.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314293184, 47.3641926378 ]
+			},
+			"properties" : {
+				"objectid" : 1627,
+				"typ" : "94",
+				"einbaudatum" : null,
+				"orientierung" : "278.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313147701, 47.3642035084 ]
+			},
+			"properties" : {
+				"objectid" : 1628,
+				"typ" : "95",
+				"einbaudatum" : null,
+				"orientierung" : "276.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531446747, 47.3642775221 ]
+			},
+			"properties" : {
+				"objectid" : 1629,
+				"typ" : "95",
+				"einbaudatum" : null,
+				"orientierung" : "278.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5352959512, 47.3678359944 ]
+			},
+			"properties" : {
+				"objectid" : 1641,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "159.67"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5519393503, 47.3605512045 ]
+			},
+			"properties" : {
+				"objectid" : 1664,
+				"typ" : "88",
+				"einbaudatum" : "20211105",
+				"orientierung" : "59.17"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5454024925, 47.3669220621 ]
+			},
+			"properties" : {
+				"objectid" : 1700,
+				"typ" : "104",
+				"einbaudatum" : null,
+				"orientierung" : "191.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5454024925, 47.3669220621 ]
+			},
+			"properties" : {
+				"objectid" : 1701,
+				"typ" : "104",
+				"einbaudatum" : null,
+				"orientierung" : "54.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447676839, 47.3670405204 ]
+			},
+			"properties" : {
+				"objectid" : 1702,
+				"typ" : "104",
+				"einbaudatum" : null,
+				"orientierung" : "349.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447676839, 47.3670405204 ]
+			},
+			"properties" : {
+				"objectid" : 1703,
+				"typ" : "104",
+				"einbaudatum" : null,
+				"orientierung" : "134.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475672393, 47.3655363061 ]
+			},
+			"properties" : {
+				"objectid" : 1704,
+				"typ" : "97",
+				"einbaudatum" : null,
+				"orientierung" : "53.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547540227, 47.3655584148 ]
+			},
+			"properties" : {
+				"objectid" : 1705,
+				"typ" : "97",
+				"einbaudatum" : null,
+				"orientierung" : "53.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5448779986, 47.367037278 ]
+			},
+			"properties" : {
+				"objectid" : 1752,
+				"typ" : "85",
+				"einbaudatum" : null,
+				"orientierung" : "242.50"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5452630479, 47.3669819569 ]
+			},
+			"properties" : {
+				"objectid" : 1758,
+				"typ" : "85",
+				"einbaudatum" : null,
+				"orientierung" : "128.50"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5446671103, 47.3672363099 ]
+			},
+			"properties" : {
+				"objectid" : 1759,
+				"typ" : "85",
+				"einbaudatum" : "20000101",
+				"orientierung" : "150.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5502844503, 47.3626677226 ]
+			},
+			"properties" : {
+				"objectid" : 1763,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "241.19"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5473476397, 47.3660968171 ]
+			},
+			"properties" : {
+				"objectid" : 1764,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "317.98"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5346853493, 47.3634986768 ]
+			},
+			"properties" : {
+				"objectid" : 1766,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "164.68"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447616053, 47.3664049079 ]
+			},
+			"properties" : {
+				"objectid" : 1781,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "57.01"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486526985, 47.3704543609 ]
+			},
+			"properties" : {
+				"objectid" : 1798,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "237.70"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478550884, 47.3659075703 ]
+			},
+			"properties" : {
+				"objectid" : 1832,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "228.73"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547637905, 47.3659318112 ]
+			},
+			"properties" : {
+				"objectid" : 1834,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "139.11"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5472813539, 47.3661849495 ]
+			},
+			"properties" : {
+				"objectid" : 1836,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "139.53"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5307848182, 47.3646398749 ]
+			},
+			"properties" : {
+				"objectid" : 1837,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "232.05"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5517651488, 47.3678888648 ]
+			},
+			"properties" : {
+				"objectid" : 1855,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "40.30"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5506800619, 47.3722417364 ]
+			},
+			"properties" : {
+				"objectid" : 1876,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "258.92"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5353639803, 47.3593615713 ]
+			},
+			"properties" : {
+				"objectid" : 1923,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "87.17"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547637905, 47.3659318112 ]
+			},
+			"properties" : {
+				"objectid" : 2020,
+				"typ" : "81",
+				"einbaudatum" : "20000101",
+				"orientierung" : "49.11"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5328466647, 47.366302749 ]
+			},
+			"properties" : {
+				"objectid" : 2021,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "216.91"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5352959512, 47.3678359944 ]
+			},
+			"properties" : {
+				"objectid" : 2022,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "249.67"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5389285281, 47.3695371954 ]
+			},
+			"properties" : {
+				"objectid" : 2023,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "158.65"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5449490901, 47.3673316745 ]
+			},
+			"properties" : {
+				"objectid" : 2036,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "242.75"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5527544828, 47.3674294405 ]
+			},
+			"properties" : {
+				"objectid" : 2099,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "129.56"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5490685036, 47.3702955662 ]
+			},
+			"properties" : {
+				"objectid" : 2139,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "301.95"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5519393503, 47.3605512045 ]
+			},
+			"properties" : {
+				"objectid" : 2155,
+				"typ" : "74",
+				"einbaudatum" : "20211105",
+				"orientierung" : "328.69"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5495122424, 47.3633484701 ]
+			},
+			"properties" : {
+				"objectid" : 2165,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "328.75"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5383508704, 47.3730320497 ]
+			},
+			"properties" : {
+				"objectid" : 2174,
+				"typ" : "79",
+				"einbaudatum" : "20000101",
+				"orientierung" : "267.67"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429072264, 47.3720976461 ]
+			},
+			"properties" : {
+				"objectid" : 2175,
+				"typ" : "79",
+				"einbaudatum" : "20000101",
+				"orientierung" : "180.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5477352025, 47.3652489074 ]
+			},
+			"properties" : {
+				"objectid" : 2187,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "229.89"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451241005, 47.3672508135 ]
+			},
+			"properties" : {
+				"objectid" : 2340,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "354.18"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5454888623, 47.3670906674 ]
+			},
+			"properties" : {
+				"objectid" : 2341,
+				"typ" : "85",
+				"einbaudatum" : "20000101",
+				"orientierung" : "231.50"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5472812625, 47.3661850133 ]
+			},
+			"properties" : {
+				"objectid" : 2348,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "46.78"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5483336781, 47.3656932232 ]
+			},
+			"properties" : {
+				"objectid" : 2362,
+				"typ" : "74",
+				"einbaudatum" : null,
+				"orientierung" : "34.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5483336781, 47.3656932232 ]
+			},
+			"properties" : {
+				"objectid" : 2363,
+				"typ" : "88",
+				"einbaudatum" : null,
+				"orientierung" : "124.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5404261459, 47.3670739958 ]
+			},
+			"properties" : {
+				"objectid" : 2399,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "254.89"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5525075484, 47.3600971435 ]
+			},
+			"properties" : {
+				"objectid" : 2405,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "143.79"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5325681223, 47.366178691 ]
+			},
+			"properties" : {
+				"objectid" : 2407,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "36.18"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.540473863, 47.3669356357 ]
+			},
+			"properties" : {
+				"objectid" : 2412,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "254.89"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5397781384, 47.368118694 ]
+			},
+			"properties" : {
+				"objectid" : 2413,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "255.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5397882104, 47.368120433 ]
+			},
+			"properties" : {
+				"objectid" : 2417,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "255.00"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5399557249, 47.3681549783 ]
+			},
+			"properties" : {
+				"objectid" : 2418,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "73.86"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5399657578, 47.3681567447 ]
+			},
+			"properties" : {
+				"objectid" : 2419,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "73.94"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5453251205, 47.3672614717 ]
+			},
+			"properties" : {
+				"objectid" : 2423,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "155.43"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5393697043, 47.3700187031 ]
+			},
+			"properties" : {
+				"objectid" : 2433,
+				"typ" : "79",
+				"einbaudatum" : "20000101",
+				"orientierung" : "257.73"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5430122059, 47.3740547157 ]
+			},
+			"properties" : {
+				"objectid" : 2437,
+				"typ" : "79",
+				"einbaudatum" : "20000101",
+				"orientierung" : "190.02"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5435008572, 47.3699255937 ]
+			},
+			"properties" : {
+				"objectid" : 2449,
+				"typ" : "74",
+				"einbaudatum" : "20211029",
+				"orientierung" : "163.24"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5453378414, 47.3668110786 ]
+			},
+			"properties" : {
+				"objectid" : 2457,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "16.49"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447445007, 47.3669084324 ]
+			},
+			"properties" : {
+				"objectid" : 2458,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "10.20"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5453251205, 47.3672614717 ]
+			},
+			"properties" : {
+				"objectid" : 2459,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "245.43"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456567558, 47.366957261 ]
+			},
+			"properties" : {
+				"objectid" : 2460,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "226.62"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5445139068, 47.3671908582 ]
+			},
+			"properties" : {
+				"objectid" : 2461,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "151.40"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5449490901, 47.3673316745 ]
+			},
+			"properties" : {
+				"objectid" : 2462,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "151.40"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5307848182, 47.3646398749 ]
+			},
+			"properties" : {
+				"objectid" : 2525,
+				"typ" : "73",
+				"einbaudatum" : "20000101",
+				"orientierung" : "50.02"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5473833519, 47.3729352029 ]
+			},
+			"properties" : {
+				"objectid" : 2556,
+				"typ" : "74",
+				"einbaudatum" : "20211112",
+				"orientierung" : "150.74"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5409529597, 47.3665096046 ]
+			},
+			"properties" : {
+				"objectid" : 2565,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "345.27"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5388553765, 47.3698292183 ]
+			},
+			"properties" : {
+				"objectid" : 2589,
+				"typ" : "74",
+				"einbaudatum" : "20211022",
+				"orientierung" : "337.19"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447616053, 47.3664049079 ]
+			},
+			"properties" : {
+				"objectid" : 2591,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "327.01"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5360867709, 47.3679574013 ]
+			},
+			"properties" : {
+				"objectid" : 2597,
+				"typ" : "79",
+				"einbaudatum" : "20000101",
+				"orientierung" : "332.02"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5350854494, 47.3631775115 ]
+			},
+			"properties" : {
+				"objectid" : 2600,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "356.70"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5453378414, 47.3668110786 ]
+			},
+			"properties" : {
+				"objectid" : 2601,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "286.49"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456567558, 47.366957261 ]
+			},
+			"properties" : {
+				"objectid" : 2602,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "318.25"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5391070489, 47.3697532223 ]
+			},
+			"properties" : {
+				"objectid" : 2619,
+				"typ" : "105",
+				"einbaudatum" : "20000101",
+				"orientierung" : "337.55"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478550884, 47.3659075703 ]
+			},
+			"properties" : {
+				"objectid" : 2625,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "318.73"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.538851319, 47.3698359943 ]
+			},
+			"properties" : {
+				"objectid" : 2678,
+				"typ" : "74",
+				"einbaudatum" : "20211022",
+				"orientierung" : "337.19"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531851541, 47.3706494248 ]
+			},
+			"properties" : {
+				"objectid" : 2682,
+				"typ" : "74",
+				"einbaudatum" : "20181231",
+				"orientierung" : "308.08"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547421669, 47.3725995586 ]
+			},
+			"properties" : {
+				"objectid" : 2694,
+				"typ" : "74",
+				"einbaudatum" : "20211112",
+				"orientierung" : "340.19"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447445007, 47.3669084324 ]
+			},
+			"properties" : {
+				"objectid" : 2757,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "280.20"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5349183161, 47.3634599632 ]
+			},
+			"properties" : {
+				"objectid" : 2769,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "158.46"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5350854494, 47.3631775115 ]
+			},
+			"properties" : {
+				"objectid" : 2770,
+				"typ" : "88",
+				"einbaudatum" : "20000101",
+				"orientierung" : "86.70"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5391070489, 47.3697532223 ]
+			},
+			"properties" : {
+				"objectid" : 2773,
+				"typ" : "105",
+				"einbaudatum" : "20000101",
+				"orientierung" : "157.55"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.538737647, 47.3696518219 ]
+			},
+			"properties" : {
+				"objectid" : 2774,
+				"typ" : "105",
+				"einbaudatum" : "20000101",
+				"orientierung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451257328, 47.3672401476 ]
+			},
+			"properties" : {
+				"objectid" : 2778,
+				"typ" : "85",
+				"einbaudatum" : "20000101",
+				"orientierung" : "354.18"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531851541, 47.3706494248 ]
+			},
+			"properties" : {
+				"objectid" : 2780,
+				"typ" : "88",
+				"einbaudatum" : "20181231",
+				"orientierung" : "38.58"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315387188, 47.3709267999 ]
+			},
+			"properties" : {
+				"objectid" : 2794,
+				"typ" : "74",
+				"einbaudatum" : "20000101",
+				"orientierung" : "129.32"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5446726715, 47.3664807613 ]
+			},
+			"properties" : {
+				"objectid" : 2799,
+				"typ" : "81",
+				"einbaudatum" : "20000101",
+				"orientierung" : "327.01"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5487906665, 47.3706399184 ]
+			},
+			"properties" : {
+				"objectid" : 2818,
+				"typ" : "92",
+				"einbaudatum" : "20000101",
+				"orientierung" : "301.32"
+			}
+		}
+	]
+}

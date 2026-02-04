@@ -1,0 +1,1032 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.strecke_esaerdanlage",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5462671819, 47.3664409413 ],
+						[ 8.5462584382, 47.3664476906 ],
+						[ 8.546248504, 47.3664417501 ],
+						[ 8.5462572477, 47.3664350008 ],
+						[ 8.5462671819, 47.3664409413 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 11,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 38.4",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 18
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5462900351, 47.3663817408 ],
+						[ 8.5462814255, 47.3663885698 ],
+						[ 8.546271374, 47.3663827203 ],
+						[ 8.5462799837, 47.3663758914 ],
+						[ 8.5462900351, 47.3663817408 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 12,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 38.4",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 19
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.547481591, 47.3662548896 ],
+						[ 8.547472928, 47.3662616922 ],
+						[ 8.5474629152, 47.3662557976 ],
+						[ 8.5474715916, 47.3662490038 ],
+						[ 8.547481591, 47.3662548896 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 13,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 38.3",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 20
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5474948019, 47.3662178556 ],
+						[ 8.5474861387, 47.3662246492 ],
+						[ 8.5474761262, 47.3662187635 ],
+						[ 8.5474848024, 47.3662119608 ],
+						[ 8.5474948019, 47.3662178556 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 14,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 38.3",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 21
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5479916221, 47.3660395405 ],
+						[ 8.5479827446, 47.3660462102 ],
+						[ 8.5479729276, 47.3660401788 ],
+						[ 8.5479818051, 47.3660335091 ],
+						[ 8.5479916221, 47.3660395405 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 15,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 38.2",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 22
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5460740514, 47.366620637 ],
+						[ 8.5460834117, 47.3666269967 ],
+						[ 8.5460740376, 47.3666333563 ],
+						[ 8.5460646905, 47.3666269964 ],
+						[ 8.5460740514, 47.366620637 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 16,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 38.4",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 23
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5480282764, 47.3661092069 ],
+						[ 8.5480192112, 47.3661157615 ],
+						[ 8.5480095636, 47.3661096025 ],
+						[ 8.5480186288, 47.3661030479 ],
+						[ 8.5480282764, 47.3661092069 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 17,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 38.2",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 24
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5487053805, 47.3698895877 ],
+						[ 8.5487125557, 47.3698971557 ],
+						[ 8.5487014157, 47.3699020212 ],
+						[ 8.5486942537, 47.3698944531 ],
+						[ 8.5487053805, 47.3698895877 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 34,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 88.2",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 39
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5499604773, 47.3703720455 ],
+						[ 8.5499645881, 47.3703805964 ],
+						[ 8.5499520013, 47.3703833891 ],
+						[ 8.5499478907, 47.3703748472 ],
+						[ 8.5499604773, 47.3703720455 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 35,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 88.1",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 40
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.542020561, 47.3666883084 ],
+						[ 8.5420163285, 47.3666968313 ],
+						[ 8.542003784, 47.3666939648 ],
+						[ 8.5420080163, 47.3666854329 ],
+						[ 8.542020561, 47.3666883084 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 38,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 62.1",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 74
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5319095739, 47.3737520802 ],
+						[ 8.5319153281, 47.3737601843 ],
+						[ 8.5319033979, 47.3737640842 ],
+						[ 8.5318976439, 47.373755989 ],
+						[ 8.5319095739, 47.3737520802 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 55,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 19.1",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 91
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.539584885, 47.36898104 ],
+						[ 8.5395816092, 47.3689897516 ],
+						[ 8.5395687864, 47.3689875351 ],
+						[ 8.5395720488, 47.3689788147 ],
+						[ 8.539584885, 47.36898104 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 75,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 16.3",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 107
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5350591839, 47.3720534848 ],
+						[ 8.5350500892, 47.3720600206 ],
+						[ 8.5350404683, 47.3720538513 ],
+						[ 8.5350495496, 47.3720473066 ],
+						[ 8.5350591839, 47.3720534848 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 79,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 63.1",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 110
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5449764263, 47.3675809027 ],
+						[ 8.5449681782, 47.3675879439 ],
+						[ 8.5449578273, 47.3675823402 ],
+						[ 8.5449660622, 47.367575299 ],
+						[ 8.5449764263, 47.3675809027 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 81,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 112
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5456356144, 47.3676861624 ],
+						[ 8.5456280886, 47.3676935566 ],
+						[ 8.5456171917, 47.3676884439 ],
+						[ 8.5456247305, 47.3676810405 ],
+						[ 8.5456356144, 47.3676861624 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 82,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 113
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5382995808, 47.3691865005 ],
+						[ 8.5383085487, 47.3691931165 ],
+						[ 8.5382988102, 47.369199209 ],
+						[ 8.5382898423, 47.369192593 ],
+						[ 8.5382995808, 47.3691865005 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 84,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 16.1",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 115
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5382607533, 47.3696874954 ],
+						[ 8.5382516326, 47.3696940138 ],
+						[ 8.5382420377, 47.3696878175 ],
+						[ 8.5382511584, 47.3696812991 ],
+						[ 8.5382607533, 47.3696874954 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 85,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 16.1",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 116
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5310009942, 47.3734953468 ],
+						[ 8.531005458, 47.373503814 ],
+						[ 8.5309929936, 47.3735068462 ],
+						[ 8.5309885166, 47.3734983792 ],
+						[ 8.5310009942, 47.3734953468 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 87,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 19.2",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 117
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5319163693, 47.3737618835 ],
+						[ 8.5319220182, 47.3737700156 ],
+						[ 8.531919624, 47.3737707849 ],
+						[ 8.5319139751, 47.3737626528 ],
+						[ 8.5319163693, 47.3737618835 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 178,
+				"typ" : 7,
+				"typtext" : "Revisionskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 166
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5479997978, 47.366100944 ],
+						[ 8.5480094586, 47.3661071028 ],
+						[ 8.5480076456, 47.3661084156 ],
+						[ 8.5479979848, 47.3661022567 ],
+						[ 8.5479997978, 47.366100944 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 179,
+				"typ" : 7,
+				"typtext" : "Revisionskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 167
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5499025426, 47.3740085561 ],
+						[ 8.5498988695, 47.3740171998 ],
+						[ 8.5498963167, 47.3740167027 ],
+						[ 8.5499000031, 47.3740080588 ],
+						[ 8.5499025426, 47.3740085561 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 180,
+				"typ" : 7,
+				"typtext" : "Revisionskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 168
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.545004262, 47.3676060204 ],
+						[ 8.544998805, 47.3676142133 ],
+						[ 8.5449963931, 47.3676134718 ],
+						[ 8.5450018502, 47.3676052789 ],
+						[ 8.545004262, 47.3676060204 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 188,
+				"typ" : 7,
+				"typtext" : "Revisionskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 175
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5450114061, 47.3675949059 ],
+						[ 8.5450061357, 47.36760316 ],
+						[ 8.5450037112, 47.3676024456 ],
+						[ 8.5450089816, 47.3675941915 ],
+						[ 8.5450114061, 47.3675949059 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 189,
+				"typ" : 7,
+				"typtext" : "Revisionskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 176
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5309856569, 47.3735009878 ],
+						[ 8.5309731646, 47.3735039484 ],
+						[ 8.5309722822, 47.3735022477 ],
+						[ 8.5309847878, 47.373499287 ],
+						[ 8.5309856569, 47.3735009878 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 198,
+				"typ" : 7,
+				"typtext" : "Revisionskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 185
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5495362519, 47.3659943974 ],
+						[ 8.5495407442, 47.3660028546 ],
+						[ 8.5495282963, 47.3660059068 ],
+						[ 8.5495238039, 47.3659974495 ],
+						[ 8.5495362519, 47.3659943974 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 221,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 38.1",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 205
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5363247728, 47.3681089477 ],
+						[ 8.5363183278, 47.3681168077 ],
+						[ 8.5363067584, 47.3681124291 ],
+						[ 8.5363132034, 47.368104569 ],
+						[ 8.5363247728, 47.3681089477 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 242,
+				"typ" : 6,
+				"typtext" : "Anschlusskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 221
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.531958382, 47.3655894624 ],
+						[ 8.5319663407, 47.3655966461 ],
+						[ 8.5319642313, 47.3655977275 ],
+						[ 8.5319562726, 47.3655905438 ],
+						[ 8.531958382, 47.3655894624 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 244,
+				"typ" : 7,
+				"typtext" : "Revisionskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 223
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5316252595, 47.3647970751 ],
+						[ 8.53162715, 47.3648059804 ],
+						[ 8.5316140428, 47.3648072648 ],
+						[ 8.5316121524, 47.3647983595 ],
+						[ 8.5316252595, 47.3647970751 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 246,
+				"typ" : 6,
+				"typtext" : "Anschlusskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 224
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5316229003, 47.3647859704 ],
+						[ 8.5316247906, 47.3647948667 ],
+						[ 8.5316116834, 47.3647961511 ],
+						[ 8.531609793, 47.3647872458 ],
+						[ 8.5316229003, 47.3647859704 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 248,
+				"typ" : 6,
+				"typtext" : "Anschlusskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 225
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5363433221, 47.3681160035 ],
+						[ 8.5363368769, 47.3681238545 ],
+						[ 8.5363253208, 47.3681194848 ],
+						[ 8.5363317526, 47.3681116248 ],
+						[ 8.5363433221, 47.3681160035 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 249,
+				"typ" : 6,
+				"typtext" : "Anschlusskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 226
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5403465603, 47.3668638634 ],
+						[ 8.5403432847, 47.366872575 ],
+						[ 8.5403304623, 47.3668703585 ],
+						[ 8.5403337245, 47.3668616381 ],
+						[ 8.5403465603, 47.3668638634 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 76,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 87.1",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 280
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5325126068, 47.3636131417 ],
+						[ 8.5325005561, 47.3636168629 ],
+						[ 8.5324994634, 47.3636152271 ],
+						[ 8.5325115139, 47.3636114969 ],
+						[ 8.5325126068, 47.3636131417 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2645,
+				"typ" : 7,
+				"typtext" : "Revisionskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : null,
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 323
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5325255916, 47.3636091328 ],
+						[ 8.5325135411, 47.363612863 ],
+						[ 8.5325124482, 47.3636112182 ],
+						[ 8.5325244989, 47.363607497 ],
+						[ 8.5325255916, 47.3636091328 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2646,
+				"typ" : 7,
+				"typtext" : "Revisionskasten",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : null,
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 325
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5339890511, 47.372775666 ],
+						[ 8.5339937921, 47.3727840675 ],
+						[ 8.5339814244, 47.3727872791 ],
+						[ 8.5339766836, 47.3727788866 ],
+						[ 8.5339890511, 47.372775666 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2435,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "XXX",
+				"sapnummer" : "1",
+				"einbaudatum" : "20180724",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 340
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5319570158, 47.3655764234 ],
+						[ 8.5319649746, 47.3655836161 ],
+						[ 8.5319543877, 47.3655890145 ],
+						[ 8.5319464289, 47.3655818217 ],
+						[ 8.5319570158, 47.3655764234 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2745,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : null,
+				"sapnummer" : "1",
+				"einbaudatum" : null,
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 353
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.543693611, 47.3669579271 ],
+						[ 8.5436902165, 47.3669666219 ],
+						[ 8.5436774186, 47.3669643157 ],
+						[ 8.5436808131, 47.3669556209 ],
+						[ 8.543693611, 47.3669579271 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2566,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 62.2",
+				"sapnummer" : "1",
+				"einbaudatum" : null,
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 354
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5342731243, 47.3674477024 ],
+						[ 8.5342820914, 47.3674543187 ],
+						[ 8.534272353, 47.3674604199 ],
+						[ 8.5342633858, 47.3674538035 ],
+						[ 8.5342731243, 47.3674477024 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2567,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 18.2",
+				"sapnummer" : "1",
+				"einbaudatum" : null,
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 360
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5344425717, 47.3679649621 ],
+						[ 8.5344393483, 47.367973682 ],
+						[ 8.5344265132, 47.367971492 ],
+						[ 8.5344297367, 47.3679627721 ],
+						[ 8.5344425717, 47.3679649621 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2568,
+				"typ" : 5,
+				"typtext" : "Anschlusskasten mit BUS-Ventil",
+				"nummer" : "1",
+				"bezeichnung" : "BUS 18.1",
+				"sapnummer" : "1",
+				"einbaudatum" : null,
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 366
+			}
+		}
+	]
+}

@@ -1,0 +1,2270 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.strecke_weichenantriebskasten",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5318139386, 47.365443579 ],
+						[ 8.5318167306, 47.3654460892 ],
+						[ 8.531800864, 47.3654542091 ],
+						[ 8.5317980718, 47.3654516899 ],
+						[ 8.5318007185, 47.3654503426 ],
+						[ 8.5317927599, 47.3654431588 ],
+						[ 8.5318033332, 47.3654377426 ],
+						[ 8.5318112918, 47.3654449264 ],
+						[ 8.5318139386, 47.365443579 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 1,
+				"quellid" : 706,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100084",
+				"sapnummer" : "100084",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.547179283, 47.3660790036 ],
+						[ 8.5471667373, 47.3660894595 ],
+						[ 8.5471631477, 47.36608747 ],
+						[ 8.5471652429, 47.3660857228 ],
+						[ 8.5471549832, 47.3660800464 ],
+						[ 8.5471633382, 47.3660730759 ],
+						[ 8.5471736111, 47.3660787522 ],
+						[ 8.5471756934, 47.3660770142 ],
+						[ 8.547179283, 47.3660790036 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 6,
+				"quellid" : 550,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100103",
+				"sapnummer" : "100103",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5471215296, 47.3657573777 ],
+						[ 8.5471115371, 47.3657632755 ],
+						[ 8.5471137039, 47.3657649728 ],
+						[ 8.5471101985, 47.3657670303 ],
+						[ 8.547097197, 47.3657568377 ],
+						[ 8.5471006892, 47.3657547802 ],
+						[ 8.5471028561, 47.3657564775 ],
+						[ 8.5471128618, 47.3657505796 ],
+						[ 8.5471215296, 47.3657573777 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 7,
+				"quellid" : 549,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100256",
+				"sapnummer" : "100256",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5525994735, 47.3654155107 ],
+						[ 8.5526054402, 47.3654235399 ],
+						[ 8.5525936225, 47.3654275937 ],
+						[ 8.5525951208, 47.3654296032 ],
+						[ 8.5525909799, 47.3654310194 ],
+						[ 8.5525820299, 47.3654189802 ],
+						[ 8.5525861576, 47.3654175641 ],
+						[ 8.5525876558, 47.3654195646 ],
+						[ 8.5525994735, 47.3654155107 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 9,
+				"quellid" : 8937,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "W332",
+				"sapnummer" : null,
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5529474052, 47.3652720991 ],
+						[ 8.5529560528, 47.3652842402 ],
+						[ 8.5529518846, 47.3652856117 ],
+						[ 8.5529432369, 47.3652734706 ],
+						[ 8.5529474052, 47.3652720991 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 10,
+				"quellid" : 8938,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : null,
+				"sapnummer" : null,
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.53845579, 47.3693147323 ],
+						[ 8.5384628848, 47.3693223286 ],
+						[ 8.5384517033, 47.3693271485 ],
+						[ 8.5384446085, 47.3693195522 ],
+						[ 8.5384418131, 47.3693207572 ],
+						[ 8.5384393353, 47.3693181002 ],
+						[ 8.5384560943, 47.3693108704 ],
+						[ 8.5384585854, 47.3693135273 ],
+						[ 8.53845579, 47.3693147323 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 15,
+				"quellid" : 713,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100539",
+				"sapnummer" : "100539",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5318656697, 47.3654515268 ],
+						[ 8.5318690873, 47.3654548407 ],
+						[ 8.5318582572, 47.3654599985 ],
+						[ 8.5318548265, 47.3654566937 ],
+						[ 8.5318521255, 47.3654579786 ],
+						[ 8.5318494645, 47.3654554042 ],
+						[ 8.5318657228, 47.3654476584 ],
+						[ 8.5318683838, 47.3654502328 ],
+						[ 8.5318656697, 47.3654515268 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 96,
+				"quellid" : 8700,
+				"typ" : 26,
+				"typtext" : "Elektrisch klein",
+				"nummer" : null,
+				"bezeichnung" : "W101",
+				"sapnummer" : null,
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.540448645, 47.3666571791 ],
+						[ 8.540467671, 47.3666610365 ],
+						[ 8.5404663432, 47.3666640535 ],
+						[ 8.5404473172, 47.3666601962 ],
+						[ 8.540448645, 47.3666571791 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 126,
+				"quellid" : 869,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 172068",
+				"sapnummer" : "172068",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5409816651, 47.3664181106 ],
+						[ 8.5409770375, 47.3664312248 ],
+						[ 8.5409725341, 47.3664304942 ],
+						[ 8.5409771615, 47.366417371 ],
+						[ 8.5409816651, 47.3664181106 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 127,
+				"quellid" : 868,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 172069",
+				"sapnummer" : "172069",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5383453968, 47.3696269707 ],
+						[ 8.5383362761, 47.3696334891 ],
+						[ 8.5383386781, 47.3696350404 ],
+						[ 8.5383354812, 47.3696373196 ],
+						[ 8.5383210956, 47.3696280296 ],
+						[ 8.5383242793, 47.3696257505 ],
+						[ 8.5383266812, 47.3696272928 ],
+						[ 8.5383358019, 47.3696207744 ],
+						[ 8.5383453968, 47.3696269707 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 129,
+				"quellid" : 714,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100000",
+				"sapnummer" : "100000",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.540383803, 47.3662026694 ],
+						[ 8.5403694315, 47.3662119726 ],
+						[ 8.5403662334, 47.3662097003 ],
+						[ 8.5403806048, 47.3662003881 ],
+						[ 8.540383803, 47.3662026694 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 130,
+				"quellid" : 8560,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100001",
+				"sapnummer" : "100001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5460126597, 47.3666124373 ],
+						[ 8.5460267591, 47.366621945 ],
+						[ 8.5460234956, 47.3666241801 ],
+						[ 8.5460211456, 47.3666225925 ],
+						[ 8.5460118117, 47.3666289786 ],
+						[ 8.5460024253, 47.366622637 ],
+						[ 8.5460117461, 47.36661626 ],
+						[ 8.5460093962, 47.3666146724 ],
+						[ 8.5460126597, 47.3666124373 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 131,
+				"quellid" : 555,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100002",
+				"sapnummer" : "100002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5474927105, 47.3655463497 ],
+						[ 8.547507918, 47.365555028 ],
+						[ 8.5475049495, 47.3655574402 ],
+						[ 8.547502404, 47.3655559984 ],
+						[ 8.5474939017, 47.3655628804 ],
+						[ 8.5474837589, 47.3655570949 ],
+						[ 8.5474922745, 47.3655502128 ],
+						[ 8.547489742, 47.3655487619 ],
+						[ 8.5474927105, 47.3655463497 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 135,
+				"quellid" : 548,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100010",
+				"sapnummer" : "100010",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5447653855, 47.3671862641 ],
+						[ 8.5447542173, 47.3671974172 ],
+						[ 8.5447503806, 47.3671956459 ],
+						[ 8.5447522488, 47.367193793 ],
+						[ 8.5447413, 47.3671887256 ],
+						[ 8.5447487457, 47.3671812962 ],
+						[ 8.5447596942, 47.3671863546 ],
+						[ 8.5447615621, 47.3671844927 ],
+						[ 8.5447653855, 47.3671862641 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 147,
+				"quellid" : 559,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100058",
+				"sapnummer" : "100058",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5453596262, 47.3671608089 ],
+						[ 8.5453572861, 47.3671635209 ],
+						[ 8.545354429, 47.3671623789 ],
+						[ 8.5453477318, 47.367170143 ],
+						[ 8.545336317, 47.3671655838 ],
+						[ 8.5453430143, 47.3671578288 ],
+						[ 8.5453401574, 47.3671566958 ],
+						[ 8.5453425106, 47.3671539747 ],
+						[ 8.5453596262, 47.3671608089 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 148,
+				"quellid" : 560,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100060",
+				"sapnummer" : "100060",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5390138979, 47.3704285034 ],
+						[ 8.5390106221, 47.3704372239 ],
+						[ 8.5390138245, 47.3704377781 ],
+						[ 8.5390126826, 47.3704408293 ],
+						[ 8.5389934409, 47.3704374865 ],
+						[ 8.5389945828, 47.3704344353 ],
+						[ 8.5389977855, 47.3704349984 ],
+						[ 8.5390010613, 47.3704262779 ],
+						[ 8.5390138979, 47.3704285034 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 149,
+				"quellid" : 716,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100062",
+				"sapnummer" : "100062",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5315527276, 47.364666954 ],
+						[ 8.5315559779, 47.3646756755 ],
+						[ 8.5315591838, 47.3646751234 ],
+						[ 8.5315603187, 47.364678171 ],
+						[ 8.5315410569, 47.3646814746 ],
+						[ 8.5315399218, 47.364678418 ],
+						[ 8.5315431411, 47.3646778749 ],
+						[ 8.531539904, 47.3646691532 ],
+						[ 8.5315527276, 47.364666954 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 150,
+				"quellid" : 702,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100067",
+				"sapnummer" : "100067",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5452939143, 47.3675057737 ],
+						[ 8.5452796645, 47.3675151753 ],
+						[ 8.5452764399, 47.3675129124 ],
+						[ 8.5452788172, 47.3675113514 ],
+						[ 8.5452695873, 47.3675049004 ],
+						[ 8.545279096, 47.3674986296 ],
+						[ 8.5452883126, 47.3675050808 ],
+						[ 8.5452906899, 47.3675035198 ],
+						[ 8.5452939143, 47.3675057737 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 162,
+				"quellid" : 562,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100109",
+				"sapnummer" : "100109",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5481893885, 47.3662127588 ],
+						[ 8.5481991796, 47.3662188174 ],
+						[ 8.5481902619, 47.3662254606 ],
+						[ 8.5481804707, 47.3662194019 ],
+						[ 8.5481782414, 47.3662210695 ],
+						[ 8.5481748212, 47.3662189525 ],
+						[ 8.5481881976, 47.3662089743 ],
+						[ 8.5481916178, 47.3662110912 ],
+						[ 8.5481893885, 47.3662127588 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 171,
+				"quellid" : 552,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100145",
+				"sapnummer" : "100145",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5490825454, 47.3703645231 ],
+						[ 8.5490903499, 47.3703717881 ],
+						[ 8.5490796426, 47.3703770903 ],
+						[ 8.5490718513, 47.3703698251 ],
+						[ 8.5490691777, 47.3703711461 ],
+						[ 8.5490664367, 47.3703685999 ],
+						[ 8.5490824913, 47.3703606557 ],
+						[ 8.549085219, 47.3703632021 ],
+						[ 8.5490825454, 47.3703645231 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 181,
+				"quellid" : 566,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100162",
+				"sapnummer" : "100162",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5450471935, 47.3675017329 ],
+						[ 8.5450502948, 47.3675025218 ],
+						[ 8.5450549393, 47.3674940938 ],
+						[ 8.5450673446, 47.3674972492 ],
+						[ 8.5450627001, 47.3675056772 ],
+						[ 8.5450657882, 47.3675064662 ],
+						[ 8.5450641679, 47.3675094141 ],
+						[ 8.5450455732, 47.3675046809 ],
+						[ 8.5450471935, 47.3675017329 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 182,
+				"quellid" : 561,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100165",
+				"sapnummer" : "100165",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5311788396, 47.3649521209 ],
+						[ 8.5311886937, 47.3649581264 ],
+						[ 8.5311798546, 47.3649648214 ],
+						[ 8.5311700005, 47.3649588159 ],
+						[ 8.5311677841, 47.364960492 ],
+						[ 8.5311643384, 47.3649583837 ],
+						[ 8.5311775972, 47.3649483457 ],
+						[ 8.531181056, 47.3649504448 ],
+						[ 8.5311788396, 47.3649521209 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 184,
+				"quellid" : 705,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100170",
+				"sapnummer" : "100170",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5498464391, 47.3703945243 ],
+						[ 8.5498525986, 47.3704073461 ],
+						[ 8.5498481965, 47.3704083239 ],
+						[ 8.5498471723, 47.3704061929 ],
+						[ 8.5498345855, 47.3704089856 ],
+						[ 8.5498304747, 47.3704004348 ],
+						[ 8.5498430615, 47.3703976421 ],
+						[ 8.5498420238, 47.3703955022 ],
+						[ 8.5498464391, 47.3703945243 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 187,
+				"quellid" : 568,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100178",
+				"sapnummer" : "100178",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5409434714, 47.3664458025 ],
+						[ 8.5409386048, 47.3664588829 ],
+						[ 8.5409341139, 47.3664581162 ],
+						[ 8.5409349163, 47.3664559407 ],
+						[ 8.540922081, 47.3664537335 ],
+						[ 8.5409253298, 47.3664450131 ],
+						[ 8.5409381649, 47.3664472114 ],
+						[ 8.5409389805, 47.3664450358 ],
+						[ 8.5409434714, 47.3664458025 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 200,
+				"quellid" : 711,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100205",
+				"sapnummer" : "100205",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5316318946, 47.3648288192 ],
+						[ 8.5316336528, 47.3648377347 ],
+						[ 8.5316205304, 47.3648389203 ],
+						[ 8.5316187721, 47.3648300048 ],
+						[ 8.5316154949, 47.3648303057 ],
+						[ 8.531614888, 47.3648271811 ],
+						[ 8.5316345651, 47.3648254027 ],
+						[ 8.5316351852, 47.3648285272 ],
+						[ 8.5316318946, 47.3648288192 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 202,
+				"quellid" : 704,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100209",
+				"sapnummer" : "100209",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5404375981, 47.36662107 ],
+						[ 8.5404343357, 47.3666297814 ],
+						[ 8.5404375382, 47.3666303446 ],
+						[ 8.5404363962, 47.3666333868 ],
+						[ 8.540417156, 47.3666300533 ],
+						[ 8.5404182979, 47.366627011 ],
+						[ 8.5404215002, 47.3666275652 ],
+						[ 8.5404247756, 47.3666188446 ],
+						[ 8.5404375981, 47.36662107 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 205,
+				"quellid" : 712,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100219",
+				"sapnummer" : "100219",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5394741485, 47.3693263132 ],
+						[ 8.539472373, 47.3693352263 ],
+						[ 8.5394592531, 47.3693340201 ],
+						[ 8.5394610287, 47.3693251069 ],
+						[ 8.5394577388, 47.3693248055 ],
+						[ 8.5394583629, 47.3693216872 ],
+						[ 8.5394780491, 47.3693234875 ],
+						[ 8.5394774252, 47.3693266148 ],
+						[ 8.5394741485, 47.3693263132 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 207,
+				"quellid" : 717,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100222",
+				"sapnummer" : "100222",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5442857142, 47.367001239 ],
+						[ 8.5442880163, 47.3670100952 ],
+						[ 8.5442749809, 47.3670116592 ],
+						[ 8.5442755565, 47.3670138755 ],
+						[ 8.544271, 47.3670144228 ],
+						[ 8.5442675336, 47.3670011342 ],
+						[ 8.5442721032, 47.3670005867 ],
+						[ 8.5442726788, 47.367002803 ],
+						[ 8.5442857142, 47.367001239 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 228,
+				"quellid" : 557,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100297",
+				"sapnummer" : "100297",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5387847714, 47.3695659011 ],
+						[ 8.5387773368, 47.3695784122 ],
+						[ 8.5387730359, 47.3695772388 ],
+						[ 8.5387742771, 47.3695751491 ],
+						[ 8.5387619998, 47.3695717849 ],
+						[ 8.5387669518, 47.3695634442 ],
+						[ 8.5387792291, 47.3695668084 ],
+						[ 8.5387804703, 47.3695647187 ],
+						[ 8.5387847714, 47.3695659011 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 233,
+				"quellid" : 715,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100309",
+				"sapnummer" : "100309",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5313553355, 47.3635873072 ],
+						[ 8.5313570937, 47.3635962227 ],
+						[ 8.5313439715, 47.3635974083 ],
+						[ 8.5313422133, 47.3635884928 ],
+						[ 8.5313389362, 47.3635887936 ],
+						[ 8.5313383294, 47.3635856691 ],
+						[ 8.5313580059, 47.3635838907 ],
+						[ 8.5313586258, 47.3635870062 ],
+						[ 8.5313553355, 47.3635873072 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 234,
+				"quellid" : 699,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100316",
+				"sapnummer" : "100316",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5322495237, 47.3636901762 ],
+						[ 8.5322577587, 47.3637024485 ],
+						[ 8.532253549, 47.3637037567 ],
+						[ 8.5322521698, 47.3637017099 ],
+						[ 8.5322401325, 47.3637054399 ],
+						[ 8.5322346424, 47.3636972523 ],
+						[ 8.5322466797, 47.3636935223 ],
+						[ 8.5322453138, 47.3636914753 ],
+						[ 8.5322495237, 47.3636901762 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 236,
+				"quellid" : 700,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100318",
+				"sapnummer" : "100318",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5486068543, 47.3662617919 ],
+						[ 8.5486163425, 47.3662736463 ],
+						[ 8.5486122695, 47.3662751517 ],
+						[ 8.5486106926, 47.3662731789 ],
+						[ 8.5485990516, 47.3662774735 ],
+						[ 8.5485927306, 47.3662695735 ],
+						[ 8.5486043584, 47.366265279 ],
+						[ 8.5486027813, 47.3662632973 ],
+						[ 8.5486068543, 47.3662617919 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 240,
+				"quellid" : 688,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100321",
+				"sapnummer" : "100321",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5481602448, 47.3661451881 ],
+						[ 8.5481700357, 47.3661512378 ],
+						[ 8.5481611181, 47.3661578899 ],
+						[ 8.5481513402, 47.3661518312 ],
+						[ 8.5481491109, 47.3661534987 ],
+						[ 8.5481456773, 47.3661513729 ],
+						[ 8.5481590538, 47.3661414036 ],
+						[ 8.5481624741, 47.3661435206 ],
+						[ 8.5481602448, 47.3661451881 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 283,
+				"quellid" : 551,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100537",
+				"sapnummer" : "100537",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5404493558, 47.3662098428 ],
+						[ 8.5404582714, 47.3662165041 ],
+						[ 8.5404484666, 47.3662225525 ],
+						[ 8.5404395642, 47.366215891 ],
+						[ 8.5404371197, 47.3662174076 ],
+						[ 8.5404339999, 47.3662150806 ],
+						[ 8.5404486938, 47.3662059992 ],
+						[ 8.5404518137, 47.3662083352 ],
+						[ 8.5404493558, 47.3662098428 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 284,
+				"quellid" : 710,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100543",
+				"sapnummer" : "100543",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5318248556, 47.3645962131 ],
+						[ 8.5318288204, 47.3646094255 ],
+						[ 8.5318242791, 47.3646100621 ],
+						[ 8.5318236248, 47.3646078555 ],
+						[ 8.5318106473, 47.3646096514 ],
+						[ 8.5318080042, 47.3646008432 ],
+						[ 8.5318209684, 47.3645990474 ],
+						[ 8.5318203142, 47.3645968408 ],
+						[ 8.5318248556, 47.3645962131 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 287,
+				"quellid" : 701,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 100550",
+				"sapnummer" : "100550",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5315747395, 47.3647480709 ],
+						[ 8.5315766299, 47.3647569762 ],
+						[ 8.5315799066, 47.3647566483 ],
+						[ 8.5315805662, 47.3647597634 ],
+						[ 8.5315609188, 47.3647616944 ],
+						[ 8.5315602459, 47.3647585794 ],
+						[ 8.5315635226, 47.3647582516 ],
+						[ 8.5315616456, 47.3647493551 ],
+						[ 8.5315747395, 47.3647480709 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 290,
+				"quellid" : 703,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 111107",
+				"sapnummer" : "111107",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5494987755, 47.3707847057 ],
+						[ 8.5495012934, 47.3707873531 ],
+						[ 8.5494846168, 47.3707946736 ],
+						[ 8.5494820988, 47.3707920263 ],
+						[ 8.5494848805, 47.3707908122 ],
+						[ 8.5494776921, 47.3707832534 ],
+						[ 8.5494888188, 47.3707783789 ],
+						[ 8.5494959939, 47.3707859288 ],
+						[ 8.5494987755, 47.3707847057 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 310,
+				"quellid" : 569,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 112216",
+				"sapnummer" : "112216",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5481015969, 47.3664393092 ],
+						[ 8.5481067138, 47.366452339 ],
+						[ 8.5481022425, 47.3664531555 ],
+						[ 8.5481013896, 47.3664509779 ],
+						[ 8.5480885951, 47.3664532956 ],
+						[ 8.5480851839, 47.3664446121 ],
+						[ 8.5480979649, 47.3664422855 ],
+						[ 8.5480971121, 47.3664401168 ],
+						[ 8.5481015969, 47.3664393092 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 313,
+				"quellid" : 553,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 112219",
+				"sapnummer" : "112219",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "nachgeführt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5315403106, 47.3644119329 ],
+						[ 8.531540957, 47.3644150481 ],
+						[ 8.5315212958, 47.3644169432 ],
+						[ 8.5315206494, 47.364413828 ],
+						[ 8.5315239262, 47.3644135092 ],
+						[ 8.5315230895, 47.3644095052 ],
+						[ 8.5315361969, 47.3644082388 ],
+						[ 8.5315370338, 47.3644122517 ],
+						[ 8.5315403106, 47.3644119329 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 315,
+				"quellid" : 8526,
+				"typ" : 26,
+				"typtext" : "Elektrisch klein",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 112736",
+				"sapnummer" : "112736",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5495997917, 47.3708457468 ],
+						[ 8.5495831018, 47.3708530675 ],
+						[ 8.5495805838, 47.3708504202 ],
+						[ 8.5495972739, 47.3708431085 ],
+						[ 8.5495997917, 47.3708457468 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 320,
+				"quellid" : 785,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 113005",
+				"sapnummer" : "113005",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5490788742, 47.3704069436 ],
+						[ 8.5490631973, 47.370415217 ],
+						[ 8.5490603517, 47.3704127347 ],
+						[ 8.5490760285, 47.3704044523 ],
+						[ 8.5490788742, 47.3704069436 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 321,
+				"quellid" : 786,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 113006",
+				"sapnummer" : "113006",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5495481484, 47.3704319711 ],
+						[ 8.5495541102, 47.3704448398 ],
+						[ 8.5495496943, 47.3704457908 ],
+						[ 8.5495437193, 47.3704329222 ],
+						[ 8.5495481484, 47.3704319711 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 322,
+				"quellid" : 784,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 113007",
+				"sapnummer" : "113007",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5497188566, 47.3703954638 ],
+						[ 8.5497248316, 47.3704083324 ],
+						[ 8.5497204024, 47.3704092745 ],
+						[ 8.5497144406, 47.3703964058 ],
+						[ 8.5497188566, 47.3703954638 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 323,
+				"quellid" : 783,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 113008",
+				"sapnummer" : "113008",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5453674197, 47.3665846925 ],
+						[ 8.5453785886, 47.3665895238 ],
+						[ 8.5453714907, 47.3665971118 ],
+						[ 8.5453603218, 47.3665922805 ],
+						[ 8.5453585341, 47.3665941776 ],
+						[ 8.5453546331, 47.3665924969 ],
+						[ 8.5453652799, 47.3665811059 ],
+						[ 8.5453691942, 47.3665827955 ],
+						[ 8.5453674197, 47.3665846925 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 333,
+				"quellid" : 556,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 114715",
+				"sapnummer" : "114715",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5343381006, 47.3674937888 ],
+						[ 8.5343474075, 47.367500186 ],
+						[ 8.5343379913, 47.367506509 ],
+						[ 8.5343286843, 47.3675001028 ],
+						[ 8.5343263335, 47.3675016812 ],
+						[ 8.5343230702, 47.3674994454 ],
+						[ 8.5343372011, 47.3674899654 ],
+						[ 8.5343404646, 47.3674922102 ],
+						[ 8.5343381006, 47.3674937888 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 334,
+				"quellid" : 707,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 114716",
+				"sapnummer" : "114716",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5441362852, 47.3670132477 ],
+						[ 8.5441358758, 47.3670222378 ],
+						[ 8.5441226433, 47.3670219597 ],
+						[ 8.5441225443, 47.3670242094 ],
+						[ 8.5441179082, 47.3670241099 ],
+						[ 8.544118529, 47.3670106292 ],
+						[ 8.5441231518, 47.3670107288 ],
+						[ 8.5441230526, 47.3670129696 ],
+						[ 8.5441362852, 47.3670132477 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 339,
+				"quellid" : 558,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 114721",
+				"sapnummer" : "114721",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.536044272, 47.3680070266 ],
+						[ 8.5360355712, 47.3680191537 ],
+						[ 8.5360313986, 47.3680177722 ],
+						[ 8.5360328532, 47.3680157524 ],
+						[ 8.5360209484, 47.3680118087 ],
+						[ 8.5360267535, 47.3680037299 ],
+						[ 8.5360386448, 47.3680076647 ],
+						[ 8.5360400993, 47.368005645 ],
+						[ 8.536044272, 47.3680070266 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 341,
+				"quellid" : 709,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 114732",
+				"sapnummer" : "114732",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.534470431, 47.367886476 ],
+						[ 8.5344673405, 47.3678952216 ],
+						[ 8.5344705687, 47.3678957487 ],
+						[ 8.5344694797, 47.3678988084 ],
+						[ 8.5344501769, 47.3678956543 ],
+						[ 8.5344512526, 47.3678925947 ],
+						[ 8.5344544676, 47.3678931219 ],
+						[ 8.5344575581, 47.3678843763 ],
+						[ 8.534470431, 47.367886476 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 342,
+				"quellid" : 708,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 114753",
+				"sapnummer" : "114753",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5494239814, 47.3704849865 ],
+						[ 8.5494299036, 47.3704978646 ],
+						[ 8.5494254743, 47.3704988067 ],
+						[ 8.5494244894, 47.3704966573 ],
+						[ 8.5494118472, 47.3704993335 ],
+						[ 8.5494079078, 47.370490745 ],
+						[ 8.5494205501, 47.3704880688 ],
+						[ 8.5494195652, 47.3704859195 ],
+						[ 8.5494239814, 47.3704849865 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 344,
+				"quellid" : 567,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 114755",
+				"sapnummer" : "114755",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5466780415, 47.3661001669 ],
+						[ 8.5466931968, 47.3661088818 ],
+						[ 8.5466902016, 47.3661112852 ],
+						[ 8.5466876691, 47.3661098343 ],
+						[ 8.5466791133, 47.3661166988 ],
+						[ 8.5466690097, 47.3661108859 ],
+						[ 8.5466775655, 47.3661040214 ],
+						[ 8.5466750463, 47.3661025704 ],
+						[ 8.5466780415, 47.3661001669 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 350,
+				"quellid" : 554,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 114894",
+				"sapnummer" : "114894",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5313982423, 47.3640781357 ],
+						[ 8.5313979889, 47.3640812774 ],
+						[ 8.53139469, 47.3640811647 ],
+						[ 8.5313943757, 47.3640852065 ],
+						[ 8.5313811532, 47.3640847289 ],
+						[ 8.5313814675, 47.3640806871 ],
+						[ 8.5313781552, 47.3640805656 ],
+						[ 8.5313784085, 47.3640774239 ],
+						[ 8.5313982423, 47.3640781357 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 353,
+				"quellid" : 8524,
+				"typ" : 26,
+				"typtext" : "Elektrisch klein",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 116289",
+				"sapnummer" : "116289",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5313560706, 47.3734089632 ],
+						[ 8.5313605344, 47.3734174304 ],
+						[ 8.5313480701, 47.3734204627 ],
+						[ 8.5313491861, 47.373422584 ],
+						[ 8.5313448249, 47.3734236417 ],
+						[ 8.5313381291, 47.373410941 ],
+						[ 8.5313424904, 47.3734098833 ],
+						[ 8.5313436063, 47.3734119956 ],
+						[ 8.5313560706, 47.3734089632 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 368,
+				"quellid" : 718,
+				"typ" : 14,
+				"typtext" : "Elektrisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 118348",
+				"sapnummer" : "118348",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5390099302, 47.3704922268 ],
+						[ 8.5390291718, 47.3704955606 ],
+						[ 8.5390280299, 47.3704986119 ],
+						[ 8.5390087883, 47.3704952781 ],
+						[ 8.5390099302, 47.3704922268 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 377,
+				"quellid" : 874,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 121450",
+				"sapnummer" : "121450",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5314371566, 47.3644258261 ],
+						[ 8.531418339, 47.3644301239 ],
+						[ 8.5314168611, 47.3644271335 ],
+						[ 8.5314356921, 47.3644228445 ],
+						[ 8.5314371566, 47.3644258261 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 383,
+				"quellid" : 8538,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 125853",
+				"sapnummer" : "125853",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5453690817, 47.3675135808 ],
+						[ 8.5453553286, 47.3675233105 ],
+						[ 8.5453519867, 47.3675211387 ],
+						[ 8.5453657396, 47.3675114001 ],
+						[ 8.5453690817, 47.3675135808 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 393,
+				"quellid" : 6878,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 127877",
+				"sapnummer" : "127877",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5452186032, 47.3672346343 ],
+						[ 8.5452351881, 47.3672420493 ],
+						[ 8.5452326477, 47.3672446823 ],
+						[ 8.5452160494, 47.3672372584 ],
+						[ 8.5452186032, 47.3672346343 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 394,
+				"quellid" : 6879,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 127878",
+				"sapnummer" : "127878",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5448019614, 47.3672031845 ],
+						[ 8.5447908733, 47.3672143728 ],
+						[ 8.5447870236, 47.3672126106 ],
+						[ 8.5447981249, 47.3672014223 ],
+						[ 8.5448019614, 47.3672031845 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 395,
+				"quellid" : 6877,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 127883",
+				"sapnummer" : "127883",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5449235739, 47.3672709407 ],
+						[ 8.5449129668, 47.3672823402 ],
+						[ 8.5449090394, 47.3672806598 ],
+						[ 8.5449196595, 47.3672692511 ],
+						[ 8.5449235739, 47.3672709407 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 396,
+				"quellid" : 7527,
+				"typ" : 29,
+				"typtext" : "Mechanisch spezial",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 127884",
+				"sapnummer" : "127884",
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5446394388, 47.3668144946 ],
+						[ 8.5446542163, 47.3668235102 ],
+						[ 8.5446511138, 47.3668258516 ],
+						[ 8.5446363496, 47.3668168359 ],
+						[ 8.5446394388, 47.3668144946 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 397,
+				"quellid" : 6883,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 128049",
+				"sapnummer" : "128049",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5454897605, 47.3669949142 ],
+						[ 8.5455062414, 47.3670024292 ],
+						[ 8.545503661, 47.3670050445 ],
+						[ 8.5454871666, 47.3669975207 ],
+						[ 8.5454897605, 47.3669949142 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 399,
+				"quellid" : 6880,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 128051",
+				"sapnummer" : "128051",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5460861188, 47.3665195864 ],
+						[ 8.5461002182, 47.366529094 ],
+						[ 8.5460969545, 47.3665313202 ],
+						[ 8.5460828553, 47.3665218215 ],
+						[ 8.5460861188, 47.3665195864 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 400,
+				"quellid" : 6882,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 128052",
+				"sapnummer" : "128052",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5456990019, 47.3668270738 ],
+						[ 8.5457131013, 47.3668365814 ],
+						[ 8.5457098378, 47.3668388165 ],
+						[ 8.5456957384, 47.3668293089 ],
+						[ 8.5456990019, 47.3668270738 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 401,
+				"quellid" : 6881,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 128054",
+				"sapnummer" : "128054",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5388580771, 47.3695539859 ],
+						[ 8.5388506558, 47.3695664969 ],
+						[ 8.5388463549, 47.3695653235 ],
+						[ 8.5388537894, 47.3695528124 ],
+						[ 8.5388580771, 47.3695539859 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 404,
+				"quellid" : 871,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 130187",
+				"sapnummer" : "130187",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5486397126, 47.3662152319 ],
+						[ 8.5486488197, 47.3662272249 ],
+						[ 8.5486446925, 47.3662286678 ],
+						[ 8.5486355986, 47.3662166747 ],
+						[ 8.5486397126, 47.3662152319 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 407,
+				"quellid" : 782,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 130273",
+				"sapnummer" : "130273",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5452897705, 47.3672187865 ],
+						[ 8.5452843803, 47.3672244512 ],
+						[ 8.5452871728, 47.3672256747 ],
+						[ 8.5452846591, 47.3672283164 ],
+						[ 8.5452679704, 47.3672210013 ],
+						[ 8.5452704841, 47.3672183597 ],
+						[ 8.5452732633, 47.3672195744 ],
+						[ 8.5452786403, 47.3672139099 ],
+						[ 8.5452897705, 47.3672187865 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 419,
+				"quellid" : 7526,
+				"typ" : 27,
+				"typtext" : "Elektrisch mittel",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 131778",
+				"sapnummer" : "131778",
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5344703089, 47.3679475182 ],
+						[ 8.5344893983, 47.367951241 ],
+						[ 8.5344881233, 47.3679542665 ],
+						[ 8.5344690338, 47.3679505437 ],
+						[ 8.5344703089, 47.3679475182 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 421,
+				"quellid" : 8483,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 132630",
+				"sapnummer" : "132630",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5312320448, 47.3734655465 ],
+						[ 8.531238701, 47.3734782566 ],
+						[ 8.5312343397, 47.3734793143 ],
+						[ 8.5312276702, 47.3734666043 ],
+						[ 8.5312320448, 47.3734655465 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 426,
+				"quellid" : 876,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 134764",
+				"sapnummer" : "134764",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5349144197, 47.3676749153 ],
+						[ 8.534908528, 47.3676877983 ],
+						[ 8.5349040999, 47.3676868689 ],
+						[ 8.5349099916, 47.3676739858 ],
+						[ 8.5349144197, 47.3676749153 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 427,
+				"quellid" : 8484,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 134765",
+				"sapnummer" : "134765",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5343105438, 47.3675090451 ],
+						[ 8.534295741, 47.3675180458 ],
+						[ 8.5342926475, 47.3675157004 ],
+						[ 8.5343074503, 47.3675066998 ],
+						[ 8.5343105438, 47.3675090451 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 428,
+				"quellid" : 7199,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 134766",
+				"sapnummer" : "134766",
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5315637159, 47.3638977821 ],
+						[ 8.5315709768, 47.3639103336 ],
+						[ 8.5315666712, 47.3639114898 ],
+						[ 8.53156545, 47.3639093965 ],
+						[ 8.5315599066, 47.3639108702 ],
+						[ 8.5315550616, 47.3639025055 ],
+						[ 8.5315606049, 47.3639010228 ],
+						[ 8.531559397, 47.3638989294 ],
+						[ 8.5315637159, 47.3638977821 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 430,
+				"quellid" : 8525,
+				"typ" : 26,
+				"typtext" : "Elektrisch klein",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 137443",
+				"sapnummer" : "137443",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5311933468, 47.3650004135 ],
+						[ 8.5311805167, 47.3650106994 ],
+						[ 8.5311769798, 47.365008664 ],
+						[ 8.5311898099, 47.3649983781 ],
+						[ 8.5311933468, 47.3650004135 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 435,
+				"quellid" : 7198,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 139389",
+				"sapnummer" : "139389",
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5394331074, 47.3693342333 ],
+						[ 8.5394322445, 47.3693373268 ],
+						[ 8.5394127295, 47.3693348413 ],
+						[ 8.5394135792, 47.3693317478 ],
+						[ 8.5394331074, 47.3693342333 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 438,
+				"quellid" : 870,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 142529",
+				"sapnummer" : "142529",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5459572011, 47.3666196075 ],
+						[ 8.5459712087, 47.366629161 ],
+						[ 8.5459679318, 47.3666313873 ],
+						[ 8.5459539107, 47.3666218249 ],
+						[ 8.5459572011, 47.3666196075 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 443,
+				"quellid" : 7528,
+				"typ" : 29,
+				"typtext" : "Mechanisch spezial",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 145810",
+				"sapnummer" : "145810",
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5384647524, 47.3694012972 ],
+						[ 8.5384461267, 47.3694059722 ],
+						[ 8.5384445166, 47.3694030191 ],
+						[ 8.5384631556, 47.369398344 ],
+						[ 8.5384647524, 47.3694012972 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 456,
+				"quellid" : 873,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 157081",
+				"sapnummer" : "157081",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5441107131, 47.367040433 ],
+						[ 8.5441097745, 47.3670539078 ],
+						[ 8.5441051373, 47.3670537543 ],
+						[ 8.5441060892, 47.3670402794 ],
+						[ 8.5441107131, 47.367040433 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 457,
+				"quellid" : 6876,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 157344",
+				"sapnummer" : "157344",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5384028114, 47.3693126551 ],
+						[ 8.5383861339, 47.369319983 ],
+						[ 8.5383836167, 47.3693173444 ],
+						[ 8.5384002941, 47.3693100075 ],
+						[ 8.5384028114, 47.3693126551 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 480,
+				"quellid" : 872,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 172637",
+				"sapnummer" : "172637",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5481338506, 47.3664330175 ],
+						[ 8.5481397851, 47.3664458866 ],
+						[ 8.5481353694, 47.3664468285 ],
+						[ 8.5481294216, 47.3664339596 ],
+						[ 8.5481338506, 47.3664330175 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 484,
+				"quellid" : 781,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 174508",
+				"sapnummer" : "174508",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5466987936, 47.3660838665 ],
+						[ 8.5467138709, 47.366092645 ],
+						[ 8.5467108622, 47.3660950396 ],
+						[ 8.546695785, 47.3660862611 ],
+						[ 8.5466987936, 47.3660838665 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 490,
+				"quellid" : 780,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 184001",
+				"sapnummer" : "184001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.547077495, 47.3657688734 ],
+						[ 8.547090745, 47.3657789198 ],
+						[ 8.5470872935, 47.3657810218 ],
+						[ 8.5470740435, 47.3657709754 ],
+						[ 8.547077495, 47.3657688734 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 491,
+				"quellid" : 779,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 184000",
+				"sapnummer" : "184000",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5475625968, 47.3657853912 ],
+						[ 8.547549944, 47.3657957852 ],
+						[ 8.5475463673, 47.3657937776 ],
+						[ 8.5475590201, 47.3657833836 ],
+						[ 8.5475625968, 47.3657853912 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 492,
+				"quellid" : 778,
+				"typ" : 1,
+				"typtext" : "Mechanisch",
+				"nummer" : null,
+				"bezeichnung" : "Weichenantrieb 183996",
+				"sapnummer" : "183996",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt"
+			}
+		}
+	]
+}

@@ -1,0 +1,1518 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.strecke_tr_kreuzung",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5470000349, 47.3658678352 ]
+			},
+			"properties" : {
+				"objectid" : 18,
+				"quellid" : 1707,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "6902",
+				"sapnummer" : "I-IN-TR-KREU-6902",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 9,
+				"lieferwerktext" : "VOSSLOH LAEIS (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20250908",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 41.6
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316014021, 47.3650024354 ]
+			},
+			"properties" : {
+				"objectid" : 30,
+				"quellid" : 2203,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5602",
+				"sapnummer" : "I-IN-TR-KREU-5602",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 4,
+				"lieferwerktext" : "VBZ-EIGENPRODUKTION (CH)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20191013",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531763918, 47.3638480151 ]
+			},
+			"properties" : {
+				"objectid" : 31,
+				"quellid" : 1991,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5604",
+				"sapnummer" : "I-IN-TR-KREU-5604",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 4,
+				"lieferwerktext" : "VBZ-EIGENPRODUKTION (CH)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150707",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314996873, 47.3639253645 ]
+			},
+			"properties" : {
+				"objectid" : 32,
+				"quellid" : 1983,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5610",
+				"sapnummer" : "I-IN-TR-KREU-5610",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 4,
+				"lieferwerktext" : "VBZ-EIGENPRODUKTION (CH)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150704",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5393865232, 47.3695719334 ]
+			},
+			"properties" : {
+				"objectid" : 35,
+				"quellid" : 1965,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5203",
+				"sapnummer" : "I-IN-TR-KREU-5203",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 5,
+				"lieferwerktext" : "VOEST-ALPINE (A)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20140503",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451781626, 47.3673734214 ]
+			},
+			"properties" : {
+				"objectid" : 36,
+				"quellid" : 1796,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5401",
+				"sapnummer" : "I-IN-TR-KREU-5401",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150712",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 68.56
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451665507, 47.3673631972 ]
+			},
+			"properties" : {
+				"objectid" : 37,
+				"quellid" : 1792,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5401",
+				"sapnummer" : "I-IN-TR-KREU-5401",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150712",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 126.84
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451584457, 47.3674090243 ]
+			},
+			"properties" : {
+				"objectid" : 38,
+				"quellid" : 1797,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5401",
+				"sapnummer" : "I-IN-TR-KREU-5401",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150712",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 68.64
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451709886, 47.3673862813 ]
+			},
+			"properties" : {
+				"objectid" : 39,
+				"quellid" : 1793,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5401",
+				"sapnummer" : "I-IN-TR-KREU-5401",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150712",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 68.65
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451447332, 47.3673441656 ]
+			},
+			"properties" : {
+				"objectid" : 40,
+				"quellid" : 1794,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5401",
+				"sapnummer" : "I-IN-TR-KREU-5401",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150712",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 126.91
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451249808, 47.3673799757 ]
+			},
+			"properties" : {
+				"objectid" : 41,
+				"quellid" : 1798,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5401",
+				"sapnummer" : "I-IN-TR-KREU-5401",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150712",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 308.5
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5445135112, 47.3670415871 ]
+			},
+			"properties" : {
+				"objectid" : 42,
+				"quellid" : 1791,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5402",
+				"sapnummer" : "I-IN-TR-KREU-5402",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150713",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 286.75
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5444986689, 47.3669803012 ]
+			},
+			"properties" : {
+				"objectid" : 43,
+				"quellid" : 1787,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5403",
+				"sapnummer" : "I-IN-TR-KREU-5403",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150713",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 264.38
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5445007334, 47.3670096147 ]
+			},
+			"properties" : {
+				"objectid" : 44,
+				"quellid" : 1786,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5403",
+				"sapnummer" : "I-IN-TR-KREU-5403",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150713",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 9.48
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456259371, 47.3668152708 ]
+			},
+			"properties" : {
+				"objectid" : 45,
+				"quellid" : 1766,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5404",
+				"sapnummer" : "I-IN-TR-KREU-5404",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150711",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 24.95
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456836166, 47.3667945328 ]
+			},
+			"properties" : {
+				"objectid" : 46,
+				"quellid" : 1767,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5404",
+				"sapnummer" : "I-IN-TR-KREU-5404",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150711",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 27.79
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456237627, 47.3668374378 ]
+			},
+			"properties" : {
+				"objectid" : 47,
+				"quellid" : 1765,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5404",
+				"sapnummer" : "I-IN-TR-KREU-5404",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150711",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 80.26
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5443889825, 47.3670234039 ]
+			},
+			"properties" : {
+				"objectid" : 48,
+				"quellid" : 1785,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5405",
+				"sapnummer" : "I-IN-TR-KREU-5405",
+				"kreuzungsbauart" : 5,
+				"kreuzungsbauarttext" : "TIEFRILLE INSERT",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150713",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 9.47
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456218788, 47.366783062 ]
+			},
+			"properties" : {
+				"objectid" : 49,
+				"quellid" : 1708,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5406",
+				"sapnummer" : "I-IN-TR-KREU-5406",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150711",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 97.1
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451811061, 47.3673002715 ]
+			},
+			"properties" : {
+				"objectid" : 50,
+				"quellid" : 1789,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5407",
+				"sapnummer" : "I-IN-TR-KREU-5407",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150712",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 20.93
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451703404, 47.367303388 ]
+			},
+			"properties" : {
+				"objectid" : 51,
+				"quellid" : 1788,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "5407",
+				"sapnummer" : "I-IN-TR-KREU-5407",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150712",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 18.38
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451025976, 47.3673132751 ]
+			},
+			"properties" : {
+				"objectid" : 52,
+				"quellid" : 1790,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5408",
+				"sapnummer" : "I-IN-TR-KREU-5408",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150712",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 0.97
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5317096191, 47.363837438 ]
+			},
+			"properties" : {
+				"objectid" : 53,
+				"quellid" : 1992,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5605",
+				"sapnummer" : "I-IN-TR-KREU-5605",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 4,
+				"lieferwerktext" : "VBZ-EIGENPRODUKTION (CH)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150704",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313738618, 47.3650770265 ]
+			},
+			"properties" : {
+				"objectid" : 54,
+				"quellid" : 2201,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5606",
+				"sapnummer" : "I-IN-TR-KREU-5606",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20191013",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315932022, 47.3733935508 ]
+			},
+			"properties" : {
+				"objectid" : 70,
+				"quellid" : 2250,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "6303",
+				"sapnummer" : "I-IN-TR-KREU-6303",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 7,
+				"lieferwerktext" : "KÜNSTLER BAHNTECHNIK GMBH (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20151003",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316709507, 47.3652834154 ]
+			},
+			"properties" : {
+				"objectid" : 95,
+				"quellid" : 2202,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5601",
+				"sapnummer" : "I-IN-TR-KREU-5601",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 4,
+				"lieferwerktext" : "VBZ-EIGENPRODUKTION (CH)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20220508",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5407229923, 47.3664069336 ]
+			},
+			"properties" : {
+				"objectid" : 122,
+				"quellid" : 1800,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5302",
+				"sapnummer" : "I-IN-TR-KREU-5302",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 9,
+				"lieferwerktext" : "VOSSLOH LAEIS (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20241028",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 334.07
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405402863, 47.3664711664 ]
+			},
+			"properties" : {
+				"objectid" : 123,
+				"quellid" : 1801,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5303",
+				"sapnummer" : "I-IN-TR-KREU-5303",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 9,
+				"lieferwerktext" : "VOSSLOH LAEIS (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20241028",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 74.46
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5482677006, 47.3662540409 ]
+			},
+			"properties" : {
+				"objectid" : 124,
+				"quellid" : 1705,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5702",
+				"sapnummer" : "I-IN-TR-KREU-5702",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20100101",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 106.33
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5391139657, 47.3702428345 ]
+			},
+			"properties" : {
+				"objectid" : 136,
+				"quellid" : 2249,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5201",
+				"sapnummer" : "I-IN-TR-KREU-5201",
+				"kreuzungsbauart" : 5,
+				"kreuzungsbauarttext" : "TIEFRILLE INSERT",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 8,
+				"lieferwerktext" : "KIEHN (LUX)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20130420",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385400501, 47.3695590838 ]
+			},
+			"properties" : {
+				"objectid" : 137,
+				"quellid" : 1959,
+				"typ" : 25,
+				"typtext" : "16ER-KREUZ",
+				"nummer" : "5202",
+				"sapnummer" : "I-IN-TR-KREU-5202",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20160509",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385190886, 47.3695205053 ]
+			},
+			"properties" : {
+				"objectid" : 138,
+				"quellid" : 1961,
+				"typ" : 25,
+				"typtext" : "16ER-KREUZ",
+				"nummer" : "5202",
+				"sapnummer" : "I-IN-TR-KREU-5202",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20160509",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385640877, 47.3695112435 ]
+			},
+			"properties" : {
+				"objectid" : 139,
+				"quellid" : 1962,
+				"typ" : 25,
+				"typtext" : "16ER-KREUZ",
+				"nummer" : "5202",
+				"sapnummer" : "I-IN-TR-KREU-5202",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20160509",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385842184, 47.3695512691 ]
+			},
+			"properties" : {
+				"objectid" : 140,
+				"quellid" : 1960,
+				"typ" : 25,
+				"typtext" : "16ER-KREUZ",
+				"nummer" : "5202",
+				"sapnummer" : "I-IN-TR-KREU-5202",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20160509",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385948536, 47.3695084229 ]
+			},
+			"properties" : {
+				"objectid" : 141,
+				"quellid" : 1964,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5204",
+				"sapnummer" : "I-IN-TR-KREU-5204",
+				"kreuzungsbauart" : 4,
+				"kreuzungsbauarttext" : "TIEFRILLE MONOBLOCK",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20160509",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385440394, 47.369471361 ]
+			},
+			"properties" : {
+				"objectid" : 142,
+				"quellid" : 1963,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5205",
+				"sapnummer" : "I-IN-TR-KREU-5205",
+				"kreuzungsbauart" : 5,
+				"kreuzungsbauarttext" : "TIEFRILLE INSERT",
+				"material" : 4,
+				"materialtext" : "BAINIT 1400 PLUS",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20160509",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405439017, 47.3663251673 ]
+			},
+			"properties" : {
+				"objectid" : 143,
+				"quellid" : 1799,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5301",
+				"sapnummer" : "I-IN-TR-KREU-5301",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20100101",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 103.93
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5345497005, 47.3677209776 ]
+			},
+			"properties" : {
+				"objectid" : 144,
+				"quellid" : 1967,
+				"typ" : 27,
+				"typtext" : "FLACHRILLE EASY-KREUZUNG",
+				"nummer" : "5501",
+				"sapnummer" : "I-IN-TR-KREU-5501",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 4,
+				"lieferwerktext" : "VBZ-EIGENPRODUKTION (CH)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150328",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5345017312, 47.3676237095 ]
+			},
+			"properties" : {
+				"objectid" : 145,
+				"quellid" : 1968,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5502",
+				"sapnummer" : "I-IN-TR-KREU-5502",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 4,
+				"lieferwerktext" : "VBZ-EIGENPRODUKTION (CH)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150328",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5346783118, 47.3676641402 ]
+			},
+			"properties" : {
+				"objectid" : 146,
+				"quellid" : 1969,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5503",
+				"sapnummer" : "I-IN-TR-KREU-5503",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 4,
+				"lieferwerktext" : "VBZ-EIGENPRODUKTION (CH)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20150328",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315493503, 47.3645764767 ]
+			},
+			"properties" : {
+				"objectid" : 147,
+				"quellid" : 1987,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5603",
+				"sapnummer" : "I-IN-TR-KREU-5603",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20050101",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315336501, 47.3645662269 ]
+			},
+			"properties" : {
+				"objectid" : 148,
+				"quellid" : 1988,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5603",
+				"sapnummer" : "I-IN-TR-KREU-5603",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20050101",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315358709, 47.3645524972 ]
+			},
+			"properties" : {
+				"objectid" : 149,
+				"quellid" : 1989,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5603",
+				"sapnummer" : "I-IN-TR-KREU-5603",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20050101",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315843286, 47.3646507425 ]
+			},
+			"properties" : {
+				"objectid" : 150,
+				"quellid" : 1986,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5607",
+				"sapnummer" : "I-IN-TR-KREU-5607",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20050101",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531625676, 47.3646068686 ]
+			},
+			"properties" : {
+				"objectid" : 151,
+				"quellid" : 1985,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5608",
+				"sapnummer" : "I-IN-TR-KREU-5608",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20050101",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316620524, 47.3645846481 ]
+			},
+			"properties" : {
+				"objectid" : 152,
+				"quellid" : 1984,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5609",
+				"sapnummer" : "I-IN-TR-KREU-5609",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20050101",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5482753736, 47.3662721914 ]
+			},
+			"properties" : {
+				"objectid" : 153,
+				"quellid" : 1704,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "5701",
+				"sapnummer" : "I-IN-TR-KREU-5701",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 6,
+				"materialtext" : "R 220 G1",
+				"lieferwerk" : 2,
+				"lieferwerktext" : "BWG (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20090101",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 319.66
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5493961507, 47.3706439199 ]
+			},
+			"properties" : {
+				"objectid" : 169,
+				"quellid" : 1861,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "6801",
+				"sapnummer" : "I-IN-TR-KREU-6801",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 7,
+				"materialtext" : "R 260 V",
+				"lieferwerk" : 1,
+				"lieferwerktext" : "SCHRECK-MIEVES (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20120714",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5491969957, 47.3705143436 ]
+			},
+			"properties" : {
+				"objectid" : 170,
+				"quellid" : 1863,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "6802",
+				"sapnummer" : "I-IN-TR-KREU-6802",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 7,
+				"materialtext" : "R 260 V",
+				"lieferwerk" : 1,
+				"lieferwerktext" : "SCHRECK-MIEVES (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20120714",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5492440685, 47.3705042482 ]
+			},
+			"properties" : {
+				"objectid" : 171,
+				"quellid" : 2098,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "6802",
+				"sapnummer" : "I-IN-TR-KREU-6802",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 7,
+				"materialtext" : "R 260 V",
+				"lieferwerk" : 1,
+				"lieferwerktext" : "SCHRECK-MIEVES (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20120714",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5492512659, 47.3705027037 ]
+			},
+			"properties" : {
+				"objectid" : 172,
+				"quellid" : 2099,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "6802",
+				"sapnummer" : "I-IN-TR-KREU-6802",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 7,
+				"materialtext" : "R 260 V",
+				"lieferwerk" : 1,
+				"lieferwerktext" : "SCHRECK-MIEVES (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20120714",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.549224498, 47.3705360004 ]
+			},
+			"properties" : {
+				"objectid" : 173,
+				"quellid" : 2096,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "6802",
+				"sapnummer" : "I-IN-TR-KREU-6802",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 7,
+				"materialtext" : "R 260 V",
+				"lieferwerk" : 1,
+				"lieferwerktext" : "SCHRECK-MIEVES (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20120714",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5492697583, 47.3705253377 ]
+			},
+			"properties" : {
+				"objectid" : 174,
+				"quellid" : 2097,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "6802",
+				"sapnummer" : "I-IN-TR-KREU-6802",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 7,
+				"materialtext" : "R 260 V",
+				"lieferwerk" : 1,
+				"lieferwerktext" : "SCHRECK-MIEVES (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20120714",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5492396919, 47.3705007282 ]
+			},
+			"properties" : {
+				"objectid" : 175,
+				"quellid" : 1862,
+				"typ" : 26,
+				"typtext" : "TEIL VON MEHRFACH-KREUZUNG",
+				"nummer" : "6802",
+				"sapnummer" : "I-IN-TR-KREU-6802",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 7,
+				"materialtext" : "R 260 V",
+				"lieferwerk" : 1,
+				"lieferwerktext" : "SCHRECK-MIEVES (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20120714",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.549517761, 47.370472013 ]
+			},
+			"properties" : {
+				"objectid" : 176,
+				"quellid" : 2095,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "6803",
+				"sapnummer" : "I-IN-TR-KREU-6803",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 7,
+				"materialtext" : "R 260 V",
+				"lieferwerk" : 1,
+				"lieferwerktext" : "SCHRECK-MIEVES (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20120714",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "unbekannt",
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5472885271, 47.3657003375 ]
+			},
+			"properties" : {
+				"objectid" : 209,
+				"quellid" : 1706,
+				"typ" : 20,
+				"typtext" : "4ER-KREUZ",
+				"nummer" : "6901",
+				"sapnummer" : "I-IN-TR-KREU-6901",
+				"kreuzungsbauart" : 1,
+				"kreuzungsbauarttext" : "FLACHRILLE",
+				"material" : 3,
+				"materialtext" : "DILLIDUR / HARDOX / XAR 400",
+				"lieferwerk" : 9,
+				"lieferwerktext" : "VOSSLOH LAEIS (D)",
+				"schienenform" : 3,
+				"schienenformtext" : "undefined",
+				"einbaudatum" : "20250908",
+				"aktualitaet" : "unbestimmt",
+				"lagequalitaet" : "genau",
+				"orientierung" : 39.59
+			}
+		}
+	]
+}

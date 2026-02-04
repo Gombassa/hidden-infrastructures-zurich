@@ -1,0 +1,880 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.fahrleitungen_fl_kreuzung",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5525729148, 47.3654028408 ]
+			},
+			"properties" : {
+				"objectid" : 28,
+				"nummer" : "06.K02",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "12",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -36.54
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5525344081, 47.3654164981 ]
+			},
+			"properties" : {
+				"objectid" : 29,
+				"nummer" : "06.K02",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "11",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 142.82
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5524708454, 47.365464057 ]
+			},
+			"properties" : {
+				"objectid" : 30,
+				"nummer" : "06.K01",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "40",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 116
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5524821278, 47.3654603592 ]
+			},
+			"properties" : {
+				"objectid" : 31,
+				"nummer" : "06.K01",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "39",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 116.14
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5491969536, 47.3705142271 ]
+			},
+			"properties" : {
+				"objectid" : 32,
+				"nummer" : "68.K07",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "66",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -133.98
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5492245976, 47.3705356936 ]
+			},
+			"properties" : {
+				"objectid" : 33,
+				"nummer" : "68.K09",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "69",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 48.39
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.549270066, 47.3705254876 ]
+			},
+			"properties" : {
+				"objectid" : 34,
+				"nummer" : "68.K10",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "69",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 50.45
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5492429817, 47.3705041956 ]
+			},
+			"properties" : {
+				"objectid" : 35,
+				"nummer" : "68.K08",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "66",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -132.18
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488655552, 47.3701534956 ]
+			},
+			"properties" : {
+				"objectid" : 36,
+				"nummer" : "68.K05",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 66.62
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488612944, 47.3701472669 ]
+			},
+			"properties" : {
+				"objectid" : 37,
+				"nummer" : "68.K05",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 128.51
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488532665, 47.3701337254 ]
+			},
+			"properties" : {
+				"objectid" : 38,
+				"nummer" : "68.K03",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 133.17
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488917769, 47.3701213107 ]
+			},
+			"properties" : {
+				"objectid" : 39,
+				"nummer" : "68.K06",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -51.15
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.548896052, 47.3701282228 ]
+			},
+			"properties" : {
+				"objectid" : 40,
+				"nummer" : "68.K06",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 66.57
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488837914, 47.3701085333 ]
+			},
+			"properties" : {
+				"objectid" : 41,
+				"nummer" : "68.K04",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -49.99
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488789026, 47.3701026705 ]
+			},
+			"properties" : {
+				"objectid" : 42,
+				"nummer" : "68.K04",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -112.73
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488499968, 47.3701274062 ]
+			},
+			"properties" : {
+				"objectid" : 43,
+				"nummer" : "68.K03",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -114.12
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.548214886, 47.3709166464 ]
+			},
+			"properties" : {
+				"objectid" : 44,
+				"nummer" : "68.K02",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "32",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 117.19
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.54820068, 47.3709230795 ]
+			},
+			"properties" : {
+				"objectid" : 45,
+				"nummer" : "68.K02",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "34",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 111.38
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5481775275, 47.3709710752 ]
+			},
+			"properties" : {
+				"objectid" : 46,
+				"nummer" : "68.K01",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "23",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 112.69
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5481597195, 47.3709832189 ]
+			},
+			"properties" : {
+				"objectid" : 47,
+				"nummer" : "68.K01",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "20",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 113.05
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5445014819, 47.3669805981 ]
+			},
+			"properties" : {
+				"objectid" : 48,
+				"nummer" : "54.K01",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "81",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 170.09
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5445033352, 47.3670099406 ]
+			},
+			"properties" : {
+				"objectid" : 49,
+				"nummer" : "54.K02",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "82",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 170.73
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451243432, 47.3673798739 ]
+			},
+			"properties" : {
+				"objectid" : 50,
+				"nummer" : "54.K04",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -132.4
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451440412, 47.3673478243 ]
+			},
+			"properties" : {
+				"objectid" : 51,
+				"nummer" : "54.K06",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "64",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -127.21
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451577933, 47.367408212 ]
+			},
+			"properties" : {
+				"objectid" : 52,
+				"nummer" : "54.K03",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "59",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 53.46
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451776482, 47.3673747936 ]
+			},
+			"properties" : {
+				"objectid" : 53,
+				"nummer" : "54.K05",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "65",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 47.13
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474486177, 47.3725850336 ]
+			},
+			"properties" : {
+				"objectid" : 58,
+				"nummer" : "131.K06",
+				"typ" : 3,
+				"typtext" : "TB-TB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "65",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -72.97
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475439656, 47.3725925107 ]
+			},
+			"properties" : {
+				"objectid" : 59,
+				"nummer" : "131.K05",
+				"typ" : 3,
+				"typtext" : "TB-TB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "83",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -81.87
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475520868, 47.3725946275 ]
+			},
+			"properties" : {
+				"objectid" : 60,
+				"nummer" : "131.K05",
+				"typ" : 3,
+				"typtext" : "TB-TB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "81",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -81.53
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475417503, 47.3725986847 ]
+			},
+			"properties" : {
+				"objectid" : 61,
+				"nummer" : "131.K05",
+				"typ" : 3,
+				"typtext" : "TB-TB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "80",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 106.13
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475498645, 47.3726010984 ]
+			},
+			"properties" : {
+				"objectid" : 62,
+				"nummer" : "131.K05",
+				"typ" : 3,
+				"typtext" : "TB-TB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "80",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 104.81
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475192897, 47.3725928016 ]
+			},
+			"properties" : {
+				"objectid" : 63,
+				"nummer" : "08.K01",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "83",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 99.54
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475212156, 47.3725867203 ]
+			},
+			"properties" : {
+				"objectid" : 64,
+				"nummer" : "08.K01",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "82",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -70.28
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474739401, 47.3725833602 ]
+			},
+			"properties" : {
+				"objectid" : 65,
+				"nummer" : "08.K02",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "78",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -74.56
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474722568, 47.372589646 ]
+			},
+			"properties" : {
+				"objectid" : 66,
+				"nummer" : "08.K02",
+				"typ" : 4,
+				"typtext" : "TB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "71",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 105.01
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474376136, 47.3725926502 ]
+			},
+			"properties" : {
+				"objectid" : 157,
+				"nummer" : "131.K06",
+				"typ" : 3,
+				"typtext" : "TB-TB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "65",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 106.55
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474399451, 47.3725863312 ]
+			},
+			"properties" : {
+				"objectid" : 158,
+				"nummer" : "131.K06",
+				"typ" : 3,
+				"typtext" : "TB-TB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "65",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -74.61
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474463515, 47.3725913069 ]
+			},
+			"properties" : {
+				"objectid" : 159,
+				"nummer" : "131.K06",
+				"typ" : 3,
+				"typtext" : "TB-TB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "65",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 97.89
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316263201, 47.364605999 ]
+			},
+			"properties" : {
+				"objectid" : 208,
+				"nummer" : "56.K02",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "73",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -153.76
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316646835, 47.3645838316 ]
+			},
+			"properties" : {
+				"objectid" : 209,
+				"nummer" : "56.K01",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "58",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 26.33
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385200914, 47.3695203338 ]
+			},
+			"properties" : {
+				"objectid" : 245,
+				"nummer" : "52.K03",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "88",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 160.67
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385627875, 47.3695104733 ]
+			},
+			"properties" : {
+				"objectid" : 246,
+				"nummer" : "52.K02",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "85",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -16.71
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385413074, 47.3695584152 ]
+			},
+			"properties" : {
+				"objectid" : 247,
+				"nummer" : "52.K04",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "85",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 165.09
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385835635, 47.3695503309 ]
+			},
+			"properties" : {
+				"objectid" : 248,
+				"nummer" : "52.K01",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "86",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : 164.02
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456233855, 47.3668154482 ]
+			},
+			"properties" : {
+				"objectid" : 485,
+				"nummer" : "54.K07",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "62",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -28.81
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456210385, 47.3667827642 ]
+			},
+			"properties" : {
+				"objectid" : 486,
+				"nummer" : "54.K08",
+				"typ" : 5,
+				"typtext" : "StB-StB",
+				"stromunterbruch" : null,
+				"stb_nachgespannt" : null,
+				"gradeinteilung" : "65",
+				"zusatzinfo" : null,
+				"einbaudatum" : null,
+				"orientierung" : -27.17
+			}
+		}
+	]
+}

@@ -1,0 +1,6601 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.fahrleitungen_feeder",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5395800477, 47.36892376 ],
+					[ 8.5395338824, 47.3690464173 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 341
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5397203665, 47.3685530813 ],
+					[ 8.5396330733, 47.3687826063 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 343
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5396330733, 47.3687826063 ],
+					[ 8.5395800477, 47.36892376 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 350
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5395321526, 47.3690517769 ],
+					[ 8.5394860563, 47.3691803522 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 351
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5394860563, 47.3691803522 ],
+					[ 8.5394513256, 47.3692893087 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 352
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5394513256, 47.3692893087 ],
+					[ 8.5394403967, 47.3693640637 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 353
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5394403967, 47.3693640637 ],
+					[ 8.5394232415, 47.3695021409 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 354
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5394232415, 47.3695021409 ],
+					[ 8.5394141319, 47.3695585644 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 355
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5394141319, 47.3695585644 ],
+					[ 8.5393786578, 47.3696802741 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 356
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5393786578, 47.3696802741 ],
+					[ 8.5393120205, 47.369909341 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 357
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5405326514, 47.3662657717 ],
+					[ 8.540643747, 47.3663324003 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 373
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.540643747, 47.3663324003 ],
+					[ 8.5406869215, 47.3663579933 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 374
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5406869215, 47.3663579933 ],
+					[ 8.5407828189, 47.3664156907 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 375
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5407010578, 47.3664282546 ],
+					[ 8.5407857528, 47.3664237584 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 376
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5407010578, 47.3664282546 ],
+					[ 8.5406217358, 47.3664486479 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 377
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5406217358, 47.3664486479 ],
+					[ 8.5405785787, 47.3664693798 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 378
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5405785787, 47.3664693798 ],
+					[ 8.5405253295, 47.3665053198 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 379
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5405253295, 47.3665053198 ],
+					[ 8.5404710211, 47.366572654 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 380
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5404710211, 47.366572654 ],
+					[ 8.5404314935, 47.366658818 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 381
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5404314935, 47.366658818 ],
+					[ 8.5404043707, 47.3667500628 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 382
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5404043707, 47.3667500628 ],
+					[ 8.5403193576, 47.3669691954 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 383
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5403193576, 47.3669691954 ],
+					[ 8.5402525192, 47.3671522908 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 384
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5402525192, 47.3671522908 ],
+					[ 8.5401643, 47.3673790727 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 385
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5401643, 47.3673790727 ],
+					[ 8.5400924587, 47.3675706441 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 386
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5400924587, 47.3675706441 ],
+					[ 8.5399955824, 47.3678219393 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 639
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5399955824, 47.3678219393 ],
+					[ 8.5398999456, 47.36807047 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 640
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5398999456, 47.36807047 ],
+					[ 8.5398031724, 47.3683281325 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 641
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5398031724, 47.3683281325 ],
+					[ 8.5397203665, 47.3685530813 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 642
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.540367912, 47.3661717607 ],
+					[ 8.5404603856, 47.3662265496 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 684
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5404603856, 47.3662265496 ],
+					[ 8.5405326514, 47.3662657717 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 685
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5399165056, 47.3659386566 ],
+					[ 8.5401478717, 47.3660521729 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 833
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5412349202, 47.3664880502 ],
+					[ 8.5409236068, 47.3664359625 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 834
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5397181716, 47.3658385155 ],
+					[ 8.5399165056, 47.3659386566 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 845
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5401478717, 47.3660521729 ],
+					[ 8.540367912, 47.3661717607 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 846
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5418081512, 47.3666235934 ],
+					[ 8.5415434121, 47.3665560405 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 847
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5415434121, 47.3665560405 ],
+					[ 8.5414020626, 47.3665240092 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 848
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5413941611, 47.3665222227 ],
+					[ 8.5412349202, 47.3664880502 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 849
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5407828189, 47.3664156907 ],
+					[ 8.5408180636, 47.3664387598 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 850
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5409236068, 47.3664359625 ],
+					[ 8.5407857528, 47.3664237584 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 851
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5427722984, 47.3727375468 ],
+					[ 8.5427756794, 47.3725888156 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2101
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5429782852, 47.3742294199 ],
+					[ 8.5429131785, 47.3740033107 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2102
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5429131785, 47.3740033107 ],
+					[ 8.5428630948, 47.3738209721 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2103
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5428630948, 47.3738209721 ],
+					[ 8.5428287223, 47.3736459673 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2104
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5428287223, 47.3736459673 ],
+					[ 8.5427957799, 47.3734645622 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2105
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5427957799, 47.3734645622 ],
+					[ 8.5427883589, 47.3733600915 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2106
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5427883589, 47.3733600915 ],
+					[ 8.5427837378, 47.3731970986 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2107
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5427837378, 47.3731970986 ],
+					[ 8.5427816524, 47.3730574328 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2108
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5427816524, 47.3730574328 ],
+					[ 8.5427760021, 47.3729035618 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2109
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5427760021, 47.3729035618 ],
+					[ 8.5427722984, 47.3727375468 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2110
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5427756794, 47.3725888156 ],
+					[ 8.5427837839, 47.3723529752 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2111
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.54280775, 47.3720998114 ],
+					[ 8.5427837839, 47.3723529752 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2112
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.54280775, 47.3720998114 ],
+					[ 8.5428229677, 47.3718621939 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2113
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5428229677, 47.3718621939 ],
+					[ 8.5428509432, 47.3716229792 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2114
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5428509432, 47.3716229792 ],
+					[ 8.5428880851, 47.371387149 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2115
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5428880851, 47.371387149 ],
+					[ 8.5429288434, 47.3711955133 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2116
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5429288434, 47.3711955133 ],
+					[ 8.5429766448, 47.3709559021 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2117
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5429766448, 47.3709559021 ],
+					[ 8.5430125992, 47.3707752864 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2118
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5430125992, 47.3707752864 ],
+					[ 8.5430775998, 47.3705657164 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2119
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5430775998, 47.3705657164 ],
+					[ 8.5431163735, 47.3704675143 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2120
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5431163735, 47.3704675143 ],
+					[ 8.5432219813, 47.3702597866 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2121
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5432219813, 47.3702597866 ],
+					[ 8.5433058349, 47.3701166453 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2122
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5433058349, 47.3701166453 ],
+					[ 8.5433753891, 47.3699895261 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2123
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5433753891, 47.3699895261 ],
+					[ 8.543447953, 47.3698204606 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2124
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.543447953, 47.3698204606 ],
+					[ 8.5434877846, 47.3696730627 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2125
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5434877846, 47.3696730627 ],
+					[ 8.5435153686, 47.3695231193 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2126
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5435153686, 47.3695231193 ],
+					[ 8.543513677, 47.3693910416 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2127
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5435141113, 47.3693915501 ],
+					[ 8.543504553, 47.3692312758 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2128
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.543504553, 47.3692312758 ],
+					[ 8.5435205366, 47.3691183146 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2129
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5435205366, 47.3691183146 ],
+					[ 8.5435612446, 47.3690151555 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2131
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5437055229, 47.3688470138 ],
+					[ 8.5438329656, 47.3687258349 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2161
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5435612446, 47.3690151555 ],
+					[ 8.5436188943, 47.3689321453 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2163
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5436188943, 47.3689321453 ],
+					[ 8.5437055229, 47.3688470138 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2164
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5438329656, 47.3687258349 ],
+					[ 8.5439762221, 47.3685921451 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2165
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5439762221, 47.3685921451 ],
+					[ 8.5441744781, 47.3684137534 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2166
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5441744781, 47.3684137534 ],
+					[ 8.5444129159, 47.3681963694 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2167
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5444129159, 47.3681963694 ],
+					[ 8.5446351348, 47.3679931367 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2168
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5446402758, 47.3679888508 ],
+					[ 8.5448062806, 47.3678388407 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2234
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5463710357, 47.3740531637 ],
+					[ 8.5465464088, 47.3738454478 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2293
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5465464088, 47.3738454478 ],
+					[ 8.5467348698, 47.3736246709 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2294
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5467348698, 47.3736246709 ],
+					[ 8.5469131486, 47.3734129146 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2295
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5469130188, 47.3734117645 ],
+					[ 8.547072469, 47.373221768 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2296
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.547072469, 47.373221768 ],
+					[ 8.5472085293, 47.3730602135 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2297
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5472085293, 47.3730602135 ],
+					[ 8.5473210959, 47.3729227305 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2298
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5476923804, 47.3688538918 ],
+					[ 8.5475555355, 47.3687098169 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2700
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5475555355, 47.3687098169 ],
+					[ 8.5474054808, 47.368557629 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2708
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5474054808, 47.368557629 ],
+					[ 8.54725548, 47.3684449202 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2709
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.54725548, 47.3684449202 ],
+					[ 8.5470500926, 47.3683269769 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2710
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5470500926, 47.3683269769 ],
+					[ 8.5467534153, 47.3681931601 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2711
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5467534153, 47.3681931601 ],
+					[ 8.5464842638, 47.3680681547 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2712
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5464842638, 47.3680681547 ],
+					[ 8.5462248137, 47.3679492802 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2713
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5462248137, 47.3679492802 ],
+					[ 8.5459675871, 47.3678303119 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2714
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.547641852, 47.3718379924 ],
+					[ 8.5476115012, 47.372025653 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2742
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5420559643, 47.3666863781 ],
+					[ 8.5423938095, 47.3667529973 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2743
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5423938095, 47.3667529973 ],
+					[ 8.5426711645, 47.3667999097 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2744
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5426711645, 47.3667999097 ],
+					[ 8.5429944628, 47.3668551344 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2745
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5429944628, 47.3668551344 ],
+					[ 8.5433167689, 47.366911645 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2746
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5433167689, 47.366911645 ],
+					[ 8.5436418326, 47.3669670219 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2747
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.544934003, 47.3677160657 ],
+					[ 8.5448062806, 47.3678388407 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2748
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5393120205, 47.369909341 ],
+					[ 8.5392582096, 47.3700644985 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2865
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.539258308, 47.3700647764 ],
+					[ 8.5392000893, 47.3701578103 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2866
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5392000893, 47.3701578103 ],
+					[ 8.5391205039, 47.3702613023 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2867
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5391205039, 47.3702613023 ],
+					[ 8.539026603, 47.3704294887 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2868
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.539026603, 47.3704294887 ],
+					[ 8.5389474787, 47.3706323366 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2869
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5418081512, 47.3666235934 ],
+					[ 8.5420559643, 47.3666863781 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2909
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314801843, 47.3614781369 ],
+					[ 8.5314514263, 47.3617117616 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 471
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314514263, 47.3617117616 ],
+					[ 8.5314115174, 47.3620110845 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 472
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314115174, 47.3620110845 ],
+					[ 8.5313829633, 47.3622514535 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 473
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313829633, 47.3622514535 ],
+					[ 8.5313515877, 47.3625137164 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 474
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313515877, 47.3625137164 ],
+					[ 8.5313322793, 47.362666502 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 475
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313322793, 47.362666502 ],
+					[ 8.5313262542, 47.3627155287 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 476
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313262542, 47.3627155287 ],
+					[ 8.5312970728, 47.3629614986 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 477
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5312970728, 47.3629614986 ],
+					[ 8.5312905836, 47.3630266399 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 478
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5312905836, 47.3630266399 ],
+					[ 8.5312888031, 47.3631096551 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 479
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5320039481, 47.3596915335 ],
+					[ 8.5320778467, 47.35945221 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 524
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5320778467, 47.35945221 ],
+					[ 8.5321202474, 47.3592488414 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 525
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5312888031, 47.3631096551 ],
+					[ 8.5312898531, 47.3632765144 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 528
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5326189511, 47.3635715752 ],
+					[ 8.5323882479, 47.3636407023 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 529
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.532380433, 47.3636430971 ],
+					[ 8.5322266872, 47.3636915168 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 530
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5312898531, 47.3632765144 ],
+					[ 8.5313083609, 47.363417959 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 531
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313083609, 47.363417959 ],
+					[ 8.531331976, 47.3635999505 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 532
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313327512, 47.3636054752 ],
+					[ 8.531343419, 47.3636563588 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 533
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.531343419, 47.3636563588 ],
+					[ 8.5313602146, 47.3637394501 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 534
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313602146, 47.3637394501 ],
+					[ 8.5313802695, 47.3638491362 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 535
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313802695, 47.3638491362 ],
+					[ 8.5313770611, 47.3639755125 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 536
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313770611, 47.3639755125 ],
+					[ 8.5313655332, 47.3640816115 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 537
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5320039481, 47.3596915335 ],
+					[ 8.5319405267, 47.3598659656 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 586
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5319405267, 47.3598659656 ],
+					[ 8.5318433319, 47.3600900019 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 587
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5318433319, 47.3600900019 ],
+					[ 8.5317458404, 47.3603092915 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 588
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5317458404, 47.3603092915 ],
+					[ 8.5316743482, 47.3604717553 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 589
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5316743482, 47.3604717553 ],
+					[ 8.5316086298, 47.3606588741 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 590
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5316086298, 47.3606588741 ],
+					[ 8.5315571894, 47.3608528109 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 591
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5315571894, 47.3608528109 ],
+					[ 8.5315325622, 47.3610270015 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 592
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5315325622, 47.3610270015 ],
+					[ 8.5315079588, 47.3612482185 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 593
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5315079588, 47.3612482185 ],
+					[ 8.5314801843, 47.3614781369 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 594
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314026762, 47.3643306238 ],
+					[ 8.5314395721, 47.3644060948 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 630
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313655332, 47.3640816115 ],
+					[ 8.5313667886, 47.36420164 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 631
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313667886, 47.36420164 ],
+					[ 8.5314026762, 47.3643306238 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 632
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314395721, 47.3644060948 ],
+					[ 8.5314804704, 47.3644830482 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 633
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314804704, 47.3644830482 ],
+					[ 8.5315099239, 47.3645390431 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 634
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5315099239, 47.3645390431 ],
+					[ 8.5315428815, 47.364598693 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 635
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5315428815, 47.364598693 ],
+					[ 8.5315783671, 47.3646886595 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 636
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5315783671, 47.3646886595 ],
+					[ 8.5315974582, 47.3647777737 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 637
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5326189511, 47.3635715752 ],
+					[ 8.5330032692, 47.3634516086 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 787
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5330032692, 47.3634516086 ],
+					[ 8.5332075226, 47.3634013509 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 788
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5332075226, 47.3634013509 ],
+					[ 8.5333710063, 47.3633785097 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 789
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5333710063, 47.3633785097 ],
+					[ 8.5335715756, 47.3633700058 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 790
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5335715756, 47.3633700058 ],
+					[ 8.5337753555, 47.3633805229 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 791
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5337753555, 47.3633805229 ],
+					[ 8.5341580546, 47.3633971413 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 792
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5341580546, 47.3633971413 ],
+					[ 8.5344505425, 47.3634188962 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 793
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5344505425, 47.3634188962 ],
+					[ 8.5347187354, 47.3634586104 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 794
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5347187354, 47.3634586104 ],
+					[ 8.5349078844, 47.3635005585 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 795
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5349078844, 47.3635005585 ],
+					[ 8.5350786437, 47.3635501918 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 796
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5350786437, 47.3635501918 ],
+					[ 8.5352821324, 47.3636237381 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 797
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5352821324, 47.3636237381 ],
+					[ 8.5354577435, 47.3637128946 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 798
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5354577435, 47.3637128946 ],
+					[ 8.535709209, 47.3638364654 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 799
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.535709209, 47.3638364654 ],
+					[ 8.5360315854, 47.3639986527 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 800
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5360315854, 47.3639986527 ],
+					[ 8.5363102905, 47.3641352671 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 801
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5363102905, 47.3641352671 ],
+					[ 8.536576961, 47.3642685952 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 802
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.536576961, 47.3642685952 ],
+					[ 8.5368699407, 47.3644141937 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 803
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5368699407, 47.3644141937 ],
+					[ 8.5371453766, 47.364553212 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 804
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5371453766, 47.364553212 ],
+					[ 8.5373550792, 47.3646587723 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 835
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5373550792, 47.3646587723 ],
+					[ 8.5376171601, 47.3647888494 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 836
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5376171601, 47.3647888494 ],
+					[ 8.537891493, 47.364926833 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 837
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.537891493, 47.364926833 ],
+					[ 8.538163887, 47.3650612543 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 838
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.538163887, 47.3650612543 ],
+					[ 8.538474197, 47.3652173251 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 839
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.538474197, 47.3652173251 ],
+					[ 8.5387220575, 47.3653406628 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 840
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5387220575, 47.3653406628 ],
+					[ 8.5390092161, 47.365483334 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 841
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5390092161, 47.365483334 ],
+					[ 8.539298973, 47.365627374 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 842
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5393060084, 47.3656314717 ],
+					[ 8.5394797796, 47.3657174284 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 843
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5394797796, 47.3657174284 ],
+					[ 8.5397181716, 47.3658385155 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 844
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5321273442, 47.3657171771 ],
+					[ 8.5322876104, 47.3658617588 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1066
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5322876104, 47.3658617588 ],
+					[ 8.532416364, 47.3659778003 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1067
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.531696045, 47.365329521 ],
+					[ 8.5317999319, 47.3654210168 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1622
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5318050104, 47.3654259161 ],
+					[ 8.5318606861, 47.365475789 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1623
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5319662508, 47.3655716045 ],
+					[ 8.5321273442, 47.3657171771 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1624
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5316191687, 47.3649106966 ],
+					[ 8.5316222257, 47.3649816664 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1744
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5316191687, 47.3649106966 ],
+					[ 8.5315974582, 47.3647777737 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1859
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5316222257, 47.3649816664 ],
+					[ 8.531623038, 47.3650477641 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1860
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5308902491, 47.3647920113 ],
+					[ 8.5310035733, 47.3648621901 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1890
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5306263953, 47.3646715157 ],
+					[ 8.5308902491, 47.3647920113 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1893
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5310035733, 47.3648621901 ],
+					[ 8.5310802158, 47.3649125576 ],
+					[ 8.5311793731, 47.3649768615 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1901
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5311793731, 47.3649768615 ],
+					[ 8.5312495916, 47.3650199676 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1902
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.531696045, 47.365329521 ],
+					[ 8.5316069922, 47.3652570173 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1903
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5316939532, 47.3653301704 ],
+					[ 8.5317106855, 47.3653817072 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1904
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5312495916, 47.3650199676 ],
+					[ 8.5313429666, 47.3650766622 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1905
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313429666, 47.3650766622 ],
+					[ 8.5314069127, 47.3651153839 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1906
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314069127, 47.3651153839 ],
+					[ 8.5314765142, 47.3651587296 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1907
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.531623038, 47.3650477641 ],
+					[ 8.5316344797, 47.365119581 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1908
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5316356454, 47.3651247782 ],
+					[ 8.531651307, 47.3652002972 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1909
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314765142, 47.3651587296 ],
+					[ 8.5315783705, 47.3652338738 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1910
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5315783705, 47.3652338738 ],
+					[ 8.5316017442, 47.3652528932 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1911
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5319662508, 47.3655716045 ],
+					[ 8.5318606861, 47.365475789 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1912
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5316939532, 47.3653301704 ],
+					[ 8.531651307, 47.3652002972 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1913
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.530404997, 47.3645702096 ],
+					[ 8.5306263953, 47.3646715157 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2927
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5346844549, 47.3723083834 ],
+					[ 8.534785077, 47.3722292608 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 191
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5346024637, 47.3723856111 ],
+					[ 8.5346844549, 47.3723083834 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 234
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5346024635, 47.3723856021 ],
+					[ 8.5345190492, 47.3724702642 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 235
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5345190492, 47.3724702642 ],
+					[ 8.5344580011, 47.3725633854 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 236
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5344580011, 47.3725633854 ],
+					[ 8.534358461, 47.3726559092 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 237
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.534358461, 47.3726559092 ],
+					[ 8.5342951179, 47.3726940917 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 238
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5342951179, 47.3726940917 ],
+					[ 8.5341730191, 47.3727424113 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 239
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5341730191, 47.3727424113 ],
+					[ 8.534042715, 47.3727774239 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 240
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.534042715, 47.3727774239 ],
+					[ 8.5337286877, 47.3728576338 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 241
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5382417832, 47.3691677562 ],
+					[ 8.5383795978, 47.3692746467 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 349
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.538431916, 47.3695546894 ],
+					[ 8.5383474183, 47.3696344624 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 358
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5377644148, 47.3688186735 ],
+					[ 8.5378967931, 47.3689124385 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 359
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5378967931, 47.3689124385 ],
+					[ 8.5380931984, 47.3690579906 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 360
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5380931984, 47.3690579906 ],
+					[ 8.5382364601, 47.369163885 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 361
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5383795978, 47.3692746467 ],
+					[ 8.5384405556, 47.3693406664 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 362
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5384405556, 47.3693406664 ],
+					[ 8.5384893888, 47.3693927421 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 363
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5385705097, 47.3694233447 ],
+					[ 8.5385539531, 47.3694384613 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 364
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5384893888, 47.3693927421 ],
+					[ 8.5385378613, 47.3694420957 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 365
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5385378613, 47.3694420957 ],
+					[ 8.5385544463, 47.3694604408 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 366
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5385539531, 47.3694384613 ],
+					[ 8.5384877298, 47.3695080668 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 367
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5384877298, 47.3695080668 ],
+					[ 8.538431916, 47.3695546894 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 368
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5378383466, 47.3700269993 ],
+					[ 8.5379234157, 47.3699491822 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 369
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5379234157, 47.3699491822 ],
+					[ 8.5380250618, 47.3698694352 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 370
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5380250618, 47.3698694352 ],
+					[ 8.5381291875, 47.3697937303 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 371
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5381291875, 47.3697937303 ],
+					[ 8.5382320679, 47.3697205738 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 372
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5362100108, 47.3680570748 ],
+					[ 8.5363887555, 47.3681240181 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 638
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5353667083, 47.3678019595 ],
+					[ 8.5355436952, 47.3678492034 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 643
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5355436952, 47.3678492034 ],
+					[ 8.5355781487, 47.3678589777 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 644
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5355853201, 47.3678613203 ],
+					[ 8.5358188772, 47.3679275909 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 645
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5358188772, 47.3679275909 ],
+					[ 8.5359848407, 47.36798021 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 646
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5359848407, 47.36798021 ],
+					[ 8.5362100108, 47.3680570748 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 647
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5363887555, 47.3681240181 ],
+					[ 8.5365556694, 47.3681925128 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 648
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5365556694, 47.3681925128 ],
+					[ 8.5367707106, 47.3682930671 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 649
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5367707106, 47.3682930671 ],
+					[ 8.5370815466, 47.3684456825 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 650
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5370815466, 47.3684456825 ],
+					[ 8.5373515885, 47.3685769888 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 651
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5373515885, 47.3685769888 ],
+					[ 8.5375918607, 47.3687073274 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 652
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5375918607, 47.3687073274 ],
+					[ 8.5377644148, 47.3688186735 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 653
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5369676119, 47.3706530155 ],
+					[ 8.5372018756, 47.3704843324 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 852
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5372018756, 47.3704843324 ],
+					[ 8.5374845445, 47.3702821671 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 853
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5374845445, 47.3702821671 ],
+					[ 8.5377414495, 47.3700962846 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 854
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5377475627, 47.3700922326 ],
+					[ 8.5378383466, 47.3700269993 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 855
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5328032831, 47.3701360193 ],
+					[ 8.5325245245, 47.3702966233 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1033
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5325245245, 47.3702966233 ],
+					[ 8.5322645286, 47.3704579756 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1034
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5322645286, 47.3704579756 ],
+					[ 8.5320981965, 47.3705612134 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1035
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5320981965, 47.3705612134 ],
+					[ 8.5319450756, 47.370649475 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1036
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5319450756, 47.370649475 ],
+					[ 8.5317566584, 47.3707534521 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1037
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5317566584, 47.3707534521 ],
+					[ 8.5315400926, 47.370873041 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1038
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5315400926, 47.370873041 ],
+					[ 8.5315338691, 47.3708762571 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1039
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5315338691, 47.3708762571 ],
+					[ 8.5314297971, 47.3709331736 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1040
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314297971, 47.3709331736 ],
+					[ 8.5313039743, 47.370993534 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1041
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5313039743, 47.370993534 ],
+					[ 8.5312083729, 47.3710309226 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1042
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5312083729, 47.3710309226 ],
+					[ 8.5309630685, 47.371099303 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1043
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5309630685, 47.371099303 ],
+					[ 8.5307184456, 47.3711680182 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1044
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5307184456, 47.3711680182 ],
+					[ 8.5304727339, 47.3712437235 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1045
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.532416364, 47.3659778003 ],
+					[ 8.53253276, 47.3660838932 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1068
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.53253276, 47.3660838932 ],
+					[ 8.5327350349, 47.3662670164 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1069
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5327350349, 47.3662670164 ],
+					[ 8.532948348, 47.3664576266 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1078
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.532948348, 47.3664576266 ],
+					[ 8.533156032, 47.366631289 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1079
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.533156032, 47.366631289 ],
+					[ 8.5333291686, 47.3667653399 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1080
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5333291686, 47.3667653399 ],
+					[ 8.5334872006, 47.3668833335 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1081
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5334872006, 47.3668833335 ],
+					[ 8.5337576186, 47.3670859761 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1082
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5341073422, 47.3673496177 ],
+					[ 8.534276261, 47.3674804959 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1083
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.534276261, 47.3674804959 ],
+					[ 8.534359036, 47.3675345091 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1084
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.534359036, 47.3675345091 ],
+					[ 8.5344588719, 47.3675882345 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1085
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5344588719, 47.3675882345 ],
+					[ 8.5345493473, 47.3676213597 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1086
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5345493473, 47.3676213597 ],
+					[ 8.534593978, 47.3676335114 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1087
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.534593978, 47.3676335114 ],
+					[ 8.5347556465, 47.3676628036 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1088
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5351121332, 47.3677417884 ],
+					[ 8.5348901653, 47.3676897986 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1089
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5348901653, 47.3676897986 ],
+					[ 8.5347556465, 47.3676628036 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1090
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5343700868, 47.3681951791 ],
+					[ 8.5342768802, 47.3684556723 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1091
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5342768802, 47.3684556723 ],
+					[ 8.5342234979, 47.368602044 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1092
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5342234979, 47.368602044 ],
+					[ 8.5341701663, 47.3687515455 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1093
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5341701663, 47.3687515455 ],
+					[ 8.5341059933, 47.3689295295 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1094
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5341059933, 47.3689295295 ],
+					[ 8.5340296456, 47.3691420084 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1095
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5340296456, 47.3691420084 ],
+					[ 8.5339958499, 47.369242238 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1096
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5339958499, 47.369242238 ],
+					[ 8.5339568875, 47.3693210722 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1097
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5339568875, 47.3693210722 ],
+					[ 8.5338815778, 47.3694352601 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1098
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5351121332, 47.3677417884 ],
+					[ 8.5353667083, 47.3678019595 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1352
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5338815778, 47.3694352601 ],
+					[ 8.5337829505, 47.3695429767 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1682
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5337829505, 47.3695429767 ],
+					[ 8.5336562372, 47.3696428458 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1683
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5336562372, 47.3696428458 ],
+					[ 8.5335145445, 47.3697315769 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1684
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5335145445, 47.3697315769 ],
+					[ 8.5332966729, 47.3698529536 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1685
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5332966729, 47.3698529536 ],
+					[ 8.5330543893, 47.3699919757 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1686
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5330543893, 47.3699919757 ],
+					[ 8.5328032831, 47.3701360193 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1687
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5337576186, 47.3670859761 ],
+					[ 8.5339479424, 47.3672289843 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1695
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5341073422, 47.3673496177 ],
+					[ 8.5339531505, 47.3672330817 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1696
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5344403114, 47.3680044363 ],
+					[ 8.5343700868, 47.3681951791 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1697
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5320896602, 47.3739947822 ],
+					[ 8.531924549, 47.3737552486 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2602
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5382320679, 47.3697205738 ],
+					[ 8.5383474183, 47.3696344624 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2864
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5389459792, 47.3706373072 ],
+					[ 8.53888062, 47.3708129754 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2870
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.53888062, 47.3708129754 ],
+					[ 8.5387925518, 47.3710463659 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2871
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5387925518, 47.3710463659 ],
+					[ 8.5387105663, 47.3712640018 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2872
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5387105663, 47.3712640018 ],
+					[ 8.538625157, 47.37148964 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2873
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.538625157, 47.37148964 ],
+					[ 8.5385390377, 47.3717245408 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2874
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5385390377, 47.3717245408 ],
+					[ 8.538462604, 47.3719251318 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2875
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.538462604, 47.3719251318 ],
+					[ 8.538388773, 47.3721184028 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2876
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.538388773, 47.3721184028 ],
+					[ 8.5383266155, 47.3722973234 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2877
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5383266155, 47.3722973234 ],
+					[ 8.5383046497, 47.3724090813 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2878
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5383046497, 47.3724090813 ],
+					[ 8.5383013711, 47.3725312846 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2879
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5383013711, 47.3725312846 ],
+					[ 8.5382916401, 47.372752145 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2880
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5382916401, 47.372752145 ],
+					[ 8.5382822707, 47.3729777065 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2881
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5382821081, 47.372983303 ],
+					[ 8.5382735378, 47.3732296266 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2882
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5382735378, 47.3732296266 ],
+					[ 8.5382639651, 47.3734761487 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2883
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5382639651, 47.3734761487 ],
+					[ 8.5382579457, 47.373646511 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2884
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5382579457, 47.373646511 ],
+					[ 8.538258483, 47.3737482949 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2885
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.538258483, 47.3737482949 ],
+					[ 8.5382736311, 47.3738464856 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2886
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5382736311, 47.3738464856 ],
+					[ 8.5383296031, 47.3739812396 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2887
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5383296031, 47.3739812396 ],
+					[ 8.5384427295, 47.3741957041 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2888
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5369676119, 47.3706530155 ],
+					[ 8.5367174546, 47.3708337678 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2910
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5322390109, 47.3742089366 ],
+					[ 8.5320896602, 47.3739947822 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3046
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5328387806, 47.3730890117 ],
+					[ 8.5331331976, 47.3730080456 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3047
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5331331976, 47.3730080456 ],
+					[ 8.5334795485, 47.3729187877 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3048
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5334795485, 47.3729187877 ],
+					[ 8.5337286877, 47.3728576338 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3049
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5347850634, 47.3722292429 ],
+					[ 8.5350092668, 47.3720645459 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3050
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5350092668, 47.3720645459 ],
+					[ 8.5352717367, 47.3718760707 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3051
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5352717367, 47.3718760707 ],
+					[ 8.5355233665, 47.3716949839 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3052
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5355233665, 47.3716949839 ],
+					[ 8.5357558102, 47.3715255655 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3053
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5357558102, 47.3715255655 ],
+					[ 8.5359811672, 47.3713650922 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3054
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5359811672, 47.3713650922 ],
+					[ 8.5362126225, 47.3711992624 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3055
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5362126225, 47.3711992624 ],
+					[ 8.5364499184, 47.3710277726 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3056
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5364499184, 47.3710277726 ],
+					[ 8.5367174546, 47.3708337678 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3057
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.531924549, 47.3737552486 ],
+					[ 8.5318391584, 47.3736315192 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3287
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.531742831, 47.3734852076 ],
+					[ 8.5317027688, 47.373433235 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3288
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314662792, 47.3734056898 ],
+					[ 8.53155885, 47.3733888566 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3289
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5317508349, 47.3733544236 ],
+					[ 8.5316450127, 47.3733714183 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3290
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5316450127, 47.3733714183 ],
+					[ 8.53155885, 47.3733888566 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3291
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5322168435, 47.3732485205 ],
+					[ 8.5325137685, 47.3731703117 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3292
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5325137685, 47.3731703117 ],
+					[ 8.5328387806, 47.3730890117 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3293
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5317508349, 47.3733544236 ],
+					[ 8.5319097362, 47.3733242162 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3294
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5319174348, 47.3733225332 ],
+					[ 8.5322168435, 47.3732485205 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3295
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5317793197, 47.3735398405 ],
+					[ 8.531742831, 47.3734852076 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3296
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5318391584, 47.3736315192 ],
+					[ 8.5317819529, 47.3735449158 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3297
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5317027688, 47.373433235 ],
+					[ 8.5316289482, 47.3733390079 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3298
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5312876658, 47.3734432521 ],
+					[ 8.5312461933, 47.373453593 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3313
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5312461933, 47.373453593 ],
+					[ 8.531112333, 47.3734871247 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3314
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5309505824, 47.3735269556 ],
+					[ 8.5308201489, 47.3735571353 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3461
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.531112333, 47.3734871247 ],
+					[ 8.5309505824, 47.3735269556 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3474
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5314662792, 47.3734056898 ],
+					[ 8.5312876658, 47.3734432521 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3476
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5308201489, 47.3735571353 ],
+					[ 8.530637412, 47.3735983607 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3477
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5498843578, 47.3711794196 ],
+					[ 8.5500451261, 47.3713494016 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 730
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5500451261, 47.3713494016 ],
+					[ 8.5502121291, 47.3715255929 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 731
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5502121291, 47.3715255929 ],
+					[ 8.5503628116, 47.371681693 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 732
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5503628116, 47.371681693 ],
+					[ 8.5504915977, 47.3718182953 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 734
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5504915977, 47.3718182953 ],
+					[ 8.5505757691, 47.3719387578 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 735
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5505757691, 47.3719387578 ],
+					[ 8.5506169438, 47.3720349695 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 736
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5506169438, 47.3720349695 ],
+					[ 8.5506321203, 47.37213789 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 737
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5506321203, 47.37213789 ],
+					[ 8.5506188492, 47.372238017 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 738
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5506188492, 47.372238017 ],
+					[ 8.55056965, 47.3723652325 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 739
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.55056965, 47.3723652325 ],
+					[ 8.5505052268, 47.3725135803 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 740
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5505052268, 47.3725135803 ],
+					[ 8.5503936064, 47.37276329 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 822
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5503936064, 47.37276329 ],
+					[ 8.5502779713, 47.3730161056 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 823
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5502779713, 47.3730161056 ],
+					[ 8.5501723935, 47.3732572385 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 824
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5501723935, 47.3732572385 ],
+					[ 8.5500823278, 47.3734847473 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 825
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5500823278, 47.3734847473 ],
+					[ 8.5499887022, 47.3737396984 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 826
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5499887022, 47.3737396984 ],
+					[ 8.5498943526, 47.3739885487 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 827
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5498943526, 47.3739885487 ],
+					[ 8.5497987885, 47.374203319 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 828
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5475703433, 47.3722622251 ],
+					[ 8.5476115012, 47.372025653 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2233
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5473210959, 47.3729227305 ],
+					[ 8.5474050052, 47.3728055098 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2299
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5474050052, 47.3728055098 ],
+					[ 8.5474713678, 47.3726812163 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2323
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5474713678, 47.3726812163 ],
+					[ 8.5474787511, 47.3726580458 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2324
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5474787511, 47.3726580458 ],
+					[ 8.5474976792, 47.3725953208 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2325
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5474976792, 47.3725953208 ],
+					[ 8.5475309521, 47.3724793506 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2326
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5475309521, 47.3724793506 ],
+					[ 8.5475703433, 47.3722622251 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2327
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5518530114, 47.3699513674 ],
+					[ 8.5515155974, 47.3700230273 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2669
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.550616409, 47.3702143167 ],
+					[ 8.5502986246, 47.3702845517 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2670
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.552151763, 47.3698867447 ],
+					[ 8.5518530114, 47.3699513674 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2672
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5515155974, 47.3700230273 ],
+					[ 8.5511975413, 47.3700909196 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2673
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5511975413, 47.3700909196 ],
+					[ 8.5508954246, 47.3701555543 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2674
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5508954246, 47.3701555543 ],
+					[ 8.550616409, 47.3702143167 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2675
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5502986246, 47.3702845517 ],
+					[ 8.5500918464, 47.3703329928 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2676
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5496646827, 47.3704275939 ],
+					[ 8.5495535243, 47.3704510341 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2677
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5500918464, 47.3703329928 ],
+					[ 8.5498499226, 47.3703863231 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2678
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5496646827, 47.3704275939 ],
+					[ 8.5498426444, 47.3703877964 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2679
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5485527088, 47.3697614706 ],
+					[ 8.548376057, 47.3695728392 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2701
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.548376057, 47.3695728392 ],
+					[ 8.548272857, 47.3694639548 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2702
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.548272857, 47.3694639548 ],
+					[ 8.5481716427, 47.3693588471 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2703
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5480667454, 47.3692478919 ],
+					[ 8.5479665307, 47.369141785 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2704
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5479665307, 47.369141785 ],
+					[ 8.5478272894, 47.3689971577 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2705
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5478272894, 47.3689971577 ],
+					[ 8.5476923804, 47.3688538918 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2706
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5481716427, 47.3693588471 ],
+					[ 8.5480667454, 47.3692478919 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2707
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5495535243, 47.3704510341 ],
+					[ 8.54943192, 47.370477714 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2715
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.54943192, 47.370477714 ],
+					[ 8.5493389565, 47.3704987122 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2716
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5493389565, 47.3704987122 ],
+					[ 8.5492502409, 47.3705170609 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2717
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5492502409, 47.3705170609 ],
+					[ 8.5491693126, 47.3705335806 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2718
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5491693126, 47.3705335806 ],
+					[ 8.5490885775, 47.3705593814 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2719
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5493557875, 47.370623988 ],
+					[ 8.5492910136, 47.3705674555 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2720
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5492910136, 47.3705674555 ],
+					[ 8.5492459122, 47.3705279147 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2721
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5492459122, 47.3705279147 ],
+					[ 8.5491805133, 47.3704769653 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2722
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5491805133, 47.3704769653 ],
+					[ 8.5491105582, 47.370419592 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2723
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5490885775, 47.3705593814 ],
+					[ 8.5489275611, 47.3706270528 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2724
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5491105582, 47.370419592 ],
+					[ 8.549015655, 47.3703303099 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2725
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.549015655, 47.3703303099 ],
+					[ 8.5489496003, 47.3702516705 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2726
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5489496003, 47.3702516705 ],
+					[ 8.5488985385, 47.3701706831 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2727
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5488328726, 47.3700630125 ],
+					[ 8.5488985385, 47.3701706831 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2728
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5485527088, 47.3697614706 ],
+					[ 8.5487115904, 47.3699283692 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2729
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5487166351, 47.3699334569 ],
+					[ 8.5488328726, 47.3700630125 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2730
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5488035914, 47.3706781496 ],
+					[ 8.5489275611, 47.3706270528 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2731
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5487970797, 47.3706808298 ],
+					[ 8.5485734479, 47.3707772034 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2732
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5485734479, 47.3707772034 ],
+					[ 8.5483540648, 47.3708684445 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2733
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5483540648, 47.3708684445 ],
+					[ 8.5481988744, 47.3709393871 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2734
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5481988744, 47.3709393871 ],
+					[ 8.5481387203, 47.3709788151 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2735
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5481387203, 47.3709788151 ],
+					[ 8.5480726555, 47.3710313518 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2736
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5480726555, 47.3710313518 ],
+					[ 8.5480030012, 47.3711239244 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2737
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5478875387, 47.3713173229 ],
+					[ 8.5480030012, 47.3711239244 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2738
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5477798096, 47.3714974242 ],
+					[ 8.5478875387, 47.3713173229 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2739
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5477798096, 47.3714974242 ],
+					[ 8.5476903704, 47.3716701086 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2740
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5476903704, 47.3716701086 ],
+					[ 8.547641852, 47.3718379924 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2741
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5498843578, 47.3711794196 ],
+					[ 8.5496890735, 47.3709765143 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2905
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5495628229, 47.370841299 ],
+					[ 8.5494963665, 47.3707707684 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2906
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5494963665, 47.3707707684 ],
+					[ 8.5494204202, 47.3706921614 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2907
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5494204202, 47.3706921614 ],
+					[ 8.5493557875, 47.370623988 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2908
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5496890735, 47.3709765143 ],
+					[ 8.5495667647, 47.3708455518 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 3451
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5534376559, 47.3696084609 ],
+					[ 8.5531387291, 47.3696727918 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2665
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5531387291, 47.3696727918 ],
+					[ 8.5527631966, 47.369754493 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2666
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5527631966, 47.369754493 ],
+					[ 8.5524213545, 47.3698244982 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2667
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5524213545, 47.3698244982 ],
+					[ 8.552151763, 47.3698867447 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2668
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5481338372, 47.3649297794 ],
+					[ 8.5479975084, 47.3650944774 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1256
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5479975084, 47.3650944774 ],
+					[ 8.5478940623, 47.3652036471 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1257
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5478940623, 47.3652036471 ],
+					[ 8.5477821516, 47.3653005296 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1258
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5475814758, 47.3654569309 ],
+					[ 8.5477821516, 47.3653005296 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1259
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5474732332, 47.3655430826 ],
+					[ 8.5474218459, 47.3655848908 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1260
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5474732332, 47.3655430826 ],
+					[ 8.5475814758, 47.3654569309 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1261
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5474218459, 47.3655848908 ],
+					[ 8.5473365816, 47.3656510503 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1262
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5473365816, 47.3656510503 ],
+					[ 8.5473087506, 47.3656700904 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1263
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5472854185, 47.3656864608 ],
+					[ 8.5473087506, 47.3656700904 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1264
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5493952504, 47.3635735036 ],
+					[ 8.5496340544, 47.3632956929 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1364
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5496340544, 47.3632956929 ],
+					[ 8.5497727378, 47.3631408918 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1365
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5497727378, 47.3631408918 ],
+					[ 8.5499204243, 47.3629753625 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1366
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5499204243, 47.3629753625 ],
+					[ 8.5500548825, 47.362819909 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1367
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5502636588, 47.3625817038 ],
+					[ 8.5500548825, 47.362819909 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1368
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5504605757, 47.362353867 ],
+					[ 8.5502636588, 47.3625817038 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1369
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5506830248, 47.3621004624 ],
+					[ 8.5504605757, 47.362353867 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1370
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5508554548, 47.3618990456 ],
+					[ 8.5506830248, 47.3621004624 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1371
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5493952504, 47.3635735036 ],
+					[ 8.5491687051, 47.363830417 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1378
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5491687051, 47.363830417 ],
+					[ 8.5490327427, 47.3639615699 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1379
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5490327427, 47.3639615699 ],
+					[ 8.5488930995, 47.3640800208 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1380
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5488930995, 47.3640800208 ],
+					[ 8.54879149, 47.364171669 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1381
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5486850078, 47.3642957287 ],
+					[ 8.54879149, 47.364171669 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1382
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5486850078, 47.3642957287 ],
+					[ 8.5486648355, 47.3643188333 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1383
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5486648355, 47.3643188333 ],
+					[ 8.5484762203, 47.3645359638 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1384
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5484762203, 47.3645359638 ],
+					[ 8.5484566208, 47.3645598814 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1385
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5484566208, 47.3645598814 ],
+					[ 8.5483171251, 47.3647148146 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1386
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5483171251, 47.3647148146 ],
+					[ 8.5481378647, 47.3649248203 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1387
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5510463474, 47.3616809355 ],
+					[ 8.5508554548, 47.3618990456 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1420
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5512494812, 47.3614480899 ],
+					[ 8.5510463474, 47.3616809355 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1421
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5512494812, 47.3614480899 ],
+					[ 8.551435765, 47.3612338554 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1422
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.551435765, 47.3612338554 ],
+					[ 8.5516707047, 47.3609615554 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1423
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5518997432, 47.3607022019 ],
+					[ 8.5516707047, 47.3609615554 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1424
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5518997432, 47.3607022019 ],
+					[ 8.5521253424, 47.360439283 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1425
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5523347654, 47.3601967948 ],
+					[ 8.5521253424, 47.360439283 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1426
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5523347654, 47.3601967948 ],
+					[ 8.5525395426, 47.3599601438 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1427
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5527193823, 47.3597516093 ],
+					[ 8.5525395426, 47.3599601438 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1428
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5529260188, 47.3595204717 ],
+					[ 8.5527193823, 47.3597516093 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1429
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5529260188, 47.3595204717 ],
+					[ 8.5529995984, 47.3594325262 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1430
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5529995984, 47.3594325262 ],
+					[ 8.5530709302, 47.3593478856 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1431
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5532494939, 47.3591412064 ],
+					[ 8.5530709302, 47.3593478856 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 1432
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5478287436, 47.3659694044 ],
+					[ 8.5476765796, 47.3658784132 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2671
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5534016182, 47.3651411624 ],
+					[ 8.5532244351, 47.3652020429 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2680
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5532244351, 47.3652020429 ],
+					[ 8.5530119955, 47.3652724654 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2681
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5530119955, 47.3652724654 ],
+					[ 8.5527904321, 47.3653453682 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2682
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5527904321, 47.3653453682 ],
+					[ 8.5526543273, 47.3653890035 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2683
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5526543273, 47.3653890035 ],
+					[ 8.5525132273, 47.3654356283 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2684
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5525132273, 47.3654356283 ],
+					[ 8.5523632322, 47.3654842636 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2685
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5523632322, 47.3654842636 ],
+					[ 8.5522634163, 47.3655171141 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2686
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5522634163, 47.3655171141 ],
+					[ 8.5519857333, 47.3655953419 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2687
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5519857333, 47.3655953419 ],
+					[ 8.5516661079, 47.3656717515 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2688
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5516661079, 47.3656717515 ],
+					[ 8.5513410812, 47.3657291964 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2689
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5513410812, 47.3657291964 ],
+					[ 8.5510078386, 47.3657730018 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2690
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5510078386, 47.3657730018 ],
+					[ 8.5506833057, 47.3658021323 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2691
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5506833057, 47.3658021323 ],
+					[ 8.5503265053, 47.3658280013 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2692
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5503265053, 47.3658280013 ],
+					[ 8.5500632062, 47.3658622525 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2693
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5500632062, 47.3658622525 ],
+					[ 8.5497421869, 47.3659361424 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2694
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5497421869, 47.3659361424 ],
+					[ 8.5494450767, 47.3660087131 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2695
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5494450767, 47.3660087131 ],
+					[ 8.549083983, 47.3660986923 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2696
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.549083983, 47.3660986923 ],
+					[ 8.5488768926, 47.3661574788 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2697
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5488768926, 47.3661574788 ],
+					[ 8.5487494359, 47.3661995781 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2698
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5479758894, 47.3660597149 ],
+					[ 8.5478287436, 47.3659694044 ]
+				]
+			},
+			"properties" : {
+				"einbaudatum" : null,
+				"objectid" : 2699
+			}
+		}
+	]
+}

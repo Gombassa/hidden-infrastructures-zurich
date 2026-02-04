@@ -1,0 +1,32 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.fahrleitungen_eindrahtungstric",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5529989324, 47.3672500659 ]
+			},
+			"properties" : {
+				"objectid" : 12,
+				"typ" : "Eindrahtungstrichter unbekannt",
+				"einbaudatum" : null,
+				"orientierung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5529928055, 47.3672451507 ]
+			},
+			"properties" : {
+				"objectid" : 13,
+				"typ" : "Eindrahtungstrichter unbekannt",
+				"einbaudatum" : null,
+				"orientierung" : null
+			}
+		}
+	]
+}

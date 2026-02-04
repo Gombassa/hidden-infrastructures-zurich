@@ -1,0 +1,448 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.haltestellen_dfi_anzeiger",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.539179128, 47.3697838567 ]
+			},
+			"properties" : {
+				"objectid" : 27,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "78.76"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5393994816, 47.3699513245 ]
+			},
+			"properties" : {
+				"objectid" : 28,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "258.53"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5449264285, 47.3673076946 ]
+			},
+			"properties" : {
+				"objectid" : 42,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "149.69"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451863763, 47.3671867649 ]
+			},
+			"properties" : {
+				"objectid" : 43,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "65.24"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451803446, 47.3669567802 ]
+			},
+			"properties" : {
+				"objectid" : 44,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "191.56"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5449158352, 47.366883359 ]
+			},
+			"properties" : {
+				"objectid" : 45,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "11.18"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456152416, 47.3669486458 ]
+			},
+			"properties" : {
+				"objectid" : 46,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "229.28"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5446503463, 47.366524026 ]
+			},
+			"properties" : {
+				"objectid" : 47,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "58.55"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381944199, 47.373015243 ]
+			},
+			"properties" : {
+				"objectid" : 70,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "88.33"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5348043607, 47.372282275 ]
+			},
+			"properties" : {
+				"objectid" : 71,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "232.04"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5347038942, 47.3722150633 ]
+			},
+			"properties" : {
+				"objectid" : 72,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "44.64"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.548888343, 47.3706843422 ]
+			},
+			"properties" : {
+				"objectid" : 73,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "210.78"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5489139711, 47.3702956216 ]
+			},
+			"properties" : {
+				"objectid" : 74,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "119.64"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5387897612, 47.3698147315 ]
+			},
+			"properties" : {
+				"objectid" : 75,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "157.14"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5351779558, 47.3678045073 ]
+			},
+			"properties" : {
+				"objectid" : 77,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "159.37"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405437803, 47.3667785607 ]
+			},
+			"properties" : {
+				"objectid" : 78,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "255.09"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5411167721, 47.3665420427 ]
+			},
+			"properties" : {
+				"objectid" : 79,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "165.09"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313103347, 47.3642286918 ]
+			},
+			"properties" : {
+				"objectid" : 111,
+				"nummer" : null,
+				"typ" : "Info Smart an Decke montiert",
+				"orientierung" : "96.46"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314303981, 47.3642175352 ]
+			},
+			"properties" : {
+				"objectid" : 112,
+				"nummer" : null,
+				"typ" : "Info Smart an Decke montiert",
+				"orientierung" : "96.46"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314554499, 47.3642151033 ]
+			},
+			"properties" : {
+				"objectid" : 113,
+				"nummer" : null,
+				"typ" : "Info Smart an Decke montiert",
+				"orientierung" : "96.46"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475154529, 47.3663411881 ]
+			},
+			"properties" : {
+				"objectid" : 114,
+				"nummer" : null,
+				"typ" : "Info Smart an Decke montiert",
+				"orientierung" : "139.04"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476222533, 47.3655008226 ]
+			},
+			"properties" : {
+				"objectid" : 121,
+				"nummer" : null,
+				"typ" : "Info Smart an Decke montiert",
+				"orientierung" : "49.20"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476250454, 47.3653301842 ]
+			},
+			"properties" : {
+				"objectid" : 126,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "49.33"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486975252, 47.370401893 ]
+			},
+			"properties" : {
+				"objectid" : 143,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "235.36"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5391070489, 47.3697532223 ]
+			},
+			"properties" : {
+				"objectid" : 145,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "156.70"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5383521465, 47.3732614137 ]
+			},
+			"properties" : {
+				"objectid" : 166,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "267.70"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.544765269, 47.3670830187 ]
+			},
+			"properties" : {
+				"objectid" : 180,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "321.15"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5490418636, 47.3702701681 ]
+			},
+			"properties" : {
+				"objectid" : 185,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "299.64"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5389531191, 47.3695437615 ]
+			},
+			"properties" : {
+				"objectid" : 186,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "337.14"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5411654347, 47.3664091783 ]
+			},
+			"properties" : {
+				"objectid" : 187,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "345.09"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5481767697, 47.3660975618 ]
+			},
+			"properties" : {
+				"objectid" : 188,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "318.32"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5391070489, 47.3697532223 ]
+			},
+			"properties" : {
+				"objectid" : 198,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "337.87"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5360245715, 47.3679234599 ]
+			},
+			"properties" : {
+				"objectid" : 201,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "331.96"
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478988913, 47.3660841028 ]
+			},
+			"properties" : {
+				"objectid" : 211,
+				"nummer" : null,
+				"typ" : "Info Smart",
+				"orientierung" : "136.93"
+			}
+		}
+	]
+}

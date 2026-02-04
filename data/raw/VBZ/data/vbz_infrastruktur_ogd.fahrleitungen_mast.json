@@ -1,0 +1,5963 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.fahrleitungen_mast",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.540412958, 47.3671405778 ]
+			},
+			"properties" : {
+				"nummer" : "53.001",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : "20250630",
+				"hoehemastok" : 418.85,
+				"hoehemastuk" : 408.4,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : "LS 2",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 19
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5403029878, 47.3674347162 ]
+			},
+			"properties" : {
+				"nummer" : "01.092",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : "20250630",
+				"hoehemastok" : 420.74,
+				"hoehemastuk" : 408.65,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : "LS 2",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 26
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5317412532, 47.3600758653 ]
+			},
+			"properties" : {
+				"nummer" : "04.030",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 429.22,
+				"hoehemastuk" : 418.7,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 538
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316008673, 47.3603247681 ]
+			},
+			"properties" : {
+				"nummer" : "04.028",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 428.99,
+				"hoehemastuk" : 418.53,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 539
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531485508, 47.3605598241 ]
+			},
+			"properties" : {
+				"nummer" : "04.026",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 428.69,
+				"hoehemastuk" : 418.22,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 540
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314123798, 47.360834356 ]
+			},
+			"properties" : {
+				"nummer" : "04.024",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 428.08,
+				"hoehemastuk" : 417.58,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 541
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314012612, 47.3611780585 ]
+			},
+			"properties" : {
+				"nummer" : "04.022",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 427.89,
+				"hoehemastuk" : 416.59,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 542
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313803797, 47.3613399711 ]
+			},
+			"properties" : {
+				"nummer" : "04.020",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 426.64,
+				"hoehemastuk" : 416.06,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 543
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313489965, 47.3616011908 ]
+			},
+			"properties" : {
+				"nummer" : "04.018",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 425.96,
+				"hoehemastuk" : 415.37,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 544
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313190979, 47.3618366792 ]
+			},
+			"properties" : {
+				"nummer" : "04.016",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 425.3,
+				"hoehemastuk" : 414.72,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 545
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5312975791, 47.3620120906 ]
+			},
+			"properties" : {
+				"nummer" : "04.014",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 424.82,
+				"hoehemastuk" : 414.23,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 546
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531256217, 47.3623400407 ]
+			},
+			"properties" : {
+				"nummer" : "04.012",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.89,
+				"hoehemastuk" : 413.38,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 547
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5312394279, 47.3624839872 ]
+			},
+			"properties" : {
+				"nummer" : "04.008",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.43,
+				"hoehemastuk" : 412.94,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 548
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5311998532, 47.3627040954 ]
+			},
+			"properties" : {
+				"nummer" : "04.006",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 422.89,
+				"hoehemastuk" : 412.36,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 549
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5311678438, 47.36295745 ]
+			},
+			"properties" : {
+				"nummer" : "04.004",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 422.26,
+				"hoehemastuk" : 411.69,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 550
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5311601609, 47.3631077689 ]
+			},
+			"properties" : {
+				"nummer" : "04.002",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 421.83,
+				"hoehemastuk" : 411.25,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 551
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5311619843, 47.3632800898 ]
+			},
+			"properties" : {
+				"nummer" : "56.082",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 421.44,
+				"hoehemastuk" : 410.89,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 552
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313766781, 47.3632883041 ]
+			},
+			"properties" : {
+				"nummer" : "56.083",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 421.03,
+				"hoehemastuk" : 410.51,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 553
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314252346, 47.363593599 ]
+			},
+			"properties" : {
+				"nummer" : "56.079",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.48,
+				"hoehemastuk" : 409.76,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 554
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314211384, 47.3640816341 ]
+			},
+			"properties" : {
+				"nummer" : "56.054",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.85,
+				"hoehemastuk" : 409.35,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 555
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316643516, 47.3640742952 ]
+			},
+			"properties" : {
+				"nummer" : "56.053",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.61,
+				"hoehemastuk" : 409.05,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 556
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314891881, 47.3643903515 ]
+			},
+			"properties" : {
+				"nummer" : "56.044",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.78,
+				"hoehemastuk" : 409.29,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 557
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5317299083, 47.3643937224 ]
+			},
+			"properties" : {
+				"nummer" : "56.045",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.25,
+				"hoehemastuk" : 408.96,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 558
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5321189106, 47.364621809 ]
+			},
+			"properties" : {
+				"nummer" : "56.038",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.04,
+				"hoehemastuk" : 408.69,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 559
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.533302329, 47.3731942973 ]
+			},
+			"properties" : {
+				"nummer" : "{5C37F481-",
+				"masttyp" : "Typ1",
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : null,
+				"hoehemastuk" : null,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : -162.65,
+				"objectid" : 586
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5520644308, 47.370069487 ]
+			},
+			"properties" : {
+				"nummer" : "08.093",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.29,
+				"hoehemastuk" : 424.91,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 817
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5519032041, 47.3698396403 ]
+			},
+			"properties" : {
+				"nummer" : "08.090",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 436.74,
+				"hoehemastuk" : 424.61,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 818
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5497635764, 47.3705234036 ]
+			},
+			"properties" : {
+				"nummer" : "68.037",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.07,
+				"hoehemastuk" : 423.6,
+				"gesamtlaenge" : 10,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 819
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488715181, 47.3663139116 ]
+			},
+			"properties" : {
+				"nummer" : "57.027a",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.96,
+				"hoehemastuk" : 411.38,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1334
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5469268018, 47.373274771 ]
+			},
+			"properties" : {
+				"nummer" : "08.046",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 429.02,
+				"hoehemastuk" : 419.61,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : "11a",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1536
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5471706998, 47.3728654536 ]
+			},
+			"properties" : {
+				"nummer" : "08.056",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.41,
+				"hoehemastuk" : 420.31,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1537
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5472248473, 47.372634496 ]
+			},
+			"properties" : {
+				"nummer" : "08.058",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 431.43,
+				"hoehemastuk" : 421.01,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1538
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5473755753, 47.3724677632 ]
+			},
+			"properties" : {
+				"nummer" : "08.062",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.57,
+				"hoehemastuk" : 421.38,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1539
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476577757, 47.3724881536 ]
+			},
+			"properties" : {
+				"nummer" : "08.061",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 429.64,
+				"hoehemastuk" : 421.57,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1540
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474142807, 47.3722411904 ]
+			},
+			"properties" : {
+				"nummer" : "08.064",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 433.03,
+				"hoehemastuk" : 421.65,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1541
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476923671, 47.3722790168 ]
+			},
+			"properties" : {
+				"nummer" : "08.063",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 433.06,
+				"hoehemastuk" : 421.65,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1542
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478612106, 47.3726622444 ]
+			},
+			"properties" : {
+				"nummer" : "08.060",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 429.61,
+				"hoehemastuk" : 422.09,
+				"gesamtlaenge" : 9,
+				"fundamenttyp" : "13a",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1549
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5428272074, 47.3740119763 ]
+			},
+			"properties" : {
+				"nummer" : "03.020",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.08,
+				"hoehemastuk" : 408.68,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1569
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427596812, 47.3737521223 ]
+			},
+			"properties" : {
+				"nummer" : "03.022",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418,
+				"hoehemastuk" : 408.7,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1570
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5426887911, 47.3729264426 ]
+			},
+			"properties" : {
+				"nummer" : "03.032",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.09,
+				"hoehemastuk" : 408.65,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1571
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5426846345, 47.372663752 ]
+			},
+			"properties" : {
+				"nummer" : "03.036",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.14,
+				"hoehemastuk" : 408.84,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1603
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.542670616, 47.37241526 ]
+			},
+			"properties" : {
+				"nummer" : "03.038",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.54,
+				"hoehemastuk" : 408.26,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1649
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.542848906, 47.371119387 ]
+			},
+			"properties" : {
+				"nummer" : "03.048",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.93,
+				"hoehemastuk" : 408.48,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1650
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429349934, 47.3707011077 ]
+			},
+			"properties" : {
+				"nummer" : "03.052",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.15,
+				"hoehemastuk" : 408.58,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1651
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5428973712, 47.3708855983 ]
+			},
+			"properties" : {
+				"nummer" : "03.050",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.96,
+				"hoehemastuk" : 408.46,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1652
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429748803, 47.3705083469 ]
+			},
+			"properties" : {
+				"nummer" : "03.056",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.25,
+				"hoehemastuk" : 408.77,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1653
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5430084587, 47.3703370459 ]
+			},
+			"properties" : {
+				"nummer" : "03.058",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.49,
+				"hoehemastuk" : 408.97,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1654
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5430468709, 47.3701581338 ]
+			},
+			"properties" : {
+				"nummer" : "03.060",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.84,
+				"hoehemastuk" : 409.33,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1655
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5432984147, 47.3692346508 ]
+			},
+			"properties" : {
+				"nummer" : "03.072",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.13,
+				"hoehemastuk" : 407.72,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1656
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5434662044, 47.3689921555 ]
+			},
+			"properties" : {
+				"nummer" : "03.074",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.17,
+				"hoehemastuk" : 407.69,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1657
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.543579734, 47.3687695006 ]
+			},
+			"properties" : {
+				"nummer" : "03.078",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.25,
+				"hoehemastuk" : 407.75,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1658
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5438799281, 47.3685418571 ]
+			},
+			"properties" : {
+				"nummer" : "03.080",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 425.49,
+				"hoehemastuk" : 407.89,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1659
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5440671253, 47.3683582014 ]
+			},
+			"properties" : {
+				"nummer" : "03.082",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.33,
+				"hoehemastuk" : 407.85,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1660
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5442228665, 47.3681070768 ]
+			},
+			"properties" : {
+				"nummer" : "03.084",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.18,
+				"hoehemastuk" : 407.85,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1661
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427143275, 47.3734752714 ]
+			},
+			"properties" : {
+				"nummer" : "03.026",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 413.03,
+				"hoehemastuk" : 408.67,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1662
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5426988902, 47.373197298 ]
+			},
+			"properties" : {
+				"nummer" : "03.030",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.98,
+				"hoehemastuk" : 408.68,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1663
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5532977951, 47.366604566 ]
+			},
+			"properties" : {
+				"nummer" : "131.359",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.72,
+				"hoehemastuk" : 424.85,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1683
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5524380165, 47.3676125314 ]
+			},
+			"properties" : {
+				"nummer" : "131.373",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.01,
+				"hoehemastuk" : 424.55,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1686
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.551814777, 47.3678414946 ]
+			},
+			"properties" : {
+				"nummer" : "131.378",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 431.96,
+				"hoehemastuk" : 424.52,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1687
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.549785012, 47.3693259763 ]
+			},
+			"properties" : {
+				"nummer" : "131.404",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 431.01,
+				"hoehemastuk" : 423.33,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1688
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5530675057, 47.3663964719 ]
+			},
+			"properties" : {
+				"nummer" : "131.356",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.3,
+				"hoehemastuk" : 424.98,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1689
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.552919771, 47.3662239755 ]
+			},
+			"properties" : {
+				"nummer" : "131.354",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.32,
+				"hoehemastuk" : 424.98,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1690
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.553046261, 47.366168721 ]
+			},
+			"properties" : {
+				"nummer" : "131.355",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.25,
+				"hoehemastuk" : 424.73,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1691
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5527247208, 47.3660123205 ]
+			},
+			"properties" : {
+				"nummer" : "131.352",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.19,
+				"hoehemastuk" : 424.86,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1692
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5528743969, 47.3659813094 ]
+			},
+			"properties" : {
+				"nummer" : "131.353",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.17,
+				"hoehemastuk" : 424.68,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1693
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5526950657, 47.3657856041 ]
+			},
+			"properties" : {
+				"nummer" : "131.351",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.09,
+				"hoehemastuk" : 424.59,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1694
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5524977358, 47.3657853576 ]
+			},
+			"properties" : {
+				"nummer" : "131.350",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.1,
+				"hoehemastuk" : 424.79,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1695
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5530498273, 47.3650935279 ]
+			},
+			"properties" : {
+				"nummer" : "06.028",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.58,
+				"hoehemastuk" : 423.99,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1696
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.55268799, 47.3654311811 ]
+			},
+			"properties" : {
+				"nummer" : "06.023",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 434.79,
+				"hoehemastuk" : 424.25,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1697
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5521979353, 47.3654487704 ]
+			},
+			"properties" : {
+				"nummer" : "06.020",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 434.35,
+				"hoehemastuk" : 423.99,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1698
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5523291693, 47.3655851583 ]
+			},
+			"properties" : {
+				"nummer" : "06.019",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 434.96,
+				"hoehemastuk" : 424.34,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1699
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5525682654, 47.3654749641 ]
+			},
+			"properties" : {
+				"nummer" : "06.023a",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.06,
+				"hoehemastuk" : 424.2,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1700
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5525496996, 47.3656281153 ]
+			},
+			"properties" : {
+				"nummer" : "06.021",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435,
+				"hoehemastuk" : 424.57,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1701
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.551927416, 47.3654940696 ]
+			},
+			"properties" : {
+				"nummer" : "06.020a",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 433.83,
+				"hoehemastuk" : 423.42,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1702
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5520089579, 47.3656410924 ]
+			},
+			"properties" : {
+				"nummer" : "06.018",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 433.83,
+				"hoehemastuk" : 423.4,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1703
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5516895869, 47.3657157455 ]
+			},
+			"properties" : {
+				"nummer" : "06.017",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.24,
+				"hoehemastuk" : 422.12,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1704
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5513553041, 47.3657756634 ]
+			},
+			"properties" : {
+				"nummer" : "06.015",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 430.77,
+				"hoehemastuk" : 420.81,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1705
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5513095464, 47.3656455661 ]
+			},
+			"properties" : {
+				"nummer" : "06.014",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 430.95,
+				"hoehemastuk" : 420.46,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1706
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5510234643, 47.3658194554 ]
+			},
+			"properties" : {
+				"nummer" : "06.013",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 429.92,
+				"hoehemastuk" : 419.51,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1707
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5506970471, 47.3658471288 ]
+			},
+			"properties" : {
+				"nummer" : "06.011",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 428.54,
+				"hoehemastuk" : 418.28,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1708
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5503371735, 47.3658754741 ]
+			},
+			"properties" : {
+				"nummer" : "06.009",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 427.25,
+				"hoehemastuk" : 416.81,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1709
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5503050524, 47.3657446066 ]
+			},
+			"properties" : {
+				"nummer" : "06.010",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 427.4,
+				"hoehemastuk" : 416.91,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1710
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5500846167, 47.3659093341 ]
+			},
+			"properties" : {
+				"nummer" : "06.007",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 426.45,
+				"hoehemastuk" : 416,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1711
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5497745566, 47.3659856193 ]
+			},
+			"properties" : {
+				"nummer" : "06.005",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 424.71,
+				"hoehemastuk" : 414.48,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1712
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.549466232, 47.3660613653 ]
+			},
+			"properties" : {
+				"nummer" : "06.003",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.66,
+				"hoehemastuk" : 413.24,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1713
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5494085011, 47.3659263902 ]
+			},
+			"properties" : {
+				"nummer" : "06.004",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 421.01,
+				"hoehemastuk" : 413.08,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1714
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5485521219, 47.3663902923 ]
+			},
+			"properties" : {
+				"nummer" : "57.025",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.86,
+				"hoehemastuk" : 410.51,
+				"gesamtlaenge" : 9,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1715
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5481690915, 47.36634315 ]
+			},
+			"properties" : {
+				"nummer" : "57.020",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.95,
+				"hoehemastuk" : 410.01,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1716
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5480589506, 47.3662038833 ]
+			},
+			"properties" : {
+				"nummer" : "57.007",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.05,
+				"hoehemastuk" : 409.82,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1717
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478351223, 47.3660710785 ]
+			},
+			"properties" : {
+				"nummer" : "57.003",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.72,
+				"hoehemastuk" : 409.26,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1718
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476823943, 47.3659822697 ]
+			},
+			"properties" : {
+				"nummer" : "57.001",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.15,
+				"hoehemastuk" : 408.93,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1719
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475027244, 47.3658782026 ]
+			},
+			"properties" : {
+				"nummer" : "69.015",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.21,
+				"hoehemastuk" : 408.64,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1720
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547319024, 47.3658304928 ]
+			},
+			"properties" : {
+				"nummer" : "69.013",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.01,
+				"hoehemastuk" : 409.54,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1721
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5471876754, 47.3659394888 ]
+			},
+			"properties" : {
+				"nummer" : "69.011",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.88,
+				"hoehemastuk" : 408.47,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1722
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5472942977, 47.3660421168 ]
+			},
+			"properties" : {
+				"nummer" : "69.009",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.13,
+				"hoehemastuk" : 408.63,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1723
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474753153, 47.3661485909 ]
+			},
+			"properties" : {
+				"nummer" : "57.009",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.49,
+				"hoehemastuk" : 409.05,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1724
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476296417, 47.3662391298 ]
+			},
+			"properties" : {
+				"nummer" : "57.011",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.61,
+				"hoehemastuk" : 409.35,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1725
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478443527, 47.3663664365 ]
+			},
+			"properties" : {
+				"nummer" : "57.013",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.79,
+				"hoehemastuk" : 409.51,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1726
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486661211, 47.3697210538 ]
+			},
+			"properties" : {
+				"nummer" : "07.032",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.25,
+				"hoehemastuk" : 426.35,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1727
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5484712616, 47.3697892747 ]
+			},
+			"properties" : {
+				"nummer" : "07.031",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.76,
+				"hoehemastuk" : 422.29,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1728
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5482914254, 47.369600314 ]
+			},
+			"properties" : {
+				"nummer" : "07.029",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.26,
+				"hoehemastuk" : 421.8,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1729
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.548493327, 47.3695339327 ]
+			},
+			"properties" : {
+				"nummer" : "07.030",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 428.83,
+				"hoehemastuk" : 428.1,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1730
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5482839684, 47.3693031493 ]
+			},
+			"properties" : {
+				"nummer" : "07.028",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 431.75,
+				"hoehemastuk" : 428.79,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1731
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5480964372, 47.3693932475 ]
+			},
+			"properties" : {
+				"nummer" : "07.027",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.78,
+				"hoehemastuk" : 421.29,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1732
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5471086488, 47.3682706628 ]
+			},
+			"properties" : {
+				"nummer" : "07.012",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.87,
+				"hoehemastuk" : 420.43,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1733
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5464228325, 47.3681409571 ]
+			},
+			"properties" : {
+				"nummer" : "07.007",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 424.28,
+				"hoehemastuk" : 413.84,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1734
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5495346855, 47.3706474989 ]
+			},
+			"properties" : {
+				"nummer" : "68.032",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.41,
+				"hoehemastuk" : 423.81,
+				"gesamtlaenge" : 10,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1735
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5490678333, 47.3706600119 ]
+			},
+			"properties" : {
+				"nummer" : "68.015a",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 433.56,
+				"hoehemastuk" : 423.18,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1736
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488316857, 47.3705470449 ]
+			},
+			"properties" : {
+				"nummer" : "68.014",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 431.49,
+				"hoehemastuk" : 423.51,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1737
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488600542, 47.3703973265 ]
+			},
+			"properties" : {
+				"nummer" : "68.023",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.64,
+				"hoehemastuk" : 423.32,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1738
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486550333, 47.3705111609 ]
+			},
+			"properties" : {
+				"nummer" : "68.012",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 434.13,
+				"hoehemastuk" : 423.53,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1739
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488135226, 47.369887289 ]
+			},
+			"properties" : {
+				"nummer" : "68.016",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 431.86,
+				"hoehemastuk" : 423.98,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1740
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5484284161, 47.3707038832 ]
+			},
+			"properties" : {
+				"nummer" : "68.011",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 435.5,
+				"hoehemastuk" : 423.29,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1741
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478830519, 47.3710348999 ]
+			},
+			"properties" : {
+				"nummer" : "68.002",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 431.62,
+				"hoehemastuk" : 422.69,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1743
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474541138, 47.3720026432 ]
+			},
+			"properties" : {
+				"nummer" : "08.066",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.39,
+				"hoehemastuk" : 421.96,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1744
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474792938, 47.3718197277 ]
+			},
+			"properties" : {
+				"nummer" : "08.068",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.65,
+				"hoehemastuk" : 422.16,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1745
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478159694, 47.3717550582 ]
+			},
+			"properties" : {
+				"nummer" : "08.069",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 431.72,
+				"hoehemastuk" : 421.44,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1746
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474958355, 47.3716193906 ]
+			},
+			"properties" : {
+				"nummer" : "08.070",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.86,
+				"hoehemastuk" : 422.52,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1747
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478922275, 47.3715318215 ]
+			},
+			"properties" : {
+				"nummer" : "08.071",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.74,
+				"hoehemastuk" : 421.73,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1748
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.54761271, 47.3713499248 ]
+			},
+			"properties" : {
+				"nummer" : "08.072",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 433.11,
+				"hoehemastuk" : 422.64,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1749
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5477876759, 47.3712142978 ]
+			},
+			"properties" : {
+				"nummer" : "08.074",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.73,
+				"hoehemastuk" : 422.38,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1750
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5480478324, 47.3712809271 ]
+			},
+			"properties" : {
+				"nummer" : "08.073",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 432.99,
+				"hoehemastuk" : 422.02,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1751
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5449830476, 47.3673442753 ]
+			},
+			"properties" : {
+				"nummer" : "54.032",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.2,
+				"hoehemastuk" : 408.33,
+				"gesamtlaenge" : 16.5,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1752
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5446611038, 47.3673520273 ]
+			},
+			"properties" : {
+				"nummer" : "54.034",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.2,
+				"hoehemastuk" : 408.22,
+				"gesamtlaenge" : 16.5,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1753
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451310045, 47.3675324041 ]
+			},
+			"properties" : {
+				"nummer" : "54.023",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.41,
+				"hoehemastuk" : 408.41,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1754
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5450894375, 47.3670836555 ]
+			},
+			"properties" : {
+				"nummer" : "54.031",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.09,
+				"hoehemastuk" : 411.96,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1755
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447676839, 47.3670405204 ]
+			},
+			"properties" : {
+				"nummer" : "54.007",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.13,
+				"hoehemastuk" : 408.62,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1756
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5445611983, 47.3668403853 ]
+			},
+			"properties" : {
+				"nummer" : "54.008",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.55,
+				"hoehemastuk" : 408.56,
+				"gesamtlaenge" : 16.5,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1757
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5446847797, 47.3669277953 ]
+			},
+			"properties" : {
+				"nummer" : "54.009",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 416.46,
+				"hoehemastuk" : 408.56,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1758
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5444829202, 47.3671823216 ]
+			},
+			"properties" : {
+				"nummer" : "54.005",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.5,
+				"hoehemastuk" : 408.75,
+				"gesamtlaenge" : 16.5,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1759
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5441909055, 47.3672075872 ]
+			},
+			"properties" : {
+				"nummer" : "54.003",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.41,
+				"hoehemastuk" : 409.05,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1760
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5443560246, 47.366823433 ]
+			},
+			"properties" : {
+				"nummer" : "54.006",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.08,
+				"hoehemastuk" : 408.79,
+				"gesamtlaenge" : 10,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1761
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5441870383, 47.3669055575 ]
+			},
+			"properties" : {
+				"nummer" : "54.004",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.67,
+				"hoehemastuk" : 409.25,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1762
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5439685454, 47.3668790441 ]
+			},
+			"properties" : {
+				"nummer" : "54.002",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.6,
+				"hoehemastuk" : 410.09,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1763
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5438682881, 47.3671496068 ]
+			},
+			"properties" : {
+				"nummer" : "54.001",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.63,
+				"hoehemastuk" : 409.78,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1764
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5435908249, 47.3671020866 ]
+			},
+			"properties" : {
+				"nummer" : "02.002",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.21,
+				"hoehemastuk" : 410.31,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1765
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5436918134, 47.3668309685 ]
+			},
+			"properties" : {
+				"nummer" : "02.001",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.18,
+				"hoehemastuk" : 410.32,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1766
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.543368145, 47.3667758033 ]
+			},
+			"properties" : {
+				"nummer" : "02.003",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.62,
+				"hoehemastuk" : 410.8,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1767
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5432670118, 47.3670464007 ]
+			},
+			"properties" : {
+				"nummer" : "02.004",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.63,
+				"hoehemastuk" : 410.77,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1768
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429429907, 47.3669908689 ]
+			},
+			"properties" : {
+				"nummer" : "02.006",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.72,
+				"hoehemastuk" : 410.74,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1769
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5430446643, 47.3667200776 ]
+			},
+			"properties" : {
+				"nummer" : "02.005",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.66,
+				"hoehemastuk" : 411,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1770
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427210745, 47.3666648019 ]
+			},
+			"properties" : {
+				"nummer" : "02.007",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.17,
+				"hoehemastuk" : 410.28,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1771
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.542619401, 47.3669356738 ]
+			},
+			"properties" : {
+				"nummer" : "02.008",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.23,
+				"hoehemastuk" : 410.26,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1772
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.542342421, 47.3668877232 ]
+			},
+			"properties" : {
+				"nummer" : "02.010",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.59,
+				"hoehemastuk" : 409.74,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1773
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5424442368, 47.366617264 ]
+			},
+			"properties" : {
+				"nummer" : "02.009",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.6,
+				"hoehemastuk" : 409.75,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1774
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5421107928, 47.3665675048 ]
+			},
+			"properties" : {
+				"nummer" : "02.011",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.44,
+				"hoehemastuk" : 409.54,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1775
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5419846787, 47.3668346968 ]
+			},
+			"properties" : {
+				"nummer" : "02.012",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.31,
+				"hoehemastuk" : 408.94,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 1776
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5360294566, 47.3711843258 ]
+			},
+			"properties" : {
+				"nummer" : "18.015",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.01,
+				"hoehemastuk" : 409.46,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 2085
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5362711649, 47.3713376991 ]
+			},
+			"properties" : {
+				"nummer" : "18.014",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.01,
+				"hoehemastuk" : 409.47,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 2086
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.536119462, 47.3714463807 ]
+			},
+			"properties" : {
+				"nummer" : "18.016",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.04,
+				"hoehemastuk" : 409.42,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 2087
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5358755713, 47.3713021309 ]
+			},
+			"properties" : {
+				"nummer" : "18.017",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.07,
+				"hoehemastuk" : 409.68,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 2088
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5321791952, 47.3739706373 ]
+			},
+			"properties" : {
+				"nummer" : "16.093",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 421.11,
+				"hoehemastuk" : 410.52,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 2089
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5333799117, 47.3731737007 ]
+			},
+			"properties" : {
+				"nummer" : "18.046",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.15,
+				"hoehemastuk" : 411.73,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 2141
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5347262136, 47.3675655665 ]
+			},
+			"properties" : {
+				"nummer" : "55.029",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.36,
+				"hoehemastuk" : 408.44,
+				"gesamtlaenge" : 11,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3060
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5343926466, 47.367775764 ]
+			},
+			"properties" : {
+				"nummer" : "55.010",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 416.5,
+				"hoehemastuk" : 408.54,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3061
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.534026995, 47.3694531037 ]
+			},
+			"properties" : {
+				"nummer" : "17.022",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.64,
+				"hoehemastuk" : 410.3,
+				"gesamtlaenge" : 9,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3062
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5339010953, 47.369594478 ]
+			},
+			"properties" : {
+				"nummer" : "17.024",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.83,
+				"hoehemastuk" : 410.59,
+				"gesamtlaenge" : 9,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3063
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5321163334, 47.3706669235 ]
+			},
+			"properties" : {
+				"nummer" : "17.046",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.13,
+				"hoehemastuk" : 412.7,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3064
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5310954881, 47.3708555597 ]
+			},
+			"properties" : {
+				"nummer" : "17.053",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 424.94,
+				"hoehemastuk" : 413.46,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3065
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5312841002, 47.3712991069 ]
+			},
+			"properties" : {
+				"nummer" : "17.054",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 424.76,
+				"hoehemastuk" : 413.03,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3066
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.530670654, 47.3715258468 ]
+			},
+			"properties" : {
+				"nummer" : "17.056",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 424.13,
+				"hoehemastuk" : 412.78,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3068
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315178658, 47.3651363542 ]
+			},
+			"properties" : {
+				"nummer" : "56.015",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.37,
+				"hoehemastuk" : 409.7,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3103
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313760881, 47.364958926 ]
+			},
+			"properties" : {
+				"nummer" : "56.017",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.68,
+				"hoehemastuk" : 410.52,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3104
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314800085, 47.3649223039 ]
+			},
+			"properties" : {
+				"nummer" : "56.026",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.44,
+				"hoehemastuk" : 409.48,
+				"gesamtlaenge" : 10.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3105
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315160464, 47.3653550166 ]
+			},
+			"properties" : {
+				"nummer" : "56.010",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.31,
+				"hoehemastuk" : 409.43,
+				"gesamtlaenge" : 10.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3106
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316564756, 47.3655124431 ]
+			},
+			"properties" : {
+				"nummer" : "56.008",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.81,
+				"hoehemastuk" : 409.81,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3107
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5497877778, 47.3712169051 ]
+			},
+			"properties" : {
+				"nummer" : "07.033",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 437.97,
+				"hoehemastuk" : 427.51,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3374
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5499700528, 47.3711457088 ]
+			},
+			"properties" : {
+				"nummer" : "07.034",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 437.97,
+				"hoehemastuk" : 427.52,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3375
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5499496674, 47.3713879648 ]
+			},
+			"properties" : {
+				"nummer" : "07.035",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 439.3,
+				"hoehemastuk" : 428.71,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3376
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5501291464, 47.3713141056 ]
+			},
+			"properties" : {
+				"nummer" : "07.036",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 439.32,
+				"hoehemastuk" : 428.75,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3377
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5501238932, 47.3715701855 ]
+			},
+			"properties" : {
+				"nummer" : "07.037",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 440.74,
+				"hoehemastuk" : 430.02,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3378
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5502930329, 47.371484345 ]
+			},
+			"properties" : {
+				"nummer" : "07.038",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 440.41,
+				"hoehemastuk" : 429.94,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3379
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5506209076, 47.3718263695 ]
+			},
+			"properties" : {
+				"nummer" : "07.042",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 442.92,
+				"hoehemastuk" : 432.52,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3380
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5507645674, 47.3720119688 ]
+			},
+			"properties" : {
+				"nummer" : "07.044",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 444.06,
+				"hoehemastuk" : 433.68,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3381
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.550760376, 47.3722699276 ]
+			},
+			"properties" : {
+				"nummer" : "07.046",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 445.16,
+				"hoehemastuk" : 434.81,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3382
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5506415747, 47.3725536365 ]
+			},
+			"properties" : {
+				"nummer" : "07.048",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 448.01,
+				"hoehemastuk" : 436.11,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3401
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5498842258, 47.3737225693 ]
+			},
+			"properties" : {
+				"nummer" : "66.001",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 453.15,
+				"hoehemastuk" : 442.87,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3402
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5353851679, 47.3635263315 ]
+			},
+			"properties" : {
+				"nummer" : "02.039",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.92,
+				"hoehemastuk" : 407.42,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3452
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5355297006, 47.3636499467 ]
+			},
+			"properties" : {
+				"nummer" : "02.037",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.95,
+				"hoehemastuk" : 407.69,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3453
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5359258549, 47.3638480348 ]
+			},
+			"properties" : {
+				"nummer" : "02.035",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.99,
+				"hoehemastuk" : 407.51,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3454
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.53632641, 47.3640468893 ]
+			},
+			"properties" : {
+				"nummer" : "02.033",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.09,
+				"hoehemastuk" : 407.56,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3455
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.536656371, 47.3642120612 ]
+			},
+			"properties" : {
+				"nummer" : "02.031",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.07,
+				"hoehemastuk" : 407.6,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3456
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5364968793, 47.364327879 ]
+			},
+			"properties" : {
+				"nummer" : "02.030",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.1,
+				"hoehemastuk" : 407.6,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3457
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5369365797, 47.364352123 ]
+			},
+			"properties" : {
+				"nummer" : "02.029",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.08,
+				"hoehemastuk" : 407.58,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3458
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5374145544, 47.3645908687 ]
+			},
+			"properties" : {
+				"nummer" : "02.025",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.92,
+				"hoehemastuk" : 407.54,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3459
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5378759018, 47.3648211263 ]
+			},
+			"properties" : {
+				"nummer" : "02.023",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.03,
+				"hoehemastuk" : 407.6,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3460
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5382415598, 47.3649924124 ]
+			},
+			"properties" : {
+				"nummer" : "02.021",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.06,
+				"hoehemastuk" : 407.62,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3461
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385657447, 47.3651388609 ]
+			},
+			"properties" : {
+				"nummer" : "02.019",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.11,
+				"hoehemastuk" : 407.65,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3462
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5384022173, 47.3652791147 ]
+			},
+			"properties" : {
+				"nummer" : "02.018",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.03,
+				"hoehemastuk" : 407.63,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3463
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.538651947, 47.3654032083 ]
+			},
+			"properties" : {
+				"nummer" : "02.017",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.09,
+				"hoehemastuk" : 407.7,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3464
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.539019358, 47.3653897056 ]
+			},
+			"properties" : {
+				"nummer" : "02.015",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.1,
+				"hoehemastuk" : 407.66,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3465
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5389133979, 47.3655370665 ]
+			},
+			"properties" : {
+				"nummer" : "02.016",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.17,
+				"hoehemastuk" : 407.63,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3466
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.539233335, 47.3656955532 ]
+			},
+			"properties" : {
+				"nummer" : "02.014",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.21,
+				"hoehemastuk" : 407.77,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3467
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.539401183, 47.3655369609 ]
+			},
+			"properties" : {
+				"nummer" : "02.013",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.3,
+				"hoehemastuk" : 407.85,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3468
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5396426023, 47.3659322459 ]
+			},
+			"properties" : {
+				"nummer" : "53.020",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.52,
+				"hoehemastuk" : 408.08,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3469
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5398264419, 47.3657069274 ]
+			},
+			"properties" : {
+				"nummer" : "53.021",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.34,
+				"hoehemastuk" : 408.01,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3470
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5400657464, 47.3661412887 ]
+			},
+			"properties" : {
+				"nummer" : "53.018",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.26,
+				"hoehemastuk" : 407.89,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3471
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5402440789, 47.3659493671 ]
+			},
+			"properties" : {
+				"nummer" : "53.019",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.37,
+				"hoehemastuk" : 407.98,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3472
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5403039854, 47.3662753111 ]
+			},
+			"properties" : {
+				"nummer" : "53.017",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.42,
+				"hoehemastuk" : 407.85,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3473
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5407816878, 47.3661272355 ]
+			},
+			"properties" : {
+				"nummer" : "53.015",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.33,
+				"hoehemastuk" : 407.92,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3474
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5402881951, 47.366394072 ]
+			},
+			"properties" : {
+				"nummer" : "53.016",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.63,
+				"hoehemastuk" : 407.94,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3475
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5417907852, 47.3666583727 ]
+			},
+			"properties" : {
+				"nummer" : "53.010",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.32,
+				"hoehemastuk" : 408.78,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3476
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5419074803, 47.3664177617 ]
+			},
+			"properties" : {
+				"nummer" : "53.009",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.13,
+				"hoehemastuk" : 408.47,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3477
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5413761613, 47.3665826981 ]
+			},
+			"properties" : {
+				"nummer" : "53.012",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 415.97,
+				"hoehemastuk" : 408.57,
+				"gesamtlaenge" : 9,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3478
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5414218773, 47.3664552679 ]
+			},
+			"properties" : {
+				"nummer" : "53.011",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 422.87,
+				"hoehemastuk" : 408.5,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3479
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5409747193, 47.3662730129 ]
+			},
+			"properties" : {
+				"nummer" : "53.013",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 416.99,
+				"hoehemastuk" : 408,
+				"gesamtlaenge" : 10.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3480
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5409054881, 47.3664971136 ]
+			},
+			"properties" : {
+				"nummer" : "53.014",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 422.31,
+				"hoehemastuk" : 408.1,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3481
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5408220881, 47.3666442969 ]
+			},
+			"properties" : {
+				"nummer" : "53.007",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.8,
+				"hoehemastuk" : 408.18,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3482
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5401818856, 47.3665142 ]
+			},
+			"properties" : {
+				"nummer" : "53.008",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.55,
+				"hoehemastuk" : 408.09,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3483
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5400450839, 47.3666714808 ]
+			},
+			"properties" : {
+				"nummer" : "53.006",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.7,
+				"hoehemastuk" : 408.21,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3484
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405441396, 47.3667780086 ]
+			},
+			"properties" : {
+				"nummer" : "53.005",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.73,
+				"hoehemastuk" : 408.33,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3485
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5401581122, 47.3669347977 ]
+			},
+			"properties" : {
+				"nummer" : "53.004",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.09,
+				"hoehemastuk" : 408.58,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3486
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5404639085, 47.3669985079 ]
+			},
+			"properties" : {
+				"nummer" : "53.003",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.95,
+				"hoehemastuk" : 408.45,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3487
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5400751534, 47.3671105178 ]
+			},
+			"properties" : {
+				"nummer" : "53.002",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 416.54,
+				"hoehemastuk" : 408.63,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3488
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5356348753, 47.3677749639 ]
+			},
+			"properties" : {
+				"nummer" : "55.019",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.99,
+				"hoehemastuk" : 408.51,
+				"gesamtlaenge" : 10.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3489
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.535534502, 47.3679358511 ]
+			},
+			"properties" : {
+				"nummer" : "55.018",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.43,
+				"hoehemastuk" : 408.62,
+				"gesamtlaenge" : 10.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3490
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5360255251, 47.3679221915 ]
+			},
+			"properties" : {
+				"nummer" : "55.015",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 416.05,
+				"hoehemastuk" : 408.55,
+				"gesamtlaenge" : 9,
+				"fundamenttyp" : "13",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3491
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5364333904, 47.3680720336 ]
+			},
+			"properties" : {
+				"nummer" : "55.011",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 415.96,
+				"hoehemastuk" : 408.48,
+				"gesamtlaenge" : 9,
+				"fundamenttyp" : "11a",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3492
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5396380574, 47.3690213622 ]
+			},
+			"properties" : {
+				"nummer" : "52.014",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.07,
+				"hoehemastuk" : 408.93,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3493
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5394410088, 47.3690320827 ]
+			},
+			"properties" : {
+				"nummer" : "52.017",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 416.91,
+				"hoehemastuk" : 408.97,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3494
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5396029806, 47.3691148234 ]
+			},
+			"properties" : {
+				"nummer" : "52.013",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 416.92,
+				"hoehemastuk" : 408.97,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : "11",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3495
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5395069912, 47.3693650751 ]
+			},
+			"properties" : {
+				"nummer" : "52.012",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 416.48,
+				"hoehemastuk" : 409.06,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : "12",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3496
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5391066588, 47.3697535679 ]
+			},
+			"properties" : {
+				"nummer" : "52.072",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.98,
+				"hoehemastuk" : 409.45,
+				"gesamtlaenge" : 10,
+				"fundamenttyp" : "15a",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3497
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381635806, 47.369210562 ]
+			},
+			"properties" : {
+				"nummer" : "52.047",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 416.43,
+				"hoehemastuk" : 408.53,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : "12",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3498
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.53873708, 47.3696519352 ]
+			},
+			"properties" : {
+				"nummer" : "52.069",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.43,
+				"hoehemastuk" : 408.99,
+				"gesamtlaenge" : 10,
+				"fundamenttyp" : "11a",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3499
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5390067559, 47.3702441618 ]
+			},
+			"properties" : {
+				"nummer" : "52.076",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.42,
+				"hoehemastuk" : 409.56,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3500
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5388584203, 47.3706175694 ]
+			},
+			"properties" : {
+				"nummer" : "52.078",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.53,
+				"hoehemastuk" : 409.71,
+				"gesamtlaenge" : 9.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3501
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381961944, 47.3729786609 ]
+			},
+			"properties" : {
+				"nummer" : "01.054",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.55,
+				"hoehemastuk" : 410.61,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3502
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5458701939, 47.3667754105 ]
+			},
+			"properties" : {
+				"nummer" : "54.045a",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : null,
+				"hoehemastuk" : null,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3796
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5465155131, 47.3661595651 ]
+			},
+			"properties" : {
+				"nummer" : "54.054",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.86,
+				"hoehemastuk" : 408.52,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : "19",
+				"speisekasten2" : "20",
+				"erdung" : "Tiefen-Erdung",
+				"orientierung" : 0,
+				"objectid" : 3798
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5466782206, 47.3660297959 ]
+			},
+			"properties" : {
+				"nummer" : "69.002",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.98,
+				"hoehemastuk" : 408.51,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3799
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5468594771, 47.3658879749 ]
+			},
+			"properties" : {
+				"nummer" : "69.006",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.94,
+				"hoehemastuk" : 408.54,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3800
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5526167718, 47.3599904233 ]
+			},
+			"properties" : {
+				"nummer" : "05.059",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.35,
+				"hoehemastuk" : 412.86,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3824
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5527996654, 47.3597785309 ]
+			},
+			"properties" : {
+				"nummer" : "05.061",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.51,
+				"hoehemastuk" : 413.16,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3825
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5529976967, 47.3595486546 ]
+			},
+			"properties" : {
+				"nummer" : "05.063",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 424.05,
+				"hoehemastuk" : 413.48,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3826
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5531353329, 47.3593738179 ]
+			},
+			"properties" : {
+				"nummer" : "05.065",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 424.31,
+				"hoehemastuk" : 413.74,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3827
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5318627869, 47.3732373089 ]
+			},
+			"properties" : {
+				"nummer" : "63.005",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.12,
+				"hoehemastuk" : 412.05,
+				"gesamtlaenge" : 10,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3863
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5319837905, 47.3734465957 ]
+			},
+			"properties" : {
+				"nummer" : "63.006",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 422.33,
+				"hoehemastuk" : 411.69,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3864
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314732431, 47.373257735 ]
+			},
+			"properties" : {
+				"nummer" : "63.011",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : "20220729",
+				"hoehemastok" : 419.97,
+				"hoehemastuk" : 411.16,
+				"gesamtlaenge" : 10.5,
+				"fundamenttyp" : "LS 2",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3865
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5320749922, 47.3737199849 ]
+			},
+			"properties" : {
+				"nummer" : "16.095",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 421.96,
+				"hoehemastuk" : 410.97,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3866
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5485720252, 47.364574343 ]
+			},
+			"properties" : {
+				"nummer" : "05.005",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.57,
+				"hoehemastuk" : 408.27,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3927
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5484310644, 47.3645183354 ]
+			},
+			"properties" : {
+				"nummer" : "05.006",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 417.67,
+				"hoehemastuk" : 408.24,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3928
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5483270888, 47.3646375852 ]
+			},
+			"properties" : {
+				"nummer" : "05.004",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.22,
+				"hoehemastuk" : 408.24,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3929
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5484652645, 47.3646952658 ]
+			},
+			"properties" : {
+				"nummer" : "05.003",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.12,
+				"hoehemastuk" : 408.3,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3930
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5463449654, 47.3662949952 ]
+			},
+			"properties" : {
+				"nummer" : "54.052",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.06,
+				"hoehemastuk" : 408.51,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3931
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.546160436, 47.3664412814 ]
+			},
+			"properties" : {
+				"nummer" : "54.050",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.99,
+				"hoehemastuk" : 408.51,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 3932
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5471646372, 47.3656452798 ]
+			},
+			"properties" : {
+				"nummer" : "69.014",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 424.04,
+				"hoehemastuk" : 408.58,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4147
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547094342, 47.365701032 ]
+			},
+			"properties" : {
+				"nummer" : "69.012",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.04,
+				"hoehemastuk" : 408.57,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4148
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5469793837, 47.365792186 ]
+			},
+			"properties" : {
+				"nummer" : "69.010",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 423.84,
+				"hoehemastuk" : 408.54,
+				"gesamtlaenge" : null,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4149
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5459907861, 47.3665626609 ]
+			},
+			"properties" : {
+				"nummer" : "54.048",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.96,
+				"hoehemastuk" : 408.48,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4150
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456681719, 47.3665767908 ]
+			},
+			"properties" : {
+				"nummer" : "54.046",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.18,
+				"hoehemastuk" : 408.14,
+				"gesamtlaenge" : 16.5,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4171
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5453732325, 47.3664495113 ]
+			},
+			"properties" : {
+				"nummer" : "54.014",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.82,
+				"hoehemastuk" : 407.78,
+				"gesamtlaenge" : 16.5,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4172
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5450076519, 47.3663843629 ]
+			},
+			"properties" : {
+				"nummer" : "54.012",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.05,
+				"hoehemastuk" : 407.96,
+				"gesamtlaenge" : 16.5,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4173
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5453352204, 47.3666943913 ]
+			},
+			"properties" : {
+				"nummer" : "54.013",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.93,
+				"hoehemastuk" : 408.44,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4174
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456508482, 47.3667244237 ]
+			},
+			"properties" : {
+				"nummer" : "54.044",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.87,
+				"hoehemastuk" : 408.45,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4175
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456917528, 47.3669287527 ]
+			},
+			"properties" : {
+				"nummer" : "54.041",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 420.59,
+				"hoehemastuk" : 408.49,
+				"gesamtlaenge" : 16.5,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4178
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5454024925, 47.3669220621 ]
+			},
+			"properties" : {
+				"nummer" : "54.042",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 419.26,
+				"hoehemastuk" : 408.61,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : "40417 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4179
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5449256182, 47.36678887 ]
+			},
+			"properties" : {
+				"nummer" : "54.011",
+				"masttyp" : null,
+				"eigentuemer" : "ewz",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.9,
+				"hoehemastuk" : 408.5,
+				"gesamtlaenge" : 12,
+				"fundamenttyp" : "40418 (ewz)",
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4180
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5446004193, 47.3665827659 ]
+			},
+			"properties" : {
+				"nummer" : "54.010",
+				"masttyp" : null,
+				"eigentuemer" : "VBZ",
+				"einbaudatum" : null,
+				"hoehemastok" : 418.4,
+				"hoehemastuk" : 407.94,
+				"gesamtlaenge" : 10.5,
+				"fundamenttyp" : null,
+				"ueberbruecker" : null,
+				"speisekasten1" : null,
+				"speisekasten2" : null,
+				"erdung" : "Erdfähig",
+				"orientierung" : 0,
+				"objectid" : 4181
+			}
+		}
+	]
+}

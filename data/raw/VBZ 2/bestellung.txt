@@ -1,0 +1,6 @@
+﻿Sie haben folgende Bestellung aufgegeben: 
+Name des Geodatensatzes: VBZ-Infrastruktur OGD 
+Name des Ausschnittes: bbox
+Ausschnitt (falls definiert): 2682575.4229114116, 1246132.768141685, 2684426.8013782045,1247826.101475015 
+Zeitpunkt der Bearbeitung: 04.02.2026 - 16:42 
+

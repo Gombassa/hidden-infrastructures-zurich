@@ -1,0 +1,175 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.fahrleitungen_ausleger",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5464121234, 47.3663315821 ],
+					[ 8.5464531414, 47.3663539285 ]
+				]
+			},
+			"properties" : {
+				"laenge" : 3.97,
+				"laenge2" : null,
+				"durchmesser" : null,
+				"auslegerhoehe" : 414.6,
+				"auslegerhoehe2" : null,
+				"verlaengerungstyp" : null,
+				"ankerhoehe" : 418.56,
+				"ankertyp" : null,
+				"objectid" : 956
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5460563735, 47.3666001176 ],
+					[ 8.5460964939, 47.3666232283 ]
+				]
+			},
+			"properties" : {
+				"laenge" : 3.97,
+				"laenge2" : null,
+				"durchmesser" : null,
+				"auslegerhoehe" : 414.73,
+				"auslegerhoehe2" : null,
+				"verlaengerungstyp" : null,
+				"ankerhoehe" : 417.73,
+				"ankertyp" : null,
+				"objectid" : 1107
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5459907861, 47.3665626609 ],
+					[ 8.5460563735, 47.3666001176 ]
+				]
+			},
+			"properties" : {
+				"laenge" : 6.47,
+				"laenge2" : null,
+				"durchmesser" : null,
+				"auslegerhoehe" : 414.73,
+				"auslegerhoehe2" : null,
+				"verlaengerungstyp" : null,
+				"ankerhoehe" : 417.73,
+				"ankertyp" : null,
+				"objectid" : 1108
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.546160436, 47.3664412814 ],
+					[ 8.546222154, 47.3664817705 ]
+				]
+			},
+			"properties" : {
+				"laenge" : 6.48,
+				"laenge2" : null,
+				"durchmesser" : null,
+				"auslegerhoehe" : 414.72,
+				"auslegerhoehe2" : null,
+				"verlaengerungstyp" : null,
+				"ankerhoehe" : 418.01,
+				"ankertyp" : null,
+				"objectid" : 1109
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.546222154, 47.3664817705 ],
+					[ 8.5462599525, 47.3665065585 ]
+				]
+			},
+			"properties" : {
+				"laenge" : 3.97,
+				"laenge2" : null,
+				"durchmesser" : null,
+				"auslegerhoehe" : 414.72,
+				"auslegerhoehe2" : null,
+				"verlaengerungstyp" : null,
+				"ankerhoehe" : 418.01,
+				"ankertyp" : null,
+				"objectid" : 1110
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5463449654, 47.3662949952 ],
+					[ 8.5464121234, 47.3663315821 ]
+				]
+			},
+			"properties" : {
+				"laenge" : 6.5,
+				"laenge2" : null,
+				"durchmesser" : null,
+				"auslegerhoehe" : 414.6,
+				"auslegerhoehe2" : null,
+				"verlaengerungstyp" : null,
+				"ankerhoehe" : 418.56,
+				"ankertyp" : null,
+				"objectid" : 1111
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5465155131, 47.3661595651 ],
+					[ 8.5465816932, 47.3661968809 ]
+				]
+			},
+			"properties" : {
+				"laenge" : 6.5,
+				"laenge2" : null,
+				"durchmesser" : null,
+				"auslegerhoehe" : 415.2,
+				"auslegerhoehe2" : null,
+				"verlaengerungstyp" : null,
+				"ankerhoehe" : 418.53,
+				"ankertyp" : null,
+				"objectid" : 1113
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "LineString",
+				"coordinates" : [
+					[ 8.5465816932, 47.3661968809 ],
+					[ 8.5466161767, 47.3662163305 ],
+					[ 8.546622232, 47.3662197445 ]
+				]
+			},
+			"properties" : {
+				"laenge" : 3.98,
+				"laenge2" : null,
+				"durchmesser" : null,
+				"auslegerhoehe" : 415.2,
+				"auslegerhoehe2" : null,
+				"verlaengerungstyp" : null,
+				"ankerhoehe" : 418.53,
+				"ankertyp" : null,
+				"objectid" : 1116
+			}
+		}
+	]
+}

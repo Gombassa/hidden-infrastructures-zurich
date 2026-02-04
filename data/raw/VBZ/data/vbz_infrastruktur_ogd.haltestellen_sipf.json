@@ -1,0 +1,318 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.haltestellen_sipf",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5528933825, 47.3673476116 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 226
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5517418876, 47.3679029056 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 227
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5500719624, 47.3629120712 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 254
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5518306726, 47.3606740381 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 257
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5526144794, 47.3599776453 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 258
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5505939271, 47.3724550045 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 300
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.544869851, 47.3662726765 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 90,
+				"objectid" : 29
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.545415686, 47.3669191832 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 174.35,
+				"objectid" : 30
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5445605568, 47.3672064319 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 168.1,
+				"objectid" : 56
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447907156, 47.3670198178 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 174.35,
+				"objectid" : 57
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456679253, 47.366746622 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 223.74,
+				"objectid" : 58
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5471074258, 47.3729008092 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 90,
+				"objectid" : 66
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5321496417, 47.3706627672 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 90,
+				"objectid" : 80
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5398040492, 47.3680648358 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 228
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.540534998, 47.366796293 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 229
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313098807, 47.3651858076 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 249
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5348256231, 47.3636534745 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 253
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381937999, 47.3730352541 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 279
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5346244266, 47.3722714073 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 280
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5326435597, 47.3692876082 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 286
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5343623605, 47.3677149293 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 287
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5328968004, 47.3662413049 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 288
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5430296565, 47.3739568346 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 298
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.54271155, 47.3718714805 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 299
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5435041645, 47.3699305633 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 301
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5317846506, 47.3611775063 ]
+			},
+			"properties" : {
+				"nummer" : null,
+				"orientierung" : 270,
+				"objectid" : 252
+			}
+		}
+	]
+}

@@ -1,0 +1,50 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.strecke_metalldetektor",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5443045236, 47.3670035685 ]
+			},
+			"properties" : {
+				"objectid" : 12,
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5466927561, 47.3660991442 ]
+			},
+			"properties" : {
+				"objectid" : 52,
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5481573248, 47.3661982787 ]
+			},
+			"properties" : {
+				"objectid" : 53,
+				"orientierung" : 90
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5526240902, 47.3654125478 ]
+			},
+			"properties" : {
+				"objectid" : 55,
+				"orientierung" : 0
+			}
+		}
+	]
+}

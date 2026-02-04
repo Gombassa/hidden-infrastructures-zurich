@@ -1,0 +1,1488 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.strecke_radlenker",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5350974173, 47.3720267391 ],
+						[ 8.5350683465, 47.3720476769 ],
+						[ 8.5350670047, 47.3720468171 ],
+						[ 8.5350960754, 47.3720258793 ],
+						[ 8.5350974173, 47.3720267391 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3792,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 63.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 45
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5350322333, 47.3720616293 ],
+						[ 8.5350031625, 47.3720825671 ],
+						[ 8.5350018073, 47.3720816984 ],
+						[ 8.5350308781, 47.3720607607 ],
+						[ 8.5350322333, 47.3720616293 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3793,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 63.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 46
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5339644753, 47.37278341 ],
+						[ 8.5339247582, 47.3727934204 ],
+						[ 8.5339241116, 47.3727922392 ],
+						[ 8.5339638287, 47.3727822288 ],
+						[ 8.5339644753, 47.37278341 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3794,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 63.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 47
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5340452446, 47.3727710044 ],
+						[ 8.5340058298, 47.3727815516 ],
+						[ 8.5340051436, 47.3727803798 ],
+						[ 8.5340445716, 47.3727698324 ],
+						[ 8.5340452446, 47.3727710044 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3795,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 63.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 48
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.531086159, 47.3734847636 ],
+						[ 8.5310462624, 47.3734944689 ],
+						[ 8.5310456422, 47.3734932784 ],
+						[ 8.5310855255, 47.3734835733 ],
+						[ 8.531086159, 47.3734847636 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3803,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 19.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 56
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5318620235, 47.37370303 ],
+						[ 8.5318801026, 47.3737290617 ],
+						[ 8.5318784319, 47.3737295993 ],
+						[ 8.5318603529, 47.3737035675 ],
+						[ 8.5318620235, 47.37370303 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3804,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 19.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 57
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5309672319, 47.3648124758 ],
+						[ 8.5309953696, 47.3648339869 ],
+						[ 8.5309939834, 47.3648348276 ],
+						[ 8.5309658458, 47.3648133165 ],
+						[ 8.5309672319, 47.3648124758 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 4205,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 20.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "nachgeführt",
+				"objectid" : 125
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5310299089, 47.3648487361 ],
+						[ 8.5310580466, 47.3648702472 ],
+						[ 8.5310566735, 47.3648710788 ],
+						[ 8.5310285226, 47.3648495678 ],
+						[ 8.5310299089, 47.3648487361 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 4206,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 20.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "nachgeführt",
+				"objectid" : 155
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5460527419, 47.3666368977 ],
+						[ 8.5460145193, 47.366661803 ],
+						[ 8.5460132293, 47.3666608889 ],
+						[ 8.5460514521, 47.3666359925 ],
+						[ 8.5460527419, 47.3666368977 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3826,
+				"art" : 2,
+				"arttext" : "Radlenker_4000",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 164
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5461338228, 47.3665929074 ],
+						[ 8.5460968762, 47.366618691 ],
+						[ 8.5460955471, 47.3666178042 ],
+						[ 8.5461324938, 47.3665920296 ],
+						[ 8.5461338228, 47.3665929074 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3827,
+				"art" : 2,
+				"arttext" : "Radlenker_4000",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 165
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5383099713, 47.3692055972 ],
+						[ 8.5383386505, 47.3692267866 ],
+						[ 8.538337291, 47.3692276361 ],
+						[ 8.538308612, 47.3692064557 ],
+						[ 8.5383099713, 47.3692055972 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3889,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 169
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.538261167, 47.3691581087 ],
+						[ 8.5382898198, 47.3691793074 ],
+						[ 8.5382884471, 47.369180157 ],
+						[ 8.5382598075, 47.3691589582 ],
+						[ 8.538261167, 47.3691581087 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3890,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 170
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5344246038, 47.367981018 ],
+						[ 8.5344145068, 47.3680089718 ],
+						[ 8.5344127, 47.3680086741 ],
+						[ 8.534422797, 47.3679807203 ],
+						[ 8.5344246038, 47.367981018 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3838,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 18.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 202
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5344548408, 47.3679286672 ],
+						[ 8.5344447969, 47.3679566295 ],
+						[ 8.5344430034, 47.3679563317 ],
+						[ 8.5344530472, 47.3679283694 ],
+						[ 8.5344548408, 47.3679286672 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3839,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 18.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 203
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5319063778, 47.3655307576 ],
+						[ 8.5319318589, 47.3655537508 ],
+						[ 8.5319303783, 47.3655545025 ],
+						[ 8.5319048971, 47.3655315092 ],
+						[ 8.5319063778, 47.3655307576 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3847,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 20.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 211
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.531316864, 47.3632934666 ],
+						[ 8.5313187773, 47.363322224 ],
+						[ 8.5313169249, 47.3633222775 ],
+						[ 8.5313150116, 47.3632935201 ],
+						[ 8.531316864, 47.3632934666 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3611,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 8.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 260
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5313096575, 47.3633494486 ],
+						[ 8.5313121262, 47.3633781738 ],
+						[ 8.5313102744, 47.3633782543 ],
+						[ 8.5313078055, 47.3633495201 ],
+						[ 8.5313096575, 47.3633494486 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3612,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 8.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 261
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.53253696, 47.3636140984 ],
+						[ 8.5324984276, 47.3636260401 ],
+						[ 8.5324976493, 47.3636248871 ],
+						[ 8.5325361951, 47.3636129542 ],
+						[ 8.53253696, 47.3636140984 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3613,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 8.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 262
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5319757558, 47.3641713287 ],
+						[ 8.5319817022, 47.364199832 ],
+						[ 8.5319798655, 47.3642000023 ],
+						[ 8.5319739192, 47.364171508 ],
+						[ 8.5319757558, 47.3641713287 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3614,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 8.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 263
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5319760237, 47.3642276448 ],
+						[ 8.5319819435, 47.3642561394 ],
+						[ 8.5319801069, 47.3642563187 ],
+						[ 8.5319741869, 47.3642278151 ],
+						[ 8.5319760237, 47.3642276448 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3615,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 8.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 264
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5319363503, 47.3642298104 ],
+						[ 8.5319422965, 47.3642583048 ],
+						[ 8.53194046, 47.3642584841 ],
+						[ 8.5319345137, 47.3642299897 ],
+						[ 8.5319363503, 47.3642298104 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3616,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 8.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 265
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5319360657, 47.3641733235 ],
+						[ 8.5319419989, 47.364201827 ],
+						[ 8.5319401621, 47.3642019973 ],
+						[ 8.5319342291, 47.3641735028 ],
+						[ 8.5319360657, 47.3641733235 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3617,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 8.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 266
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5495126346, 47.3660015058 ],
+						[ 8.5494727875, 47.3660112531 ],
+						[ 8.5494721538, 47.3660100718 ],
+						[ 8.5495120142, 47.3660003244 ],
+						[ 8.5495126346, 47.3660015058 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3639,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 290
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5495939988, 47.3659903517 ],
+						[ 8.549554152, 47.366000117 ],
+						[ 8.5495535184, 47.3659989357 ],
+						[ 8.5495933651, 47.3659891705 ],
+						[ 8.5495939988, 47.3659903517 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3640,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 291
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5479943512, 47.3660517117 ],
+						[ 8.5480256696, 47.3660711013 ],
+						[ 8.5480244179, 47.3660720309 ],
+						[ 8.5479931128, 47.3660526411 ],
+						[ 8.5479943512, 47.3660517117 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3641,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 292
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5479801639, 47.3660787076 ],
+						[ 8.5480111952, 47.3660982979 ],
+						[ 8.5480099302, 47.3660992275 ],
+						[ 8.547978912, 47.3660796281 ],
+						[ 8.5479801639, 47.3660787076 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3642,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 293
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5474431139, 47.3661873095 ],
+						[ 8.5474751226, 47.3662061619 ],
+						[ 8.547473911, 47.366207109 ],
+						[ 8.5474418892, 47.3661882657 ],
+						[ 8.5474431139, 47.3661873095 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3643,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 294
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5474972553, 47.3662301464 ],
+						[ 8.5475293294, 47.3662489532 ],
+						[ 8.5475281178, 47.3662499004 ],
+						[ 8.5474960439, 47.3662311026 ],
+						[ 8.5474972553, 47.3662301464 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3644,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 295
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5474300123, 47.3662245134 ],
+						[ 8.5474620083, 47.3662433839 ],
+						[ 8.5474607967, 47.3662443311 ],
+						[ 8.5474288009, 47.3662254695 ],
+						[ 8.5474300123, 47.3662245134 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3645,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 296
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5474840599, 47.3662672883 ],
+						[ 8.5475160687, 47.3662861407 ],
+						[ 8.5475148573, 47.3662870968 ],
+						[ 8.5474828485, 47.3662682444 ],
+						[ 8.5474840599, 47.3662672883 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3646,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 297
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.546327617, 47.3663527757 ],
+						[ 8.5463000555, 47.3663746285 ],
+						[ 8.5462986484, 47.3663738144 ],
+						[ 8.5463262097, 47.3663519526 ],
+						[ 8.546327617, 47.3663527757 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3647,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 298
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5462650835, 47.366389653 ],
+						[ 8.5462375222, 47.3664115147 ],
+						[ 8.5462361149, 47.3664106917 ],
+						[ 8.5462636762, 47.3663888299 ],
+						[ 8.5462650835, 47.366389653 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3648,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 299
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5463053399, 47.3664123035 ],
+						[ 8.5462773498, 47.3664339175 ],
+						[ 8.5462759688, 47.3664330852 ],
+						[ 8.5463039457, 47.3664114714 ],
+						[ 8.5463053399, 47.3664123035 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3649,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 300
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5462421458, 47.3664486114 ],
+						[ 8.5462141153, 47.3664701988 ],
+						[ 8.5462127211, 47.3664693667 ],
+						[ 8.5462407515, 47.3664477793 ],
+						[ 8.5462421458, 47.3664486114 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3650,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 301
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5499361748, 47.3703787649 ],
+						[ 8.549895855, 47.3703875903 ],
+						[ 8.5498952872, 47.3703863904 ],
+						[ 8.5499356069, 47.370377565 ],
+						[ 8.5499361748, 47.3703787649 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3651,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 88.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 302
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5500180538, 47.3703691258 ],
+						[ 8.5499778453, 47.370378202 ],
+						[ 8.5499772643, 47.3703770113 ],
+						[ 8.5500174595, 47.3703679262 ],
+						[ 8.5500180538, 47.3703691258 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3652,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 88.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 303
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5486754875, 47.3698580141 ],
+						[ 8.5486983818, 47.369882225 ],
+						[ 8.5486968203, 47.3698829056 ],
+						[ 8.5486739261, 47.3698586948 ],
+						[ 8.5486754875, 47.3698580141 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3653,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 88.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 304
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5487097269, 47.3699094612 ],
+						[ 8.5487326737, 47.3699336536 ],
+						[ 8.5487311123, 47.3699343342 ],
+						[ 8.5487081787, 47.3699101418 ],
+						[ 8.5487097269, 47.3699094612 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3654,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 88.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 305
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5456349949, 47.3676952265 ],
+						[ 8.5456700595, 47.3677113875 ],
+						[ 8.5456690218, 47.3677124229 ],
+						[ 8.5456339574, 47.3676962709 ],
+						[ 8.5456349949, 47.3676952265 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3655,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 306
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5455827439, 47.3676618155 ],
+						[ 8.5456178083, 47.3676779676 ],
+						[ 8.5456167708, 47.367679012 ],
+						[ 8.5455817064, 47.3676628599 ],
+						[ 8.5455827439, 47.3676618155 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3656,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 307
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5450330516, 47.3675373903 ],
+						[ 8.5450178668, 47.3675642604 ],
+						[ 8.5450161362, 47.3675638093 ],
+						[ 8.5450313211, 47.3675369392 ],
+						[ 8.5450330516, 47.3675373903 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3657,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 38.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 308
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5436261746, 47.366946177 ],
+						[ 8.5436672077, 47.3669533223 ],
+						[ 8.5436667563, 47.366954541 ],
+						[ 8.5436257099, 47.3669473958 ],
+						[ 8.5436261746, 47.366946177 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3658,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 62.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 309
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5437025421, 47.3669678623 ],
+						[ 8.543743613, 47.3669749083 ],
+						[ 8.5437431618, 47.366976136 ],
+						[ 8.5437020907, 47.3669690809 ],
+						[ 8.5437025421, 47.3669678623 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3659,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 62.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 310
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5419549695, 47.3666729057 ],
+						[ 8.5419949525, 47.3666824274 ],
+						[ 8.5419943416, 47.3666836206 ],
+						[ 8.5419543585, 47.3666740899 ],
+						[ 8.5419549695, 47.3666729057 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3660,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 62.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 311
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.542028765, 47.3666989523 ],
+						[ 8.5420690277, 47.3667079136 ],
+						[ 8.5420684433, 47.3667091066 ],
+						[ 8.5420281939, 47.3667001451 ],
+						[ 8.542028765, 47.3666989523 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3661,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 62.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 312
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5403287931, 47.3668799183 ],
+						[ 8.5403183272, 47.3669078042 ],
+						[ 8.5403165335, 47.3669074975 ],
+						[ 8.5403269993, 47.3668796116 ],
+						[ 8.5403287931, 47.3668799183 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3662,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 87.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 313
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5403608843, 47.366827908 ],
+						[ 8.5403504185, 47.3668557939 ],
+						[ 8.5403486247, 47.3668554872 ],
+						[ 8.5403590904, 47.3668275923 ],
+						[ 8.5403608843, 47.366827908 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3663,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 87.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 314
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5431432949, 47.3703801027 ],
+						[ 8.5431302509, 47.3704074918 ],
+						[ 8.543128495, 47.3704071038 ],
+						[ 8.5431415391, 47.3703797147 ],
+						[ 8.5431432949, 47.3703801027 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3664,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 10.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 315
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5431067457, 47.370431005 ],
+						[ 8.5430946722, 47.3704585917 ],
+						[ 8.5430929037, 47.3704582308 ],
+						[ 8.5431049771, 47.3704306441 ],
+						[ 8.5431067457, 47.370431005 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3665,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 10.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 316
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5395993227, 47.3689447689 ],
+						[ 8.5395888561, 47.3689726547 ],
+						[ 8.5395870623, 47.368972348 ],
+						[ 8.5395975288, 47.3689444532 ],
+						[ 8.5395993227, 47.3689447689 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3666,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 317
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5395671169, 47.3689970949 ],
+						[ 8.5395566502, 47.3690249807 ],
+						[ 8.5395548564, 47.3690246739 ],
+						[ 8.5395653229, 47.3689967791 ],
+						[ 8.5395671169, 47.3689970949 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3667,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.3",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 318
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5382328616, 47.3696961444 ],
+						[ 8.5382037933, 47.369717083 ],
+						[ 8.5382024515, 47.3697162233 ],
+						[ 8.5382315065, 47.3696952848 ],
+						[ 8.5382328616, 47.3696961444 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3673,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 319
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5382999402, 47.3696602718 ],
+						[ 8.5382707513, 47.3696811396 ],
+						[ 8.5382694093, 47.3696802708 ],
+						[ 8.5382985984, 47.369659412 ],
+						[ 8.5382999402, 47.3696602718 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3672,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.1",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 320
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5378475687, 47.3700041988 ],
+						[ 8.5378202966, 47.3700262176 ],
+						[ 8.5378188765, 47.3700254126 ],
+						[ 8.5378461484, 47.3700033848 ],
+						[ 8.5378475687, 47.3700041988 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3674,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 321
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.537785395, 47.3700410319 ],
+						[ 8.5377572519, 47.3700625463 ],
+						[ 8.5377558707, 47.3700617049 ],
+						[ 8.537784014, 47.3700401995 ],
+						[ 8.537785395, 47.3700410319 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3675,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.4",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 322
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5389358214, 47.3706384924 ],
+						[ 8.5389253409, 47.3706663782 ],
+						[ 8.538923547, 47.3706660715 ],
+						[ 8.5389340275, 47.3706381856 ],
+						[ 8.5389358214, 47.3706384924 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3676,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 323
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5389036502, 47.3706906559 ],
+						[ 8.5388931564, 47.3707185419 ],
+						[ 8.5388913626, 47.3707182351 ],
+						[ 8.5389018431, 47.3706903493 ],
+						[ 8.5389036502, 47.3706906559 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3677,
+				"art" : 1,
+				"arttext" : "Radlenker_3200",
+				"nummer" : "1",
+				"bezeichnung" : "Radlenker zu Schmieranlage 16.2",
+				"sapnummer" : "1",
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 324
+			}
+		}
+	]
+}

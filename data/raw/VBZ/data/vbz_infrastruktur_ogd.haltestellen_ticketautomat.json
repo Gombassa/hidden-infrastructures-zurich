@@ -1,0 +1,1566 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.haltestellen_ticketautomat",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5314990408, 47.360651042 ],
+						[ 8.531496635, 47.3606589715 ],
+						[ 8.5314929972, 47.3606584572 ],
+						[ 8.5314954163, 47.3606505366 ],
+						[ 8.5314990408, 47.360651042 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2172,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Museum Rietberg 0002",
+				"sapnummer" : "I-IN-VE-TICK-1666-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 7
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5518163428, 47.3606978516 ],
+						[ 8.5518100792, 47.3607047394 ],
+						[ 8.5518069272, 47.3607034115 ],
+						[ 8.551813191, 47.3606965327 ],
+						[ 8.5518163428, 47.3606978516 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3226,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : null,
+				"sapnummer" : null,
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 13
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5388926232, 47.3695245395 ],
+						[ 8.5389036755, 47.3695275735 ],
+						[ 8.5389022805, 47.3695299075 ],
+						[ 8.5388912414, 47.3695268734 ],
+						[ 8.5388926232, 47.3695245395 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2079,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Paradeplatz 0001",
+				"sapnummer" : "I-IN-VE-TICK-1861-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 34
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5393789051, 47.3699929792 ],
+						[ 8.5393766728, 47.3700009342 ],
+						[ 8.5393730351, 47.3700004652 ],
+						[ 8.5393752542, 47.3699925103 ],
+						[ 8.5393789051, 47.3699929792 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2075,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Paradeplatz 0003",
+				"sapnummer" : "I-IN-VE-TICK-1861-0003",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 35
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.538760003, 47.3696104022 ],
+						[ 8.5387711956, 47.369613174 ],
+						[ 8.5387699204, 47.3696155429 ],
+						[ 8.5387587409, 47.3696127619 ],
+						[ 8.538760003, 47.3696104022 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2078,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Paradeplatz 0004",
+				"sapnummer" : "I-IN-VE-TICK-1861-0004",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 36
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5434893995, 47.3699598759 ],
+						[ 8.5434864107, 47.3699677123 ],
+						[ 8.5434828226, 47.369967081 ],
+						[ 8.5434858115, 47.3699592446 ],
+						[ 8.5434893995, 47.3699598759 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2073,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Helmhaus 0001",
+				"sapnummer" : "I-IN-VE-TICK-1157-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 43
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5505929683, 47.3724579191 ],
+						[ 8.5505894884, 47.3724656615 ],
+						[ 8.5505859377, 47.3724649311 ],
+						[ 8.5505894176, 47.3724571887 ],
+						[ 8.5505929683, 47.3724579191 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2447,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kantonsschule 0002",
+				"sapnummer" : "I-IN-VE-TICK-1359-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 75
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5383562052, 47.3732213107 ],
+						[ 8.5383558822, 47.3732294004 ],
+						[ 8.5383521732, 47.3732293368 ],
+						[ 8.5383524961, 47.3732212381 ],
+						[ 8.5383562052, 47.3732213107 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2063,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Rennweg 0001",
+				"sapnummer" : "I-IN-VE-TICK-2054-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 104
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5475284669, 47.3654284124 ],
+						[ 8.5475206771, 47.365434541 ],
+						[ 8.5475178756, 47.3654328858 ],
+						[ 8.5475256656, 47.3654267662 ],
+						[ 8.5475284669, 47.3654284124 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2399,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Opernhaus 0002",
+				"sapnummer" : "I-IN-VE-TICK-1845-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 105
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5476415434, 47.3654989103 ],
+						[ 8.5476339143, 47.3655051273 ],
+						[ 8.5476310607, 47.3655035175 ],
+						[ 8.5476386898, 47.3654973006 ],
+						[ 8.5476415434, 47.3654989103 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2398,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Opernhaus 0001",
+				"sapnummer" : "I-IN-VE-TICK-1845-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 106
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5381961036, 47.3730403774 ],
+						[ 8.5381957806, 47.3730484671 ],
+						[ 8.5381920849, 47.3730484033 ],
+						[ 8.5381923947, 47.3730403138 ],
+						[ 8.5381961036, 47.3730403774 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2065,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Rennweg 0004",
+				"sapnummer" : "I-IN-VE-TICK-2054-0004",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 108
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5348561046, 47.3634367346 ],
+						[ 8.534855082, 47.363439155 ],
+						[ 8.5348436244, 47.363436943 ],
+						[ 8.5348446468, 47.3634345136 ],
+						[ 8.5348561046, 47.3634367346 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2403,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Rentenanstalt 0001",
+				"sapnummer" : "I-IN-VE-TICK-2055-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 109
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5434160601, 47.3696289888 ],
+						[ 8.5434143196, 47.3696370022 ],
+						[ 8.5434106442, 47.3696366325 ],
+						[ 8.543412385, 47.3696286282 ],
+						[ 8.5434160601, 47.3696289888 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 119607,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : null,
+				"sapnummer" : null,
+				"lagequalitaet" : "ungenau",
+				"aktualitaet" : "teilweise nachgeführt",
+				"objectid" : 147
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5427157927, 47.3718800574 ],
+						[ 8.5427160398, 47.3718881506 ],
+						[ 8.5427123334, 47.371888204 ],
+						[ 8.5427120863, 47.3718801108 ],
+						[ 8.5427157927, 47.3718800574 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2067,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Rathaus 0002",
+				"sapnummer" : "I-IN-VE-TICK-2030-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 155
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5446757019, 47.3672311454 ],
+						[ 8.5446698104, 47.367238182 ],
+						[ 8.5446665937, 47.3672369355 ],
+						[ 8.5446724852, 47.3672298989 ],
+						[ 8.5446757019, 47.3672311454 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2088,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bellevue 0001",
+				"sapnummer" : "I-IN-VE-TICK-0440-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 187
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5448698325, 47.3670316802 ],
+						[ 8.5448804864, 47.3670353022 ],
+						[ 8.5448788253, 47.3670375579 ],
+						[ 8.5448681711, 47.3670339269 ],
+						[ 8.5448698325, 47.3670316802 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2087,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bellevue 0002",
+				"sapnummer" : "I-IN-VE-TICK-0440-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 188
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.545273704, 47.3669793091 ],
+						[ 8.5452644626, 47.366984417 ],
+						[ 8.5452621317, 47.3669824694 ],
+						[ 8.5452713597, 47.3669773527 ],
+						[ 8.545273704, 47.3669793091 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2086,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bellevue 0003",
+				"sapnummer" : "I-IN-VE-TICK-0440-0003",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 189
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5451248721, 47.3672375922 ],
+						[ 8.5451266006, 47.3672455993 ],
+						[ 8.5451229275, 47.3672459674 ],
+						[ 8.545121212, 47.3672379511 ],
+						[ 8.5451248721, 47.3672375922 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2089,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bellevue 0004",
+				"sapnummer" : "I-IN-VE-TICK-0440-0004",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 190
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5454829328, 47.3670843917 ],
+						[ 8.5454923826, 47.3670893204 ],
+						[ 8.5454901204, 47.367091321 ],
+						[ 8.5454806704, 47.3670863833 ],
+						[ 8.5454829328, 47.3670843917 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2085,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bellevue 0005",
+				"sapnummer" : "I-IN-VE-TICK-0440-0005",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 193
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5446854085, 47.3664692875 ],
+						[ 8.5446793569, 47.3664762627 ],
+						[ 8.544676166, 47.36647498 ],
+						[ 8.5446822043, 47.3664680048 ],
+						[ 8.5446854085, 47.3664692875 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2084,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bellevue 0008",
+				"sapnummer" : "I-IN-VE-TICK-0440-0008",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 194
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5399784029, 47.3681080682 ],
+						[ 8.5399754934, 47.3681159217 ],
+						[ 8.5399719057, 47.3681152993 ],
+						[ 8.5399748021, 47.3681074549 ],
+						[ 8.5399784029, 47.3681080682 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2275,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kantonalbank 0001",
+				"sapnummer" : "I-IN-VE-TICK-0601-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 213
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.540544816, 47.3668331515 ],
+						[ 8.5405417072, 47.366840962 ],
+						[ 8.5405381322, 47.3668403125 ],
+						[ 8.5405412276, 47.3668324931 ],
+						[ 8.540544816, 47.3668331515 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2083,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bürkliplatz 0001",
+				"sapnummer" : "I-IN-VE-TICK-0615-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 214
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.541326899, 47.3664375547 ],
+						[ 8.5413259696, 47.3664399923 ],
+						[ 8.5413144356, 47.3664379706 ],
+						[ 8.5413153649, 47.366435533 ],
+						[ 8.541326899, 47.3664375547 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2223,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bürkliplatz 0002",
+				"sapnummer" : "I-IN-VE-TICK-0615-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 215
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.541295394, 47.366569059 ],
+						[ 8.5412945046, 47.3665715052 ],
+						[ 8.5412829452, 47.3665695377 ],
+						[ 8.5412838348, 47.3665671005 ],
+						[ 8.541295394, 47.366569059 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2224,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bürkliplatz 0004",
+				"sapnummer" : "I-IN-VE-TICK-0615-0004",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 216
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5398113578, 47.368053936 ],
+						[ 8.5398091254, 47.368061882 ],
+						[ 8.5398054879, 47.368061413 ],
+						[ 8.5398077201, 47.3680534579 ],
+						[ 8.5398113578, 47.368053936 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2276,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kantonalbank 0002",
+				"sapnummer" : "I-IN-VE-TICK-0601-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 230
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5524030221, 47.3602126336 ],
+						[ 8.5523969721, 47.3602196003 ],
+						[ 8.5523937815, 47.3602183268 ],
+						[ 8.5523998313, 47.3602113511 ],
+						[ 8.5524030221, 47.3602126336 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 1932,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Feldeggstrasse 0001",
+				"sapnummer" : "I-IN-VE-TICK-0832-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 234
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5494140227, 47.3634686191 ],
+						[ 8.5494079855, 47.3634756035 ],
+						[ 8.5494047814, 47.363474321 ],
+						[ 8.5494108188, 47.3634673456 ],
+						[ 8.5494140227, 47.3634686191 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2199,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kreuzstrasse 0002",
+				"sapnummer" : "I-IN-VE-TICK-1456-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 291
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5486732896, 47.3704321788 ],
+						[ 8.5486667971, 47.3704389606 ],
+						[ 8.5486636834, 47.3704375873 ],
+						[ 8.5486701758, 47.3704308055 ],
+						[ 8.5486732896, 47.3704321788 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2127,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kunsthaus 0001",
+				"sapnummer" : "I-IN-VE-TICK-1472-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 292
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5484660477, 47.3703643229 ],
+						[ 8.5484595021, 47.3703710962 ],
+						[ 8.5484564147, 47.3703697136 ],
+						[ 8.548462947, 47.3703629404 ],
+						[ 8.5484660477, 47.3703643229 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2128,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kunsthaus 0002",
+				"sapnummer" : "I-IN-VE-TICK-1472-0002",
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt",
+				"objectid" : 293
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5489531724, 47.3703424334 ],
+						[ 8.548959525, 47.3703492806 ],
+						[ 8.5489563884, 47.370350624 ],
+						[ 8.5489500358, 47.3703437768 ],
+						[ 8.5489531724, 47.3703424334 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2129,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kunsthaus 0003",
+				"sapnummer" : "I-IN-VE-TICK-1472-0003",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 294
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.54908357, 47.3703113788 ],
+						[ 8.5490900144, 47.3703181801 ],
+						[ 8.5490868914, 47.3703195415 ],
+						[ 8.5490804471, 47.3703127401 ],
+						[ 8.54908357, 47.3703113788 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2130,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kunsthaus 0004",
+				"sapnummer" : "I-IN-VE-TICK-1472-0004",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 295
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5488431804, 47.3707041519 ],
+						[ 8.5488330878, 47.3707084586 ],
+						[ 8.5488311103, 47.3707063278 ],
+						[ 8.5488412028, 47.3707020211 ],
+						[ 8.5488431804, 47.3707041519 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2126,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kunsthaus 0005",
+				"sapnummer" : "I-IN-VE-TICK-1472-0005",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 296
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5316661143, 47.3607752761 ],
+						[ 8.5316639875, 47.360783248 ],
+						[ 8.5316603509, 47.3607827967 ],
+						[ 8.5316624647, 47.3607748339 ],
+						[ 8.5316661143, 47.3607752761 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2171,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Museum Rietberg 0001",
+				"sapnummer" : "I-IN-VE-TICK-1666-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 335
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5474917866, 47.3727875409 ],
+						[ 8.5474870685, 47.3727949802 ],
+						[ 8.5474836711, 47.3727939784 ],
+						[ 8.5474883893, 47.3727865481 ],
+						[ 8.5474917866, 47.3727875409 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2185,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Neumarkt 0001",
+				"sapnummer" : "I-IN-VE-TICK-1724-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 339
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5388801824, 47.369834649 ],
+						[ 8.5388912216, 47.3698376831 ],
+						[ 8.5388898265, 47.3698400171 ],
+						[ 8.5388787874, 47.369836983 ],
+						[ 8.5388801824, 47.369834649 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2076,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Paradeplatz 0008",
+				"sapnummer" : "I-IN-VE-TICK-1861-0008",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 344
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5428022737, 47.3739180355 ],
+						[ 8.5428044248, 47.3739259936 ],
+						[ 8.5428007663, 47.3739264514 ],
+						[ 8.5427986283, 47.3739184841 ],
+						[ 8.5428022737, 47.3739180355 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2062,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Rudolf-Brun-Brücke 0002",
+				"sapnummer" : "I-IN-VE-TICK-2113-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 360
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5345708772, 47.3723138327 ],
+						[ 8.5345637143, 47.3723203052 ],
+						[ 8.5345607569, 47.3723187951 ],
+						[ 8.5345679066, 47.3723123228 ],
+						[ 8.5345708772, 47.3723138327 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2068,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Sihlstrasse 0003",
+				"sapnummer" : "I-IN-VE-TICK-2396-0003",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 392
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.534733727, 47.3723477283 ],
+						[ 8.5347267515, 47.372354298 ],
+						[ 8.5347237419, 47.3723528244 ],
+						[ 8.5347307174, 47.3723462547 ],
+						[ 8.534733727, 47.3723477283 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2069,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Sihlstrasse 0004",
+				"sapnummer" : "I-IN-VE-TICK-2396-0004",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 393
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.55293755, 47.3673222058 ],
+						[ 8.5529285922, 47.3673275454 ],
+						[ 8.5529261561, 47.367325653 ],
+						[ 8.5529351008, 47.3673203135 ],
+						[ 8.55293755, 47.3673222058 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2135,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Sprecherstrasse 0001",
+				"sapnummer" : "I-IN-VE-TICK-2450-0001",
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt",
+				"objectid" : 396
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5517364567, 47.3679103969 ],
+						[ 8.5517274984, 47.3679157275 ],
+						[ 8.5517250492, 47.3679138351 ],
+						[ 8.5517340207, 47.3679085044 ],
+						[ 8.5517364567, 47.3679103969 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2134,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Sprecherstrasse 0002",
+				"sapnummer" : "I-IN-VE-TICK-2450-0002",
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt",
+				"objectid" : 397
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5316841127, 47.3707444689 ],
+						[ 8.5316748557, 47.3707495578 ],
+						[ 8.5316725249, 47.3707476009 ],
+						[ 8.5316817819, 47.370742512 ],
+						[ 8.5316841127, 47.3707444689 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2072,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bahnhof Selnau 0001",
+				"sapnummer" : "I-IN-VE-TICK-2551-0001",
+				"lagequalitaet" : "genau",
+				"aktualitaet" : "nachgeführt",
+				"objectid" : 401
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5360154304, 47.3679289888 ],
+						[ 8.5360260449, 47.3679326479 ],
+						[ 8.5360243699, 47.3679348946 ],
+						[ 8.536013742, 47.3679312266 ],
+						[ 8.5360154304, 47.3679289888 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2080,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Stockerstrasse 0001",
+				"sapnummer" : "I-IN-VE-TICK-2582-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 408
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5350027853, 47.3677638031 ],
+						[ 8.5350140025, 47.3677665121 ],
+						[ 8.5350127669, 47.3677688806 ],
+						[ 8.5350015365, 47.3677661717 ],
+						[ 8.5350027853, 47.3677638031 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2226,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Stockerstrasse 0002",
+				"sapnummer" : "I-IN-VE-TICK-2582-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 409
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5473383885, 47.3727762763 ],
+						[ 8.5473342563, 47.3727838719 ],
+						[ 8.5473307688, 47.3727829969 ],
+						[ 8.5473349143, 47.3727754011 ],
+						[ 8.5473383885, 47.3727762763 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2186,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Neumarkt 0002",
+				"sapnummer" : "I-IN-VE-TICK-1724-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 412
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5314473948, 47.3642471214 ],
+						[ 8.5314491476, 47.3642551285 ],
+						[ 8.5314454746, 47.364255496 ],
+						[ 8.531443735, 47.3642474888 ],
+						[ 8.5314473948, 47.3642471214 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2404,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bahnhof Enge 0001",
+				"sapnummer" : "I-IN-VE-TICK-3026-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 455
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5312934608, 47.3642096108 ],
+						[ 8.5312951342, 47.3642176187 ],
+						[ 8.5312914742, 47.3642179771 ],
+						[ 8.5312897874, 47.3642099604 ],
+						[ 8.5312934608, 47.3642096108 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2405,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bahnhof Enge 0002",
+				"sapnummer" : "I-IN-VE-TICK-3026-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 456
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5473838992, 47.3662653085 ],
+						[ 8.5473928677, 47.3662706464 ],
+						[ 8.547390418, 47.366272541 ],
+						[ 8.5473814628, 47.3662672028 ],
+						[ 8.5473838992, 47.3662653085 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2394,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bahnhof Stadelhofen 0001",
+				"sapnummer" : "I-IN-VE-TICK-3039-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 461
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5391877486, 47.3697595326 ],
+						[ 8.5391851046, 47.3697674285 ],
+						[ 8.5391814916, 47.3697668693 ],
+						[ 8.5391841356, 47.3697589733 ],
+						[ 8.5391877486, 47.3697595326 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2077,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Paradeplatz 0002",
+				"sapnummer" : "I-IN-VE-TICK-1861-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 522
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5502600305, 47.3729247435 ],
+						[ 8.5502564842, 47.3729324775 ],
+						[ 8.5502529463, 47.372931729 ],
+						[ 8.5502564794, 47.3729239951 ],
+						[ 8.5502600305, 47.3729247435 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2125,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kantonsschule 0001",
+				"sapnummer" : "I-IN-VE-TICK-1359-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 544
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5480388247, 47.3660180473 ],
+						[ 8.5480478583, 47.3660233307 ],
+						[ 8.5480454355, 47.366025243 ],
+						[ 8.5480364019, 47.3660199596 ],
+						[ 8.5480388247, 47.3660180473 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2395,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Bahnhof Stadelhofen 0002",
+				"sapnummer" : "I-IN-VE-TICK-3039-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 555
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5381902986, 47.3732025251 ],
+						[ 8.538189989, 47.3732106237 ],
+						[ 8.5381862799, 47.3732105511 ],
+						[ 8.5381866029, 47.3732024614 ],
+						[ 8.5381902986, 47.3732025251 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2064,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Rennweg 0002",
+				"sapnummer" : "I-IN-VE-TICK-2054-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 565
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.538363717, 47.3730372975 ],
+						[ 8.5383634072, 47.3730453871 ],
+						[ 8.5383596982, 47.3730453234 ],
+						[ 8.538360008, 47.3730372339 ],
+						[ 8.538363717, 47.3730372975 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2066,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Rennweg 0003",
+				"sapnummer" : "I-IN-VE-TICK-2054-0003",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 566
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5501499932, 47.3628263517 ],
+						[ 8.5501439426, 47.3628333182 ],
+						[ 8.5501407519, 47.3628320446 ],
+						[ 8.5501468023, 47.3628250691 ],
+						[ 8.5501499932, 47.3628263517 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2170,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Kreuzstrasse 0001",
+				"sapnummer" : "I-IN-VE-TICK-1456-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 622
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5328623307, 47.3663151668 ],
+						[ 8.5328694937, 47.3663216295 ],
+						[ 8.5328665328, 47.3663231507 ],
+						[ 8.5328593696, 47.3663166791 ],
+						[ 8.5328623307, 47.3663151668 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2082,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Tunnelstrasse 0001",
+				"sapnummer" : "I-IN-VE-TICK-2689-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 627
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5327303065, 47.366323056 ],
+						[ 8.5327374695, 47.3663295187 ],
+						[ 8.5327345085, 47.3663310399 ],
+						[ 8.5327273454, 47.3663245683 ],
+						[ 8.5327303065, 47.366323056 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2081,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Tunnelstrasse 0002",
+				"sapnummer" : "I-IN-VE-TICK-2689-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 628
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5350480495, 47.367825413 ],
+						[ 8.5350592928, 47.3678281038 ],
+						[ 8.5350580574, 47.3678304812 ],
+						[ 8.5350468141, 47.3678277905 ],
+						[ 8.5350480495, 47.367825413 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2225,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : null,
+				"sapnummer" : null,
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 649
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5478330023, 47.366041091 ],
+						[ 8.5478419575, 47.3660464291 ],
+						[ 8.5478395211, 47.3660483235 ],
+						[ 8.5478305526, 47.3660429855 ],
+						[ 8.5478330023, 47.366041091 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2396,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : null,
+				"sapnummer" : null,
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 657
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5477091872, 47.3659674222 ],
+						[ 8.5477181422, 47.3659727513 ],
+						[ 8.5477157058, 47.3659746457 ],
+						[ 8.5477067376, 47.3659693167 ],
+						[ 8.5477091872, 47.3659674222 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2397,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : null,
+				"sapnummer" : null,
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 658
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5326509309, 47.3692887167 ],
+						[ 8.5326613524, 47.3692926478 ],
+						[ 8.5326595572, 47.3692948507 ],
+						[ 8.5326491357, 47.3692909195 ],
+						[ 8.5326509309, 47.3692887167 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2074,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Brandschenkestrasse 0002",
+				"sapnummer" : "I-IN-VE-TICK-0530-0002",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 672
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.535281782, 47.3719659447 ],
+						[ 8.5352736009, 47.3719718332 ],
+						[ 8.5352709038, 47.3719701048 ],
+						[ 8.5352790849, 47.3719642163 ],
+						[ 8.535281782, 47.3719659447 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 2070,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "TICK Zürich, Sihlstrasse 0001",
+				"sapnummer" : "I-IN-VE-TICK-2396-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 678
+			}
+		}
+	]
+}

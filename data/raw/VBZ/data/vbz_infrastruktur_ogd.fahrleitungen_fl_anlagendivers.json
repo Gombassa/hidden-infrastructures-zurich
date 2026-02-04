@@ -1,0 +1,706 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.fahrleitungen_fl_anlagendivers",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5529989324, 47.3672500659 ]
+			},
+			"properties" : {
+				"objectid" : 15,
+				"art" : 11,
+				"arttext" : "Eindrahtungstrichter unbekannt",
+				"einbaudatum" : null,
+				"orientierung" : -138.67
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5529928055, 47.3672451507 ]
+			},
+			"properties" : {
+				"objectid" : 16,
+				"art" : 11,
+				"arttext" : "Eindrahtungstrichter unbekannt",
+				"einbaudatum" : null,
+				"orientierung" : -138.67
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5482323229, 47.3662883465 ]
+			},
+			"properties" : {
+				"objectid" : 23,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 43.42
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5484731659, 47.3663518141 ]
+			},
+			"properties" : {
+				"objectid" : 24,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -44.72
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.548465949, 47.3663485732 ]
+			},
+			"properties" : {
+				"objectid" : 25,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -27.56
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5480082355, 47.3664873227 ]
+			},
+			"properties" : {
+				"objectid" : 26,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -57.75
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5496959003, 47.3704566089 ]
+			},
+			"properties" : {
+				"objectid" : 27,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -51.17
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5493358322, 47.3705247923 ]
+			},
+			"properties" : {
+				"objectid" : 28,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -95.77
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.549333928, 47.3705312691 ]
+			},
+			"properties" : {
+				"objectid" : 29,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 83.94
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5442781526, 47.3669890329 ]
+			},
+			"properties" : {
+				"objectid" : 30,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 102.89
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5443881176, 47.3669670214 ]
+			},
+			"properties" : {
+				"objectid" : 31,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 120.47
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5491549622, 47.370397064 ]
+			},
+			"properties" : {
+				"objectid" : 32,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -152.41
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5452836649, 47.3672716287 ]
+			},
+			"properties" : {
+				"objectid" : 33,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -100.7
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5450537154, 47.3674580889 ]
+			},
+			"properties" : {
+				"objectid" : 34,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 173.22
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451804373, 47.367469612 ]
+			},
+			"properties" : {
+				"objectid" : 35,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -129.94
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.545336154, 47.3672030143 ]
+			},
+			"properties" : {
+				"objectid" : 36,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -56.81
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5446535907, 47.3671615726 ]
+			},
+			"properties" : {
+				"objectid" : 38,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -124.89
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5471198341, 47.3730307511 ]
+			},
+			"properties" : {
+				"objectid" : 65,
+				"art" : 1,
+				"arttext" : "Weichensteuerkasten",
+				"einbaudatum" : null,
+				"orientierung" : -145.32
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405443026, 47.3662504047 ]
+			},
+			"properties" : {
+				"objectid" : 117,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 37.34
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5408270242, 47.3664706431 ]
+			},
+			"properties" : {
+				"objectid" : 120,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -74.73
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5404265547, 47.3665486204 ]
+			},
+			"properties" : {
+				"objectid" : 121,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 167.95
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5395019436, 47.3693630093 ]
+			},
+			"properties" : {
+				"objectid" : 122,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -6.36
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5390190245, 47.3702490192 ]
+			},
+			"properties" : {
+				"objectid" : 123,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 149.73
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5383079511, 47.3696050912 ]
+			},
+			"properties" : {
+				"objectid" : 124,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 149.32
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5384798022, 47.3693048068 ]
+			},
+			"properties" : {
+				"objectid" : 125,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 40.94
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5385321522, 47.3694946008 ]
+			},
+			"properties" : {
+				"objectid" : 126,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -105.76
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5386619387, 47.3695980054 ]
+			},
+			"properties" : {
+				"objectid" : 127,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -56.92
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5493642711, 47.3707006891 ]
+			},
+			"properties" : {
+				"objectid" : 128,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -167.98
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5471542752, 47.3730498501 ]
+			},
+			"properties" : {
+				"objectid" : 156,
+				"art" : 2,
+				"arttext" : "Rückstellsensor",
+				"einbaudatum" : null,
+				"orientierung" : -115.42
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5472086959, 47.372972725 ]
+			},
+			"properties" : {
+				"objectid" : 157,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 157.82
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315326241, 47.3647583641 ]
+			},
+			"properties" : {
+				"objectid" : 199,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 0
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5358542275, 47.3679809292 ]
+			},
+			"properties" : {
+				"objectid" : 202,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 0
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5482698014, 47.3661895882 ]
+			},
+			"properties" : {
+				"objectid" : 210,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 0
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5344862351, 47.3675390862 ]
+			},
+			"properties" : {
+				"objectid" : 215,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 75.66
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5344627804, 47.3677951218 ]
+			},
+			"properties" : {
+				"objectid" : 216,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 170.42
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313873688, 47.3650545547 ]
+			},
+			"properties" : {
+				"objectid" : 217,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 53.76
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316692875, 47.3650524806 ]
+			},
+			"properties" : {
+				"objectid" : 218,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -4.96
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315715623, 47.3652879721 ]
+			},
+			"properties" : {
+				"objectid" : 219,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -118.54
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5318865895, 47.3638349713 ]
+			},
+			"properties" : {
+				"objectid" : 259,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -62.78
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314072118, 47.3637083589 ]
+			},
+			"properties" : {
+				"objectid" : 260,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 31.36
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314310749, 47.3645024504 ]
+			},
+			"properties" : {
+				"objectid" : 261,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -161.39
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5317363352, 47.3646335623 ]
+			},
+			"properties" : {
+				"objectid" : 262,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -61.27
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5470544598, 47.3660491413 ]
+			},
+			"properties" : {
+				"objectid" : 310,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -119
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531578495, 47.3733479048 ]
+			},
+			"properties" : {
+				"objectid" : 320,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 90.11
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475423707, 47.3655621812 ]
+			},
+			"properties" : {
+				"objectid" : 332,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -30.2
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5471893044, 47.3656867447 ]
+			},
+			"properties" : {
+				"objectid" : 333,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 133.78
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5466843869, 47.3660302675 ]
+			},
+			"properties" : {
+				"objectid" : 334,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -101.93
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5466161767, 47.3662163305 ]
+			},
+			"properties" : {
+				"objectid" : 335,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -40.75
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5460183387, 47.3666442618 ]
+			},
+			"properties" : {
+				"objectid" : 336,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : -47.39
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5454278008, 47.3665952409 ]
+			},
+			"properties" : {
+				"objectid" : 337,
+				"art" : 9,
+				"arttext" : "Richtungsanzeige",
+				"einbaudatum" : null,
+				"orientierung" : 64.13
+			}
+		}
+	]
+}

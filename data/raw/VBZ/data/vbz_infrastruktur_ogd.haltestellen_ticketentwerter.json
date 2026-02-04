@@ -1,0 +1,58 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.haltestellen_ticketentwerter",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5450153808, 47.3668575698 ],
+						[ 8.5450162072, 47.3668597477 ],
+						[ 8.5450130015, 47.3668603091 ],
+						[ 8.5450121752, 47.3668581312 ],
+						[ 8.5450153808, 47.3668575698 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 6,
+				"typ" : 4,
+				"typtext" : "Entwerter Typ TC05 SBB",
+				"nummer" : null,
+				"bezeichnung" : null,
+				"sapnummer" : "I-IN-VE-ENTW-0440-0006",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 2
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5429044909, 47.3720608371 ],
+						[ 8.5429045375, 47.3720630854 ],
+						[ 8.5429012279, 47.3720631171 ],
+						[ 8.5429011813, 47.3720608687 ],
+						[ 8.5429044909, 47.3720608371 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 3,
+				"typ" : 1,
+				"typtext" : "Ticketautomat Typ 20",
+				"nummer" : null,
+				"bezeichnung" : "ENTW Zürich, Rathaus 0001",
+				"sapnummer" : "I-IN-VE-ENTW-2030-0001",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 25
+			}
+		}
+	]
+}

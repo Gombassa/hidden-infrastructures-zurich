@@ -1,0 +1,46 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.fahrleitungen_fl_weiche_kreuzu",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5471437806, 47.3730666908 ]
+			},
+			"properties" : {
+				"nummer" : "51",
+				"typ" : 1,
+				"typtext" : "U88 elektr",
+				"gradeinteilung" : "10",
+				"zusatzinfo" : null,
+				"grundstellung" : null,
+				"sensor" : 1,
+				"funkenloescher" : 0,
+				"einbaudatum" : null,
+				"orientierung" : 117.9,
+				"objectid" : 11
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547340093, 47.3729664446 ]
+			},
+			"properties" : {
+				"nummer" : "52",
+				"typ" : 1,
+				"typtext" : "U88 elektr",
+				"gradeinteilung" : "10",
+				"zusatzinfo" : null,
+				"grundstellung" : null,
+				"sensor" : 1,
+				"funkenloescher" : null,
+				"einbaudatum" : null,
+				"orientierung" : -56.1,
+				"objectid" : 12
+			}
+		}
+	]
+}

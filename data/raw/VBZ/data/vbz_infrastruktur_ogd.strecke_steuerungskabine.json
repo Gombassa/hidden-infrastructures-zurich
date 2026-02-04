@@ -1,0 +1,556 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.strecke_steuerungskabine",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5525651151, 47.3654730965 ],
+						[ 8.5525678881, 47.3654771806 ],
+						[ 8.5525648892, 47.365478127 ],
+						[ 8.552562103, 47.3654740431 ],
+						[ 8.5525651151, 47.3654730965 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 2,
+				"quellid" : 8936,
+				"bezeichnung" : null,
+				"typ" : "Kabinen 25x50",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5456921341, 47.3667373588 ],
+						[ 8.5456786286, 47.3667430563 ],
+						[ 8.5456744421, 47.3667384639 ],
+						[ 8.5456879478, 47.3667327754 ],
+						[ 8.5456921341, 47.3667373588 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 28,
+				"quellid" : 965,
+				"bezeichnung" : "Bellevue Märlitram-Schlaufe",
+				"typ" : "Kabinen 60x120",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5473504152, 47.3658101142 ],
+						[ 8.5473301468, 47.3658267429 ],
+						[ 8.547324038, 47.3658233025 ],
+						[ 8.5473442931, 47.3658066738 ],
+						[ 8.5473504152, 47.3658101142 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 29,
+				"quellid" : 967,
+				"bezeichnung" : "Opernhaus",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5480548963, 47.3662113792 ],
+						[ 8.5480336361, 47.366227424 ],
+						[ 8.5480277356, 47.3662238196 ],
+						[ 8.5480489956, 47.3662077659 ],
+						[ 8.5480548963, 47.3662113792 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 30,
+				"quellid" : 969,
+				"bezeichnung" : "Stadelhofenplatz",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5383984703, 47.3693846217 ],
+						[ 8.5384086642, 47.3693928991 ],
+						[ 8.5384025789, 47.3693963662 ],
+						[ 8.5383923717, 47.3693880889 ],
+						[ 8.5383984703, 47.3693846217 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 34,
+				"quellid" : 999,
+				"bezeichnung" : "Paradeplatz",
+				"typ" : "Kabinen 60x120",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5453472696, 47.3672314225 ],
+						[ 8.5453330668, 47.3672507363 ],
+						[ 8.5453259597, 47.3672483217 ],
+						[ 8.5453401625, 47.3672290079 ],
+						[ 8.5453472696, 47.3672314225 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 67,
+				"quellid" : 1163,
+				"bezeichnung" : "54-01",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5395034802, 47.3693598374 ],
+						[ 8.5395035266, 47.3693620857 ],
+						[ 8.5394969076, 47.3693621488 ],
+						[ 8.5394968612, 47.3693599005 ],
+						[ 8.5395034802, 47.3693598374 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 96,
+				"quellid" : 7358,
+				"bezeichnung" : "Paradeplatz Bahnhofstrasse 1",
+				"typ" : "Kabinen 25x50",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5390102101, 47.370242159 ],
+						[ 8.5390102566, 47.3702444073 ],
+						[ 8.5390036375, 47.3702444704 ],
+						[ 8.539003591, 47.370242222 ],
+						[ 8.5390102101, 47.370242159 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 97,
+				"quellid" : 7359,
+				"bezeichnung" : "Paradeplatz Bahnhofstrasse 2",
+				"typ" : "Kabinen 25x50",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5494127252, 47.3659226076 ],
+						[ 8.5494151559, 47.365926794 ],
+						[ 8.5494120749, 47.3659276152 ],
+						[ 8.5494096442, 47.3659234288 ],
+						[ 8.5494127252, 47.3659226076 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 111,
+				"quellid" : 897,
+				"bezeichnung" : "Stadelhofenplatz Kreuzbühlstrasse",
+				"typ" : "Kabinen 25x50",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.543470942, 47.3689894836 ],
+						[ 8.5434698606, 47.3689916078 ],
+						[ 8.543463607, 47.3689901294 ],
+						[ 8.5434646884, 47.3689880052 ],
+						[ 8.543470942, 47.3689894836 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 112,
+				"quellid" : 898,
+				"bezeichnung" : "Limmatquai Helmhaus",
+				"typ" : "Kabinen 25x50",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.533382981, 47.3731703434 ],
+						[ 8.5333830336, 47.3731748405 ],
+						[ 8.5333797235, 47.3731748539 ],
+						[ 8.5333796709, 47.3731703568 ],
+						[ 8.533382981, 47.3731703434 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 124,
+				"quellid" : 914,
+				"bezeichnung" : "Sihlstrasse Talacker",
+				"typ" : "Kabinen 25x50",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.544931543, 47.3673231893 ],
+						[ 8.5449281223, 47.3673280614 ],
+						[ 8.5449137797, 47.3673234224 ],
+						[ 8.5449172004, 47.3673185502 ],
+						[ 8.544931543, 47.3673231893 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 154,
+				"quellid" : 1122,
+				"bezeichnung" : "54-09",
+				"typ" : "Kabinen 60x120",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5446142221, 47.3672212727 ],
+						[ 8.5446108013, 47.3672261449 ],
+						[ 8.5445964588, 47.3672215058 ],
+						[ 8.5445998796, 47.3672166337 ],
+						[ 8.5446142221, 47.3672212727 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 155,
+				"quellid" : 1123,
+				"bezeichnung" : "Bellevue Seite Quaibrücke ESA Kabine",
+				"typ" : "Kabinen 60x120",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5409253498, 47.3663665841 ],
+						[ 8.5409561495, 47.3663718941 ],
+						[ 8.5409542054, 47.3663771209 ],
+						[ 8.5409234059, 47.3663718199 ],
+						[ 8.5409253498, 47.3663665841 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 191,
+				"quellid" : 963,
+				"bezeichnung" : "Bürkliplatz",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5311652021, 47.3632413622 ],
+						[ 8.5311655422, 47.3632521442 ],
+						[ 8.5311576013, 47.3632522643 ],
+						[ 8.531157261, 47.3632414733 ],
+						[ 8.5311652021, 47.3632413622 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 200,
+				"quellid" : 984,
+				"bezeichnung" : "Bahnhof Enge Tessinerplatz 2.4m K.",
+				"typ" : "Kabinen 60x120",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5311653655, 47.3632467488 ],
+						[ 8.5311660725, 47.3632683305 ],
+						[ 8.5311581316, 47.3632684506 ],
+						[ 8.5311574245, 47.3632468689 ],
+						[ 8.5311653655, 47.3632467488 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 201,
+				"quellid" : 985,
+				"bezeichnung" : "56-03",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5315135702, 47.3637630145 ],
+						[ 8.5315162428, 47.3637680984 ],
+						[ 8.5315012908, 47.3637717301 ],
+						[ 8.5314986184, 47.3637666551 ],
+						[ 8.5315135702, 47.3637630145 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 202,
+				"quellid" : 986,
+				"bezeichnung" : "Bahnhof Enge Tessinerplatz 1.2m K.",
+				"typ" : "Kabinen 60x120",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5316541655, 47.3655121321 ],
+						[ 8.5316384508, 47.3655308918 ],
+						[ 8.5316315512, 47.3655282226 ],
+						[ 8.5316472659, 47.3655094629 ],
+						[ 8.5316541655, 47.3655121321 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 203,
+				"quellid" : 987,
+				"bezeichnung" : "Bahnhof Enge See/ Bederstrasse",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.53436766, 47.3677170289 ],
+						[ 8.5343730718, 47.3677271691 ],
+						[ 8.5343656157, 47.3677290118 ],
+						[ 8.5343601905, 47.3677188628 ],
+						[ 8.53436766, 47.3677170289 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 204,
+				"quellid" : 989,
+				"bezeichnung" : "Bleicherweg Stockerstrasse",
+				"typ" : "Kabinen 60x120",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5356837465, 47.3678271664 ],
+						[ 8.5356979471, 47.3678320148 ],
+						[ 8.5356943788, 47.3678368341 ],
+						[ 8.5356801782, 47.3678319857 ],
+						[ 8.5356837465, 47.3678271664 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 205,
+				"quellid" : 991,
+				"bezeichnung" : "Bleicherweg",
+				"typ" : "Kabinen 60x120",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5494226373, 47.3708373131 ],
+						[ 8.5494400679, 47.3708553697 ],
+						[ 8.5494334162, 47.3708583211 ],
+						[ 8.549415999, 47.3708402734 ],
+						[ 8.5494226373, 47.3708373131 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 207,
+				"quellid" : 995,
+				"bezeichnung" : "Heimplatz Kunsthaus linke Kabine",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5494400677, 47.3708553607 ],
+						[ 8.5494574851, 47.3708734174 ],
+						[ 8.5494508469, 47.3708763777 ],
+						[ 8.5494334162, 47.3708583211 ],
+						[ 8.5494400677, 47.3708553607 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 208,
+				"quellid" : 997,
+				"bezeichnung" : "Heimplatz Kunsthaus rechte Kabine",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5319953093, 47.3734536288 ],
+						[ 8.5320018274, 47.3734634707 ],
+						[ 8.53199459, 47.3734656891 ],
+						[ 8.5319880717, 47.3734558381 ],
+						[ 8.5319953093, 47.3734536288 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 225,
+				"quellid" : 1029,
+				"bezeichnung" : "Stauffacher Sihlbrücke",
+				"typ" : "Kabinen 60x120",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5448882497, 47.3673092387 ],
+						[ 8.5449169349, 47.3673185168 ],
+						[ 8.5449135274, 47.3673233888 ],
+						[ 8.544884829, 47.3673141108 ],
+						[ 8.5448882497, 47.3673092387 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 249,
+				"quellid" : 1162,
+				"bezeichnung" : "Bellevue Seite Rämistrasse",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.544570929, 47.367207322 ],
+						[ 8.5445996141, 47.3672166002 ],
+						[ 8.5445962065, 47.3672214723 ],
+						[ 8.5445675215, 47.3672121941 ],
+						[ 8.544570929, 47.367207322 ]
+					]
+				]
+			},
+			"properties" : {
+				"objectid" : 250,
+				"quellid" : 1164,
+				"bezeichnung" : "Bellevue Seite Quaibrücke",
+				"typ" : "Kabinen 60x240",
+				"erdung" : null
+			}
+		}
+	]
+}

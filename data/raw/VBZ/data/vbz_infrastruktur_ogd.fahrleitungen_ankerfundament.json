@@ -1,0 +1,18 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.fahrleitungen_ankerfundament",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5322980954, 47.3706400342 ]
+			},
+			"properties" : {
+				"objectid" : 23,
+				"hoehemuem" : 412.78,
+				"orientierung" : 0
+			}
+		}
+	]
+}

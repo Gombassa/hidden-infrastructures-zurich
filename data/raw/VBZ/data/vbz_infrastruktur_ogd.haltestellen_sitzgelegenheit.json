@@ -1,0 +1,1446 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.haltestellen_sitzgelegenheit",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5506241446, 47.3723839486 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 162.36,
+				"objectid" : 537
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5490565995, 47.3702821879 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 210.63,
+				"objectid" : 813
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5489989144, 47.3703987621 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 35.31,
+				"objectid" : 814
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5487425677, 47.3703750503 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 75.2,
+				"objectid" : 815
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5487107026, 47.370393122 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 146.11,
+				"objectid" : 816
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486914838, 47.3704131681 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 146.11,
+				"objectid" : 817
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474794463, 47.3728085821 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 155.86,
+				"objectid" : 1131
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5506029201, 47.3724316204 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 162.36,
+				"objectid" : 1166
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5487622456, 47.3703891365 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 356.31,
+				"objectid" : 1402
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5502709409, 47.3728980488 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 340.77,
+				"objectid" : 1526
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.550289535, 47.3728600992 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 340.77,
+				"objectid" : 1527
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.548490155, 47.3703265994 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 319.85,
+				"objectid" : 1592
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5473415486, 47.372761413 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 338.87,
+				"objectid" : 1775
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5350594363, 47.3633114896 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 309.35,
+				"objectid" : 4
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314657239, 47.3607868784 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 349.41,
+				"objectid" : 7
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314612406, 47.3642683179 ]
+			},
+			"properties" : {
+				"typ" : "Sitz",
+				"orientierung" : 7.31,
+				"objectid" : 89
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314823865, 47.3607201295 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 348.97,
+				"objectid" : 113
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5353609597, 47.3593929931 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 356.77,
+				"objectid" : 119
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5304823767, 47.3645202206 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 236.15,
+				"objectid" : 121
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5350244097, 47.3677716845 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 69.67,
+				"objectid" : 193
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5350591521, 47.367780062 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 69.67,
+				"objectid" : 195
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5349833308, 47.3678131463 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 69.67,
+				"objectid" : 196
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5348295141, 47.3635310764 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 68.67,
+				"objectid" : 203
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5326824296, 47.36628555 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : null,
+				"objectid" : 206
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5304652489, 47.3645126557 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 236.15,
+				"objectid" : 215
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314599447, 47.3642619346 ]
+			},
+			"properties" : {
+				"typ" : "Sitz",
+				"orientierung" : 7.31,
+				"objectid" : 233
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314585711, 47.364255633 ]
+			},
+			"properties" : {
+				"typ" : "Sitz",
+				"orientierung" : 7.31,
+				"objectid" : 234
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531457198, 47.3642493584 ]
+			},
+			"properties" : {
+				"typ" : "Sitz",
+				"orientierung" : 7.31,
+				"objectid" : 235
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405352137, 47.3668573322 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 164.1,
+				"objectid" : 248
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5328912709, 47.3663428046 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 216.32,
+				"objectid" : 267
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5329352564, 47.3663822904 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 216.32,
+				"objectid" : 268
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5327066421, 47.3663053979 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 35.9,
+				"objectid" : 269
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5326627633, 47.366265938 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 36.27,
+				"objectid" : 270
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5413469506, 47.3664410693 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 254.73,
+				"objectid" : 354
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.538823414, 47.3698209054 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 67.53,
+				"objectid" : 523
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5389183817, 47.3698468333 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 67.54,
+				"objectid" : 524
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5393860827, 47.3699705938 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 167.63,
+				"objectid" : 529
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5389805504, 47.3695487354 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 247.24,
+				"objectid" : 533
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5388645178, 47.3695151284 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 247.24,
+				"objectid" : 862
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5327720745, 47.3662357942 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 216.05,
+				"objectid" : 872
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5327554442, 47.3663505679 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 36.25,
+				"objectid" : 873
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5352259201, 47.36787443 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 69.61,
+				"objectid" : 874
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5352518162, 47.367828003 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 69.61,
+				"objectid" : 875
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.535943488, 47.3679009238 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 242.72,
+				"objectid" : 876
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314489673, 47.3642695854 ]
+			},
+			"properties" : {
+				"typ" : "Sitz",
+				"orientierung" : 187.34,
+				"objectid" : 899
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5361666346, 47.3679792022 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 241.99,
+				"objectid" : 920
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5403969182, 47.367146047 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 164.89,
+				"objectid" : 921
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5404140244, 47.3671005662 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 164.89,
+				"objectid" : 922
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5404805403, 47.3669223941 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 165.82,
+				"objectid" : 923
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405475754, 47.3667437402 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 165.82,
+				"objectid" : 924
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5410644908, 47.3665345001 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 74.95,
+				"objectid" : 925
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5414542421, 47.3666015081 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 75.26,
+				"objectid" : 926
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5411152654, 47.3663987641 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 255.61,
+				"objectid" : 927
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5414989718, 47.3664750497 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 249.92,
+				"objectid" : 928
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5347134634, 47.3634095288 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 256.86,
+				"objectid" : 950
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316765375, 47.3607160882 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 169.03,
+				"objectid" : 953
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316936076, 47.3606569633 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 168.27,
+				"objectid" : 954
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5355546743, 47.3597707856 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 176.61,
+				"objectid" : 955
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5304761068, 47.364681455 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 54.07,
+				"objectid" : 967
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314475126, 47.3642632036 ]
+			},
+			"properties" : {
+				"typ" : "Sitz",
+				"orientierung" : 187.34,
+				"objectid" : 998
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5355583715, 47.3597066238 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 176.58,
+				"objectid" : 1041
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5305961849, 47.3645688338 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 236.17,
+				"objectid" : 1046
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5412619658, 47.366565978 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 75.14,
+				"objectid" : 1070
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316612777, 47.3607970093 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 168.98,
+				"objectid" : 1118
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5355556333, 47.3597569149 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 176.65,
+				"objectid" : 1250
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.539257926, 47.3697923259 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 348.16,
+				"objectid" : 1434
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5397962733, 47.3680793922 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 346.24,
+				"objectid" : 1470
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5433905776, 47.3696880429 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 350.56,
+				"objectid" : 1471
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314990261, 47.3606367668 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 348.03,
+				"objectid" : 1637
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5345819718, 47.3722995871 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 322.29,
+				"objectid" : 91
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427877532, 47.3738671718 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 9.54,
+				"objectid" : 388
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427845945, 47.3738674629 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 189.54,
+				"objectid" : 389
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.534774052, 47.3723074162 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 143.12,
+				"objectid" : 521
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5353299998, 47.3719347325 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 135.9,
+				"objectid" : 522
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427136885, 47.3719088799 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 0.38,
+				"objectid" : 818
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429042774, 47.3719501808 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 179.95,
+				"objectid" : 819
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429056474, 47.3720246205 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 179.95,
+				"objectid" : 820
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427952559, 47.3738944004 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 9.54,
+				"objectid" : 821
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427923105, 47.3738947613 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 189.54,
+				"objectid" : 822
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427884526, 47.3738811166 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 189.54,
+				"objectid" : 823
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427915047, 47.3738807906 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 9.54,
+				"objectid" : 824
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.542979796, 47.3739450689 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 190.02,
+				"objectid" : 825
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429891964, 47.3739769658 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 190.02,
+				"objectid" : 826
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.54299861, 47.3740088625 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 190.02,
+				"objectid" : 827
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5383567963, 47.3733308299 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 176.58,
+				"objectid" : 828
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5383706392, 47.372954998 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 176.22,
+				"objectid" : 829
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5347385851, 47.3723431487 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 143.37,
+				"objectid" : 900
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5347101112, 47.3723699455 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 143.37,
+				"objectid" : 991
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.54275494, 47.3716240229 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 349.83,
+				"objectid" : 1403
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427461091, 47.3716592244 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 349.83,
+				"objectid" : 1404
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381959659, 47.3729939008 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 356.93,
+				"objectid" : 1405
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381844948, 47.3733082463 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 357.66,
+				"objectid" : 1769
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475955076, 47.3655363855 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 139.33,
+				"objectid" : 132
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.544727184, 47.3672575389 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 64.6,
+				"objectid" : 210
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5455454017, 47.3670379626 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 138.6,
+				"objectid" : 229
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5455209007, 47.3670573931 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 138.6,
+				"objectid" : 247
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5502515997, 47.3627049551 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 148.72,
+				"objectid" : 438
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5525859789, 47.3600005251 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 148.68,
+				"objectid" : 439
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5527813042, 47.3674153561 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 129.56,
+				"objectid" : 540
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5528509262, 47.3673693757 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 130.69,
+				"objectid" : 541
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456149999, 47.3669950272 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 138.24,
+				"objectid" : 588
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5500616847, 47.3629232972 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 148.68,
+				"objectid" : 931
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5477771283, 47.3660123483 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 48.06,
+				"objectid" : 969
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.55011435, 47.3628674429 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 148.68,
+				"objectid" : 1117
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5528662919, 47.3673602143 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 130.69,
+				"objectid" : 1217
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.548146432, 47.3660763098 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 228.65,
+				"objectid" : 1266
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.544690714, 47.3664582625 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 328.68,
+				"objectid" : 1472
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447107389, 47.3664362305 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 328.68,
+				"objectid" : 1473
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547485343, 47.3654594821 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 318.7,
+				"objectid" : 1474
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5516957182, 47.3679288699 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 310.33,
+				"objectid" : 1475
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5493740056, 47.3635076113 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 328.75,
+				"objectid" : 1477
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451031078, 47.3668434884 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 282.9,
+				"objectid" : 1525
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5519201783, 47.3605681923 ]
+			},
+			"properties" : {
+				"typ" : "Bank",
+				"orientierung" : 328.65,
+				"objectid" : 1532
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451395776, 47.3668374451 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 282.9,
+				"objectid" : 1557
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5450665457, 47.3668495506 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH lang",
+				"orientierung" : 282.9,
+				"objectid" : 1558
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5494364286, 47.363437739 ]
+			},
+			"properties" : {
+				"typ" : "Bank in WH kurz",
+				"orientierung" : 328.75,
+				"objectid" : 1635
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316712399, 47.3708515339 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 128.19,
+				"objectid" : 1135
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316147252, 47.3708824093 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 128.15,
+				"objectid" : 1136
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5317700212, 47.3706967642 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 308.09,
+				"objectid" : 1544
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5317130189, 47.3707277432 ]
+			},
+			"properties" : {
+				"typ" : "Bank Stehhilfe",
+				"orientierung" : 308.2,
+				"objectid" : 1644
+			}
+		}
+	]
+}

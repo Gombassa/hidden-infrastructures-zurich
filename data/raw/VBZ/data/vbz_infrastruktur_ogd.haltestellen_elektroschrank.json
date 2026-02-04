@@ -1,0 +1,126 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.haltestellen_elektroschrank",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5347205291, 47.3723601409 ]
+			},
+			"properties" : {
+				"objectid" : 7,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 143.37
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5413069275, 47.3665736174 ]
+			},
+			"properties" : {
+				"objectid" : 13,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 75.14
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5326936137, 47.3662937646 ]
+			},
+			"properties" : {
+				"objectid" : 54,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 36.27
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316427733, 47.370867095 ]
+			},
+			"properties" : {
+				"objectid" : 58,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 128.12
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478483241, 47.3660546165 ]
+			},
+			"properties" : {
+				"objectid" : 59,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 47.97
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476492375, 47.3654926387 ]
+			},
+			"properties" : {
+				"objectid" : 61,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 138.43
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5525666311, 47.3600223812 ]
+			},
+			"properties" : {
+				"objectid" : 62,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 148.3
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5329032756, 47.366353584 ]
+			},
+			"properties" : {
+				"objectid" : 67,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 216.34
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314470836, 47.364238399 ]
+			},
+			"properties" : {
+				"objectid" : 68,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 187.51
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314498714, 47.3642381208 ]
+			},
+			"properties" : {
+				"objectid" : 78,
+				"typ" : "WISAR oder Kommunikationsmodul",
+				"orientierung" : 7.51
+			}
+		}
+	]
+}

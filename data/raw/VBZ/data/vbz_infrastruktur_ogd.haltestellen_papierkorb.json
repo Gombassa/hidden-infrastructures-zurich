@@ -1,0 +1,1134 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.haltestellen_papierkorb",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5529546292, 47.3673095108 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb neu",
+				"orientierung" : 130.52,
+				"objectid" : 652
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5526026439, 47.3599852254 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 148.51,
+				"objectid" : 655
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5523904934, 47.3602237916 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 150.22,
+				"objectid" : 917
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5519421636, 47.3605477232 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 12.88,
+				"objectid" : 996
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5517169526, 47.3679198499 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb neu",
+				"orientierung" : 311.98,
+				"objectid" : 1223
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474914535, 47.3727651642 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 158.04,
+				"objectid" : 617
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429998424, 47.3740223255 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 191.31,
+				"objectid" : 620
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5383564489, 47.3732433914 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 180,
+				"objectid" : 622
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427803555, 47.3738424519 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 9.53,
+				"objectid" : 623
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5502506524, 47.3729404673 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 338.72,
+				"objectid" : 1204
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547333548, 47.3728052062 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 341.28,
+				"objectid" : 1205
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381931826, 47.3730284417 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 356.28,
+				"objectid" : 1207
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5381824404, 47.3733235576 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 353.35,
+				"objectid" : 1208
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478947614, 47.3652639711 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 312.44,
+				"objectid" : 7
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5305739099, 47.3645601212 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb neu",
+				"orientierung" : 236.27,
+				"objectid" : 275
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5360356545, 47.3679363706 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 243.09,
+				"objectid" : 277
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5387754901, 47.3696217325 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 59.42,
+				"objectid" : 327
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5488524739, 47.3706983506 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 121.88,
+				"objectid" : 328
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5404832302, 47.3669052056 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 165.27,
+				"objectid" : 331
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5404020515, 47.3671227995 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 162.3,
+				"objectid" : 332
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5399488228, 47.3681893967 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 164.36,
+				"objectid" : 337
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5353654799, 47.359376552 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb neu",
+				"orientierung" : 0,
+				"objectid" : 350
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316774605, 47.3607017052 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 169.99,
+				"objectid" : 367
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5505832932, 47.3724727283 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 160.56,
+				"objectid" : 368
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5355519838, 47.3597210858 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb neu",
+				"orientierung" : 177.27,
+				"objectid" : 435
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5412416286, 47.3664238326 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 255.68,
+				"objectid" : 478
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447561117, 47.3669064952 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 24.98,
+				"objectid" : 532
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5454805567, 47.366606474 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 234.37,
+				"objectid" : 533
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.544726319, 47.3664169306 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 18.27,
+				"objectid" : 534
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5446599874, 47.3664928734 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 237.69,
+				"objectid" : 535
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5429034122, 47.3719876718 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 180.8,
+				"objectid" : 621
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.534662023, 47.3724178062 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 144.59,
+				"objectid" : 624
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5347613096, 47.3723187991 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 141.93,
+				"objectid" : 625
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5317186835, 47.3708257726 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 128.16,
+				"objectid" : 631
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5312891051, 47.3641876499 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 0.33,
+				"objectid" : 632
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314378687, 47.3641944639 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 93.79,
+				"objectid" : 633
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313190832, 47.3643099523 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 15.06,
+				"objectid" : 637
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478885347, 47.3660807751 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 43.44,
+				"objectid" : 660
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476287617, 47.3659384295 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 47.71,
+				"objectid" : 662
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475093763, 47.3663450334 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 51.56,
+				"objectid" : 663
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5459691627, 47.366811117 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb neu",
+				"orientierung" : 139.23,
+				"objectid" : 664
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5472939002, 47.3661917104 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 43.44,
+				"objectid" : 665
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5473963785, 47.3661192509 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 201.64,
+				"objectid" : 666
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476786927, 47.3662841923 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 230.71,
+				"objectid" : 667
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5481691838, 47.3660937668 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 226.22,
+				"objectid" : 668
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475751445, 47.3657470322 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 225.73,
+				"objectid" : 669
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475301518, 47.3655934308 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 137.19,
+				"objectid" : 670
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5476673108, 47.3654818778 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 141.41,
+				"objectid" : 671
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478111842, 47.3652132674 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 222.85,
+				"objectid" : 672
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5491016634, 47.3703326583 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 211.1,
+				"objectid" : 673
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.548944813, 47.3703371346 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 28.02,
+				"objectid" : 674
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486764083, 47.3704255284 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 154.49,
+				"objectid" : 675
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5434814191, 47.3699721946 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 162.56,
+				"objectid" : 677
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.541472153, 47.3664733808 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 252.37,
+				"objectid" : 679
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5414301025, 47.3665943085 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 70.51,
+				"objectid" : 680
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5411928403, 47.3665538108 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 74.04,
+				"objectid" : 682
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5357953946, 47.367860953 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 240.05,
+				"objectid" : 683
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5349484425, 47.3678047522 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 66.21,
+				"objectid" : 684
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5349732809, 47.3677590369 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 65.92,
+				"objectid" : 685
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5352024102, 47.3678688604 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb alt",
+				"orientierung" : 159.62,
+				"objectid" : 686
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5352271575, 47.3678213019 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb alt",
+				"orientierung" : 159.66,
+				"objectid" : 687
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5325811716, 47.3661894065 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 31.45,
+				"objectid" : 688
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5327440492, 47.3663365895 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 31.01,
+				"objectid" : 689
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.532853411, 47.3663095484 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 218.74,
+				"objectid" : 690
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5329629342, 47.3664077632 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 215.59,
+				"objectid" : 691
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5393733697, 47.3700064078 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 164.22,
+				"objectid" : 692
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.538897568, 47.3698417334 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 65.15,
+				"objectid" : 693
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5391821001, 47.3697745364 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 159.71,
+				"objectid" : 694
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5389103225, 47.3695320707 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 245.52,
+				"objectid" : 695
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5347367972, 47.3634143536 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 248.55,
+				"objectid" : 696
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5347877374, 47.3635197702 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 71.68,
+				"objectid" : 697
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5500879602, 47.3628938999 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 149.73,
+				"objectid" : 699
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5501639762, 47.3628080648 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 96.51,
+				"objectid" : 700
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5391864522, 47.3697493265 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 154.57,
+				"objectid" : 736
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314706311, 47.3607731054 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 350.45,
+				"objectid" : 763
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315853839, 47.3708985814 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 125.01,
+				"objectid" : 765
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5484516176, 47.3703809767 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 326.09,
+				"objectid" : 808
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.535088446, 47.3631693695 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 356.62,
+				"objectid" : 811
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478458174, 47.3663649292 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 55.66,
+				"objectid" : 873
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5478785818, 47.3659244086 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 226.06,
+				"objectid" : 883
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5486523085, 47.3705265598 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 210.99,
+				"objectid" : 951
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.53979229, 47.3680961522 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 345.1,
+				"objectid" : 1114
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.547474336, 47.3654726128 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 316.92,
+				"objectid" : 1141
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5456729365, 47.3667418335 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 299.64,
+				"objectid" : 1168
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5454685308, 47.3667905675 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 293.91,
+				"objectid" : 1169
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5427173588, 47.3719332937 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 358.84,
+				"objectid" : 1206
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5345506095, 47.3723404707 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 328.11,
+				"objectid" : 1210
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.534638243, 47.3722600952 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 324.09,
+				"objectid" : 1211
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316664035, 47.3707538565 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 307.59,
+				"objectid" : 1216
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5314548862, 47.3642741529 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 279.27,
+				"objectid" : 1217
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5434132538, 47.3696437138 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 350.8,
+				"objectid" : 1227
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5493903776, 47.3634927647 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 330.84,
+				"objectid" : 1228
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405477875, 47.3666150084 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 307.41,
+				"objectid" : 1239
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5317979713, 47.370681199 ]
+			},
+			"properties" : {
+				"typ" : "Papierkorb Haifisch",
+				"orientierung" : 307.41,
+				"objectid" : 1246
+			}
+		}
+	]
+}

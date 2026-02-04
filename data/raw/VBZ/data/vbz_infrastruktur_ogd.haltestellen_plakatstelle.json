@@ -1,0 +1,702 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.haltestellen_plakatstelle",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5318480065, 47.3707579307 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119451",
+				"orientierung" : 307.83,
+				"objectid" : 18
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.544712803, 47.3672529632 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7996",
+				"orientierung" : 244.12,
+				"objectid" : 134
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316984322, 47.370735725 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7362",
+				"orientierung" : 128.44,
+				"objectid" : 147
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5353500389, 47.3678495852 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119322",
+				"orientierung" : 248.91,
+				"objectid" : 151
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5473631226, 47.3727393117 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7390",
+				"orientierung" : 248.87,
+				"objectid" : 152
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315145645, 47.3606146356 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7454",
+				"orientierung" : 78.03,
+				"objectid" : 157
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5350940142, 47.3677884653 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7707",
+				"orientierung" : 249.67,
+				"objectid" : 184
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5349650615, 47.3678087412 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7708",
+				"orientierung" : 249.67,
+				"objectid" : 185
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5346084512, 47.3722756067 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7738",
+				"orientierung" : 142.32,
+				"objectid" : 200
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5345979737, 47.372285088 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7739",
+				"orientierung" : 142.32,
+				"objectid" : 201
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5412126487, 47.3665513279 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7742",
+				"orientierung" : 165.14,
+				"objectid" : 202
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5312896882, 47.3642012451 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7763",
+				"orientierung" : 181.88,
+				"objectid" : 223
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.531784198, 47.3706888133 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "116909",
+				"orientierung" : 128.44,
+				"objectid" : 236
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5494459044, 47.3634267727 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7798",
+				"orientierung" : 148.75,
+				"objectid" : 247
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5502648186, 47.372910521 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7842",
+				"orientierung" : 160.77,
+				"objectid" : 279
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5329459932, 47.3663919304 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7847",
+				"orientierung" : 36.32,
+				"objectid" : 282
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5327171635, 47.366314869 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7848",
+				"orientierung" : 216.27,
+				"objectid" : 283
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5328786056, 47.3663314468 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7849",
+				"orientierung" : 36.32,
+				"objectid" : 284
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5326509339, 47.3662553098 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7850",
+				"orientierung" : 216.27,
+				"objectid" : 285
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5414001264, 47.3664566539 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "120070",
+				"orientierung" : 164.73,
+				"objectid" : 389
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474561145, 47.37282766 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7462",
+				"orientierung" : 246.32,
+				"objectid" : 392
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405057075, 47.3668915524 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7513",
+				"orientierung" : 74.1,
+				"objectid" : 397
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5413422566, 47.3665796217 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7514",
+				"orientierung" : 255.14,
+				"objectid" : 398
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5412722986, 47.3664279924 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7515",
+				"orientierung" : 74.73,
+				"objectid" : 399
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5405369568, 47.3668180337 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7517",
+				"orientierung" : 74.1,
+				"objectid" : 401
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5348267589, 47.3634266957 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7563",
+				"orientierung" : 73.28,
+				"objectid" : 455
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5348043873, 47.3635246854 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7564",
+				"orientierung" : 248.67,
+				"objectid" : 456
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.544727184, 47.3672575389 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7200",
+				"orientierung" : 244.12,
+				"objectid" : 466
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5447415782, 47.3672621145 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7201",
+				"orientierung" : 244.12,
+				"objectid" : 467
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5455454017, 47.3670379626 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7199",
+				"orientierung" : 318.6,
+				"objectid" : 478
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.54518056, 47.3668306569 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7294",
+				"orientierung" : 102.9,
+				"objectid" : 506
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451539994, 47.3668350581 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7295",
+				"orientierung" : 102.9,
+				"objectid" : 507
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451273594, 47.3668394691 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7296",
+				"orientierung" : 102.9,
+				"objectid" : 508
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5451012473, 47.3668437941 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7297",
+				"orientierung" : 102.9,
+				"objectid" : 509
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.545075254, 47.3668481 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7298",
+				"orientierung" : 102.9,
+				"objectid" : 510
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5450491288, 47.366852434 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7299",
+				"orientierung" : 102.9,
+				"objectid" : 511
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5355536639, 47.3597853763 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "117856",
+				"orientierung" : 356.74,
+				"objectid" : 588
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316862973, 47.3708432598 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "116902",
+				"orientierung" : 308.48,
+				"objectid" : 589
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5318604075, 47.3707511929 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119452",
+				"orientierung" : 307.83,
+				"objectid" : 669
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5453578102, 47.3672219305 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119985",
+				"orientierung" : 329.63,
+				"objectid" : 671
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5453664659, 47.3672115661 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119986",
+				"orientierung" : 329.63,
+				"objectid" : 672
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5315151829, 47.3606125158 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119105",
+				"orientierung" : 258.03,
+				"objectid" : 703
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5353211984, 47.3678423392 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119321",
+				"orientierung" : 248.91,
+				"objectid" : 775
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5473619749, 47.3727414275 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119110",
+				"orientierung" : 68.87,
+				"objectid" : 809
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5474576826, 47.3728304784 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119111",
+				"orientierung" : 65.86,
+				"objectid" : 845
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.545533301, 47.3670475595 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7985",
+				"orientierung" : 318.6,
+				"objectid" : 994
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5346889378, 47.3723898818 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7740",
+				"orientierung" : 323.39,
+				"objectid" : 1002
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5346995116, 47.3723799318 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7741",
+				"orientierung" : 323.38,
+				"objectid" : 1003
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5413970437, 47.3664561166 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7743",
+				"orientierung" : 344.73,
+				"objectid" : 1004
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5453744496, 47.3672019997 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "119987",
+				"orientierung" : 329.63,
+				"objectid" : 1005
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475429124, 47.3655793118 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7796",
+				"orientierung" : 318.7,
+				"objectid" : 1018
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5475551742, 47.3655692184 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7797",
+				"orientierung" : 319.33,
+				"objectid" : 1019
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5501553841, 47.3628201291 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7799",
+				"orientierung" : 328.68,
+				"objectid" : 1020
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5528369597, 47.3673776961 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7839",
+				"orientierung" : 310.41,
+				"objectid" : 1026
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5506293436, 47.3723722948 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7843",
+				"orientierung" : 342.36,
+				"objectid" : 1028
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316010951, 47.3708899053 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7363",
+				"orientierung" : 308.48,
+				"objectid" : 1057
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5316564235, 47.3608152974 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "7453",
+				"orientierung" : 348.87,
+				"objectid" : 1076
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5412095662, 47.3665507997 ]
+			},
+			"properties" : {
+				"plakatstellenrvbz" : "120071",
+				"orientierung" : 345.14,
+				"objectid" : 1152
+			}
+		}
+	]
+}

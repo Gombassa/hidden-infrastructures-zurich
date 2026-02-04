@@ -1,0 +1,58 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.strecke_ausgleichvorrichtung",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5439124604, 47.366998434 ]
+			},
+			"properties" : {
+				"objectid" : 4,
+				"sapnummer" : "I-IN-TR-SAVO-0013",
+				"einbaudatum" : "20150727",
+				"orientierung" : 167.35
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5423871653, 47.3667383986 ]
+			},
+			"properties" : {
+				"objectid" : 11,
+				"sapnummer" : "I-IN-TR-SAVO-0017",
+				"einbaudatum" : "20150727",
+				"orientierung" : 164.51
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5439246103, 47.367027597 ]
+			},
+			"properties" : {
+				"objectid" : 16,
+				"sapnummer" : "I-IN-TR-SAVO-0012",
+				"einbaudatum" : "20150727",
+				"orientierung" : 346.53
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5423994219, 47.3667663644 ]
+			},
+			"properties" : {
+				"objectid" : 20,
+				"sapnummer" : "I-IN-TR-SAVO-0014",
+				"einbaudatum" : "20150727",
+				"orientierung" : 342.6
+			}
+		}
+	]
+}

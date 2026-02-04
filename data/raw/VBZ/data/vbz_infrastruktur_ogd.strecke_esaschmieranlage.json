@@ -1,0 +1,844 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.strecke_esaschmieranlage",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5309408855, 47.3648169977 ],
+						[ 8.5309517994, 47.3648243335 ],
+						[ 8.5309436004, 47.364829961 ],
+						[ 8.5309326862, 47.3648226162 ],
+						[ 8.5309408855, 47.3648169977 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 122,
+				"typ" : 11,
+				"typtext" : "EKA auss. Gl. / Standard / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "20.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0201",
+				"einbaudatum" : "20211018",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 1
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5315887383, 47.3655083977 ],
+						[ 8.5315813259, 47.3655175259 ],
+						[ 8.5315711194, 47.3655137096 ],
+						[ 8.5315785316, 47.3655045724 ],
+						[ 8.5315887383, 47.3655083977 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 305,
+				"typ" : 5,
+				"typtext" : "EKA auss. Gl. / BUS / RL",
+				"systemtyp" : 3,
+				"systemtyptext" : "Einfacher Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "20.2",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0202",
+				"einbaudatum" : "20050101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 2
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5315476434, 47.3647754387 ],
+						[ 8.5315498279, 47.3647857714 ],
+						[ 8.5315382928, 47.364786888 ],
+						[ 8.5315361217, 47.3647765642 ],
+						[ 8.5315476434, 47.3647754387 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 123,
+				"typ" : 10,
+				"typtext" : "EKA auss. Gl. / Standard / AK",
+				"systemtyp" : 1,
+				"systemtyptext" : "Anschlusskasten",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "20.3",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0203",
+				"einbaudatum" : "20050101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 3
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5474286322, 47.3662848303 ],
+						[ 8.5474189901, 47.3662929376 ],
+						[ 8.5474099234, 47.3662879693 ],
+						[ 8.5474195785, 47.3662798529 ],
+						[ 8.5474286322, 47.3662848303 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 175,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "38.3",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0383",
+				"einbaudatum" : "20090101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 9
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5494684693, 47.3659094962 ],
+						[ 8.5494736917, 47.3659193137 ],
+						[ 8.5494627323, 47.3659220007 ],
+						[ 8.5494575231, 47.3659121831 ],
+						[ 8.5494684693, 47.3659094962 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 147,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "38.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0381",
+				"einbaudatum" : "20070101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 32
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5480031259, 47.3661285362 ],
+						[ 8.5479923307, 47.366135944 ],
+						[ 8.5479840459, 47.3661303746 ],
+						[ 8.5479948543, 47.3661229667 ],
+						[ 8.5480031259, 47.3661285362 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 177,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 4,
+				"systemtyptext" : "Gemischte Ausführung",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "38.2",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0382",
+				"einbaudatum" : "20090101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 33
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5498186924, 47.3739753611 ],
+						[ 8.5498141995, 47.373985335 ],
+						[ 8.5498030546, 47.3739830135 ],
+						[ 8.5498075475, 47.3739730396 ],
+						[ 8.5498186924, 47.3739753611 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 170,
+				"typ" : 5,
+				"typtext" : "EKA auss. Gl. / BUS / RL",
+				"systemtyp" : 3,
+				"systemtyptext" : "Einfacher Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "85.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0851",
+				"einbaudatum" : null,
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 49
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5313871589, 47.3633365269 ],
+						[ 8.5313879033, 47.3633444266 ],
+						[ 8.5313725729, 47.3633450934 ],
+						[ 8.5313718285, 47.3633371937 ],
+						[ 8.5313871589, 47.3633365269 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 131,
+				"typ" : 11,
+				"typtext" : "EKA auss. Gl. / Standard / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "8.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0081",
+				"einbaudatum" : "20060101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 58
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5325743054, 47.3636423852 ],
+						[ 8.5325808145, 47.3636518405 ],
+						[ 8.5325702522, 47.3636551878 ],
+						[ 8.5325637563, 47.3636457324 ],
+						[ 8.5325743054, 47.3636423852 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 133,
+				"typ" : 12,
+				"typtext" : "EKA auss. Gl. / Standard / RL",
+				"systemtyp" : 3,
+				"systemtyptext" : "Einfacher Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "8.2",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0082",
+				"einbaudatum" : "20060101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 59
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.53200945, 47.3642068464 ],
+						[ 8.5320110406, 47.3642146841 ],
+						[ 8.5319958315, 47.3642161144 ],
+						[ 8.5319942277, 47.3642082768 ],
+						[ 8.53200945, 47.3642068464 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 127,
+				"typ" : 7,
+				"typtext" : "EKA auss. Gl. / Fettw. / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "8.3",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0083",
+				"einbaudatum" : "20060101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 60
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5446110222, 47.367218281 ],
+						[ 8.544608247, 47.3672223644 ],
+						[ 8.5446022366, 47.367220479 ],
+						[ 8.5446050118, 47.3672163956 ],
+						[ 8.5446110222, 47.367218281 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 297,
+				"typ" : 19,
+				"typtext" : "Schrank 3 Beh./ BUS / DRL",
+				"systemtyp" : 4,
+				"systemtyptext" : "Gemischte Ausführung",
+				"einbauart" : "Schrankanlage",
+				"nummer" : "62.2",
+				"bezeichnung" : "EIG",
+				"sapnummer" : "I-IN-TR-SCHM-0622",
+				"einbaudatum" : "20080101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 69
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5348755937, 47.3721030365 ],
+						[ 8.534886771, 47.3721101985 ],
+						[ 8.5348787724, 47.3721159503 ],
+						[ 8.5348675953, 47.3721087973 ],
+						[ 8.5348755937, 47.3721030365 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 202,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "63.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0631",
+				"einbaudatum" : "20090101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 70
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5339778507, 47.3727486879 ],
+						[ 8.5339833607, 47.3727584313 ],
+						[ 8.5339724949, 47.3727612689 ],
+						[ 8.5339669718, 47.3727515346 ],
+						[ 8.5339778507, 47.3727486879 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 200,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "63.2",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0632",
+				"einbaudatum" : "20090101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 71
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5384042447, 47.3695136921 ],
+						[ 8.5383935819, 47.3695211967 ],
+						[ 8.5383851932, 47.3695156995 ],
+						[ 8.5383958559, 47.369508195 ],
+						[ 8.5384042447, 47.3695136921 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 236,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "16.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0161",
+				"einbaudatum" : "20040101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 79
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5388786951, 47.3706792988 ],
+						[ 8.538874905, 47.3706894095 ],
+						[ 8.5388636098, 47.3706874482 ],
+						[ 8.5388674131, 47.3706773374 ],
+						[ 8.5388786951, 47.3706792988 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 189,
+				"typ" : 11,
+				"typtext" : "EKA auss. Gl. / Standard / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "16.2",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0162",
+				"einbaudatum" : "20050101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 80
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5396438901, 47.3690043867 ],
+						[ 8.5396412291, 47.3690120939 ],
+						[ 8.5396262843, 47.3690097088 ],
+						[ 8.5396289453, 47.3690020015 ],
+						[ 8.5396438901, 47.3690043867 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 203,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "16.3",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0163",
+				"einbaudatum" : "20050101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 81
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5377706742, 47.3700064957 ],
+						[ 8.5377818642, 47.3700136393 ],
+						[ 8.5377738931, 47.3700194091 ],
+						[ 8.5377626898, 47.3700122656 ],
+						[ 8.5377706742, 47.3700064957 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 118,
+				"typ" : 11,
+				"typtext" : "EKA auss. Gl. / Standard / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "16.4",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0164",
+				"einbaudatum" : "20050101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 82
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5343789528, 47.3677363063 ],
+						[ 8.5343788614, 47.3677370088 ],
+						[ 8.534378584, 47.3677376861 ],
+						[ 8.534378107, 47.3677383113 ],
+						[ 8.5343774564, 47.3677388661 ],
+						[ 8.5343766581, 47.3677393235 ],
+						[ 8.5343757516, 47.3677396649 ],
+						[ 8.5343747628, 47.3677398722 ],
+						[ 8.5343737318, 47.3677399539 ],
+						[ 8.5343726977, 47.3677398917 ],
+						[ 8.5343717009, 47.3677397033 ],
+						[ 8.5343707806, 47.3677393792 ],
+						[ 8.5343699639, 47.3677389372 ],
+						[ 8.5343692907, 47.3677383949 ],
+						[ 8.5343687882, 47.367737779 ],
+						[ 8.5343684831, 47.3677371073 ],
+						[ 8.5343683628, 47.3677364068 ],
+						[ 8.5343684543, 47.3677357043 ],
+						[ 8.5343687316, 47.367735027 ],
+						[ 8.5343692087, 47.3677344018 ],
+						[ 8.5343698593, 47.3677338469 ],
+						[ 8.5343706575, 47.3677333896 ],
+						[ 8.5343715641, 47.3677330482 ],
+						[ 8.5343725528, 47.3677328409 ],
+						[ 8.5343735839, 47.3677327592 ],
+						[ 8.5343746179, 47.3677328213 ],
+						[ 8.5343756148, 47.3677330098 ],
+						[ 8.534376535, 47.3677333339 ],
+						[ 8.5343773517, 47.3677337759 ],
+						[ 8.5343780249, 47.3677343182 ],
+						[ 8.5343785274, 47.3677349341 ],
+						[ 8.5343788325, 47.3677356058 ],
+						[ 8.5343789528, 47.3677363063 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 299,
+				"typ" : 28,
+				"typtext" : "CUPA / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "CUPA",
+				"nummer" : "18.1",
+				"bezeichnung" : "EIG",
+				"sapnummer" : "I-IN-TR-SCHM-0181",
+				"einbaudatum" : "20181005",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 83
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5363384265, 47.3680486493 ],
+						[ 8.5363328232, 47.3680555928 ],
+						[ 8.5363193605, 47.3680505756 ],
+						[ 8.5363249638, 47.368043632 ],
+						[ 8.5363384265, 47.3680486493 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 234,
+				"typ" : 10,
+				"typtext" : "EKA auss. Gl. / Standard / AK",
+				"systemtyp" : 1,
+				"systemtyptext" : "Anschlusskasten",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "18.3",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0183",
+				"einbaudatum" : "20040101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 93
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5317420106, 47.3735749867 ],
+						[ 8.5317469643, 47.3735821539 ],
+						[ 8.5317330456, 47.3735865853 ],
+						[ 8.5317281051, 47.373579418 ],
+						[ 8.5317420106, 47.3735749867 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 214,
+				"typ" : 5,
+				"typtext" : "EKA auss. Gl. / BUS / RL",
+				"systemtyp" : 3,
+				"systemtyptext" : "Einfacher Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "19.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0191",
+				"einbaudatum" : "20040101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 101
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5308157928, 47.3734854224 ],
+						[ 8.5308208939, 47.3734952688 ],
+						[ 8.5308099044, 47.3734979003 ],
+						[ 8.5308048033, 47.3734880539 ],
+						[ 8.5308157928, 47.3734854224 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 213,
+				"typ" : 5,
+				"typtext" : "EKA auss. Gl. / BUS / RL",
+				"systemtyp" : 3,
+				"systemtyptext" : "Einfacher Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "19.2",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0192",
+				"einbaudatum" : "20040101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 114
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5460706162, 47.3664641989 ],
+						[ 8.5460640661, 47.3664707472 ],
+						[ 8.5460513663, 47.3664648782 ],
+						[ 8.5460579166, 47.3664583388 ],
+						[ 8.5460706162, 47.3664641989 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 176,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "38.4",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0384",
+				"einbaudatum" : "20090101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 125
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5486483014, 47.3699627903 ],
+						[ 8.5486546233, 47.3699694399 ],
+						[ 8.5486417122, 47.369975096 ],
+						[ 8.5486354036, 47.3699684462 ],
+						[ 8.5486483014, 47.3699627903 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 182,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "88.2",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0882",
+				"einbaudatum" : "20121010",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 131
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.549789829, 47.3704279282 ],
+						[ 8.5497940346, 47.3704353088 ],
+						[ 8.5497797069, 47.3704390717 ],
+						[ 8.5497755144, 47.370431682 ],
+						[ 8.549789829, 47.3704279282 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 185,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "88.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0881",
+				"einbaudatum" : "20121010",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 137
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5430908043, 47.3704099469 ],
+						[ 8.5430873595, 47.3704175088 ],
+						[ 8.5430726908, 47.3704144198 ],
+						[ 8.5430761357, 47.3704068579 ],
+						[ 8.5430908043, 47.3704099469 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 146,
+				"typ" : 11,
+				"typtext" : "EKA auss. Gl. / Standard / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "10.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0101",
+				"einbaudatum" : "20070101",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 154
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5421435074, 47.3666646729 ],
+						[ 8.5421385881, 47.3666745516 ],
+						[ 8.5421275466, 47.3666720215 ],
+						[ 8.542132466, 47.3666621428 ],
+						[ 8.5421435074, 47.3666646729 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 186,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "62.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0621",
+				"einbaudatum" : "20121010",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 178
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 8.5402728874, 47.3668450016 ],
+						[ 8.540270014, 47.3668526749 ],
+						[ 8.5402551319, 47.3668500914 ],
+						[ 8.5402580055, 47.3668424271 ],
+						[ 8.5402728874, 47.3668450016 ]
+					]
+				]
+			},
+			"properties" : {
+				"quellid" : 204,
+				"typ" : 4,
+				"typtext" : "EKA auss. Gl. / BUS / DRL",
+				"systemtyp" : 2,
+				"systemtyptext" : "Doppelter Radlenker",
+				"einbauart" : "EKA ausser Gleis",
+				"nummer" : "87.1",
+				"bezeichnung" : "EAG",
+				"sapnummer" : "I-IN-TR-SCHM-0871",
+				"einbaudatum" : "20140619",
+				"lagequalitaet" : "unbekannt",
+				"aktualitaet" : "unbestimmt",
+				"objectid" : 188
+			}
+		}
+	]
+}

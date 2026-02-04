@@ -1,0 +1,90 @@
+{
+	"type" : "FeatureCollection",
+	"name" : "vbz_infrastruktur_ogd.fahrleitungen_nachspanner",
+	"features" : [
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5519032041, 47.3698396403 ]
+			},
+			"properties" : {
+				"typ" : "C+ 900/800",
+				"mastnummer" : null,
+				"einbaudatum" : null,
+				"orientierung" : -0.61,
+				"objectid" : 1
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5311619843, 47.3632800898 ]
+			},
+			"properties" : {
+				"typ" : "C+ 900/800",
+				"mastnummer" : null,
+				"einbaudatum" : null,
+				"orientierung" : -70.65,
+				"objectid" : 52
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5313766781, 47.3632883041 ]
+			},
+			"properties" : {
+				"typ" : "C+ 900/800",
+				"mastnummer" : null,
+				"einbaudatum" : null,
+				"orientierung" : -96.97,
+				"objectid" : 53
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5483270888, 47.3646375852 ]
+			},
+			"properties" : {
+				"typ" : "C+ 900/800",
+				"mastnummer" : null,
+				"einbaudatum" : null,
+				"orientierung" : -47.43,
+				"objectid" : 54
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5484660442, 47.3646888357 ]
+			},
+			"properties" : {
+				"typ" : "C+ 900/800",
+				"mastnummer" : null,
+				"einbaudatum" : null,
+				"orientierung" : -83.96,
+				"objectid" : 55
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Point",
+				"coordinates" : [ 8.5520644308, 47.370069487 ]
+			},
+			"properties" : {
+				"typ" : "C+ 900/800",
+				"mastnummer" : null,
+				"einbaudatum" : null,
+				"orientierung" : -47.01,
+				"objectid" : 122
+			}
+		}
+	]
+}

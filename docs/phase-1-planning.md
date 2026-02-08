@@ -102,10 +102,14 @@
 
 ## Prototyping Approach
 
-### Week 1-2: Audio Concept Sketches
+### Week 1-2: Audio Concept Sketches *(in progress)*
 - Design 3-5 different sonification approaches in Pure Data
 - Test with mock GPS data
 - Evaluate: legibility, beauty, battery impact
+- **Done:** Substation drone patch (50 Hz hum + harmonics + tram modulation)
+- **Done:** Feeder event patch (triggered tone with pitch envelope)
+- **Done:** WebPd compilation pipeline (Pd → WASM → browser via AudioWorklet)
+- **Done:** Dual-patch browser test page with independent controls
 
 ### Week 3-4: Minimal Spatial Audio Prototype
 - Single sound source positioned in 3D space

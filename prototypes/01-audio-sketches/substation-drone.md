@@ -1,3 +1,7 @@
+Web version: substation-drone-web.pd (switch~ removed for WebPd compatibility)
+Compiled: substation-drone-app/patch.wasm
+Test page: substation-drone-test.html (also in dual-patch-test.html)
+
 ┌────────────────────────────────────────────────┐
 │ SUBSTATION TRANSFORMER DRONE                   │
 │                                                │

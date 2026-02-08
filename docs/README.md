@@ -11,9 +11,9 @@
 | Phase | Status |
 |-------|--------|
 | Phase 0 - Research | Complete |
-| Phase 1 - Prototyping | Ready to Start |
+| Phase 1 - Prototyping | In Progress |
 
-**Last Updated:** February 1, 2026
+**Last Updated:** February 8, 2026
 
 ---
 
@@ -51,7 +51,13 @@
 ├── data/
 │   ├── raw/           Original VBZ data
 │   └── processed/     GeoJSON for app
-├── prototypes/        Audio/spatial tests
+├── prototypes/
+│   └── 01-audio-sketches/
+│       ├── *.pd               Pure Data patches (desktop)
+│       ├── *-web.pd           WebPd-compatible versions
+│       ├── *-app/             Compiled WASM + runtime
+│       ├── *-test.html        Single-patch test pages
+│       └── dual-patch-test.html  Both patches together
 ├── src/               Application code
 └── tests/             Analysis scripts
 ```
@@ -61,7 +67,19 @@
 ## Tech Stack
 
 - **Spatial Audio:** Three.js + Web Audio API
-- **Synthesis:** Tone.js / WebPd
+- **Synthesis:** WebPd (Pure Data patches compiled to WASM)
 - **Mapping:** Leaflet
 - **Platform:** Progressive Web App
 - **Hosting:** Firebase
+
+## Audio Prototypes
+
+Two Pd patches compiled and running in browser via WebPd:
+
+| Patch | Description | Test Page |
+|-------|-------------|-----------|
+| Substation Drone | 50 Hz hum with harmonics, tram-modulated pulsing | `substation-drone-test.html` |
+| Feeder Event | Triggered percussive tone with pitch envelope | `webpd-test.html` |
+| Both Combined | Dual-patch test with independent mute controls | `dual-patch-test.html` |
+
+Serve locally: `npx http-server prototypes/01-audio-sketches`

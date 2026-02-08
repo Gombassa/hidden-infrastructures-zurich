@@ -19,7 +19,7 @@
     {
       "type": "Feature",
       "properties": {
-        "id": 2,
+      "id": 2,
         "feeder_count": 10,
         "type": "substation_candidate"
       },

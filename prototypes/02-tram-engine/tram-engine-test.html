@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TramEngine + ProximityEngine Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        h1 { color: #00d4ff; margin-bottom: 4px; }
+        h2 { color: #ccc; font-size: 16px; margin: 0 0 16px; font-weight: normal; }
+        h3 { color: #aaa; margin: 20px 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        button {
+            background: #00d4ff;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background: #00a8cc; }
+        button:disabled { background: #555; cursor: not-allowed; }
+        .btn-small { padding: 8px 16px; font-size: 13px; }
+        .btn-stop { background: #ff6b6b; }
+        .btn-stop:hover { background: #e03131; }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        #stale-banner {
+            display: none;
+            background: #ff6b6b22;
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+        #stale-banner.visible { display: block; }
+        .status-bar {
+            background: #16213e;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+        .status-bar .label { color: #888; }
+        .status-bar .value { color: #00d4ff; font-weight: bold; }
+        .status-bar .countdown { color: #ffd43b; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        thead th {
+            text-align: left;
+            color: #888;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 10px;
+            border-bottom: 1px solid #333;
+        }
+        tbody td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #1a1a2e;
+        }
+        tbody tr { background: #16213e; }
+        tbody tr:nth-child(even) { background: #1a2340; }
+        .line-badge {
+            display: inline-block;
+            background: #00d4ff;
+            color: #1a1a2e;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .delay { color: #ff6b6b; }
+        .no-delay { color: #51cf66; }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: #00d4ff;
+            border-radius: 3px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #555;
+            font-size: 14px;
+        }
+        #console {
+            background: #0f0f23;
+            border: 1px solid #333;
+            padding: 12px;
+            height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 11px;
+            margin-top: 16px;
+            border-radius: 4px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .section-header .count { color: #00d4ff; font-size: 13px; }
+        .triggered-row { background: #ff6b6b22 !important; }
+        .triggered-row td:first-child { border-left: 3px solid #ff6b6b; }
+        .log { color: #aaa; }
+        .error { color: #ff6b6b; }
+        .success { color: #51cf66; }
+        .warn { color: #ffd43b; }
+    </style>
+</head>
+<body>
+    <h1>TramEngine + ProximityEngine Test</h1>
+    <h2>Live tram positions + infrastructure proximity</h2>
+
+    <div id="stale-banner">API connection issue — showing last known positions</div>
+
+    <div class="controls">
+        <button id="startBtn">Start Engine</button>
+        <button id="stopBtn" class="btn-stop btn-small" disabled>Stop</button>
+    </div>
+
+    <div class="status-bar">
+        <div>
+            <span class="label">Active trams:</span>
+            <span class="value" id="tram-count">—</span>
+        </div>
+        <div>
+            <span class="label">Last update:</span>
+            <span class="value" id="last-update">—</span>
+        </div>
+        <div>
+            <span class="label">Next refresh:</span>
+            <span class="countdown" id="countdown">—</span>
+        </div>
+    </div>
+
+    <div id="tram-table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Line</th>
+                    <th>From → To</th>
+                    <th>Progress</th>
+                    <th>Delay</th>
+                    <th>Dist to HB</th>
+                </tr>
+            </thead>
+            <tbody id="tram-body">
+                <tr><td colspan="5" class="empty-state">Press "Start Engine" to begin</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-header">
+        <h3>Nearest Substations (top 10)</h3>
+        <span class="count" id="sub-active">—</span>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Trams nearby</th>
+                <th>Nearest tram</th>
+            </tr>
+        </thead>
+        <tbody id="sub-body">
+            <tr><td colspan="3" class="empty-state">Waiting for data...</td></tr>
+        </tbody>
+    </table>
+
+    <div class="section-header">
+        <h3>Triggered Feeders</h3>
+        <span class="count" id="feed-active">—</span>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Triggering line</th>
+            </tr>
+        </thead>
+        <tbody id="feed-body">
+            <tr><td colspan="2" class="empty-state">Waiting for data...</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Console</h3>
+    <div id="console"></div>
+
+    <script type="module">
+        import TramEngine from '../../src/tram-engine.js';
+        import ProximityEngine from '../../src/proximity-engine.js';
+
+        // --- Test coordinate: Bahnhofstrasse/HB ---
+        const HB_LAT = 47.3762;
+        const HB_LNG = 8.5395;
+
+        // --- DOM refs ---
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const staleBanner = document.getElementById('stale-banner');
+        const tramCountEl = document.getElementById('tram-count');
+        const lastUpdateEl = document.getElementById('last-update');
+        const countdownEl = document.getElementById('countdown');
+        const tramBody = document.getElementById('tram-body');
+        const subBody = document.getElementById('sub-body');
+        const subActive = document.getElementById('sub-active');
+        const feedBody = document.getElementById('feed-body');
+        const feedActive = document.getElementById('feed-active');
+        const consoleDiv = document.getElementById('console');
+
+        let proximityReady = false;
+
+        // --- Logging ---
+        function log(msg, type = 'log') {
+            const line = document.createElement('div');
+            line.className = type;
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            consoleDiv.appendChild(line);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        // --- Countdown timer ---
+        let countdownValue = 0;
+        let countdownId = null;
+
+        function startCountdown() {
+            countdownValue = 10;
+            countdownEl.textContent = countdownValue + 's';
+            if (countdownId) clearInterval(countdownId);
+            countdownId = setInterval(() => {
+                countdownValue--;
+                if (countdownValue < 0) countdownValue = 0;
+                countdownEl.textContent = countdownValue + 's';
+            }, 1000);
+        }
+
+        function stopCountdown() {
+            if (countdownId) clearInterval(countdownId);
+            countdownId = null;
+            countdownEl.textContent = '—';
+        }
+
+        // --- Render ---
+        function render(state) {
+            const { trams, lastUpdated, isStale } = state;
+
+            // Stale banner
+            staleBanner.classList.toggle('visible', isStale);
+
+            // Status bar
+            tramCountEl.textContent = trams.length;
+            lastUpdateEl.textContent = lastUpdated
+                ? lastUpdated.toLocaleTimeString()
+                : '—';
+
+            // Reset countdown
+            startCountdown();
+
+            // Distances
+            const distances = TramEngine.getDistanceToPoint(HB_LAT, HB_LNG);
+
+            if (trams.length === 0) {
+                tramBody.innerHTML =
+                    '<tr><td colspan="5" class="empty-state">No active trams between stops right now</td></tr>';
+                log(`Update: 0 trams (isStale: ${isStale})`, isStale ? 'warn' : 'log');
+                renderProximity(state);
+                return;
+            }
+
+            tramBody.innerHTML = distances
+                .map(({ tram, distance }) => {
+                    const pct = (tram.progress * 100).toFixed(1);
+                    const delayClass = tram.delay > 0 ? 'delay' : 'no-delay';
+                    const delayText = tram.delay > 0 ? `+${tram.delay} min` : 'on time';
+                    const distText = distance < 1000
+                        ? `${Math.round(distance)} m`
+                        : `${(distance / 1000).toFixed(2)} km`;
+                    return `<tr>
+                        <td><span class="line-badge">${tram.line}</span></td>
+                        <td>${tram.fromStop} → ${tram.toStop}</td>
+                        <td>
+                            <div class="progress-bar"><div class="fill" style="width:${pct}%"></div></div>
+                            ${pct}%
+                        </td>
+                        <td class="${delayClass}">${delayText}</td>
+                        <td>${distText}</td>
+                    </tr>`;
+                })
+                .join('');
+
+            log(`Update: ${trams.length} tram(s), closest ${Math.round(distances[0].distance)} m from HB (isStale: ${isStale})`, isStale ? 'warn' : 'success');
+            renderProximity(state);
+        }
+
+        function renderProximity(state) {
+            if (!proximityReady) return;
+            const prox = ProximityEngine.calculate(state);
+
+            // Top 10 substations sorted by nearest tram
+            const topSubs = prox.substations
+                .filter(s => s.nearestTramDist !== null)
+                .sort((a, b) => a.nearestTramDist - b.nearestTramDist)
+                .slice(0, 10);
+            const activeSubs = prox.substations.filter(s => s.tramCount > 0).length;
+            subActive.textContent = `${activeSubs} with trams nearby`;
+
+            if (topSubs.length === 0) {
+                subBody.innerHTML = '<tr><td colspan="3" class="empty-state">No substations near active trams</td></tr>';
+            } else {
+                subBody.innerHTML = topSubs.map(s => {
+                    const distText = s.nearestTramDist < 1000
+                        ? `${s.nearestTramDist} m`
+                        : `${(s.nearestTramDist / 1000).toFixed(2)} km`;
+                    return `<tr>
+                        <td>${s.id}</td>
+                        <td>${s.tramCount}</td>
+                        <td>${distText}</td>
+                    </tr>`;
+                }).join('');
+            }
+
+            // Triggered feeders
+            const triggered = prox.feeders.filter(f => f.triggered);
+            feedActive.textContent = `${triggered.length} of ${prox.feeders.length}`;
+
+            if (triggered.length === 0) {
+                feedBody.innerHTML = '<tr><td colspan="2" class="empty-state">No feeders triggered</td></tr>';
+            } else {
+                feedBody.innerHTML = triggered.map(f =>
+                    `<tr class="triggered-row">
+                        <td>${f.id}</td>
+                        <td><span class="line-badge">${f.triggeringTram}</span></td>
+                    </tr>`
+                ).join('');
+            }
+        }
+
+        // --- Register callback ---
+        TramEngine.onUpdate(render);
+
+        // --- Controls ---
+        startBtn.addEventListener('click', async () => {
+            startBtn.disabled = true;
+            startBtn.textContent = 'Loading GeoJSON...';
+            try {
+                await ProximityEngine.init(
+                    '../../data/processed/substations.geojson',
+                    '../../data/raw/route-tram-feeders.geojson',
+                );
+                proximityReady = true;
+                log('ProximityEngine loaded (71 substations, 366 feeders)', 'success');
+            } catch (e) {
+                log(`ProximityEngine init failed: ${e.message}`, 'error');
+            }
+            TramEngine.start();
+            startBtn.textContent = 'Start Engine';
+            stopBtn.disabled = false;
+            log('TramEngine started', 'success');
+        });
+
+        stopBtn.addEventListener('click', () => {
+            TramEngine.stop();
+            stopCountdown();
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            log('Engine stopped');
+        });
+
+        log('Ready. Press "Start Engine" to begin.');
+    </script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ListenerEngine Test</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        #map { height: 55vh; width: 100%; }
+        .panel {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 16px 20px;
+        }
+        h1 { color: #00d4ff; margin: 0 0 4px; font-size: 22px; }
+        h2 { color: #ccc; font-size: 14px; margin: 0 0 14px; font-weight: normal; }
+        h3 { color: #aaa; margin: 16px 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        button {
+            background: #00d4ff;
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background: #00a8cc; }
+        button:disabled { background: #555; cursor: not-allowed; }
+        .btn-stop { background: #ff6b6b; }
+        .btn-stop:hover { background: #e03131; }
+        .btn-reset { background: #ffd43b; color: #1a1a2e; }
+        .btn-reset:hover { background: #fab005; }
+        select {
+            background: #16213e;
+            color: #eee;
+            border: 1px solid #333;
+            padding: 10px 12px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .slider-row label { color: #888; font-size: 13px; white-space: nowrap; }
+        .slider-row input[type="range"] { flex: 1; }
+        .slider-row .val { color: #00d4ff; font-weight: bold; font-size: 13px; min-width: 44px; text-align: right; }
+        .readout {
+            background: #16213e;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-size: 13px;
+        }
+        .readout .item .label { color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .readout .item .value { color: #00d4ff; font-weight: bold; margin-top: 2px; }
+        #console {
+            background: #0f0f23;
+            border: 1px solid #333;
+            padding: 10px;
+            height: 100px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 11px;
+            margin-top: 12px;
+            border-radius: 4px;
+        }
+        .log { color: #aaa; }
+        .success { color: #51cf66; }
+        .error { color: #ff6b6b; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="panel">
+        <h1>ListenerEngine Test</h1>
+        <h2>Simulated walk: Stadelhofen → Bürkliplatz</h2>
+
+        <div class="controls">
+            <button id="startBtn" disabled>Start Walk</button>
+            <button id="stopBtn" class="btn-stop" disabled>Pause</button>
+            <button id="resetBtn" class="btn-reset" disabled>Reset</button>
+            <select id="speedSelect" disabled>
+                <option value="1">1x (5 km/h)</option>
+                <option value="2">2x (10 km/h)</option>
+                <option value="5">5x (25 km/h)</option>
+                <option value="10">10x (50 km/h)</option>
+            </select>
+        </div>
+
+        <div class="slider-row">
+            <label>Progress</label>
+            <input type="range" id="progressSlider" min="0" max="1000" value="0" disabled>
+            <span class="val" id="progressVal">0%</span>
+        </div>
+
+        <div class="readout">
+            <div class="item">
+                <div class="label">Position</div>
+                <div class="value" id="posVal">—</div>
+            </div>
+            <div class="item">
+                <div class="label">Nearest stop</div>
+                <div class="value" id="stopVal">—</div>
+            </div>
+            <div class="item">
+                <div class="label">Heading</div>
+                <div class="value" id="headingVal">—</div>
+            </div>
+            <div class="item">
+                <div class="label">Distance</div>
+                <div class="value" id="distVal">—</div>
+            </div>
+            <div class="item">
+                <div class="label">Speed</div>
+                <div class="value" id="speedVal">—</div>
+            </div>
+            <div class="item">
+                <div class="label">Status</div>
+                <div class="value" id="statusVal">loading</div>
+            </div>
+        </div>
+
+        <h3>Console</h3>
+        <div id="console"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module">
+        import ListenerEngine from '../../src/listener-engine.js';
+
+        // --- DOM refs ---
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const speedSelect = document.getElementById('speedSelect');
+        const progressSlider = document.getElementById('progressSlider');
+        const progressVal = document.getElementById('progressVal');
+        const posVal = document.getElementById('posVal');
+        const stopVal = document.getElementById('stopVal');
+        const headingVal = document.getElementById('headingVal');
+        const distVal = document.getElementById('distVal');
+        const speedVal = document.getElementById('speedVal');
+        const statusVal = document.getElementById('statusVal');
+        const consoleDiv = document.getElementById('console');
+
+        // --- Logging ---
+        function log(msg, type = 'log') {
+            const line = document.createElement('div');
+            line.className = type;
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            consoleDiv.appendChild(line);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        // --- Map setup ---
+        const map = L.map('map').setView([47.370, 8.543], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+
+        let routeLine = null;
+        let listenerMarker = null;
+        const stopMarkers = [];
+
+        // --- Init ---
+        log('Loading route data...');
+        try {
+            await ListenerEngine.init('../../data/processed/route-waypoints.json');
+
+            // Draw route line
+            const latLngs = ListenerEngine.waypoints.map(([lng, lat]) => [lat, lng]);
+            routeLine = L.polyline(latLngs, {
+                color: '#888',
+                weight: 3,
+                opacity: 0.6,
+                dashArray: '8 6',
+            }).addTo(map);
+            map.fitBounds(routeLine.getBounds().pad(0.1));
+
+            // Draw stop markers
+            for (const stop of ListenerEngine.stops) {
+                const m = L.circleMarker([stop.lat, stop.lng], {
+                    radius: 6,
+                    fillColor: '#ffd43b',
+                    color: '#1a1a2e',
+                    weight: 2,
+                    fillOpacity: 0.9,
+                }).addTo(map);
+                m.bindTooltip(stop.name, {
+                    permanent: true,
+                    direction: 'top',
+                    offset: [0, -8],
+                    className: '',
+                });
+                stopMarkers.push(m);
+            }
+
+            // Listener dot
+            const initState = ListenerEngine.getState();
+            listenerMarker = L.circleMarker([initState.lat, initState.lng], {
+                radius: 9,
+                fillColor: '#00d4ff',
+                color: '#fff',
+                weight: 3,
+                fillOpacity: 1,
+            }).addTo(map);
+
+            // Enable controls
+            startBtn.disabled = false;
+            resetBtn.disabled = false;
+            speedSelect.disabled = false;
+            progressSlider.disabled = false;
+            statusVal.textContent = 'ready';
+            log(`Route loaded: ${initState.totalDistance} m, ${ListenerEngine.waypoints.length} waypoints`, 'success');
+        } catch (e) {
+            log(`Init failed: ${e.message}`, 'error');
+            statusVal.textContent = 'error';
+        }
+
+        // --- Render on update ---
+        let scrubbing = false;
+
+        ListenerEngine.onUpdate((state) => {
+            listenerMarker.setLatLng([state.lat, state.lng]);
+
+            posVal.textContent = `${state.lat.toFixed(5)}, ${state.lng.toFixed(5)}`;
+            stopVal.textContent = state.nearestStop;
+            headingVal.textContent = `${state.heading}°`;
+            distVal.textContent = `${state.distanceTravelled} / ${state.totalDistance} m`;
+            speedVal.textContent = `${(state.speed * 3.6).toFixed(1)} km/h`;
+            statusVal.textContent = state.isWalking ? 'walking' : 'paused';
+
+            if (!scrubbing) {
+                progressSlider.value = Math.round(state.progress * 1000);
+            }
+            progressVal.textContent = `${(state.progress * 100).toFixed(1)}%`;
+        });
+
+        // --- Controls ---
+        startBtn.addEventListener('click', () => {
+            ListenerEngine.start();
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            log('Walk started', 'success');
+        });
+
+        stopBtn.addEventListener('click', () => {
+            ListenerEngine.stop();
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            log('Walk paused');
+        });
+
+        resetBtn.addEventListener('click', () => {
+            ListenerEngine.reset();
+            log('Reset to start');
+        });
+
+        speedSelect.addEventListener('change', (e) => {
+            const mult = parseFloat(e.target.value);
+            ListenerEngine.setSpeed((5000 / 3600) * mult);
+            log(`Speed set to ${mult}x`);
+        });
+
+        progressSlider.addEventListener('pointerdown', () => { scrubbing = true; });
+        progressSlider.addEventListener('pointerup', () => { scrubbing = false; });
+        progressSlider.addEventListener('input', (e) => {
+            ListenerEngine.setProgress(parseInt(e.target.value) / 1000);
+        });
+    </script>
+</body>
+</html>

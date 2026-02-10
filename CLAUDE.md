@@ -31,9 +31,15 @@ npx webpd -i <patch>.pd -o <output-dir> -f app    # Full app (runtime + WASM + H
 npx webpd -i <patch>.pd -o <output>.wasm -f wasm  # WASM only (reuse existing runtime)
 npx webpd -i <patch>.pd -o <output>.js -f javascript  # JS output (for debugging)
 
-# Serve audio prototypes locally (required for AudioWorklet)
-npx http-server prototypes/01-audio-sketches
-# Then open http://127.0.0.1:8080/<test-page>.html
+# Serve prototypes locally (required for AudioWorklet + ES modules)
+npx http-server . -p 8080
+# Then open:
+#   http://127.0.0.1:8080/prototypes/01-audio-sketches/dual-patch-test.html
+#   http://127.0.0.1:8080/prototypes/02-tram-engine/tram-engine-test.html
+#   http://127.0.0.1:8080/prototypes/04-listener/listener-test.html
+
+# Route extraction (one-time, output already committed)
+node scripts/extract-route-waypoints.js
 ```
 
 **Dependencies:** `npm install` (webpd for Pd patch compilation)
@@ -42,19 +48,18 @@ npx http-server prototypes/01-audio-sketches
 
 ```
 data/
-├── raw/           # VBZ GeoJSON: feeders, (masts, powerlines for Phase 2)
-└── processed/     # Generated: substations.geojson, maps, API responses
+├── raw/           # VBZ GeoJSON: feeders, masts, powerlines
+└── processed/     # Generated: substations.geojson, route-waypoints.json, maps
+scripts/           # One-time data processing (Node.js)
 tests/             # Python analysis scripts (standalone, no shared modules)
+src/
+├── tram-engine.js       # Live tram positions from transport.opendata.ch
+├── proximity-engine.js  # Tram ↔ infrastructure distance calculations
+└── listener-engine.js   # Simulated walker along extracted route
 prototypes/
-└── 01-audio-sketches/
-    ├── *.pd                    # Pure Data source patches
-    ├── *-web.pd                # WebPd-compatible patches (unsupported objects removed)
-    ├── feeder-event-app/       # Compiled: webpd-runtime.js + patch.wasm
-    ├── substation-drone-app/   # Compiled: webpd-runtime.js + patch.wasm
-    ├── webpd-test.html         # Single-patch test: feeder event
-    ├── substation-drone-test.html  # Single-patch test: substation drone
-    └── dual-patch-test.html    # Both patches running simultaneously
-src/               # Future PWA code (Three.js + Tone.js + Leaflet)
+├── 01-audio-sketches/   # WebPd patch tests (feeder event, substation drone)
+├── 02-tram-engine/      # TramEngine + ProximityEngine live dashboard
+└── 04-listener/         # ListenerEngine walking simulation with Leaflet map
 docs/              # Phase planning and specifications
 ```
 
@@ -67,6 +72,10 @@ docs/              # Phase planning and specifications
 **Phase 2 (visible infrastructure, deferred):**
 - 1,689 overhead wire segments, 258 poles
 - Real-time tram events
+
+**Route:**
+- 75 waypoints extracted from powerline geometry (A* path-stitching)
+- 2,682m total distance: Stadelhofen → Bellevue → Paradeplatz → Rennweg → Bahnhofstrasse/HB → Bürkliplatz
 
 **Data sources:** VBZ Infrastruktur OGD, `transport.opendata.ch` API
 
@@ -94,6 +103,52 @@ docs/              # Phase planning and specifications
 3. Wire hum (600 Hz drone, 1,689 overhead segments)
 4. Pole pings (metallic chime at 10m proximity, 258 poles)
 5. Tram events (power surge when tram intersects wire)
+
+## Engine Modules (src/)
+
+All three are ES modules with no DOM dependencies. Serve from project root via `npx http-server . -p 8080`.
+
+### TramEngine (`src/tram-engine.js`)
+Singleton, default export. Fetches live tram departures from `transport.opendata.ch`, interpolates positions between stop pairs every 10 seconds.
+
+```javascript
+import TramEngine from './src/tram-engine.js';
+TramEngine.start();                        // begin 10s update loop
+TramEngine.stop();                         // halt loop
+TramEngine.getState();                     // → { trams: [{line, lat, lng, fromStop, toStop, progress, delay}], lastUpdated: Date, isStale: bool }
+TramEngine.onUpdate(cb);                   // cb(state) on each refresh
+TramEngine.getDistanceToPoint(lat, lng);   // → [{tram, distance}] sorted nearest-first
+TramEngine.setUpdateInterval(ms);          // change refresh rate
+```
+
+### ProximityEngine (`src/proximity-engine.js`)
+Singleton, default export. Loads substations + feeders GeoJSON, computes audio trigger parameters from tram positions.
+
+```javascript
+import ProximityEngine from './src/proximity-engine.js';
+await ProximityEngine.init();              // loads both GeoJSON files
+ProximityEngine.calculate(tramState);      // → { substations: [{id, lat, lng, tramCount, nearestTramDist}], feeders: [{id, lat, lng, triggered, triggeringTram}] }
+```
+
+- Substation radius: 150m (tramCount = trams within this range)
+- Feeder trigger radius: 30m
+
+### ListenerEngine (`src/listener-engine.js`)
+Singleton, default export. Simulates a walker along the extracted route at 5 km/h with 1-second tick.
+
+```javascript
+import ListenerEngine from './src/listener-engine.js';
+await ListenerEngine.init();               // loads route-waypoints.json
+ListenerEngine.start();                    // begin auto-walk
+ListenerEngine.stop();                     // pause
+ListenerEngine.reset();                    // return to Stadelhofen
+ListenerEngine.getState();                 // → { lat, lng, progress, distanceTravelled, totalDistance, speed, heading, nearestStop, isWalking }
+ListenerEngine.setProgress(0.5);           // manual scrub (0–1)
+ListenerEngine.setSpeed(mps);              // change walk speed
+ListenerEngine.onUpdate(cb);              // cb(state) every second
+```
+
+Route loops back to start automatically when reaching Bürkliplatz.
 
 ## WebPd Integration
 

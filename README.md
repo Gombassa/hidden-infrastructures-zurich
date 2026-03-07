@@ -1,20 +1,36 @@
 # Invisible Infrastructures: Zurich
 
-An immersive audio walk that sonifies Zurich's tram electrical network, making the invisible 600V DC power grid audible through spatial audio.
+A location-based generative music application that sonifies Zurich's hidden urban infrastructure through spatial audio. Walk through District 1 (Altstadt) as your smartphone generates real-time procedural soundscapes driven by five layers of invisible systems: tram electrical network, water supply, sewage, electricity grid, and telecommunications.
 
 ## 🎯 Project Status
 
-**Phase:** 1 - Prototyping  
-**Week:** 1 of 40  
-**Current Focus:** Development environment setup & initial prototypes
+**Phase:** MVP Development - District 1 (Postal Code 8001)  
+**Timeline:** March-August 2026  
+**Target Launch:** August 2026  
+**Current Focus:** Engine integration + infrastructure layer sound design
+
+**Funding:** Stadt Zürich Digitale Künste: Umsetzung und Präsentation (CHF 14,500)
 
 ## 📍 Route
 
-Stadelhofen Bahnhof → Bahnhofstrasse 45  
-- 1,689 overhead wire segments
-- 258 support poles
-- 366 power feeders
-- ~2.5km walking distance
+**Phase 1 MVP:** Stadelhofen → Paradeplatz (District 1 - Altstadt)  
+- Distance: ~2.5km walking
+- 75 waypoints extracted from infrastructure geometry
+- Wheelchair accessible (flat terrain, Bahnhofstrasse)
+
+## 🏗️ Infrastructure Layers
+
+**Phase 1 (District 1):**
+1. **Tram electrical:** 366 power feeders + real-time tram positions
+2. **Water supply:** Distribution pipes, pumping stations (WVZ - 1,550 km network)
+3. **Sewage:** Main collectors, treatment facilities (ERZ)
+4. **Electricity grid:** High-voltage substations, transformers (ewz)
+5. **Telecommunications:** Fiber optic nodes, data hubs (ewz)
+
+**Future Expansion (Districts 2-6, 2027-2030):**
+- Same 5 infrastructure layers per district
+- Unique musical theme per district
+- Collaborative model with local sound artists
 
 ## 🗂️ Repository Structure
 ```
@@ -36,23 +52,37 @@ Stadelhofen Bahnhof → Bahnhofstrasse 45
 
 ## 📊 Data Sources
 
-- **VBZ Infrastruktur OGD**: Zurich tram electrical infrastructure
-  - Source: https://data.stadt-zuerich.ch/dataset/geo_vbz_infrastruktur_ogd
-  - License: Open Government Data
-  - Update: Weekly
-  - **Route data files:**
-    - `route-tram-powerlines.geojson` - 1,689 overhead wire segments
-    - `route-tram-masts.geojson` - 258 support poles
-    - `route-tram-feeders.geojson` - 366 power feeders
-    - `route-buildings.geojson` - Buildings along route
+**Stadt Zürich Open Data:**
+- **VBZ Infrastruktur OGD** (Tram electrical): https://data.stadt-zuerich.ch/dataset/geo_vbz_infrastruktur_ogd
+  - `route-tram-feeders.geojson` - 366 power feeders
+  - `route-tram-powerlines.geojson` - Overhead wire reference
+- **WVZ Leitungskataster** (Water supply): https://www.stadt-zuerich.ch/geodaten/download/WVZ_Leitungskataster
+  - Distribution pipes, pumping stations (1,550 km network)
+- **ERZ Abwasser-Werkleitungsdaten** (Sewage): https://www.stadt-zuerich.ch/geodaten/download/ERZ_Abwasser_Werkleitungsdaten
+  - Main collectors, treatment facilities
+- **ewz Werkleitungsdaten** (Electricity & Telecom): https://www.stadt-zuerich.ch/geodaten/download/EWZ_Werkleitungsdaten_Elektrizitaet_und_Telekommunikation
+  - High-voltage substations, distribution transformers, fiber optic nodes
+
+**Real-Time Data:**
+- **transport.opendata.ch API**: Live tram positions and delays
+- License: Open Government Data (CC BY 4.0)
+- Update frequency: Real-time for trams, weekly for geodata
     
 ## 🔧 Engine Modules
 
 Three ES module singletons power the runtime:
 
-- **TramEngine** — polls `transport.opendata.ch` every 10s, interpolates tram positions between stops
-- **ProximityEngine** — loads 71 substations + 366 feeders, computes `tramCount`/`nearestTramDist` per substation and feeder trigger events (30m radius)
-- **ListenerEngine** — walks 75 waypoints (2,682m) extracted from powerline geometry at 5 km/h with 1s tick
+- **TramEngine** (`src/tram-engine.js`) - Polls `transport.opendata.ch` every 10s, interpolates tram positions between stops
+- **ProximityEngine** (`src/proximity-engine.js`) - Loads infrastructure geodata (feeders, water, sewage, electricity, telecom), computes proximity-based audio parameters
+- **ListenerEngine** (`src/listener-engine.js`) - Simulates walker along 75 waypoints (2,682m route) at 5 km/h with 1s tick, uses device GPS in production
+
+**Integration Status:**
+- ✅ TramEngine: Live API integration functional
+- ✅ ProximityEngine: Feeder proximity detection working  
+- ✅ ListenerEngine: Route simulation complete
+- ⏳ Infrastructure API integration: Water, sewage, electricity, telecom layers pending
+- ⏳ Spatial audio system: Three.js PositionalAudio integration in progress
+- ⏳ WebPd/WASM audio: Dual-patch test functional, multi-layer mixing pending
 
 ```bash
 # Serve from project root (ES module imports need it)
@@ -61,24 +91,48 @@ npx http-server . -p 8080
 # Test pages:
 # http://127.0.0.1:8080/prototypes/02-tram-engine/tram-engine-test.html
 # http://127.0.0.1:8080/prototypes/04-listener/listener-test.html
+# http://127.0.0.1:8080/prototypes/01-audio-sketches/dual-patch-test.html
 ```
 
 ## 🛠️ Tech Stack
 
-- **Spatial Audio**: Three.js + Tone.js + WebPd (Pure Data → WASM)
-- **Mapping**: Leaflet
-- **Audio Engine**: Web Audio API + AudioWorklet
-- **Framework**: Vanilla JS ES modules + PWA
-- **Hosting**: Firebase
+- **Audio Synthesis**: WebPd (Pure Data → WebAssembly) - procedural sound generation
+- **Spatial Audio**: Three.js PositionalAudio + Web Audio API
+- **Data Integration**: Stadt Zürich Open Data APIs (5 infrastructure types)
+- **Framework**: Progressive Web App (PWA) - Vanilla JS ES modules
+- **Privacy**: Zero personal data collection, GPS processed entirely on-device
+- **Hosting**: Hetzner Cloud (renewable energy), Cloudflare CDN
+
+## 🎨 Project Vision
+
+**Phase 1 (2026):** District 1 Altstadt - Historic center sonic portrait  
+**Phases 2-6 (2027-2030):** Expand to Districts 2-6 with unique musical themes  
+**Collaborative Model:** Local sound artists contribute procedural elements per district  
+**Open Source:** PWA architecture and synthesis code publicly available
+
+**Artistic Goals:**
+- Celebrate (not critique) Zurich's invisible infrastructure
+- Radical accessibility - no app store, no account, no barriers
+- Audio-first methodology - eyes free to observe environment
+- Infinite variation through procedural generation
 
 ## 📝 License
 
-[TBD - likely CC BY-NC-SA 4.0]
+Code: MIT License (open source)  
+Artistic Content: CC BY-NC-SA 4.0  
+Data: Stadt Zürich Open Government Data (CC BY 4.0)
 
 ## 👤 Author
 
-Robin - Audio engineer & sound designer based in Zurich
+**Robin Pender** - Sound designer, electro-acoustic composer, and audio engineer  
+MSc Sound Design | 20+ years broadcast/spatial audio experience  
+Based in Zurich since 2020
+
+**Contact:** robinpender23@gmail.com  
+**GitHub:** https://github.com/Gombassa/invisible-infrastructures-zurich  
+**Funding:** Stadt Zürich Digitale Künste: Umsetzung und Präsentation
 
 ---
 
-*Detailed project documentation: [docs/project-master.md](docs/project-master.md)*
+*Full project documentation: [docs/invisible-infrastructures-zurich-master.md](docs/invisible-infrastructures-zurich-master.md)*  
+*Funding application: [Stadt Zürich Kulturförderung](https://www.stadt-zuerich.ch/kultur/de/index/foerderung.html)*

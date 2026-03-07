@@ -4,11 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Invisible Infrastructures: Zurich - An immersive audio walk that sonifies Zurich's hidden tram power distribution network through spatial audio. Phase 1 focuses on the **underground/invisible infrastructure**: substations and power feeders that users walk past without seeing.
+Invisible Infrastructures: Zurich - A location-based generative music application that sonifies Zurich's hidden urban infrastructure through spatial audio. Users walk through District 1 (Altstadt) as their smartphone generates real-time procedural soundscapes driven by five layers of invisible systems.
 
-**Route:** Stadelhofen → Bahnhofstrasse 45 (~2.5km)
-**Phase 1 Focus:** Hidden infrastructure (substations + feeders)
-**Phase 2 Future:** Visible overhead catenary (wires, poles, tram events)
+**Phase 1 MVP - District 1 (Postal Code 8001):**
+- Route: Stadelhofen → Paradeplatz (~2.5km)
+- Five infrastructure layers: tram electrical, water supply, sewage, electricity grid, telecommunications
+- Target completion: July 2026
+- Public launch: August 2026
+- Future expansion: Districts 2-6 (2027-2030)
+
+**Technical approach:**
+- Progressive Web App (browser-based, platform-agnostic)
+- WebAssembly-compiled Pure Data patches for procedural audio synthesis
+- Three.js PositionalAudio for spatial audio
+- Real-time + static data from Stadt Zürich open data programs
+- Zero personal data collection, GPS processed entirely on-device
 
 ## Commands
 
@@ -65,19 +75,23 @@ docs/              # Phase planning and specifications
 
 ## Key Data
 
-**Phase 1 (hidden infrastructure):**
-- 71 substations (inferred from feeder clustering, ~15m radius)
-- 366 power feeders (connect substations to overhead network)
-
-**Phase 2 (visible infrastructure, deferred):**
-- 1,689 overhead wire segments, 258 poles
-- Real-time tram events
+**Infrastructure Layers (Phase 1 MVP):**
+1. **Tram electrical:** 366 power feeders (VBZ static geodata) + real-time tram positions (transport.opendata.ch API)
+2. **Water supply:** Distribution pipes, pumping stations (WVZ Leitungskataster - 1,550 km network)
+3. **Sewage:** Main collectors, treatment facilities (ERZ Abwasser-Werkleitungsdaten)
+4. **Electricity grid:** High-voltage substations, distribution transformers (ewz Werkleitungsdaten)
+5. **Telecommunications:** Fiber optic nodes, data infrastructure (ewz Telecom)
 
 **Route:**
 - 75 waypoints extracted from powerline geometry (A* path-stitching)
-- 2,682m total distance: Stadelhofen → Bellevue → Paradeplatz → Rennweg → Bahnhofstrasse/HB → Bürkliplatz
+- 2,682m total distance: Stadelhofen → Bellevue → Paradeplatz → Rennweg → Bahnhofstrasse/HB
 
-**Data sources:** VBZ Infrastruktur OGD, `transport.opendata.ch` API
+**Data sources:** 
+- VBZ Infrastruktur OGD
+- WVZ Leitungskataster (water)
+- ERZ Abwasser-Werkleitungsdaten (sewage)
+- ewz Werkleitungsdaten (electricity & telecom)
+- transport.opendata.ch API (real-time tram positions)
 
 ## Conventions
 
@@ -89,20 +103,27 @@ docs/              # Phase planning and specifications
 
 ## Known Limitations
 
-- Substations are **inferred** by clustering feeder endpoints (not official VBZ data)
-- VBZ OGD dataset has no dedicated substation layer; consider OSM `power=substation` queries for validation
+- VBZ does not publish substation locations publicly - tram electrical layer focuses on 366 power feeders only
 - Feeder attributes are minimal (only `objectid`, `einbaudatu`) - no substation_id or connectivity metadata
+- Infrastructure geodata is static snapshots - only tram positions update in real-time
+- Water/sewage/electricity/telecom layers will use static infrastructure positions (no real-time flow/usage data available)
 
-## Audio Layers
+## Audio Layers (Phase 1 MVP - District 1)
 
-### Phase 1 (Hidden Infrastructure)
-1. **Substation drone** - Deep 50 Hz bass at 71 inferred locations, audible from 100m+
-2. **Feeder flow** - Directional whoosh/granular synthesis, 366 segments tracing power distribution
+**Infrastructure Layers (procedurally generated):**
+1. **Tram electrical** - Feeder crackle when trams draw power, electrical transients
+2. **Water supply** - Hydraulic pulse, flow textures, pumping station rhythms  
+3. **Sewage** - Deep bass churn, underground rumble, treatment facility processes
+4. **Electricity grid** - High-frequency harmonic screaming, transformer hum, voltage fluctuations
+5. **Telecommunications** - Data chirps, fiber optic whispers, bandwidth pulses
 
-### Phase 2 (Visible Infrastructure - Deferred)
-3. Wire hum (600 Hz drone, 1,689 overhead segments)
-4. Pole pings (metallic chime at 10m proximity, 258 poles)
-5. Tram events (power surge when tram intersects wire)
+**District Musical Theme:**
+- District 1 (Altstadt): Procedurally-generated electronic theme reflecting historic center character
+- Composed layer that infrastructure sounds "perform" atop
+
+**Future Expansion (Districts 2-6):**
+- Each district receives unique musical theme
+- Same 5 infrastructure layers with district-specific sonic character
 
 ## Engine Modules (src/)
 

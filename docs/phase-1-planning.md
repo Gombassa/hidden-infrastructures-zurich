@@ -1,133 +1,96 @@
 # Phase 1 Planning
 
-**Timeline:** Months 1-6
-**Goal:** Working MVP of hidden tram power infrastructure sonification
+**Timeline:** March–August 2026
+**Goal:** Working MVP of District 1 (Postal Code 8001) with all five infrastructure layers sonified
 
-**Concept:** Reveal the INVISIBLE infrastructure—substations hidden in buildings and underground feeder cables—not the visible overhead wires.
+**Concept:** Make Zurich's hidden infrastructure audible. Walk through Altstadt and hear five invisible systems — tram electrical, water supply, sewage, electricity grid, and telecommunications — as layered spatial soundscapes.
 
 ---
 
-## Substation Location Validation
+## What's Already Complete (Phase 0)
 
-**Challenge:** VBZ does not publish Gleichrichterwerk (tram rectifier substation) locations.
+### Core Engine Modules (src/)
 
-**Methodology:** Clustered 471 feeder cable endpoints within 15m radius to infer substation locations.
+| Module | Lines | Status |
+|--------|-------|--------|
+| `tram-engine.js` | ~180 | Working — live tram positions from transport.opendata.ch |
+| `proximity-engine.js` | ~125 | Working — feeder proximity detection, substation density |
+| `listener-engine.js` | ~193 | Working — route simulation, ready for GPS swap |
 
-**Validation:** Cross-referenced against Stadt Zürich Speisekabel (feed cable) data:
-- 563 Speisekabel form ~40 significant endpoint clusters
-- 19/40 clusters correlate with our feeder substations (within 50m)
-- **50% validation rate** confirms methodology is scientifically sound
+### Data Layer
 
-**Why This Matters:**
-- Substations ARE hidden—perfect for "Invisible Infrastructures" concept
-- VBZ intentionally doesn't publish locations (security/operational reasons)
-- Our inference reveals truly invisible infrastructure that walkers pass daily without knowing
+| Data | Count | Source |
+|------|-------|--------|
+| Overhead wire segments | 1,689 | VBZ OGD |
+| Support poles | 258 | VBZ OGD |
+| Power feeders | 366 | VBZ OGD |
+| Inferred substations | 71 | Clustering analysis |
+| Route waypoints | 75 (2,682m) | Extracted via A* + arc-length sampling |
+
+### API & Pipeline
+
+- **9 tram lines** serving route: 2, 4, 7, 8, 9, 10, 11, 13, 15
+- Real-time positions confirmed working (transport.opendata.ch)
+- WebPd compilation pipeline validated (Pd → WASM → browser)
+- Dual-patch browser test functional
+
+---
+
+## Infrastructure Data (Pending Download - April)
+
+| Layer | Source | Data |
+|-------|--------|------|
+| Water supply | WVZ Leitungskataster | Distribution pipes, pumping stations (1,550 km network) |
+| Sewage | ERZ Abwasser-Werkleitungsdaten | Main collectors, treatment facilities |
+| Electricity grid | ewz Werkleitungsdaten | Substations, distribution transformers |
+| Telecommunications | ewz Werkleitungsdaten | Fiber optic nodes, data hubs |
+
+Processing approach: adapt `scripts/extract-route-waypoints.js` algorithms (graph building, haversine distance, arc-length sampling) for each new infrastructure type.
 
 ---
 
 ## Audio Design Objectives (MVP Scope)
 
-### Audio Layer 1: Substation Transformer Drone
-- **Source:** 71 inferred substation locations (`data/processed/substations.geojson`)
-- **Sound:** Deep 50 Hz transformer hum/drone
-- **Character:** Hidden underground or inside buildings—the electrical "heartbeat"
-- **Position:** Directional, audible from 100m+, intensity increases with proximity
-- **Mapping:** Feeder count affects harmonic richness (more feeders = busier substation)
+### Layer 1: Tram Electrical
 
-### Audio Layer 2: Feeder Power Flow
-- **Source:** 366 feeder cables (`data/raw/route-tram-feeders.geojson`)
-- **Sound:** Dynamic electrical flow / granular whoosh
-- **Trigger:** Activates when simulated trams draw power from nearby catenary
-- **Mapping:** Flow direction from substation toward overhead wire connection point
-- **Behavior:** Intensity pulses with tram proximity and acceleration
+- **Source:** 366 power feeders + real-time tram positions (TramEngine)
+- **Sound:** Feeder crackle when trams draw power, electrical transients
+- **Trigger:** Tram within 30m of feeder → percussive electrical event
+- **Continuous:** Substation transformer drone (50 Hz hum, intensity from tram density)
 
-### Deferred to Phase 2
-- **Overhead wires** (1,689 segments) — visible infrastructure, less conceptually interesting
-- **Support poles** (258 masts) — too numerous, creates audio clutter
-- **Pole-mounted equipment** — visible, less mysterious than hidden substations
+### Layer 2: Water Supply
 
----
+- **Source:** WVZ distribution pipes, pumping stations (District 1 subset)
+- **Sound:** Hydraulic pulse, flow textures, pumping station rhythms
+- **Proximity radius:** ~100m for main pipes
+- **Trigger:** Proximity to pipe → sustained flow texture; pump stations → rhythmic pulse
 
-## Known Limitations
+### Layer 3: Sewage
 
-### Substation Locations Are Inferred
-- VBZ publishes feeder cables but NOT substation points
-- Our 71 locations are derived from feeder endpoint clustering (15m radius)
-- This is intentional on VBZ's part (security/operational reasons)
-- **Conceptually strengthens the project:** we're revealing truly invisible infrastructure
+- **Source:** ERZ main collectors, treatment facilities (District 1 subset)
+- **Sound:** Deep bass churn, underground rumble, treatment facility processes
+- **Proximity radius:** ~150m for deep collectors (depth modulates character)
+- **Trigger:** Proximity to collector → bass drone; treatment points → rhythmic processing sounds
 
-### Data Quality Notes
-- Feeder attributes are minimal (only `objectid`, `einbaudatum`)
-- No voltage/amperage data available in VBZ layers
-- No connectivity metadata linking feeders to specific substations
-- Stadt Zürich EWZ substations (2 locations) are grid-level (150kV), not tram-specific
+### Layer 4: Electricity Grid
 
----
+- **Source:** ewz substations, distribution transformers
+- **Sound:** High-frequency harmonic screaming, transformer hum, voltage fluctuations
+- **Proximity radii:** 200m for HV substations, 50m for distribution transformers
+- **Trigger:** Proximity → harmonic drone modulated by voltage level attribute
 
-## Physical Route Walk Checklist
+### Layer 5: Telecommunications
 
-**Purpose:** Validate digital data against physical reality
+- **Source:** ewz fiber optic nodes, data hubs
+- **Sound:** Data chirps, fiber optic whispers, bandwidth pulses
+- **Proximity radius:** ~100m for fiber nodes
+- **Trigger:** Proximity → stochastic data chirp texture
 
-### Pre-Walk Preparation
-- [ ] Charge phone and portable battery
-- [ ] Download offline map of route area
-- [ ] Print route overview with stop locations
-- [ ] Prepare camera for documentation
+### District 1 Musical Theme
 
-### At Each Stop
-- [ ] Confirm tram lines serving stop match data
-- [ ] Look for hidden substations (buildings, basement vents, electrical doors)
-- [ ] Identify feeder cable entry points (where cables go underground)
-- [ ] Note any electrical cabinets or junction boxes
-- [ ] Record GPS coordinates
-- [ ] Note acoustic environment (ambient noise level)
-- [ ] Listen for actual transformer hum near suspected substations
-
-### Route Stops
-1. Stadelhofen
-2. Opernhaus
-3. Bellevue
-4. Paradeplatz
-5. Bahnhofstrasse/HB
-6. Rennweg
-7. Bahnhofstrasse 45 (end)
-
-### Post-Walk
-- [ ] Compare photos to GeoJSON data
-- [ ] Note any discrepancies
-- [ ] Identify acoustic landmarks (quiet zones, noisy intersections)
-- [ ] Update documentation with field observations
-
----
-
-## Prototyping Approach
-
-### Week 1-2: Audio Concept Sketches *(in progress)*
-- Design 3-5 different sonification approaches in Pure Data
-- Test with mock GPS data
-- Evaluate: legibility, beauty, battery impact
-- **Done:** Substation drone patch (50 Hz hum + harmonics + tram modulation)
-- **Done:** Feeder event patch (triggered tone with pitch envelope)
-- **Done:** WebPd compilation pipeline (Pd → WASM → browser via AudioWorklet)
-- **Done:** Dual-patch browser test page with independent controls
-
-### Week 3-4: Minimal Spatial Audio Prototype
-- Single sound source positioned in 3D space
-- GPS + compass integration
-- Test on physical route
-- Validate positioning accuracy
-
-### Week 5-6: Multi-Layer Integration
-- Combine all 5 audio layers
-- Implement distance-based mixing
-- Real-time tram position integration
-- First complete route walkthrough
-
-### Week 7-8: User Testing (Alpha)
-- 3-5 testers walk route with prototype
-- Collect feedback on audio clarity
-- Identify positioning issues
-- Document bugs and usability problems
+- Procedurally-generated electronic ambient as foundation
+- Reflects Altstadt character (historic center, layered history)
+- Infrastructure sounds "perform" atop this continuous theme
 
 ---
 
@@ -135,31 +98,114 @@
 
 | Month | Focus |
 |-------|-------|
-| 1 | Physical route validation, audio sketches |
-| 2 | Core spatial audio engine |
-| 3 | Tram position integration |
-| 4 | UI/UX development |
-| 5 | Integration and testing |
-| 6 | Beta release |
+| March | Engine integration, spatial audio proof-of-concept, GPS integration |
+| April | Water, sewage, electricity, telecom data download + ProximityEngine integration |
+| May | Geographic expansion to full District 1, production sound design |
+| June–July | PWA, UI, service worker, user testing |
+| August | Beta testing, launch event, public release |
+
+---
+
+## Prototyping Approach
+
+### March: Tram Network Integration
+- Wire TramEngine → ProximityEngine → Three.js PositionalAudio
+- Replace ListenerEngine simulation with device GPS + DeviceOrientation API
+- Test on physical route (Stadelhofen → Bahnhofstrasse)
+- Record demo video for funding application
+
+### April: Infrastructure Expansion (on prototype route)
+- Download WVZ, ERZ, ewz geodata for District 1
+- Adapt extraction scripts for each infrastructure type
+- Update ProximityEngine for all 5 layers
+- Basic placeholder Pure Data patches per layer
+
+### May: District 1 Full Scale + Sound Design
+- Scale extraction scripts from route-buffer to full postal code 8001
+- Implement spatial culling for ~4,000–5,000 infrastructure elements
+- Free-roam GPS (remove fixed route constraint)
+- Production-quality sound design for all 6 layers (5 infrastructure + theme)
+
+### June–August: PWA & Launch
+- Service worker, Web App Manifest (offline capability)
+- Minimal UI (audio-first: layer toggles, battery indicator)
+- User testing (15+ participants on District 1)
+- Public launch event
+
+---
+
+## Route Stops
+
+1. Stadelhofen
+2. Opernhaus
+3. Bellevue
+4. Paradeplatz
+5. Rennweg
+6. Bahnhofstrasse/HB
+7. Bürkliplatz (loop back to start)
+
+Note: Route genuinely retraces Bahnhofstrasse (north to HB, then south to Bürkliplatz) — correct walk topology for the audio experience.
+
+---
+
+## Known Limitations
+
+### Substation Locations Are Inferred
+- VBZ publishes feeder cables but NOT substation points
+- 71 locations derived from feeder endpoint clustering (15m radius)
+- This is intentional on VBZ's part (security/operational reasons)
+- Conceptually strengthens the project: we're revealing truly invisible infrastructure
+
+### Static Infrastructure Data
+- Water/sewage/electricity/telecom layers use static geodata snapshots
+- Only tram positions update in real-time
+- No real-time flow/usage data available for other layers
+
+### Straight-Line Tram Interpolation
+- Current: linear interpolation between stop GPS coordinates
+- Actual tracks are curved — offset ±10–20m
+- Mitigation: 30m trigger radius covers the error budget
+- Phase 1.5 improvement: geometry-snap to powerline curves (see `phase-1.5-improvements.md`)
+
+---
+
+## Physical Route Walk Checklist
+
+**Purpose:** Validate digital data against physical reality
+
+### At Each Stop
+- [ ] Confirm tram lines match data
+- [ ] Look for hidden infrastructure (electrical doors, pump housings, junction boxes)
+- [ ] Note acoustic environment (ambient noise level, reverb character)
+- [ ] Listen for actual transformer hum near suspected substations
+
+### Post-Walk
+- [ ] Compare photos to GeoJSON data
+- [ ] Note acoustic landmarks (quiet zones, noisy intersections)
+- [ ] Update ProximityEngine trigger radii based on real-world acoustics
 
 ---
 
 ## Success Criteria
 
 ### Technical
-- [ ] PWA runs on iOS and Android browsers
-- [ ] GPS accuracy within 5-10m
-- [ ] Audio responds to device orientation
-- [ ] No audio dropouts during walking
-- [ ] Handles poor network gracefully
+- [ ] PWA runs on iOS Safari and Android Chrome
+- [ ] GPS accuracy within 10m in District 1 urban canyons
+- [ ] Audio responds to compass heading within 100ms
+- [ ] No audio dropouts during 30+ min walk
+- [ ] Battery drain <25% over full District 1 exploration
+- [ ] Spatial culling handles 4,000–5,000 infrastructure elements
+- [ ] Works offline after initial cache
 
 ### Experiential
-- [ ] 10+ beta testers complete route
-- [ ] Users report awareness of hidden substations
-- [ ] Tram passage creates clear power flow audio event
-- [ ] Journey has coherent narrative arc
+- [ ] 15+ user testing participants complete experience
+- [ ] Users report "seeing infrastructure differently"
+- [ ] Clear sonic differentiation between 5 infrastructure types
+- [ ] Real-time tram events create synchronized audio moments
+- [ ] District 1 theme provides coherent musical foundation
 
 ### Artistic
-- [ ] Users understand what they're hearing (hidden power infrastructure)
-- [ ] Invisible infrastructure becomes perceptible through sound
-- [ ] Creates new perception of urban electrical landscape
+- [ ] Sonification is legible (users understand 5 layers)
+- [ ] Balances data fidelity with aesthetic beauty
+- [ ] Celebrates (not critiques) hidden systems
+- [ ] Each infrastructure type has distinct, memorable sonic character

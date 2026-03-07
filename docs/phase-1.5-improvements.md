@@ -59,8 +59,8 @@ function snapTramToWires(stopA, stopB, progress) {
 
 ### Files to Modify
 
-- `src/js/tram-simulator.js` - Add geometry loading and snapping
-- `src/js/spatial-audio.js` - Update proximity calculations
+- `src/tram-engine.js` - Add geometry loading and wire-snapping logic
+- `src/proximity-engine.js` - Update proximity calculations with snapped positions
 - `data/processed/` - Preprocess wire paths between stops
 
 ---

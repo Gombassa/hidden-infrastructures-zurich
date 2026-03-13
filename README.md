@@ -11,7 +11,7 @@ The app collects zero personal data. GPS coordinates are processed entirely on-d
 **Target Launch:** August 2026  
 **Current Focus:** Engine integration + spatial audio
 
-**Funding:** Stadt Zürich Digitale Künste: Umsetzung und Präsentation (CHF 13,200)
+**Funding:** Applied — Stadt Zürich Digitale Künste: Umsetzung und Präsentation (CHF 13,200, pending)
 
 ## Route & Geography
 
@@ -119,4 +119,4 @@ Based in Zurich since 2020
 
 **Contact:** robinpender23@gmail.com  
 **GitHub:** https://github.com/Gombassa/hiddeninfrastructures-zurich  
-**Funding:** Stadt Zürich Digitale Künste: Umsetzung und Präsentation
+**Funding applied:** Stadt Zürich Digitale Künste: Umsetzung und Präsentation

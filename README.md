@@ -1,4 +1,4 @@
-# Invisible Infrastructures: Zurich
+# Hidden Infrastructures: Zürich
 
 A location-based generative music application that sonifies Zurich's hidden urban infrastructure through spatial audio. Walk through District 1 (Altstadt) as your smartphone generates real-time procedural soundscapes driven by five layers of invisible systems: tram electrical network, water supply, sewage, electricity grid, and telecommunications.
 
@@ -131,10 +131,10 @@ MSc Sound Design | 20+ years broadcast/spatial audio experience
 Based in Zurich since 2020
 
 **Contact:** robinpender23@gmail.com  
-**GitHub:** https://github.com/Gombassa/invisible-infrastructures-zurich  
+**GitHub:** https://github.com/Gombassa/hiddeninfrastructures-zurich  
 **Funding:** Stadt Zürich Digitale Künste: Ideenfindung und Konzeptentwicklung
 
 ---
 
-*Full project documentation: [docs/invisible-infrastructures-zurich-master.md](docs/invisible-infrastructures-zurich-master.md)*  
+*Full project documentation: [docs/hidden-infrastructures-zurich-master.md](docs/hidden-infrastructures-zurich-master.md)*  
 *Funding application: [Stadt Zürich Kulturförderung](https://www.stadt-zuerich.ch/kultur/de/index/foerderung.html)*

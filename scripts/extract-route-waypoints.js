@@ -30,8 +30,8 @@ function haversine(a, b) {
 function pathLength(pts){let d=0;for(let i=1;i<pts.length;i++)d+=haversine(pts[i-1],pts[i]);return d;}
 
 // ─── Load ─────────────────────────────────────────────────────────────────────
-const inFile  = 'C:/Users/robin/Documents/GitHub/invisible-infrastructures-zurich/data/raw/route-tram-powerlines.geojson';
-const outFile = 'C:/Users/robin/Documents/GitHub/invisible-infrastructures-zurich/data/processed/route-waypoints.json';
+const inFile  = 'C:/Users/robin/Documents/GitHub/hidden-infrastructures-zurich/data/raw/route-tram-powerlines.geojson';
+const outFile = 'C:/Users/robin/Documents/GitHub/hidden-infrastructures-zurich/data/processed/route-waypoints.json';
 const gj = JSON.parse(fs.readFileSync(inFile,'utf8'));
 console.log(`Loaded ${gj.features.length} features`);
 

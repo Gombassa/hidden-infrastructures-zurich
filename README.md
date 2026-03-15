@@ -97,8 +97,9 @@ npx http-server . -p 8080
 
 ## 🛠️ Tech Stack
 
-- **Audio Synthesis**: WebPd (Pure Data → WebAssembly) - procedural sound generation
-- **Spatial Audio**: Three.js PositionalAudio + Web Audio API
+- **Audio Synthesis (dev)**: Direct Web Audio API — oscillators, noise nodes, gain envelopes (pipeline validation placeholder)
+- **Audio Synthesis (production)**: Max/MSP → RNBO → WebAssembly AudioWorklet (Cycling '74)
+- **Spatial Audio**: Web Audio API PannerNode (HRTF mode) — no external 3D library
 - **Data Integration**: Stadt Zürich Open Data APIs (5 infrastructure types)
 - **Framework**: Progressive Web App (PWA) - Vanilla JS ES modules
 - **Privacy**: Zero personal data collection, GPS processed entirely on-device
@@ -136,5 +137,4 @@ Based in Zurich since 2020
 
 ---
 
-*Full project documentation: [docs/hidden-infrastructures-zurich-master.md](docs/hidden-infrastructures-zurich-master.md)*  
 *Funding application: [Stadt Zürich Kulturförderung](https://www.stadt-zuerich.ch/kultur/de/index/foerderung.html)*

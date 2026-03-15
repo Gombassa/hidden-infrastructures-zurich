@@ -15,8 +15,8 @@ Invisible Infrastructures: Zurich - A location-based generative music applicatio
 
 **Technical approach:**
 - Progressive Web App (browser-based, platform-agnostic)
-- WebAssembly-compiled Pure Data patches for procedural audio synthesis
-- Three.js PositionalAudio for spatial audio
+- Max/MSP → RNBO → WebAssembly AudioWorklet for production audio synthesis (Cycling '74)
+- Web Audio API PannerNode (HRTF mode) for spatial audio
 - Real-time + static data from Stadt Zürich open data programs
 - Zero personal data collection, GPS processed entirely on-device
 
@@ -36,11 +36,6 @@ python3 tests/simulate-tram-positions-live.py  # Live-updating HTML map
 open data/processed/substations-map.html
 open data/processed/tram-simulation-live.html
 
-# WebPd: compile Pure Data patches for browser
-npx webpd -i <patch>.pd -o <output-dir> -f app    # Full app (runtime + WASM + HTML)
-npx webpd -i <patch>.pd -o <output>.wasm -f wasm  # WASM only (reuse existing runtime)
-npx webpd -i <patch>.pd -o <output>.js -f javascript  # JS output (for debugging)
-
 # Serve prototypes locally (required for AudioWorklet + ES modules)
 npx http-server . -p 8080
 # Then open:
@@ -52,7 +47,7 @@ npx http-server . -p 8080
 node scripts/extract-route-waypoints.js
 ```
 
-**Dependencies:** `npm install` (webpd for Pd patch compilation)
+**Dependencies:** `npm install`
 
 ## Architecture
 
@@ -67,7 +62,7 @@ src/
 ├── proximity-engine.js  # Tram ↔ infrastructure distance calculations
 └── listener-engine.js   # Simulated walker along extracted route
 prototypes/
-├── 01-audio-sketches/   # WebPd patch tests (feeder event, substation drone)
+├── 01-audio-sketches/   # Web Audio API pipeline test (direct synthesis placeholder)
 ├── 02-tram-engine/      # TramEngine + ProximityEngine live dashboard
 └── 04-listener/         # ListenerEngine walking simulation with Leaflet map
 docs/              # Phase planning and specifications
@@ -171,42 +166,18 @@ ListenerEngine.onUpdate(cb);              // cb(state) every second
 
 Route loops back to start automatically when reaching Bürkliplatz.
 
-## WebPd Integration
+## RNBO Integration (Production Audio)
 
-Pure Data patches are compiled to WebAssembly for browser playback using the WebPd CLI.
+Production audio patches are authored in Max/MSP, compiled via RNBO (Cycling '74) to self-contained WASM modules, and run in an AudioWorklet on a dedicated high-priority thread.
 
-### Compilation workflow
-1. Design patch in Pure Data desktop (`*.pd`)
-2. Create web-compatible version (`*-web.pd`) removing unsupported objects
-3. Compile: `npx webpd -i patch-web.pd -o output-dir -f app`
-4. Test in browser via local HTTP server
+### Workflow
+1. Design patch in Max/MSP with RNBO objects
+2. Export from RNBO as Web target → generates `patch.wasm` + `rnbo.min.js`
+3. Load in browser: `createDevice` from RNBO JS API → returns device node
+4. Connect: `device.node.connect(pannerNode)` for spatial positioning
+5. Control parameters via `device.parametersById.get('paramName').value = x`
 
-### WebPd limitations
-- **No IIFE/UMD bundle** — WebPd is ES modules only, cannot be loaded via `<script src="cdn...">`
-- Must use the CLI-generated `webpd-runtime.js` (contains worklet processor + bindings)
-- `webpd-runtime.js` is shared across patches (only need one copy)
-- Each patch compiles to its own `patch.wasm`
-
-### Unsupported Pd objects (remove for web builds)
-- `switch~` — use AudioContext start/stop instead
-- See full list: `npx webpd --whats-implemented`
-
-### WebPd message API
-Messages are sent to compiled patch nodes via AudioWorklet port:
-```javascript
-node.port.postMessage({
-    type: 'io:messageReceiver',
-    payload: { nodeId: 'n_0_X', portletId: '0', message: [value] }
-});
-```
-Node IDs are assigned at compile time — check compiled JS metadata or generated `index.html` for the mapping.
-
-### Compiled patch node IDs
-
-**feeder-event (feeder-event-app/patch.wasm):**
-- `n_0_0` portlet `0` — bng (trigger event with `['bang']`)
-- `n_0_2` portlet `0` — floatatom "pitch" (send `[800]` etc.)
-
-**substation-drone (substation-drone-app/patch.wasm):**
-- `n_0_29` portlet `0` — vsl "Freq Control" (0-1 float)
-- `n_0_32` portlet `0` — floatatom "Trams Nearby" (0-5 integer)
+### Current state
+- Dev placeholder: `prototypes/01-audio-sketches/index.html` uses direct Web Audio API synthesis (noise burst crackle + detuned oscillator drone)
+- This validates the data pipeline (engines → proximity → audio) only — not final sound design
+- Next milestone: validate RNBO pipeline with a single test patch before committing all five layers

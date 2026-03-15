@@ -71,10 +71,16 @@ const ProximityEngine = {
   },
 
   /**
-   * Given the current tram state from TramEngine.getState(),
-   * compute audio parameters for every substation and feeder.
+   * Given the current tram state from TramEngine.getState() and the listener
+   * position, compute audio parameters for every substation and feeder.
+   * A feeder is triggered only when BOTH conditions are met:
+   *   (a) a tram is within FEEDER_TRIGGER_RADIUS (30m) of the feeder
+   *   (b) the listener is within SUBSTATION_RADIUS (150m) of the feeder
+   * @param {object} tramState
+   * @param {number} [listenerLat]
+   * @param {number} [listenerLng]
    */
-  calculate(tramState) {
+  calculate(tramState, listenerLat = null, listenerLng = null) {
     const trams = tramState.trams;
 
     const substationResults = substations.map((sub) => {
@@ -101,12 +107,19 @@ const ProximityEngine = {
       let triggeringTram = null;
       let bestDist = Infinity;
 
-      for (const tram of trams) {
-        const d = haversineDistance(fed.lng, fed.lat, tram.lng, tram.lat);
-        if (d < FEEDER_TRIGGER_RADIUS && d < bestDist) {
-          triggered = true;
-          triggeringTram = tram.line;
-          bestDist = d;
+      // Condition (b): listener must be within 80m of this feeder
+      const listenerNear = listenerLat === null || listenerLng === null
+        ? true
+        : haversineDistance(fed.lng, fed.lat, listenerLng, listenerLat) < 80;
+
+      if (listenerNear) {
+        for (const tram of trams) {
+          const d = haversineDistance(fed.lng, fed.lat, tram.lng, tram.lat);
+          if (d < FEEDER_TRIGGER_RADIUS && d < bestDist) {
+            triggered = true;
+            triggeringTram = tram.line;
+            bestDist = d;
+          }
         }
       }
 

@@ -7,6 +7,12 @@ let updateInterval = UPDATE_INTERVAL;
 
 const stopPairs = [
   {
+    stop_a: { name: "Stadelhofen", lat: 47.3663, lon: 8.5484 },
+    stop_b: { name: "Bellevue", lat: 47.36708, lon: 8.545112 },
+    lines: ["11", "9"],
+    distance: 262.2,
+  },
+  {
     stop_a: { name: "Bellevue", lat: 47.36708, lon: 8.545112 },
     stop_b: { name: "Paradeplatz", lat: 47.369721, lon: 8.538917 },
     lines: ["9", "2", "11"],
@@ -39,7 +45,7 @@ const stopPairs = [
   {
     stop_a: { name: "Opernhaus", lat: 47.36541, lon: 8.547646 },
     stop_b: { name: "Stockerstrasse", lat: 47.367856, lon: 8.535423 },
-    lines: [],
+    lines: ["11", "2"],
     distance: 959.8877703544122,
   },
 ];

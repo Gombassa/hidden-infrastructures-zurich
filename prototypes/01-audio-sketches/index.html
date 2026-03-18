@@ -150,10 +150,15 @@
 
     // ── CONSTANTS ────────────────────────────────────────────────────────────
     const R = 6371000;               // Earth radius in metres
-    const FEEDER_HISS_RADIUS  = 7.5;  // metres — listener within this of a feeder hears continuous hiss
+    const FEEDER_HISS_RADIUS  = 10;   // metres — listener within this of a feeder hears continuous hiss
     const DRONE_FADE_RADIUS   = 20;   // metres — drone fades in linearly as listener approaches a powerline
     const HISS_COMB_DELAYS    = [0.0023, 0.0031, 0.0041, 0.0057, 0.0071, 0.0089]; // seconds
     const HISS_COMB_FEEDBACK  = 0.7;
+    const DRONE_LFO_RATE_1    = 0.017;  // Hz — ~60 second cycle
+    const DRONE_LFO_RATE_2    = 0.023;  // Hz — ~43 second cycle, drifts against LFO 1
+    const DRONE_LFO_DEPTH     = 8;      // Hz — sweep range ±8Hz around centre frequency
+    const REVERB_DECAY        = 2.0;    // seconds — large space impulse response
+    const REVERB_WET          = 0.03;   // 3% wet mix
     const TRAM_COLORS = { '2': '#51cf66', '7': '#ff6b6b', '9': '#4a90e2', '11': '#ffd43b', '13': '#cc5de8' };
 
     // ── HAVERSINE DISTANCE ───────────────────────────────────────────────────
@@ -205,13 +210,45 @@
       }
     }
 
-    // Two detuned oscillators (220 + 221 Hz) with amplitude driven by tram count.
-    // Called once on unlock; returns the GainNode so gain can be updated each tick.
+    function buildReverb(ctx, decaySeconds) {
+      const length = ctx.sampleRate * decaySeconds;
+      const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
+      for (let ch = 0; ch < 2; ch++) {
+        const data = impulse.getChannelData(ch);
+        for (let i = 0; i < length; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 2);
+        }
+      }
+      const convolver = ctx.createConvolver();
+      convolver.buffer = impulse;
+      return convolver;
+    }
+
+    // Two detuned oscillators with independent LFO frequency sweeps.
+    // Returns { gain, lfo1, lfoGain1, lfo2, lfoGain2 } for downstream gain control and clean teardown.
     function startDrone(ctx) {
       const osc1 = ctx.createOscillator();
       const osc2 = ctx.createOscillator();
       osc1.frequency.value = 110;
       osc2.frequency.value = 112;
+
+      const lfo1 = ctx.createOscillator();
+      const lfoGain1 = ctx.createGain();
+      lfo1.type = 'sine';
+      lfo1.frequency.value = DRONE_LFO_RATE_1;
+      lfoGain1.gain.value = DRONE_LFO_DEPTH;
+      lfo1.connect(lfoGain1);
+      lfoGain1.connect(osc1.frequency);
+      lfo1.start();
+
+      const lfo2 = ctx.createOscillator();
+      const lfoGain2 = ctx.createGain();
+      lfo2.type = 'sine';
+      lfo2.frequency.value = DRONE_LFO_RATE_2;
+      lfoGain2.gain.value = DRONE_LFO_DEPTH;
+      lfo2.connect(lfoGain2);
+      lfoGain2.connect(osc2.frequency);
+      lfo2.start();
 
       const gain = ctx.createGain();
       gain.gain.value = 0.1;
@@ -222,7 +259,7 @@
       osc1.start();
       osc2.start();
 
-      return gain;
+      return { gain, lfo1, lfoGain1, lfo2, lfoGain2 };
     }
 
     // Pool of 6 comb-filtered noise nodes for idle feeder texture.
@@ -515,6 +552,12 @@
 
     btnStart.addEventListener('click', () => {
       droneGain = startDrone(ctx);
+      const convolver = buildReverb(ctx, REVERB_DECAY);
+      const reverbGain = ctx.createGain();
+      reverbGain.gain.value = REVERB_WET;
+      droneGain.gain.connect(convolver);
+      convolver.connect(reverbGain);
+      reverbGain.connect(ctx.destination);
       appendLog('Drone oscillators started (110 + 112 Hz)', 'lok');
       if (!idlePool) {
         idlePool = Array.from({ length: 6 }, () => makeHissNode(ctx, ctx.destination));

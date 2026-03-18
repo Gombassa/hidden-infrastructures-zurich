@@ -3,7 +3,7 @@
 
 const SUBSTATION_RADIUS = 150;        // metres — trams within this count toward tramCount
 const FEEDER_TRIGGER_RADIUS = 10;     // metres — tram must be within this of a feeder to trigger
-const FEEDER_LISTENER_RADIUS = 7.5;   // metres — listener must be within this of a feeder to hear it
+const FEEDER_LISTENER_RADIUS = 10;    // metres — listener must be within this of a feeder to hear it
 const POWERLINE_DRONE_RADIUS = 5;     // metres — listener within this of any powerline segment activates drone
 
 let substations = null; // [{ id, lat, lng }]

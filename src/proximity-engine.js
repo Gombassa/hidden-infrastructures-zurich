@@ -2,8 +2,8 @@
 // Pure logic module: no DOM dependencies. Requires fetch for GeoJSON loading.
 
 const SUBSTATION_RADIUS = 150;        // metres — trams within this count toward tramCount
-const FEEDER_TRIGGER_RADIUS = 10;     // metres — tram must be within this of a feeder to trigger
-const FEEDER_LISTENER_RADIUS = 10;    // metres — listener must be within this of a feeder to hear it
+const FEEDER_TRIGGER_RADIUS = 50;     // metres — tram must be within this of a feeder to trigger
+const FEEDER_LISTENER_RADIUS = 50;    // metres — listener must be within this of a feeder to hear it
 const POWERLINE_DRONE_RADIUS = 5;     // metres — listener within this of any powerline segment activates drone
 
 let substations = null; // [{ id, lat, lng }]
@@ -103,8 +103,8 @@ const ProximityEngine = {
    * Given the current tram state from TramEngine.getState() and the listener
    * position, compute audio parameters for every substation and feeder.
    * A feeder is triggered only when BOTH conditions are met:
-   *   (a) a tram is within FEEDER_TRIGGER_RADIUS (10m) of the feeder
-   *   (b) the listener is within FEEDER_LISTENER_RADIUS (5m) of the feeder
+   *   (a) a tram is within FEEDER_TRIGGER_RADIUS (50m) of the feeder
+   *   (b) the listener is within FEEDER_LISTENER_RADIUS (50m) of the feeder
    * Also computes nearestPowerlineDist: minimum point-to-segment distance from
    * the listener to any powerline segment. Drone activates when < POWERLINE_DRONE_RADIUS (5m).
    * @param {object} tramState
@@ -138,7 +138,7 @@ const ProximityEngine = {
       let triggeringTram = null;
       let bestDist = Infinity;
 
-      // Condition (b): listener must be within FEEDER_LISTENER_RADIUS (5m) of this feeder
+      // Condition (b): listener must be within FEEDER_LISTENER_RADIUS (50m) of this feeder
       const listenerNear = listenerLat === null || listenerLng === null
         ? true
         : haversineDistance(fed.lng, fed.lat, listenerLng, listenerLat) < FEEDER_LISTENER_RADIUS;

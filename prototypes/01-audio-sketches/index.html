@@ -361,6 +361,20 @@
       }).addTo(map);
 
       appendLog(`Map ready — ${initialProximity.feeders.length} feeders`, 'lok');
+
+      // Real GPS — centre map on actual device position
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(
+          (pos) => {
+            realLat = pos.coords.latitude;
+            realLng = pos.coords.longitude;
+          },
+          (err) => appendLog(`GPS error: ${err.message}`, 'lerr'),
+          { enableHighAccuracy: true, maximumAge: 5000 },
+        );
+      } else {
+        appendLog('Geolocation not available — using simulated position', 'linf');
+      }
     }
 
     // ── STATE ────────────────────────────────────────────────────────────────
@@ -368,6 +382,8 @@
     let droneGain = null;
     let idlePool  = null; // 6-node comb-filtered noise pool for idle feeder texture
     let tick      = 0;
+    let realLat   = null;
+    let realLng   = null;
 
     // ── UI HELPERS ───────────────────────────────────────────────────────────
     const logDiv = document.getElementById('log');
@@ -430,7 +446,7 @@
           const targetGain = (dist !== null && dist < DRONE_FADE_RADIUS)
             ? (1 - dist / DRONE_FADE_RADIUS) * 0.3
             : 0;
-          droneGain.gain.setTargetAtTime(targetGain, ctx.currentTime, 1.0);
+          droneGain.gain.gain.setTargetAtTime(targetGain, ctx.currentTime, 1.0);
         }
 
         // Idle feeder texture: assign comb-filtered pool nodes to nearest feeders
@@ -465,7 +481,11 @@
       // ── Map ──
       if (listenerMarker) {
         listenerMarker.setLatLng([listenerState.lat, listenerState.lng]);
-        map.setView([listenerState.lat, listenerState.lng], 17);
+      }
+      if (map) {
+        const centerLat = realLat !== null ? realLat : listenerState.lat;
+        const centerLng = realLng !== null ? realLng : listenerState.lng;
+        map.setView([centerLat, centerLng], 17);
       }
       // ── UI cards ──
       setCard('card-pos',    `${listenerState.lat.toFixed(4)}, ${listenerState.lng.toFixed(4)}`);
@@ -574,7 +594,7 @@
     btnStop.addEventListener('click', () => {
       TramEngine.stop();
       ListenerEngine.stop();
-      if (droneGain) { droneGain.gain.value = 0; droneGain = null; }
+      if (droneGain) { droneGain.gain.gain.value = 0; droneGain = null; }
       if (idlePool) idlePool.forEach(node => { node.gain.gain.value = 0; });
       btnStart.disabled = false;
       btnStart.classList.remove('active');

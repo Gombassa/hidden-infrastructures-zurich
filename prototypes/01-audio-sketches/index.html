@@ -150,8 +150,8 @@
 
     // ── CONSTANTS ────────────────────────────────────────────────────────────
     const R = 6371000;               // Earth radius in metres
-    const FEEDER_HISS_RADIUS  = 10;   // metres — listener within this of a feeder hears continuous hiss
-    const DRONE_FADE_RADIUS   = 20;   // metres — drone fades in linearly as listener approaches a powerline
+    const FEEDER_HISS_RADIUS  = 25;   // metres — listener within this of a feeder hears continuous hiss
+    const DRONE_FADE_RADIUS   = 50;   // metres — drone fades in linearly as listener approaches a powerline
     const HISS_COMB_DELAYS    = [0.0023, 0.0031, 0.0041, 0.0057, 0.0071, 0.0089]; // seconds
     const HISS_COMB_FEEDBACK  = 0.7;
     const DRONE_LFO_RATE_1    = 0.017;  // Hz — ~60 second cycle
@@ -410,8 +410,15 @@
       console.log('onUpdate fired', listenerState);
       tick++;
 
-      const tramState  = TramEngine.getState();
-      const proximity  = ProximityEngine.calculate(tramState, listenerState.lat, listenerState.lng);
+      // Detect if listener is on a tram (speed > 3 m/s ≈ 10 km/h)
+      const onTram = listenerState.speed !== null && listenerState.speed > 3;
+
+      // Feeder triggers — on tram: fire on tram-to-feeder proximity alone
+      //                 — on foot: requires listener proximity too (existing behaviour)
+      const tramState = TramEngine.getState();
+      const proximity = onTram
+        ? ProximityEngine.calculate(tramState)
+        : ProximityEngine.calculate(tramState, listenerState.lat, listenerState.lng);
 
       // Trams within range (for log/cards only)
       const tramCount = TramEngine.getDistanceToPoint(listenerState.lat, listenerState.lng).length;
@@ -437,8 +444,10 @@
 
       // ── Audio ──
       if (ctx) {
-        // Active crackle: tram within 10m of a feeder AND listener within 5m of feeder
-        if (feederTriggered) triggerCrackle(ctx);
+        if (feederTriggered) {
+          triggerCrackle(ctx);
+          if (onTram) appendLog(`TRAM MODE — feeder crackle (${triggeredFeeders.map(f => f.id).join(', ')})`, 'ltrg');
+        }
 
         // Drone: fade in linearly from DRONE_FADE_RADIUS down to 0m proximity
         if (droneGain) {
@@ -496,7 +505,7 @@
       );
 
       // ── Log ──
-      if (feederTriggered) {
+      if (feederTriggered && !onTram) {
         appendLog(
           `TICK ${String(tick).padStart(3)} | ⚡ FEEDER TRIGGER (${triggeredFeeders.map(f => f.id).join(', ')}) | trams:${tramCount} | nearest:${Math.round(nearestFeederDist)}m`,
           'ltrg',

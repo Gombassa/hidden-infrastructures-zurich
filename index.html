@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hidden Infrastructures: Zürich — Phase 1 Test</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background: #080808;
+      color: #ffffff;
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    h1 { color: #ffffff; font-size: 15px; letter-spacing: 2px; margin-bottom: 2px; }
+    h2 { color: #888; font-size: 11px; margin-bottom: 14px; font-weight: normal; letter-spacing: 1px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .card { background: #111; border: 1px solid #1e1e1e; padding: 10px 12px; }
+    .card-label { color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+    .card-value { color: #00e87a; font-size: 15px; }
+    .card-value.alert { color: #ff6b35; }
+
+    .buttons { display: flex; gap: 8px; margin-bottom: 10px; }
+    button {
+      background: #111;
+      color: #ffffff;
+      border: 1px solid #2a2a2a;
+      padding: 8px 18px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    button:hover:not(:disabled) { border-color: #555; color: #ffffff; }
+    button:disabled { color: #333; border-color: #1a1a1a; cursor: not-allowed; }
+    button.active { border-color: #00e87a; color: #00e87a; }
+
+    .bottom {
+      display: flex;
+      gap: 8px;
+      height: 320px;
+    }
+    #map {
+      flex: 1;
+      border: 1px solid #1e1e1e;
+    }
+    #log {
+      flex: 1;
+      background: #050505;
+      border: 1px solid #161616;
+      overflow-y: auto;
+      padding: 8px 10px;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+    .ll   { color: #888; }
+    .lt   { color: #ffffff; }
+    .ltrg { color: #ff6b35; font-weight: bold; }
+    .lerr { color: #ff4444; }
+    .linf { color: #4a90e2; }
+    .lok  { color: #00e87a; }
+
+    .map-legend {
+      background: #111;
+      border: 1px solid #1e1e1e;
+      padding: 8px 12px;
+      font-size: 10px;
+      color: #ffffff;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 18px;
+      margin-top: 8px;
+    }
+    .legend-row { display: flex; align-items: center; gap: 7px; }
+    .legend-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      border: 1.5px solid;
+      flex-shrink: 0;
+    }
+    .legend-line {
+      display: inline-block;
+      width: 14px; height: 2px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>HIDDEN INFRASTRUCTURES: ZÜRICH</h1>
+  <h2>phase 1 — real engines → proximity → web audio pipeline test</h2>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-label">Listener Position</div>
+      <div class="card-value" id="card-pos">—</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Trams within 150m</div>
+      <div class="card-value" id="card-trams">—</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Nearest Feeder Dist</div>
+      <div class="card-value" id="card-feeder">—</div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button id="btn-audio">Unlock Audio</button>
+    <button id="btn-start" disabled>Start</button>
+    <button id="btn-stop" disabled>Stop</button>
+  </div>
+
+  <div class="bottom">
+    <div id="map"></div>
+    <div id="log"></div>
+  </div>
+  <div class="map-legend" id="map-legend">
+    <div class="legend-row"><span class="legend-dot" style="background:#444;border-color:#333"></span>feeder inactive</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#ff6b35;border-color:#ff6b35"></span>feeder active (tram &lt;30m)</div>
+    <div class="legend-row"><span class="legend-line" style="background:#4a90e2"></span>route: Stadelhofen → Bürkliplatz</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#fff;border-color:#ccc"></span>listener</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#51cf66;border-color:#fff"></span>tram line 2</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#ff6b6b;border-color:#fff"></span>tram line 7</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#4a90e2;border-color:#fff"></span>tram line 9</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#ffd43b;border-color:#fff"></span>tram line 11</div>
+    <div class="legend-row"><span class="legend-dot" style="background:#cc5de8;border-color:#fff"></span>tram line 13</div>
+  </div>
+
+  <script type="module">
+
+    import TramEngine      from './src/tram-engine.js';
+    import ProximityEngine from './src/proximity-engine.js';
+
+    window._tramEngine      = TramEngine;
+    window._proximityEngine = ProximityEngine;
+
+    // ── CONSTANTS ────────────────────────────────────────────────────────────
+    const R = 6371000;               // Earth radius in metres
+    const FEEDER_HISS_RADIUS  = 25;   // metres — listener within this of a feeder hears continuous hiss
+    const DRONE_FADE_RADIUS   = 50;   // metres — drone fades in linearly as listener approaches a powerline
+    const HISS_COMB_DELAYS    = [0.0023, 0.0031, 0.0041, 0.0057, 0.0071, 0.0089]; // seconds
+    const HISS_COMB_FEEDBACK  = 0.7;
+    const DRONE_LFO_RATE_1    = 0.017;  // Hz — ~60 second cycle
+    const DRONE_LFO_RATE_2    = 0.023;  // Hz — ~43 second cycle, drifts against LFO 1
+    const DRONE_LFO_DEPTH     = 8;      // Hz — sweep range ±8Hz around centre frequency
+    const REVERB_DECAY        = 2.0;    // seconds — large space impulse response
+    const REVERB_WET          = 0.03;   // 3% wet mix
+    const TRAM_COLORS = { '2': '#51cf66', '7': '#ff6b6b', '9': '#4a90e2', '11': '#ffd43b', '13': '#cc5de8' };
+
+    // ── HAVERSINE DISTANCE ───────────────────────────────────────────────────
+    // Kept for nearest-feeder-dist display card only.
+    function haversine(lat1, lng1, lat2, lng2) {
+      const toRad = (d) => d * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLng = toRad(lng2 - lng1);
+      const a = Math.sin(dLat / 2) ** 2
+              + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2))
+              * Math.sin(dLng / 2) ** 2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    // ── WEB AUDIO SYNTHESIS ──────────────────────────────────────────────────
+
+    // 6 percussive noise bursts scheduled over 300ms via Web Audio API.
+    // Bursts spaced 50ms apart; amplitude ramps from 0.1 (hit 1) to 0.6 (hit 6).
+    function triggerCrackle(ctx) {
+      const burstCount = 6;
+      const spacing    = 0.050; // 50ms between burst onsets
+      const bufLen     = Math.floor(ctx.sampleRate * 0.020); // 20ms buffer per burst
+
+      for (let i = 0; i < burstCount; i++) {
+        const t0        = ctx.currentTime + i * spacing;
+        const amplitude = 0.1 + i * 0.1; // 0.1 → 0.6 linear across 6 hits
+
+        const buffer = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+        const data   = buffer.getChannelData(0);
+        for (let s = 0; s < bufLen; s++) data[s] = Math.random() * 2 - 1;
+
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 1200;
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0, t0);
+        gain.gain.linearRampToValueAtTime(amplitude, t0 + 0.002); // 2ms attack
+        gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.012); // 10ms decay
+
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        source.start(t0);
+        source.stop(t0 + 0.020);
+      }
+    }
+
+    function buildReverb(ctx, decaySeconds) {
+      const length = ctx.sampleRate * decaySeconds;
+      const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
+      for (let ch = 0; ch < 2; ch++) {
+        const data = impulse.getChannelData(ch);
+        for (let i = 0; i < length; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 2);
+        }
+      }
+      const convolver = ctx.createConvolver();
+      convolver.buffer = impulse;
+      return convolver;
+    }
+
+    // Two detuned oscillators with independent LFO frequency sweeps.
+    // Returns { gain, lfo1, lfoGain1, lfo2, lfoGain2 } for downstream gain control and clean teardown.
+    function startDrone(ctx) {
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      osc1.frequency.value = 110;
+      osc2.frequency.value = 112;
+
+      const lfo1 = ctx.createOscillator();
+      const lfoGain1 = ctx.createGain();
+      lfo1.type = 'sine';
+      lfo1.frequency.value = DRONE_LFO_RATE_1;
+      lfoGain1.gain.value = DRONE_LFO_DEPTH;
+      lfo1.connect(lfoGain1);
+      lfoGain1.connect(osc1.frequency);
+      lfo1.start();
+
+      const lfo2 = ctx.createOscillator();
+      const lfoGain2 = ctx.createGain();
+      lfo2.type = 'sine';
+      lfo2.frequency.value = DRONE_LFO_RATE_2;
+      lfoGain2.gain.value = DRONE_LFO_DEPTH;
+      lfo2.connect(lfoGain2);
+      lfoGain2.connect(osc2.frequency);
+      lfo2.start();
+
+      const gain = ctx.createGain();
+      gain.gain.value = 0.1;
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+      osc1.start();
+      osc2.start();
+
+      return { gain, lfo1, lfoGain1, lfo2, lfoGain2 };
+    }
+
+    // Pool of 6 comb-filtered noise nodes for idle feeder texture.
+    // Each node: BufferSource (loop) → DelayNode (comb) → feedback GainNode → output GainNode.
+    // Comb delay time is assigned per-slot on activation to give each a distinct tonal character.
+    function makeHissNode(ctx, destination) {
+      const bufferSize = ctx.sampleRate * 2;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+      source.loop = true;
+
+      const delay = ctx.createDelay(0.02);
+      const feedback = ctx.createGain();
+      const gain = ctx.createGain();
+      gain.gain.value = 0;
+
+      source.connect(delay);
+      delay.connect(feedback);
+      feedback.connect(delay);
+      feedback.gain.value = HISS_COMB_FEEDBACK;
+      delay.connect(gain);
+      gain.connect(destination);
+      source.start();
+
+      return { gain, delay, source, combIndex: null, active: false };
+    }
+
+    let lastCombIndex = -1;
+    function pickCombIndex() {
+      let idx;
+      do { idx = Math.floor(Math.random() * HISS_COMB_DELAYS.length); }
+      while (idx === lastCombIndex);
+      lastCombIndex = idx;
+      return idx;
+    }
+
+    // ── MAP ──────────────────────────────────────────────────────────────────
+    let map            = null;
+    let listenerMarker = null;
+    let feederMarkers  = null; // Map<id, L.CircleMarker>
+    let tramMarkerPool = null; // Array<L.CircleMarker>, fixed pool of 10
+
+    function initMap() {
+      map = L.map('map').setView([47.3693, 8.5411], 15);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19,
+      }).addTo(map);
+
+      // Route polyline — loaded directly from GeoJSON; waypoints are [lng, lat]
+      fetch('/data/processed/route-waypoints.json')
+        .then(r => r.json())
+        .then(data => {
+          const routeLatLngs = data.waypoints.map(([lng, lat]) => [lat, lng]);
+          L.polyline(routeLatLngs, { color: '#4a90e2', weight: 2, opacity: 0.7 }).addTo(map);
+          appendLog(`Route polyline loaded — ${routeLatLngs.length} waypoints`, 'lok');
+        })
+        .catch(e => appendLog(`Route load failed: ${e.message}`, 'lerr'));
+
+      // Feeder markers — calculate with no trams to get all positions
+      const initialProximity = ProximityEngine.calculate({ trams: [] });
+      feederMarkers = new Map();
+      for (const feeder of initialProximity.feeders) {
+        const marker = L.circleMarker([feeder.lat, feeder.lng], {
+          radius: 3,
+          color: '#333',
+          fillColor: '#444',
+          fillOpacity: 1,
+          weight: 1,
+        }).addTo(map);
+        feederMarkers.set(feeder.id, marker);
+      }
+
+      // Tram marker pool — 10 slots, shown/hidden based on active tram count
+      tramMarkerPool = [];
+      for (let i = 0; i < 10; i++) {
+        tramMarkerPool.push(L.circleMarker([47.37, 8.54], {
+          radius: 5,
+          color: '#fff',
+          fillColor: '#888',
+          fillOpacity: 0,
+          opacity: 0,
+          weight: 1.5,
+        }).addTo(map));
+      }
+
+      // Listener marker — starts at Stadelhofen
+      listenerMarker = L.circleMarker([47.3693, 8.5411], {
+        radius: 8,
+        color: '#ff0000',
+        fillColor: '#ff0000',
+        fillOpacity: 0.9,
+        weight: 2,
+      }).addTo(map);
+
+      appendLog(`Map ready — ${initialProximity.feeders.length} feeders`, 'lok');
+
+      // Real GPS — centre map on actual device position
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(
+          (pos) => {
+            realLat = pos.coords.latitude;
+            realLng = pos.coords.longitude;
+            appendLog(`[GPS] ${realLat} ${realLng} accuracy: ${pos.coords.accuracy}`, 'll');
+            if (listenerMarker) listenerMarker.setLatLng([realLat, realLng]);
+            if (following && map) map.setView([realLat, realLng], 19);
+          },
+          (err) => appendLog(`GPS error: ${err.message}`, 'lerr'),
+          { enableHighAccuracy: true, maximumAge: 5000 },
+        );
+      } else {
+        appendLog('Geolocation not available — using simulated position', 'linf');
+      }
+    }
+
+    // ── STATE ────────────────────────────────────────────────────────────────
+    let ctx       = null;
+    let droneGain = null;
+    let idlePool  = null; // 6-node comb-filtered noise pool for idle feeder texture
+    let tick      = 0;
+    let realLat   = null;
+    let realLng   = null;
+    let following = false;
+
+    // ── UI HELPERS ───────────────────────────────────────────────────────────
+    const logDiv = document.getElementById('log');
+
+    function appendLog(text, cls = 'll') {
+      const ts = new Date().toLocaleTimeString('en-GB', { hour12: false });
+      const el = document.createElement('div');
+      el.className = cls;
+      el.textContent = `[${ts}] ${text}`;
+      logDiv.appendChild(el);
+      if (logDiv.children.length > 500) logDiv.removeChild(logDiv.firstChild);
+      logDiv.scrollTop = logDiv.scrollHeight;
+    }
+    window.appendLog = appendLog;
+
+    function setCard(id, value, alert = false) {
+      const el = document.getElementById(id);
+      el.textContent = value;
+      el.className = `card-value${alert ? ' alert' : ''}`;
+    }
+
+    // ── TRAM MARKER UPDATES ──────────────────────────────────────────────────
+    TramEngine.onUpdate((tramState) => {
+      if (!tramMarkerPool) return;
+      const trams = tramState.trams.slice(0, tramMarkerPool.length);
+      for (let i = 0; i < tramMarkerPool.length; i++) {
+        const m = tramMarkerPool[i];
+        if (i < trams.length) {
+          const tram = trams[i];
+          const color = TRAM_COLORS[String(tram.line)] || '#aaaaaa';
+          m.setLatLng([tram.lat, tram.lng]);
+          m.setStyle({ fillColor: color, color: '#fff', fillOpacity: 0.9, opacity: 1 });
+        } else {
+          m.setStyle({ fillOpacity: 0, opacity: 0 });
+        }
+      }
+
+      // Update feeder colours based purely on tram proximity (no listener required)
+      if (feederMarkers) {
+        const proximity = ProximityEngine.calculate(tramState);
+        appendLog(`[PROXIMITY] listenerLat: ${realLat} listenerLng: ${realLng} tramCount: ${tramState.trams.length} feedersTriggered: ${proximity.feeders.filter(f => f.triggered).length}`, 'll');
+        for (const feeder of proximity.feeders) {
+          const marker = feederMarkers.get(feeder.id);
+          if (!marker) continue;
+          marker.setStyle(feeder.triggered
+            ? { color: '#ff6b35', fillColor: '#ff6b35' }
+            : { color: '#333',    fillColor: '#444'    }
+          );
+        }
+      }
+    });
+
+    // ── BUTTONS ──────────────────────────────────────────────────────────────
+    const btnAudio = document.getElementById('btn-audio');
+    const btnStart = document.getElementById('btn-start');
+    const btnStop  = document.getElementById('btn-stop');
+
+    btnAudio.addEventListener('click', async () => {
+      btnAudio.disabled = true;
+      btnAudio.textContent = 'Loading…';
+      try {
+        appendLog('Initialising engines…', 'linf');
+        await ProximityEngine.init('/data/processed/substations.geojson', '/data/raw/route-tram-feeders.geojson', '/data/raw/route-tram-powerlines.geojson');
+        appendLog(`ProximityEngine ready`, 'lok');
+
+        initMap();
+
+        ctx = new AudioContext();
+        window._ctx = ctx;
+        if (ctx.state === 'suspended') await ctx.resume();
+        appendLog(`AudioContext running (${ctx.sampleRate} Hz)`, 'linf');
+
+        btnAudio.textContent = 'Audio Active';
+        btnAudio.classList.add('active');
+        btnStart.disabled = false;
+      } catch (e) {
+        appendLog(`ERROR: ${e.message}`, 'lerr');
+        console.error(e);
+        btnAudio.disabled = false;
+        btnAudio.textContent = 'Unlock Audio';
+      }
+    });
+
+    btnStart.addEventListener('click', () => {
+      droneGain = startDrone(ctx);
+      const convolver = buildReverb(ctx, REVERB_DECAY);
+      const reverbGain = ctx.createGain();
+      reverbGain.gain.value = REVERB_WET;
+      droneGain.gain.connect(convolver);
+      convolver.connect(reverbGain);
+      reverbGain.connect(ctx.destination);
+      appendLog('Drone oscillators started (110 + 112 Hz)', 'lok');
+      if (!idlePool) {
+        idlePool = Array.from({ length: 6 }, () => makeHissNode(ctx, ctx.destination));
+        appendLog('Idle feeder texture pool ready (6 comb-filtered nodes)', 'lok');
+      }
+      TramEngine.start();
+      following = true;
+      btnStart.disabled = true;
+      btnStart.classList.add('active');
+      btnStop.disabled = false;
+      appendLog('Engines started — TramEngine polling every 10s', 'lok');
+    });
+
+    btnStop.addEventListener('click', () => {
+      TramEngine.stop();
+      following = false;
+      if (droneGain) { droneGain.gain.gain.value = 0; droneGain = null; }
+      if (idlePool) idlePool.forEach(node => { node.gain.gain.value = 0; });
+      btnStart.disabled = false;
+      btnStart.classList.remove('active');
+      btnStop.disabled = true;
+      appendLog('Engines stopped', 'linf');
+    });
+
+    // ── STARTUP ───────────────────────────────────────────────────────────────
+    appendLog('Real engines: TramEngine + ProximityEngine', 'linf');
+    appendLog('Tram count radius: 150m | Feeder trigger: 50m | GPS + DeviceOrientation', 'linf');
+    appendLog('Spatial audio: PannerNode (Web Audio API) — Phase 1', 'linf');
+    appendLog('Unlock Audio → Start to begin.', 'll');
+  </script>
+</body>
+</html>

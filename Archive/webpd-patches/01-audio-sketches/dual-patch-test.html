@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPd Dual Patch - Feeder Event + Substation Drone</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        h1 { color: #00d4ff; margin-bottom: 4px; }
+        h2 { color: #ccc; font-size: 16px; margin: 0 0 16px; font-weight: normal; }
+        h3 { color: #aaa; margin: 20px 0 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .patch-section {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 12px 0;
+            border-left: 3px solid #333;
+        }
+        .patch-section.active { border-left-color: #51cf66; }
+        .patch-section.muted { opacity: 0.5; border-left-color: #ff6b6b; }
+        .patch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .patch-title {
+            color: #00d4ff;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .patch-desc {
+            color: #888;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        button {
+            background: #00d4ff;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background: #00a8cc; }
+        button:disabled { background: #555; cursor: not-allowed; }
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+        .btn-mute {
+            background: #51cf66;
+            font-size: 12px;
+            padding: 6px 14px;
+        }
+        .btn-mute.muted {
+            background: #ff6b6b;
+        }
+        .btn-bang {
+            background: #ffd43b;
+            color: #1a1a2e;
+            font-size: 14px;
+            padding: 10px 20px;
+        }
+        .btn-bang:hover { background: #fab005; }
+        label {
+            display: block;
+            margin: 10px 0 4px;
+            font-size: 13px;
+        }
+        input[type="range"] {
+            width: 100%;
+            margin: 4px 0;
+        }
+        .value {
+            color: #00d4ff;
+            font-weight: bold;
+        }
+        .hint {
+            color: #555;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+        #console {
+            background: #0f0f23;
+            border: 1px solid #333;
+            padding: 12px;
+            height: 180px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 11px;
+            margin-top: 16px;
+            border-radius: 4px;
+        }
+        .log { color: #aaa; }
+        .error { color: #ff6b6b; }
+        .success { color: #51cf66; }
+        .warn { color: #ffd43b; }
+        .feeder { color: #ffd43b; }
+        .drone { color: #74c0fc; }
+        #status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .status-loading { background: #ffd43b22; border: 1px solid #ffd43b; }
+        .status-ready { background: #51cf6622; border: 1px solid #51cf66; }
+        .status-error { background: #ff6b6b22; border: 1px solid #ff6b6b; }
+        #initBtn { display: block; width: 100%; font-size: 18px; padding: 14px; }
+    </style>
+</head>
+<body>
+    <h1>Dual Patch Test</h1>
+    <h2>Feeder Event + Substation Drone running simultaneously</h2>
+
+    <div id="status" class="status-loading">Loading WebPd runtime...</div>
+    <button id="initBtn" disabled>Initialize Audio</button>
+
+    <!-- Feeder Event -->
+    <div id="feederSection" class="patch-section">
+        <div class="patch-header">
+            <div>
+                <div class="patch-title">Feeder Event</div>
+                <div class="patch-desc">Triggered percussive tone with pitch envelope</div>
+            </div>
+            <button id="feederMuteBtn" class="btn-mute btn-small" disabled>Mute</button>
+        </div>
+        <button id="feederBangBtn" class="btn-bang btn-small" disabled>Trigger Event</button>
+        <label>Pitch: <span id="feederPitchValue" class="value">800</span> Hz</label>
+        <input type="range" id="feederPitchSlider" min="600" max="1200" value="800" step="10" disabled>
+        <div class="hint">Feeder event frequency (600-1200 Hz)</div>
+    </div>
+
+    <!-- Substation Drone -->
+    <div id="droneSection" class="patch-section">
+        <div class="patch-header">
+            <div>
+                <div class="patch-title">Substation Drone</div>
+                <div class="patch-desc">Continuous 50 Hz hum with harmonics + tram modulation</div>
+            </div>
+            <button id="droneMuteBtn" class="btn-mute btn-small" disabled>Mute</button>
+        </div>
+        <label>Tram Count: <span id="droneTramValue" class="value">0</span></label>
+        <input type="range" id="droneTramSlider" min="0" max="5" value="0" step="1" disabled>
+        <div class="hint">Nearby trams drawing power (0-5), adds pulse modulation</div>
+    </div>
+
+    <h3>Console</h3>
+    <div id="console"></div>
+
+    <script src="feeder-event-app/webpd-runtime.js"></script>
+    <script>
+        // --- Logging ---
+        const consoleDiv = document.getElementById('console');
+        function log(msg, type = 'log') {
+            const line = document.createElement('div');
+            line.className = type;
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            consoleDiv.appendChild(line);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console[type === 'error' ? 'error' : type === 'warn' ? 'warn' : 'log'](msg);
+        }
+
+        // --- DOM refs ---
+        const statusDiv = document.getElementById('status');
+        const initBtn = document.getElementById('initBtn');
+
+        const feederSection = document.getElementById('feederSection');
+        const feederBangBtn = document.getElementById('feederBangBtn');
+        const feederMuteBtn = document.getElementById('feederMuteBtn');
+        const feederPitchSlider = document.getElementById('feederPitchSlider');
+        const feederPitchValue = document.getElementById('feederPitchValue');
+
+        const droneSection = document.getElementById('droneSection');
+        const droneMuteBtn = document.getElementById('droneMuteBtn');
+        const droneTramSlider = document.getElementById('droneTramSlider');
+        const droneTramValue = document.getElementById('droneTramValue');
+
+        // --- State ---
+        let audioContext = null;
+        let feederNode = null;
+        let droneNode = null;
+        let feederGain = null;
+        let droneGain = null;
+        let feederMuted = false;
+        let droneMuted = false;
+
+        // --- Runtime check ---
+        if (typeof WebPdRuntime !== 'undefined') {
+            log('WebPdRuntime loaded', 'success');
+            initBtn.disabled = false;
+            statusDiv.textContent = 'Click "Initialize Audio" to start both patches';
+            statusDiv.className = 'status-ready';
+        } else {
+            log('WebPdRuntime failed to load', 'error');
+            statusDiv.textContent = 'WebPd runtime failed to load';
+            statusDiv.className = 'status-error';
+        }
+
+        // --- Message helpers ---
+        function sendToFeeder(nodeId, portletId, message) {
+            if (!feederNode) return;
+            feederNode.port.postMessage({
+                type: 'io:messageReceiver',
+                payload: { nodeId, portletId, message },
+            });
+        }
+
+        function sendToDrone(nodeId, portletId, message) {
+            if (!droneNode) return;
+            droneNode.port.postMessage({
+                type: 'io:messageReceiver',
+                payload: { nodeId, portletId, message },
+            });
+        }
+
+        // --- Initialize ---
+        initBtn.addEventListener('click', async () => {
+            try {
+                initBtn.disabled = true;
+                initBtn.textContent = 'Loading...';
+
+                log('Creating AudioContext...');
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                log(`AudioContext: ${audioContext.sampleRate}Hz`, 'success');
+
+                if (audioContext.state === 'suspended') {
+                    await audioContext.resume();
+                }
+
+                // Create gain nodes for mute control
+                feederGain = audioContext.createGain();
+                feederGain.connect(audioContext.destination);
+                droneGain = audioContext.createGain();
+                droneGain.connect(audioContext.destination);
+
+                log('Registering WebPd worklet...');
+                await WebPdRuntime.initialize(audioContext);
+                log('Worklet registered', 'success');
+
+                // Fetch both patches in parallel
+                log('Fetching both patches...');
+                const [feederResp, droneResp] = await Promise.all([
+                    fetch('./feeder-event-app/patch.wasm'),
+                    fetch('./substation-drone-app/patch.wasm'),
+                ]);
+
+                if (!feederResp.ok) throw new Error(`Feeder patch: HTTP ${feederResp.status}`);
+                if (!droneResp.ok) throw new Error(`Drone patch: HTTP ${droneResp.status}`);
+
+                const [feederPatch, dronePatch] = await Promise.all([
+                    feederResp.arrayBuffer(),
+                    droneResp.arrayBuffer(),
+                ]);
+                log(`Feeder patch: ${feederPatch.byteLength} bytes`, 'feeder');
+                log(`Drone patch: ${dronePatch.byteLength} bytes`, 'drone');
+
+                // Start feeder event patch
+                log('Starting feeder event patch...', 'feeder');
+                feederNode = await WebPdRuntime.run(
+                    audioContext,
+                    feederPatch,
+                    WebPdRuntime.defaultSettingsForRun(
+                        './feeder-event-app/patch.wasm',
+                        (nodeId, portletId, message) => {
+                            log(`[feeder] ${nodeId}:${portletId} -> ${JSON.stringify(message)}`, 'feeder');
+                        },
+                    ),
+                );
+                feederNode.connect(feederGain);
+                log('Feeder event patch running', 'success');
+
+                // Start substation drone patch
+                log('Starting substation drone patch...', 'drone');
+                droneNode = await WebPdRuntime.run(
+                    audioContext,
+                    dronePatch,
+                    WebPdRuntime.defaultSettingsForRun(
+                        './substation-drone-app/patch.wasm',
+                        (nodeId, portletId, message) => {
+                            log(`[drone] ${nodeId}:${portletId} -> ${JSON.stringify(message)}`, 'drone');
+                        },
+                    ),
+                );
+                droneNode.connect(droneGain);
+                log('Substation drone patch running', 'success');
+
+                // Enable controls
+                feederBangBtn.disabled = false;
+                feederMuteBtn.disabled = false;
+                feederPitchSlider.disabled = false;
+                droneMuteBtn.disabled = false;
+                droneTramSlider.disabled = false;
+                feederSection.classList.add('active');
+                droneSection.classList.add('active');
+
+                // Set initial values
+                sendToFeeder('n_0_2', '0', [800]);
+                sendToDrone('n_0_32', '0', [0]);
+
+                initBtn.style.display = 'none';
+                statusDiv.textContent = 'Both patches active';
+                statusDiv.className = 'status-ready';
+                log('Both patches initialized and connected', 'success');
+
+            } catch (e) {
+                log(`Error: ${e.message}`, 'error');
+                if (e.stack) log(e.stack, 'error');
+                statusDiv.textContent = `Error: ${e.message}`;
+                statusDiv.className = 'status-error';
+                initBtn.disabled = false;
+                initBtn.textContent = 'Initialize Audio';
+            }
+        });
+
+        // --- Feeder controls ---
+        // Node IDs: n_0_0 = bng, n_0_2 = floatatom (pitch)
+        feederBangBtn.addEventListener('click', () => {
+            sendToFeeder('n_0_0', '0', ['bang']);
+            log('[feeder] Bang triggered', 'feeder');
+        });
+
+        feederPitchSlider.addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            feederPitchValue.textContent = value;
+            sendToFeeder('n_0_2', '0', [value]);
+            log(`[feeder] Pitch: ${value} Hz`, 'feeder');
+        });
+
+        feederMuteBtn.addEventListener('click', () => {
+            feederMuted = !feederMuted;
+            feederGain.gain.setValueAtTime(feederMuted ? 0 : 1, audioContext.currentTime);
+            feederMuteBtn.textContent = feederMuted ? 'Unmute' : 'Mute';
+            feederMuteBtn.classList.toggle('muted', feederMuted);
+            feederSection.classList.toggle('muted', feederMuted);
+            feederSection.classList.toggle('active', !feederMuted);
+            log(`[feeder] ${feederMuted ? 'Muted' : 'Unmuted'}`, 'feeder');
+        });
+
+        // --- Drone controls ---
+        // Node IDs: n_0_32 = floatatom (trams nearby)
+        droneTramSlider.addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            droneTramValue.textContent = value;
+            sendToDrone('n_0_32', '0', [value]);
+            log(`[drone] Trams nearby: ${value}`, 'drone');
+        });
+
+        droneMuteBtn.addEventListener('click', () => {
+            droneMuted = !droneMuted;
+            droneGain.gain.setValueAtTime(droneMuted ? 0 : 1, audioContext.currentTime);
+            droneMuteBtn.textContent = droneMuted ? 'Unmute' : 'Mute';
+            droneMuteBtn.classList.toggle('muted', droneMuted);
+            droneSection.classList.toggle('muted', droneMuted);
+            droneSection.classList.toggle('active', !droneMuted);
+            log(`[drone] ${droneMuted ? 'Muted' : 'Unmuted'}`, 'drone');
+        });
+
+        log('UI ready. Click "Initialize Audio" to start both patches.');
+    </script>
+</body>
+</html>

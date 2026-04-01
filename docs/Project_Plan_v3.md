@@ -24,8 +24,8 @@ The app collects zero personal data. GPS coordinates are processed entirely on-d
 
 **Development Strategy:**
 
-* **Phase 0 (March):** Data pipeline and audio synthesis proven. Web Audio API integration with stub engines complete.
-* **Phase 1 (Late March–Early April):** Real engine integration, RNBO validation, Docker build environment, GCP hosting, tram layer to production quality
+* **Phase 0 (March):** Data pipeline and audio synthesis proven. Web Audio API integration with stub engines complete. ✅
+* **Phase 1 (Late March–Early April):** Real engine integration, GPS free-roam, Docker build environment, GCP hosting, tram layer to production quality — *in progress*
 * **Phase 2 (April):** Add 4 infrastructure types on prototype route
 * **Phase 3 (May):** Expand to full District 1 free-roam + production audio
 * **Phase 4 (June–August):** PWA, testing, launch
@@ -36,13 +36,13 @@ The project focuses on District 1 (postal code 8001), where all five infrastruct
 
 ### **Core Engines**
 
-Three JavaScript engines totalling 498 lines of tested code form the core of the application. Together they create a real-time loop: the TramEngine tracks where trams are, the ProximityEngine determines which infrastructure is near the listener and which trams are near that infrastructure, and the ListenerEngine represents the user's position and orientation in space. These three components feed the spatial audio system — their outputs become the parameters that drive the synthesis engine.
+Two JavaScript engine modules and an inline GPS listener form the core of the application. Together they create a real-time loop: the TramEngine tracks where trams are, the ProximityEngine determines which infrastructure is near the listener and which trams are near that infrastructure, and the GPS listener (inline in `index.html`) represents the user's live position.
 
 **TramEngine.js** (180 lines) fetches real-time tram positions from transport.opendata.ch, interpolates movement between 6 stop pairs, and updates every 10 seconds. Working and tested.
 
-**ProximityEngine.js** (125 lines) calculates distances between trams and infrastructure, triggers audio events when trams pass feeders (30m radius), and tracks tram density near substations (150m radius). Working and tested.
+**ProximityEngine.js** (125 lines) calculates distances between trams and infrastructure, triggers audio events when trams pass feeders (50m radius), and tracks tram density near substations (150m radius). Supports optional listener coordinates for foot-mode proximity gating. Working and tested.
 
-**ListenerEngine.js** (193 lines) simulates walking along the prototype route (75 waypoints, 2.7km), calculates heading for spatial audio, and updates position every second. Working and ready for GPS swap in Phase 1.
+**GPS Listener** (inline in `index.html`) — `navigator.geolocation.watchPosition()` drives `realLat`/`realLng` directly. Replaces the simulated ListenerEngine. The original simulation-based ListenerEngine.js has been archived to `Archive/simulation/`.
 
 ### **Data Layer**
 
@@ -118,12 +118,12 @@ Phase 1 shifts from proof-of-concept to a polished tram layer experience. This m
 
 **Week 1:**
 
-* \[ \] Wire real TramEngine, ProximityEngine, ListenerEngine into `index.html`
-* \[ \] Implement GPS free-roam (replace stub listener with `navigator.geolocation`)
+* \[x\] Wire real TramEngine + ProximityEngine into `index.html`
+* \[x\] Implement GPS free-roam (`navigator.geolocation.watchPosition()` inline in `index.html`)
+* \[x\] Set up Docker build environment (multi-stage Dockerfile + nginx.conf)
 * \[ \] Add compass heading via `DeviceOrientationEvent`
 * \[ \] Implement Web Audio API PannerNode spatial positioning per feeder
 * \[ \] Validate Max/MSP → RNBO → WebAssembly → AudioWorklet pipeline with a test patch
-* \[ \] Set up Docker build environment (see Docker Architecture below)
 * \[ \] Set up GCP hosting, deploy containerised app
 * **Deliverable:** Real engines + GPS + spatial audio + RNBO validation
 
@@ -517,6 +517,6 @@ Development continues regardless of funding outcome.
 
 ---
 
-**Document Version:** 3.0  
-**Last Updated:** March 2026  
+**Document Version:** 3.1  
+**Last Updated:** April 2026  
 **Next Review:** End of Phase 1

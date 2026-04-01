@@ -75,7 +75,7 @@ const ProximityEngine = {
     feedersUrl = "/data/raw/route-tram-feeders.geojson",
     powerlinesUrl = "/data/raw/route-tram-powerlines.geojson",
   ) {
-    console.log("[ProximityEngine] Loading GeoJSON...");
+    (window.appendLog || console.log)("[ProximityEngine] Loading GeoJSON...", 'll');
     const [subRes, feedRes, plRes] = await Promise.all([
       fetch(substationsUrl),
       fetch(feedersUrl),
@@ -94,9 +94,7 @@ const ProximityEngine = {
     substations = parseSubstations(subJson);
     feeders = parseFeeders(feedJson);
     powerlines = plJson.features.map((f) => f.geometry.coordinates);
-    console.log(
-      `[ProximityEngine] Loaded ${substations.length} substations, ${feeders.length} feeders, ${powerlines.length} powerline segments`,
-    );
+    (window.appendLog || console.log)(`[ProximityEngine] Loaded ${substations.length} substations, ${feeders.length} feeders, ${powerlines.length} powerline segments`, 'll');
   },
 
   /**

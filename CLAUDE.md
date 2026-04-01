@@ -22,29 +22,24 @@ Invisible Infrastructures: Zurich - A location-based generative music applicatio
 
 ## Commands
 
-All Python scripts use only stdlib (no dependencies to install):
-
 ```bash
-# Analysis scripts
-python3 tests/find-substations.py          # Cluster feeders → substations.geojson
-python3 tests/test-vbz-realtime.py         # Validate VBZ API endpoints
-python3 tests/test-tram-stops.py           # Confirm tram lines per stop
-python3 tests/simulate-tram-positions.py   # Static position snapshot
-python3 tests/simulate-tram-positions-live.py  # Live-updating HTML map
+# Local development (Vite dev server, port 8080)
+npx vite --host
+# Open http://localhost:8080
+
+# Docker build and run
+docker build -t hidden-infrastructures .
+docker run -p 8080:80 hidden-infrastructures
+
+# Mobile GPS testing — Cloudflare tunnel (run after Vite or Docker)
+npx cloudflared tunnel --url http://localhost:8080
+
+# Route extraction (one-time, output already committed)
+node scripts/extract-route-waypoints.js
 
 # View generated maps
 open data/processed/substations-map.html
 open data/processed/tram-simulation-live.html
-
-# Serve prototypes locally (required for AudioWorklet + ES modules)
-npx http-server . -p 8080
-# Then open:
-#   http://127.0.0.1:8080/prototypes/01-audio-sketches/dual-patch-test.html
-#   http://127.0.0.1:8080/prototypes/02-tram-engine/tram-engine-test.html
-#   http://127.0.0.1:8080/prototypes/04-listener/listener-test.html
-
-# Route extraction (one-time, output already committed)
-node scripts/extract-route-waypoints.js
 ```
 
 **Dependencies:** `npm install`
@@ -52,20 +47,27 @@ node scripts/extract-route-waypoints.js
 ## Architecture
 
 ```
+index.html         # Main application (root) — GPS + Web Audio API pipeline
+src/
+├── tram-engine.js       # Live tram positions from transport.opendata.ch
+└── proximity-engine.js  # Tram ↔ infrastructure distance calculations
+public/
+└── data/
+    ├── processed/       # substations.geojson (served at runtime)
+    └── raw/             # route-tram-feeders.geojson, route-tram-powerlines.geojson
 data/
 ├── raw/           # VBZ GeoJSON: feeders, masts, powerlines
 └── processed/     # Generated: substations.geojson, route-waypoints.json, maps
 scripts/           # One-time data processing (Node.js)
-tests/             # Python analysis scripts (standalone, no shared modules)
-src/
-├── tram-engine.js       # Live tram positions from transport.opendata.ch
-├── proximity-engine.js  # Tram ↔ infrastructure distance calculations
-└── listener-engine.js   # Simulated walker along extracted route
-prototypes/
-├── 01-audio-sketches/   # Web Audio API pipeline test (direct synthesis placeholder)
-├── 02-tram-engine/      # TramEngine + ProximityEngine live dashboard
-└── 04-listener/         # ListenerEngine walking simulation with Leaflet map
 docs/              # Phase planning and specifications
+Archive/           # Archived prototypes and analysis scripts
+├── webpd-patches/ # WebPd/PureData prototype work
+├── simulation/    # ListenerEngine + simulation test pages and scripts
+├── prototype-tests/ # Standalone engine test pages
+└── pd-patches/    # PureData patches
+Dockerfile         # Multi-stage: node:20-alpine build → nginx:alpine serve
+nginx.conf         # COEP/COOP headers, SPA fallback
+vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 ```
 
 ## Key Data
@@ -81,7 +83,7 @@ docs/              # Phase planning and specifications
 - 75 waypoints extracted from powerline geometry (A* path-stitching)
 - 2,682m total distance: Stadelhofen → Bellevue → Paradeplatz → Rennweg → Bahnhofstrasse/HB
 
-**Data sources:** 
+**Data sources:**
 - VBZ Infrastruktur OGD
 - WVZ Leitungskataster (water)
 - ERZ Abwasser-Werkleitungsdaten (sewage)
@@ -107,7 +109,7 @@ docs/              # Phase planning and specifications
 
 **Infrastructure Layers (procedurally generated):**
 1. **Tram electrical** - Feeder crackle when trams draw power, electrical transients
-2. **Water supply** - Hydraulic pulse, flow textures, pumping station rhythms  
+2. **Water supply** - Hydraulic pulse, flow textures, pumping station rhythms
 3. **Sewage** - Deep bass churn, underground rumble, treatment facility processes
 4. **Electricity grid** - High-frequency harmonic screaming, transformer hum, voltage fluctuations
 5. **Telecommunications** - Data chirps, fiber optic whispers, bandwidth pulses
@@ -122,7 +124,7 @@ docs/              # Phase planning and specifications
 
 ## Engine Modules (src/)
 
-All three are ES modules with no DOM dependencies. Serve from project root via `npx http-server . -p 8080`.
+Both are ES modules with no DOM dependencies. Serve from project root via `npx vite --host`.
 
 ### TramEngine (`src/tram-engine.js`)
 Singleton, default export. Fetches live tram departures from `transport.opendata.ch`, interpolates positions between stop pairs every 10 seconds.
@@ -138,33 +140,27 @@ TramEngine.setUpdateInterval(ms);          // change refresh rate
 ```
 
 ### ProximityEngine (`src/proximity-engine.js`)
-Singleton, default export. Loads substations + feeders GeoJSON, computes audio trigger parameters from tram positions.
+Singleton, default export. Loads substations + feeders + powerlines GeoJSON, computes audio trigger parameters from tram positions and optional listener position.
 
 ```javascript
 import ProximityEngine from './src/proximity-engine.js';
-await ProximityEngine.init();              // loads both GeoJSON files
-ProximityEngine.calculate(tramState);      // → { substations: [{id, lat, lng, tramCount, nearestTramDist}], feeders: [{id, lat, lng, triggered, triggeringTram}] }
+await ProximityEngine.init();              // loads GeoJSON from /data/processed/ and /data/raw/
+ProximityEngine.calculate(tramState);                      // tram-only triggers (no listener required)
+ProximityEngine.calculate(tramState, listenerLat, listenerLng); // listener-aware triggers
+// → { substations: [{id, lat, lng, tramCount, nearestTramDist}], feeders: [{id, lat, lng, triggered, triggeringTram}] }
 ```
 
 - Substation radius: 150m (tramCount = trams within this range)
-- Feeder trigger radius: 30m
+- Feeder trigger radius: 50m (tram-only) — listener proximity also required in foot mode
+- Drone fade radius: 50m (linear gain from powerline proximity)
 
-### ListenerEngine (`src/listener-engine.js`)
-Singleton, default export. Simulates a walker along the extracted route at 5 km/h with 1-second tick.
+### GPS Listener (inline in `index.html`)
+Live GPS via `navigator.geolocation.watchPosition()`. No separate module.
 
-```javascript
-import ListenerEngine from './src/listener-engine.js';
-await ListenerEngine.init();               // loads route-waypoints.json
-ListenerEngine.start();                    // begin auto-walk
-ListenerEngine.stop();                     // pause
-ListenerEngine.reset();                    // return to Stadelhofen
-ListenerEngine.getState();                 // → { lat, lng, progress, distanceTravelled, totalDistance, speed, heading, nearestStop, isWalking }
-ListenerEngine.setProgress(0.5);           // manual scrub (0–1)
-ListenerEngine.setSpeed(mps);              // change walk speed
-ListenerEngine.onUpdate(cb);              // cb(state) every second
-```
-
-Route loops back to start automatically when reaching Bürkliplatz.
+- Updates `realLat` / `realLng` on every fix
+- Moves listener marker on Leaflet map
+- Follows position at zoom 19 while `following = true` (Start → Stop)
+- Logs each fix to on-screen log panel via `appendLog`
 
 ## RNBO Integration (Production Audio)
 
@@ -178,6 +174,6 @@ Production audio patches are authored in Max/MSP, compiled via RNBO (Cycling '74
 5. Control parameters via `device.parametersById.get('paramName').value = x`
 
 ### Current state
-- Dev placeholder: `prototypes/01-audio-sketches/index.html` uses direct Web Audio API synthesis (noise burst crackle + detuned oscillator drone)
+- Dev placeholder: `index.html` uses direct Web Audio API synthesis (noise burst crackle + detuned oscillator drone + comb-filtered hiss pool)
 - This validates the data pipeline (engines → proximity → audio) only — not final sound design
 - Next milestone: validate RNBO pipeline with a single test patch before committing all five layers

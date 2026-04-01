@@ -60,11 +60,11 @@ TramEngine polls transport.opendata.ch every 10 seconds for tram departure times
 
 **ProximityEngine** ([`src/proximity-engine.js`](https://github.com/Gombassa/hiddeninfrastructures-zurich/blob/main/src/proximity-engine.js))
 
-ProximityEngine calculates distances between trams, infrastructure elements, and the user using haversine math. It implements a dual threshold system: substations count trams within 150m (for drone intensity), while feeders trigger percussive events when trams pass within 30m. The prototype currently loads 366 tram feeders on the 2.7km route.
+ProximityEngine calculates distances between trams, infrastructure elements, and the user using haversine math. It implements a dual threshold system: substations count trams within 150m (for drone intensity), while feeders trigger percussive events when trams pass within 50m. Supports an optional listener position parameter — when provided, feeder triggers also require the listener to be within range (foot mode); without it, tram proximity alone fires triggers (tram-mode). Loads 366 tram feeders on the 2.7km route.
 
-**ListenerEngine** ([`src/listener-engine.js`](https://github.com/Gombassa/hiddeninfrastructures-zurich/blob/main/src/listener-engine.js))
+**GPS Listener** (inline in `index.html`)
 
-ListenerEngine simulates a walker moving along the 75-waypoint route at 5 km/h, using binary search for position lookup and calculating compass heading (0-360°) for spatial audio. The MVP runs in simulation mode; production will swap this for device GPS and compass to enable free-roam exploration across District 1.
+Live GPS via `navigator.geolocation.watchPosition()` drives the listener position directly. The simulation-based ListenerEngine.js (which walked a fixed 75-waypoint route at 5 km/h) has been archived; the GPS listener replaces it with real device coordinates. Compass heading via `DeviceOrientationEvent` is planned for spatial audio orientation.
 
 #### **3\. Data Layer Validation**
 
@@ -76,13 +76,13 @@ The other four infrastructure types — water supply (WVZ Leitungskataster), sew
 
 #### **4\. Integration Test Pages**
 
-Each engine was built with its own test page to validate functionality before integration:
+Each engine was validated with its own test page before integration. These are now archived in `Archive/`:
 
-* **`prototypes/02-tram-engine/tram-engine-test.html`** — Live dashboard showing tram positions updating every 10 seconds alongside proximity calculations to infrastructure elements
-* **`prototypes/04-listener/listener-test.html`** — Interactive Leaflet map displaying the simulated walker moving along the route with real-time position and heading updates
-* **`prototypes/01-audio-sketches/index.html`** — Phase 0 pipeline test: stub engines, Mercator projection, haversine proximity calculations, and Web Audio API synthesis responding to feeder trigger events
+* **`Archive/prototype-tests/tram-engine-test.html`** — Live dashboard showing tram positions updating every 10 seconds alongside proximity calculations
+* **`Archive/simulation/listener-test.html`** — Interactive Leaflet map with the simulated walker moving along the route
+* **`Archive/webpd-patches/01-audio-sketches/index.html`** — Phase 0 pipeline test: stub engines + Web Audio API synthesis
 
-All three engines functioned independently on the prototype route data, demonstrating the core architecture works prior to spatial audio integration.
+The integrated application is now **`index.html`** at the project root, combining real TramEngine, ProximityEngine, live GPS, Leaflet map, and Web Audio API synthesis in a single page. Docker build confirmed working; served via nginx with COEP/COOP headers for AudioWorklet compatibility.
 
 #### **5\. Documentation & Planning**
 
@@ -306,8 +306,8 @@ Development work is clearly scoped: geographic expansion from the 2.7km prototyp
 
 Technical risks are mitigated through validated prototypes and mature, stable technologies. Development risks are managed through iterative development, continuous testing, and a six-month timeline with buffer. Privacy-by-design architecture ensures FADP/GDPR compliance throughout.
 
-**Document Version:** 3.0  
-**Last Updated:** March 2026  
+**Document Version:** 3.1  
+**Last Updated:** April 2026  
 **Author:** Robin Pender  
 **Contact:** robinpender23@gmail.com  
 **Repository:** https://github.com/Gombassa/hiddeninfrastructures-zurich  

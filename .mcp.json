@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena-mcp-server",
+        "--project-root",
+        "C:\\Users\\robin\\Documents\\GitHub\\hidden-infrastructures-zurich"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+      }
+    }
+  }
+}

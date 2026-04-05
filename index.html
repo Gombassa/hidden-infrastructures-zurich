@@ -250,7 +250,7 @@
       lfo2.start();
 
       const gain = ctx.createGain();
-      gain.gain.value = 0.1;
+      gain.gain.value = 0;
 
       osc1.connect(gain);
       osc2.connect(gain);
@@ -367,6 +367,7 @@
           (pos) => {
             realLat = pos.coords.latitude;
             realLng = pos.coords.longitude;
+            setCard('card-pos', `${realLat.toFixed(4)}, ${realLng.toFixed(4)}`);
             appendLog(`[GPS] ${realLat} ${realLng} accuracy: ${pos.coords.accuracy}`, 'll');
             if (listenerMarker) listenerMarker.setLatLng([realLat, realLng]);
             if (following && map) map.setView([realLat, realLng], 19);
@@ -424,9 +425,12 @@
         }
       }
 
+      const tramCount = tramState.trams.length;
+      setCard('card-trams', String(tramCount), tramCount > 0);
+
       // Update feeder colours based purely on tram proximity (no listener required)
       if (feederMarkers) {
-        const proximity = ProximityEngine.calculate(tramState);
+        const proximity = ProximityEngine.calculate(tramState, realLat, realLng);
         appendLog(`[PROXIMITY] listenerLat: ${realLat} listenerLng: ${realLng} tramCount: ${tramState.trams.length} feedersTriggered: ${proximity.feeders.filter(f => f.triggered).length}`, 'll');
         for (const feeder of proximity.feeders) {
           const marker = feederMarkers.get(feeder.id);
@@ -435,6 +439,28 @@
             ? { color: '#ff6b35', fillColor: '#ff6b35' }
             : { color: '#333',    fillColor: '#444'    }
           );
+        }
+        const feederTriggered = proximity.feeders.some(f => f.triggered);
+        let nearestFeederDist = Infinity;
+        if (realLat !== null && realLng !== null) {
+          for (const f of proximity.feeders) {
+            const dlat = (f.lat - realLat) * 111320;
+            const dlng = (f.lng - realLng) * 111320 * Math.cos(realLat * Math.PI / 180);
+            const d = Math.sqrt(dlat * dlat + dlng * dlng);
+            if (d < nearestFeederDist) nearestFeederDist = d;
+          }
+        }
+        setCard('card-feeder',
+          nearestFeederDist === Infinity ? '—' : `${Math.round(nearestFeederDist)}m`,
+          feederTriggered
+        );
+        if (droneGain) {
+          const dist = proximity.nearestPowerlineDist;
+          let targetGain;
+          if (dist === null || dist > 20) targetGain = 0;
+          else if (dist <= 5) targetGain = 0.3;
+          else targetGain = 0.01 + (20 - dist) / 15 * (0.3 - 0.01);
+          droneGain.gain.gain.setTargetAtTime(targetGain, ctx.currentTime, 2.0);
         }
       }
     });

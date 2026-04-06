@@ -324,7 +324,7 @@
         .catch(e => appendLog(`Route load failed: ${e.message}`, 'lerr'));
 
       // Feeder markers — calculate with no trams to get all positions
-      const initialProximity = ProximityEngine.calculate({ trams: [] });
+      const initialProximity = ProximityEngine.calculate({ trams: [] }, realLat, realLng);
       feederMarkers = new Map();
       for (const feeder of initialProximity.feeders) {
         const marker = L.circleMarker([feeder.lat, feeder.lng], {
@@ -388,6 +388,7 @@
     let realLat   = null;
     let realLng   = null;
     let following = false;
+    const activeCrackleIds = new Set();
 
     // ── UI HELPERS ───────────────────────────────────────────────────────────
     const logDiv = document.getElementById('log');
@@ -440,7 +441,35 @@
             : { color: '#333',    fillColor: '#444'    }
           );
         }
-        const feederTriggered = proximity.feeders.some(f => f.triggered);
+        const triggeredIds = new Set(proximity.feeders.filter(f => f.triggered).map(f => f.id));
+        for (const id of activeCrackleIds) {
+          if (!triggeredIds.has(id)) activeCrackleIds.delete(id);
+        }
+        if (ctx) {
+          for (const id of triggeredIds) {
+            if (!activeCrackleIds.has(id)) {
+              triggerCrackle(ctx);
+              activeCrackleIds.add(id);
+            }
+          }
+        }
+        if (ctx && realLat !== null && realLng !== null && idlePool) {
+          const nearbyFeeders = proximity.feeders
+            .map(f => {
+              const dlat = (f.lat - realLat) * 111320;
+              const dlng = (f.lng - realLng) * 111320 * Math.cos(realLat * Math.PI / 180);
+              return { f, dist: Math.sqrt(dlat * dlat + dlng * dlng) };
+            })
+            .filter(({ dist }) => dist < FEEDER_HISS_RADIUS)
+            .sort((a, b) => a.dist - b.dist);
+          for (let i = 0; i < idlePool.length; i++) {
+            const targetGain = i < nearbyFeeders.length
+              ? (1 - nearbyFeeders[i].dist / FEEDER_HISS_RADIUS) * 0.15
+              : 0;
+            idlePool[i].gain.gain.setTargetAtTime(targetGain, ctx.currentTime, 0.5);
+          }
+        }
+        const feederTriggered = triggeredIds.size > 0;
         let nearestFeederDist = Infinity;
         if (realLat !== null && realLng !== null) {
           for (const f of proximity.feeders) {
@@ -527,6 +556,9 @@
       btnStop.disabled = true;
       appendLog('Engines stopped', 'linf');
     });
+
+    // ── TRAM ERROR SURFACE ────────────────────────────────────────────────────
+    window.addEventListener('tram-error', (e) => appendLog(e.detail, 'lerr'));
 
     // ── STARTUP ───────────────────────────────────────────────────────────────
     appendLog('Real engines: TramEngine + ProximityEngine', 'linf');

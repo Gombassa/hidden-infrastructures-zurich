@@ -65,7 +65,7 @@ function haversineDistance(lon1, lat1, lon2, lat2) {
 }
 
 async function fetchTramSchedule(stopName, lines) {
-  const url = `https://transport.opendata.ch/v1/stationboard?station=Zürich, ${encodeURIComponent(stopName)}&limit=50`;
+  const url = `https://transport.opendata.ch/v1/stationboard?station=${encodeURIComponent(stopName)}&limit=50`;
 
   try {
     const response = await fetch(url);
@@ -94,7 +94,9 @@ async function fetchTramSchedule(stopName, lines) {
 
     return trams;
   } catch (error) {
-    console.error(`[TramEngine] Error fetching schedule for ${stopName}:`, error);
+    const msg = `[TramEngine] Error fetching schedule for ${stopName}: ${error.message}`;
+    console.error(msg);
+    window.dispatchEvent(new CustomEvent('tram-error', { detail: msg }));
     fetchFailed = true;
     return [];
   }
@@ -108,7 +110,7 @@ async function calculateTramPositions() {
     const travelTime = pair.distance / TRAM_SPEED_MPS;
 
     // Fetch schedules for stop A
-    const departures = await fetchTramSchedule(pair.stop_a.name, pair.lines);
+    const departures = await fetchTramSchedule(`Zürich ${pair.stop_a.name}`, pair.lines);
 
     for (const tram of departures) {
       const departure = tram.actualTime;
@@ -156,7 +158,9 @@ async function tick() {
     const trams = await calculateTramPositions();
     state = { trams, lastUpdated: new Date(), isStale: fetchFailed };
   } catch (error) {
-    console.error("[TramEngine] Update failed, keeping last known positions:", error);
+    const msg = `[TramEngine] Update failed, keeping last known positions: ${error.message}`;
+    console.error(msg);
+    window.dispatchEvent(new CustomEvent('tram-error', { detail: msg }));
     state = { ...state, isStale: true };
   }
   for (const cb of listeners) {

@@ -172,14 +172,46 @@
       return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     }
 
+    function feederToXYZ(feederLat, feederLng) {
+      if (realLat === null || realLng === null || realHeading === null) {
+        return { x: 0, y: 0, z: -1 };
+      }
+      const metersPerDegLat = 111320;
+      const metersPerDegLng = 111320 * Math.cos(realLat * Math.PI / 180);
+      const dNorth = (feederLat - realLat) * metersPerDegLat;
+      const dEast  = (feederLng - realLng) * metersPerDegLng;
+
+      // Rotate by heading so that forward = -Z in Web Audio coordinates
+      const headingRad = realHeading * Math.PI / 180;
+      const x =  dEast  * Math.cos(headingRad) - dNorth * Math.sin(headingRad);
+      const z = -(dEast  * Math.sin(headingRad) + dNorth * Math.cos(headingRad));
+
+      // Clamp to unit sphere for distant sources — panner distance model handles gain
+      const dist = Math.sqrt(x * x + z * z) || 1;
+      const scale = Math.min(dist, 500) / dist;
+      return { x: x * scale / 500, y: 0, z: z * scale / 500 };
+    }
+
     // ── WEB AUDIO SYNTHESIS ──────────────────────────────────────────────────
 
     // 6 percussive noise bursts scheduled over 300ms via Web Audio API.
     // Bursts spaced 50ms apart; amplitude ramps from 0.1 (hit 1) to 0.6 (hit 6).
-    function triggerCrackle(ctx) {
+    function triggerCrackle(feederId, feederLat, feederLng) {
       const burstCount = 6;
       const spacing    = 0.050; // 50ms between burst onsets
       const bufLen     = Math.floor(ctx.sampleRate * 0.020); // 20ms buffer per burst
+
+      const panner = ctx.createPanner();
+      panner.panningModel  = 'HRTF';
+      panner.distanceModel = 'inverse';
+      panner.refDistance   = 1;
+      panner.maxDistance   = 500;
+      panner.rolloffFactor = 1;
+      const pos = feederToXYZ(feederLat, feederLng);
+      panner.positionX.value = pos.x;
+      panner.positionY.value = pos.y;
+      panner.positionZ.value = pos.z;
+      panner.connect(ctx.destination);
 
       for (let i = 0; i < burstCount; i++) {
         const t0        = ctx.currentTime + i * spacing;
@@ -203,7 +235,7 @@
 
         source.connect(filter);
         filter.connect(gain);
-        gain.connect(ctx.destination);
+        gain.connect(panner);
         source.start(t0);
         source.stop(t0 + 0.020);
       }
@@ -264,7 +296,7 @@
     // Pool of 6 comb-filtered noise nodes for idle feeder texture.
     // Each node: BufferSource (loop) → DelayNode (comb) → feedback GainNode → output GainNode.
     // Comb delay time is assigned per-slot on activation to give each a distinct tonal character.
-    function makeHissNode(ctx, destination) {
+    function makeHissNode(ctx) {
       const bufferSize = ctx.sampleRate * 2;
       const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
       const data = buffer.getChannelData(0);
@@ -279,15 +311,26 @@
       const gain = ctx.createGain();
       gain.gain.value = 0;
 
+      const panner = ctx.createPanner();
+      panner.panningModel  = 'HRTF';
+      panner.distanceModel = 'inverse';
+      panner.refDistance   = 1;
+      panner.maxDistance   = 500;
+      panner.rolloffFactor = 1;
+      panner.positionX.value = 0;
+      panner.positionY.value = 0;
+      panner.positionZ.value = -1;
+
       source.connect(delay);
       delay.connect(feedback);
       feedback.connect(delay);
       feedback.gain.value = HISS_COMB_FEEDBACK;
       delay.connect(gain);
-      gain.connect(destination);
+      gain.connect(panner);
+      panner.connect(ctx.destination);
       source.start();
 
-      return { gain, delay, source, combIndex: null, active: false };
+      return { gain, delay, source, panner, combIndex: null, active: false, feeder: null };
     }
 
     let lastCombIndex = -1;
@@ -324,7 +367,7 @@
         .catch(e => appendLog(`Route load failed: ${e.message}`, 'lerr'));
 
       // Feeder markers — calculate with no trams to get all positions
-      const initialProximity = ProximityEngine.calculate({ trams: [] }, realLat, realLng);
+      const initialProximity = ProximityEngine.calculate({ trams: [] }, realLat, realLng, realHeading);
       feederMarkers = new Map();
       for (const feeder of initialProximity.feeders) {
         const marker = L.circleMarker([feeder.lat, feeder.lng], {
@@ -367,7 +410,7 @@
           (pos) => {
             realLat = pos.coords.latitude;
             realLng = pos.coords.longitude;
-            setCard('card-pos', `${realLat.toFixed(4)}, ${realLng.toFixed(4)}`);
+            setCard('card-pos', `${realLat.toFixed(5)}, ${realLng.toFixed(5)} | ${realHeading !== null ? realHeading.toFixed(1) + '°' : '—'}`);
             appendLog(`[GPS] ${realLat} ${realLng} accuracy: ${pos.coords.accuracy}`, 'll');
             if (listenerMarker) listenerMarker.setLatLng([realLat, realLng]);
             if (following && map) map.setView([realLat, realLng], 19);
@@ -378,6 +421,22 @@
       } else {
         appendLog('Geolocation not available — using simulated position', 'linf');
       }
+      window.addEventListener('deviceorientation', (event) => {
+        if (event.alpha !== null) {
+          realHeading = event.alpha;
+          if (ctx && ctx.listener) {
+            const headingRad = event.alpha * Math.PI / 180;
+            const fx = -Math.sin(headingRad);
+            const fz = -Math.cos(headingRad);
+            ctx.listener.forwardX.setTargetAtTime(fx, ctx.currentTime, 0.1);
+            ctx.listener.forwardY.setTargetAtTime(0,  ctx.currentTime, 0.1);
+            ctx.listener.forwardZ.setTargetAtTime(fz, ctx.currentTime, 0.1);
+            ctx.listener.upX.setTargetAtTime(0, ctx.currentTime, 0.1);
+            ctx.listener.upY.setTargetAtTime(1, ctx.currentTime, 0.1);
+            ctx.listener.upZ.setTargetAtTime(0, ctx.currentTime, 0.1);
+          }
+        }
+      });
     }
 
     // ── STATE ────────────────────────────────────────────────────────────────
@@ -385,8 +444,9 @@
     let droneGain = null;
     let idlePool  = null; // 6-node comb-filtered noise pool for idle feeder texture
     let tick      = 0;
-    let realLat   = null;
-    let realLng   = null;
+    let realLat     = null;
+    let realLng     = null;
+    let realHeading = null;
     let following = false;
     const activeCrackleIds = new Set();
 
@@ -431,7 +491,7 @@
 
       // Update feeder colours based purely on tram proximity (no listener required)
       if (feederMarkers) {
-        const proximity = ProximityEngine.calculate(tramState, realLat, realLng);
+        const proximity = ProximityEngine.calculate(tramState, realLat, realLng, realHeading);
         appendLog(`[PROXIMITY] listenerLat: ${realLat} listenerLng: ${realLng} tramCount: ${tramState.trams.length} feedersTriggered: ${proximity.feeders.filter(f => f.triggered).length}`, 'll');
         for (const feeder of proximity.feeders) {
           const marker = feederMarkers.get(feeder.id);
@@ -446,10 +506,10 @@
           if (!triggeredIds.has(id)) activeCrackleIds.delete(id);
         }
         if (ctx) {
-          for (const id of triggeredIds) {
-            if (!activeCrackleIds.has(id)) {
-              triggerCrackle(ctx);
-              activeCrackleIds.add(id);
+          for (const f of proximity.feeders.filter(f => f.triggered)) {
+            if (!activeCrackleIds.has(f.id)) {
+              triggerCrackle(f.id, f.lat, f.lng);
+              activeCrackleIds.add(f.id);
             }
           }
         }
@@ -463,10 +523,20 @@
             .filter(({ dist }) => dist < FEEDER_HISS_RADIUS)
             .sort((a, b) => a.dist - b.dist);
           for (let i = 0; i < idlePool.length; i++) {
-            const targetGain = i < nearbyFeeders.length
-              ? (1 - nearbyFeeders[i].dist / FEEDER_HISS_RADIUS) * 0.15
-              : 0;
-            idlePool[i].gain.gain.setTargetAtTime(targetGain, ctx.currentTime, 0.5);
+            const node = idlePool[i];
+            if (i < nearbyFeeders.length) {
+              const { f, dist } = nearbyFeeders[i];
+              const targetGain = (1 - dist / FEEDER_HISS_RADIUS) * 0.15;
+              node.gain.gain.setTargetAtTime(targetGain, ctx.currentTime, 0.5);
+              node.feeder = f;
+              const pos = feederToXYZ(f.lat, f.lng);
+              node.panner.positionX.setTargetAtTime(pos.x, ctx.currentTime, 0.1);
+              node.panner.positionY.setTargetAtTime(pos.y, ctx.currentTime, 0.1);
+              node.panner.positionZ.setTargetAtTime(pos.z, ctx.currentTime, 0.1);
+            } else {
+              node.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
+              node.feeder = null;
+            }
           }
         }
         const feederTriggered = triggeredIds.size > 0;
@@ -535,7 +605,7 @@
       reverbGain.connect(ctx.destination);
       appendLog('Drone oscillators started (110 + 112 Hz)', 'lok');
       if (!idlePool) {
-        idlePool = Array.from({ length: 6 }, () => makeHissNode(ctx, ctx.destination));
+        idlePool = Array.from({ length: 6 }, () => makeHissNode(ctx));
         appendLog('Idle feeder texture pool ready (6 comb-filtered nodes)', 'lok');
       }
       TramEngine.start();

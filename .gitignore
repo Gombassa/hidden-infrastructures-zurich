@@ -158,6 +158,7 @@ data/raw/*.zip
 
 # Claude Code local settings
 .claude/settings.local.json
+.mcp.json
 
 # IDE
 .vscode/

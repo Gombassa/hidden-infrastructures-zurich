@@ -367,7 +367,7 @@
         .catch(e => appendLog(`Route load failed: ${e.message}`, 'lerr'));
 
       // Feeder markers — calculate with no trams to get all positions
-      const initialProximity = ProximityEngine.calculate({ trams: [] }, realLat, realLng, realHeading);
+      const initialProximity = ProximityEngine.calculate({ trams: [] }, realLat, realLng, realHeading, realSpeed);
       feederMarkers = new Map();
       for (const feeder of initialProximity.feeders) {
         const marker = L.circleMarker([feeder.lat, feeder.lng], {
@@ -408,8 +408,9 @@
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(
           (pos) => {
-            realLat = pos.coords.latitude;
-            realLng = pos.coords.longitude;
+            realLat   = pos.coords.latitude;
+            realLng   = pos.coords.longitude;
+            realSpeed = pos.coords.speed; // m/s, or null if unavailable
             setCard('card-pos', `${realLat.toFixed(5)}, ${realLng.toFixed(5)} | ${realHeading !== null ? realHeading.toFixed(1) + '°' : '—'}`);
             appendLog(`[GPS] ${realLat} ${realLng} accuracy: ${pos.coords.accuracy}`, 'll');
             if (listenerMarker) listenerMarker.setLatLng([realLat, realLng]);
@@ -447,6 +448,7 @@
     let realLat     = null;
     let realLng     = null;
     let realHeading = null;
+    let realSpeed   = null;
     let following = false;
     const activeCrackleIds = new Set();
 
@@ -491,7 +493,7 @@
 
       // Update feeder colours based purely on tram proximity (no listener required)
       if (feederMarkers) {
-        const proximity = ProximityEngine.calculate(tramState, realLat, realLng, realHeading);
+        const proximity = ProximityEngine.calculate(tramState, realLat, realLng, realHeading, realSpeed);
         appendLog(`[PROXIMITY] listenerLat: ${realLat} listenerLng: ${realLng} tramCount: ${tramState.trams.length} feedersTriggered: ${proximity.feeders.filter(f => f.triggered).length}`, 'll');
         for (const feeder of proximity.feeders) {
           const marker = feederMarkers.get(feeder.id);

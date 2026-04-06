@@ -109,7 +109,7 @@ const ProximityEngine = {
    * @param {number} [listenerLat]
    * @param {number} [listenerLng]
    */
-  calculate(tramState, listenerLat = null, listenerLng = null) {
+  calculate(tramState, listenerLat = null, listenerLng = null, heading = null, speed = null) {
     const trams = tramState.trams;
 
     const substationResults = substations.map((sub) => {
@@ -131,15 +131,19 @@ const ProximityEngine = {
       };
     });
 
+    const ON_TRAM_SPEED = 3; // m/s — ~10 km/h
+    const onTram = speed !== null && speed > ON_TRAM_SPEED;
+
     const feederResults = feeders.map((fed) => {
       let triggered = false;
       let triggeringTram = null;
       let bestDist = Infinity;
 
-      // Condition (b): listener must be within FEEDER_LISTENER_RADIUS (50m) of this feeder
-      const listenerNear = listenerLat === null || listenerLng === null
-        ? true
-        : haversineDistance(fed.lng, fed.lat, listenerLng, listenerLat) < FEEDER_LISTENER_RADIUS;
+      // Condition (b): listener must be within FEEDER_LISTENER_RADIUS (50m) of this feeder.
+      // Bypassed when onTram — tram-to-feeder proximity alone is sufficient.
+      const listenerNear = onTram
+        || listenerLat === null || listenerLng === null
+        || haversineDistance(fed.lng, fed.lat, listenerLng, listenerLat) < FEEDER_LISTENER_RADIUS;
 
       if (listenerNear) {
         for (const tram of trams) {

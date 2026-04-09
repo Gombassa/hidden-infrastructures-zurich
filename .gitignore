@@ -152,12 +152,18 @@ data/raw/*.kml
 data/raw/*.shp
 data/raw/*.zip
 
+# Raw GeoShop DXF deliveries (large binary files, not version controlled)
+data/raw/GeoShop/
+data/raw/ERZ waste water/
+data/raw/WVZ pipeline register/
+
 # Environment variables
 .env
 .env.local
 
 # Claude Code local settings
 .claude/settings.local.json
+.claude/settings.json
 .mcp.json
 
 # IDE

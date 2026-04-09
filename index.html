@@ -64,7 +64,7 @@
       font-size: 11px;
       line-height: 1.7;
     }
-    .ll   { color: #888; }
+    .ll   { color: #fff; }
     .lt   { color: #ffffff; }
     .ltrg { color: #ff6b35; font-weight: bold; }
     .lerr { color: #ff4444; }
@@ -406,7 +406,7 @@
 
       // Real GPS — centre map on actual device position
       if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(
+        gpsWatcherId = navigator.geolocation.watchPosition(
           (pos) => {
             realLat   = pos.coords.latitude;
             realLng   = pos.coords.longitude;
@@ -415,6 +415,9 @@
             appendLog(`[GPS] ${realLat} ${realLng} accuracy: ${pos.coords.accuracy}`, 'll');
             if (listenerMarker) listenerMarker.setLatLng([realLat, realLng]);
             if (following && map) map.setView([realLat, realLng], 19);
+            if (pos.coords.accuracy <= 50 && lastFeeders.length > 0) {
+              updateHissGains(realLat, realLng, lastFeeders);
+            }
           },
           (err) => appendLog(`GPS error: ${err.message}`, 'lerr'),
           { enableHighAccuracy: true, maximumAge: 5000 },
@@ -451,6 +454,8 @@
     let realSpeed   = null;
     let following = false;
     const activeCrackleIds = new Set();
+    let lastFeeders = [];
+    let gpsWatcherId = null;
 
     // ── UI HELPERS ───────────────────────────────────────────────────────────
     const logDiv = document.getElementById('log');
@@ -470,6 +475,34 @@
       const el = document.getElementById(id);
       el.textContent = value;
       el.className = `card-value${alert ? ' alert' : ''}`;
+    }
+
+    // ── HISS GAIN MANAGEMENT ─────────────────────────────────────────────────
+    function updateHissGains(lat, lng, feeders) {
+      if (!ctx || lat === null || lng === null || !idlePool) return;
+      const nearby = feeders
+        .map(f => {
+          const dlat = (f.lat - lat) * 111320;
+          const dlng = (f.lng - lng) * 111320 * Math.cos(lat * Math.PI / 180);
+          return { f, dist: Math.sqrt(dlat * dlat + dlng * dlng) };
+        })
+        .filter(({ dist }) => dist < FEEDER_HISS_RADIUS)
+        .sort((a, b) => a.dist - b.dist);
+      for (let i = 0; i < idlePool.length; i++) {
+        const node = idlePool[i];
+        if (i < nearby.length) {
+          const { f, dist } = nearby[i];
+          node.gain.gain.setTargetAtTime((1 - dist / FEEDER_HISS_RADIUS) * 0.15, ctx.currentTime, 0.5);
+          node.feeder = f;
+          const pos = feederToXYZ(f.lat, f.lng);
+          node.panner.positionX.setTargetAtTime(pos.x, ctx.currentTime, 0.1);
+          node.panner.positionY.setTargetAtTime(pos.y, ctx.currentTime, 0.1);
+          node.panner.positionZ.setTargetAtTime(pos.z, ctx.currentTime, 0.1);
+        } else {
+          node.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
+          node.feeder = null;
+        }
+      }
     }
 
     // ── TRAM MARKER UPDATES ──────────────────────────────────────────────────
@@ -515,32 +548,8 @@
             }
           }
         }
-        if (ctx && realLat !== null && realLng !== null && idlePool) {
-          const nearbyFeeders = proximity.feeders
-            .map(f => {
-              const dlat = (f.lat - realLat) * 111320;
-              const dlng = (f.lng - realLng) * 111320 * Math.cos(realLat * Math.PI / 180);
-              return { f, dist: Math.sqrt(dlat * dlat + dlng * dlng) };
-            })
-            .filter(({ dist }) => dist < FEEDER_HISS_RADIUS)
-            .sort((a, b) => a.dist - b.dist);
-          for (let i = 0; i < idlePool.length; i++) {
-            const node = idlePool[i];
-            if (i < nearbyFeeders.length) {
-              const { f, dist } = nearbyFeeders[i];
-              const targetGain = (1 - dist / FEEDER_HISS_RADIUS) * 0.15;
-              node.gain.gain.setTargetAtTime(targetGain, ctx.currentTime, 0.5);
-              node.feeder = f;
-              const pos = feederToXYZ(f.lat, f.lng);
-              node.panner.positionX.setTargetAtTime(pos.x, ctx.currentTime, 0.1);
-              node.panner.positionY.setTargetAtTime(pos.y, ctx.currentTime, 0.1);
-              node.panner.positionZ.setTargetAtTime(pos.z, ctx.currentTime, 0.1);
-            } else {
-              node.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
-              node.feeder = null;
-            }
-          }
-        }
+        lastFeeders = proximity.feeders;
+        updateHissGains(realLat, realLng, lastFeeders);
         const feederTriggered = triggeredIds.size > 0;
         let nearestFeederDist = Infinity;
         if (realLat !== null && realLng !== null) {
@@ -621,8 +630,18 @@
     btnStop.addEventListener('click', () => {
       TramEngine.stop();
       following = false;
+      if (gpsWatcherId !== null) {
+        navigator.geolocation.clearWatch(gpsWatcherId);
+        gpsWatcherId = null;
+      }
       if (droneGain) { droneGain.gain.gain.value = 0; droneGain = null; }
-      if (idlePool) idlePool.forEach(node => { node.gain.gain.value = 0; });
+      if (idlePool) {
+        for (const node of idlePool) {
+          node.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
+          node.feeder = null;
+        }
+      }
+      lastFeeders = [];
       btnStart.disabled = false;
       btnStart.classList.remove('active');
       btnStop.disabled = true;

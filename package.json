@@ -4,5 +4,8 @@
   },
   "devDependencies": {
     "vite": "^8.0.0"
+  },
+  "dependencies": {
+    "proj4": "^2.20.8"
   }
 }

@@ -145,9 +145,9 @@ Singleton, default export. Loads substations + feeders + powerlines GeoJSON, com
 ```javascript
 import ProximityEngine from './src/proximity-engine.js';
 await ProximityEngine.init();              // loads GeoJSON from /data/processed/ and /data/raw/
-ProximityEngine.calculate(tramState);                      // tram-only triggers (no listener required)
-ProximityEngine.calculate(tramState, listenerLat, listenerLng); // listener-aware triggers
-// → { substations: [{id, lat, lng, tramCount, nearestTramDist}], feeders: [{id, lat, lng, triggered, triggeringTram}] }
+ProximityEngine.calculate(tramState, listenerLat, listenerLng, heading, speed);
+// → { substations: [{id, lat, lng, tramCount, nearestTramDist}], feeders: [{id, lat, lng, triggered, triggeringTram}], nearestPowerlineDist }
+// All args after tramState default to null. heading and speed are captured but not yet used internally.
 ```
 
 - Substation radius: 150m (tramCount = trams within this range)
@@ -157,7 +157,8 @@ ProximityEngine.calculate(tramState, listenerLat, listenerLng); // listener-awar
 ### GPS Listener (inline in `index.html`)
 Live GPS via `navigator.geolocation.watchPosition()`. No separate module.
 
-- Updates `realLat` / `realLng` on every fix
+- Updates `realLat` / `realLng` / `realSpeed` on every fix
+- `realHeading` updated via `deviceorientation` event (`event.alpha`, 0–360°)
 - Moves listener marker on Leaflet map
 - Follows position at zoom 19 while `following = true` (Start → Stop)
 - Logs each fix to on-screen log panel via `appendLog`
@@ -174,6 +175,42 @@ Production audio patches are authored in Max/MSP, compiled via RNBO (Cycling '74
 5. Control parameters via `device.parametersById.get('paramName').value = x`
 
 ### Current state
-- Dev placeholder: `index.html` uses direct Web Audio API synthesis (noise burst crackle + detuned oscillator drone + comb-filtered hiss pool)
-- This validates the data pipeline (engines → proximity → audio) only — not final sound design
-- Next milestone: validate RNBO pipeline with a single test patch before committing all five layers
+- Web Audio API direct synthesis is the confirmed production path for Phase 1
+- RNBO/Max MSP deferred; no licence purchases required before Phase 2
+- `index.html` uses: noise burst crackle (PannerNode spatial), comb-filtered hiss pool (PannerNode spatial), detuned oscillator drone (powerline proximity gain), synthetic convolver reverb on drone
+
+---
+
+## Current State (April 2026)
+
+Phase 1 active on `phase-1` git branch.
+
+Audio pipeline confirmed working in field tests on Bahnhofstrasse:
+- Feeder hiss (proximity-scaled, 6-node comb-filter pool with active-slot tracking) — working
+- Feeder crackle (debounced one-shot events per feeder ID, speed-mode detection for on-tram use) — working
+- Drone (distance-based gain ramp triggered by proximity to powerline segments in route-tram-powerlines.geojson, 20m→5m fade) — working
+- Tram markers not rendering on map — known cosmetic issue, deprioritised
+
+## Architecture decisions (confirmed)
+
+- WebPd and Three.js dropped entirely
+- RNBO/Max MSP deferred; Web Audio API is the validated production synthesis path
+- ListenerEngine simulation stripped out; live GPS via `watchPosition()` only
+- pole-ping sound layer dropped
+- district-theme deferred to later phase
+- Two-stage Docker build implemented (node:20-alpine → nginx:alpine)
+- GeoJSON data files served via `public/` directory
+- Cloudflare Tunnel used for HTTPS on Android Chrome during field testing
+
+## Repo structure
+
+`Archive/` directory holds deprecated WebPd/PureData patches, simulation engine, and prototype tests.
+`public/` directory serves GeoJSON data to Vite build output.
+`STARTUP.md` documents the two-terminal launch sequence.
+
+## Key learnings from field testing
+
+- GPS accuracy in urban environments settles to <1m with patience but starts at 20-30m — proximity radii need to tolerate this startup drift
+- TramEngine API URL required full Zürich prefix with encodeURIComponent on the complete station name
+- ProximityEngine.calculate() must receive realLat/realLng explicitly — null defaults bypass the listener gate entirely
+- Feeder hiss gain control must be implemented separately from the triggered feeder logic — the pool exists but gain modulation requires explicit distance calculations against FEEDER_HISS_RADIUS

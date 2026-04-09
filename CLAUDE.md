@@ -8,7 +8,7 @@ Invisible Infrastructures: Zurich - A location-based generative music applicatio
 
 **Phase 1 MVP - District 1 (Postal Code 8001):**
 - Route: Stadelhofen → Paradeplatz (~2.5km)
-- Five infrastructure layers: tram electrical, water supply, sewage, electricity grid, telecommunications
+- Six infrastructure layers: tram electrical, water supply, sewage, electricity grid, telecommunications, Fernwärme (district heating)
 - Target completion: July 2026
 - Public launch: August 2026
 - Future expansion: Districts 2-6 (2027-2030)
@@ -50,14 +50,21 @@ open data/processed/tram-simulation-live.html
 index.html         # Main application (root) — GPS + Web Audio API pipeline
 src/
 ├── tram-engine.js       # Live tram positions from transport.opendata.ch
-└── proximity-engine.js  # Tram ↔ infrastructure distance calculations
+├── proximity-engine.js  # Tram ↔ infrastructure distance calculations (all 6 layers)
+└── audio-layers.js      # Web Audio API synthesis for water/sewage/elec/telecom/fernwärme
 public/
+├── lk-tram-lk.geojson       # VBZ tram infrastructure (nodes + trasse)
+├── lk-water.geojson          # WVZ water pipes + fittings
+├── lk-sewage.geojson         # ERZ sewage pipes
+├── lk-electricity.geojson    # ewz electricity nodes + cables
+├── lk-telecom.geojson        # ewz telecom nodes + cables
+├── lk-fernwaerme.geojson     # District heating pipes
 └── data/
-    ├── processed/       # substations.geojson (served at runtime)
-    └── raw/             # route-tram-feeders.geojson, route-tram-powerlines.geojson
+    ├── processed/       # substations.geojson, route-waypoints.json
+    └── raw/             # route-tram-masts.geojson (archived reference)
 data/
-├── raw/           # VBZ GeoJSON: feeders, masts, powerlines
-└── processed/     # Generated: substations.geojson, route-waypoints.json, maps
+├── raw/           # VBZ GeoJSON: feeders, masts, powerlines (source files)
+└── processed/     # substations.geojson, route-waypoints.json, maps, lk/ (processed GeoJSON)
 scripts/           # One-time data processing (Node.js)
 docs/              # Phase planning and specifications
 Archive/           # Archived prototypes and analysis scripts
@@ -73,11 +80,12 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 ## Key Data
 
 **Infrastructure Layers (Phase 1 MVP):**
-1. **Tram electrical:** 366 power feeders (VBZ static geodata) + real-time tram positions (transport.opendata.ch API)
-2. **Water supply:** Distribution pipes, pumping stations (WVZ Leitungskataster - 1,550 km network)
-3. **Sewage:** Main collectors, treatment facilities (ERZ Abwasser-Werkleitungsdaten)
-4. **Electricity grid:** High-voltage substations, distribution transformers (ewz Werkleitungsdaten)
-5. **Telecommunications:** Fiber optic nodes, data infrastructure (ewz Telecom)
+1. **Tram electrical:** lk-tram-lk.geojson — nodes (feeders) + trasse (powerlines), full District 1. Real-time tram positions from transport.opendata.ch API.
+2. **Water supply:** lk-water.geojson — 1,274 pipe LineStrings + 520 fitting Points (WVZ Leitungskataster)
+3. **Sewage:** lk-sewage.geojson — pipes only, manholes excluded (ERZ Abwasser-Werkleitungsdaten)
+4. **Electricity grid:** lk-electricity.geojson — nodes + cables, area footprints excluded (ewz Werkleitungsdaten)
+5. **Telecommunications:** lk-telecom.geojson — nodes + cables, overhead excluded (ewz Telecom / Swisscom / UPC)
+6. **Fernwärme:** lk-fernwaerme.geojson — district heating pipes (SIA405 LKMap via GeoShop)
 
 **Route:**
 - 75 waypoints extracted from powerline geometry (A* path-stitching)
@@ -100,19 +108,22 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 
 ## Known Limitations
 
-- VBZ does not publish substation locations publicly - tram electrical layer focuses on 366 power feeders only
-- Feeder attributes are minimal (only `objectid`, `einbaudatu`) - no substation_id or connectivity metadata
-- Infrastructure geodata is static snapshots - only tram positions update in real-time
-- Water/sewage/electricity/telecom layers will use static infrastructure positions (no real-time flow/usage data available)
+- VBZ does not publish substation locations publicly — tram electrical layer uses lk-tram-lk.geojson nodes as feeder proxies
+- Feeder attributes are minimal (only `objectid`, `einbaudatu`) — no substation_id or connectivity metadata
+- Infrastructure geodata is static snapshots — only tram positions update in real-time
+- Water/sewage/electricity/telecom/Fernwärme layers use static infrastructure positions — no real-time flow/usage data available
+- Fernwärme coverage is sparse in District 1 — encounters will be infrequent (nearest pipe at Paradeplatz was 79m, just outside 60m threshold)
+- Audio synthesis in audio-layers.js is placeholder Web Audio API — production sound design via Max/MSP + RNBO deferred to Phase 3
 
 ## Audio Layers (Phase 1 MVP - District 1)
 
 **Infrastructure Layers (procedurally generated):**
-1. **Tram electrical** - Feeder crackle when trams draw power, electrical transients
-2. **Water supply** - Hydraulic pulse, flow textures, pumping station rhythms
-3. **Sewage** - Deep bass churn, underground rumble, treatment facility processes
-4. **Electricity grid** - High-frequency harmonic screaming, transformer hum, voltage fluctuations
-5. **Telecommunications** - Data chirps, fiber optic whispers, bandwidth pulses
+1. **Tram electrical** - Feeder crackle when trams draw power, comb-filtered hiss, powerline drone
+2. **Water supply** - Hydraulic pulse on proximity entry, flow textures
+3. **Sewage** - Deep bass rumble, distance-modulated continuous texture
+4. **Electricity grid** - Sawtooth oscillator pool (1500Hz), node entry triggers, cable density modulation
+5. **Telecommunications** - Chirp on node entry (2→4kHz sweep), continuous highpass fiber texture
+6. **Fernwärme** - Slow 60Hz sine tone with 0.3Hz tremolo, warm thermal pulse on proximity
 
 **District Musical Theme:**
 - District 1 (Altstadt): Procedurally-generated electronic theme reflecting historic center character
@@ -140,19 +151,50 @@ TramEngine.setUpdateInterval(ms);          // change refresh rate
 ```
 
 ### ProximityEngine (`src/proximity-engine.js`)
-Singleton, default export. Loads substations + feeders + powerlines GeoJSON, computes audio trigger parameters from tram positions and optional listener position.
+Singleton, default export. Loads all 7 GeoJSON files in parallel, computes proximity results for all 6 infrastructure layers.
 
 ```javascript
 import ProximityEngine from './src/proximity-engine.js';
-await ProximityEngine.init();              // loads GeoJSON from /data/processed/ and /data/raw/
+await ProximityEngine.init();   // loads substations + 6 lk-*.geojson files from public/
 ProximityEngine.calculate(tramState, listenerLat, listenerLng, heading, speed);
-// → { substations: [{id, lat, lng, tramCount, nearestTramDist}], feeders: [{id, lat, lng, triggered, triggeringTram}], nearestPowerlineDist }
-// All args after tramState default to null. heading and speed are captured but not yet used internally.
+// → {
+//     substations: [{id, lat, lng, tramCount, nearestTramDist}],
+//     feeders:     [{id, lat, lng, triggered, triggeringTram}],
+//     nearestPowerlineDist,          // metres to nearest tram trasse segment
+//     water:       { pipes: [{id, midLat, midLng, dist, triggered}], fittings: [...] },
+//     sewage:      { pipes: [...] },
+//     electricity: { nodes: [{id, lat, lng, dist, triggered}], cables: [...] },
+//     telecom:     { nodes: [...], cables: [...] },
+//     fernwaerme:  { pipes: [...] },
+//   }
+// New layer arrays are empty when listenerLat/Lng is null.
 ```
 
 - Substation radius: 150m (tramCount = trams within this range)
 - Feeder trigger radius: 50m (tram-only) — listener proximity also required in foot mode
-- Drone fade radius: 50m (linear gain from powerline proximity)
+- Drone fade: 20m→5m linear from nearest tram trasse segment
+- Water: 50m pipe / 25m fitting (nearest point on segment)
+- Sewage: 80m pipe (nearest point on segment)
+- Electricity: 40m nodes / 40m cables
+- Telecom: 40m nodes / 30m cables
+- Fernwärme: 60m pipes (provisional)
+
+### AudioLayers (`src/audio-layers.js`)
+Singleton, default export. Web Audio API placeholder synthesis for the five new infrastructure layers. Lifecycle: `init()` on Start, `stop()` tears down all nodes and resets for next Start.
+
+```javascript
+import AudioLayers from './src/audio-layers.js';
+AudioLayers.init(audioContext);                              // call on Start — creates nodes
+AudioLayers.update(proximity, listenerLat, listenerLng, heading);  // call each TramEngine tick
+AudioLayers.stop();                                          // tears down nodes, resets _initialized
+AudioLayers.LAYER_ENABLED                                    // { water, sewage, electricity, telecom, fernwaerme }
+```
+
+- Water: bandpass noise burst on proximity entry (pipe 800Hz / fitting 1200Hz)
+- Sewage: looped lowpass noise, gain modulated by distance (continuous)
+- Electricity: 4-slot sawtooth oscillator pool (1500Hz ±3Hz), master gain gated by node proximity
+- Telecom nodes: sine chirp (2→4kHz sweep) on proximity entry; cable: looped highpass noise texture
+- Fernwärme: 60Hz sine + tremolo LFO (0.3Hz, ±0.4 carrier gain), gain ramps on proximity
 
 ### GPS Listener (inline in `index.html`)
 Live GPS via `navigator.geolocation.watchPosition()`. No separate module.
@@ -183,13 +225,23 @@ Production audio patches are authored in Max/MSP, compiled via RNBO (Cycling '74
 
 ## Current State (April 2026)
 
-Phase 1 active on `phase-1` git branch.
+Phase 1/2 active on `phase-1` git branch. Deployed to Cloud Run.
 
-Audio pipeline confirmed working in field tests on Bahnhofstrasse:
-- Feeder hiss (proximity-scaled, 6-node comb-filter pool with active-slot tracking) — working
-- Feeder crackle (debounced one-shot events per feeder ID, speed-mode detection for on-tram use) — working
-- Drone (distance-based gain ramp triggered by proximity to powerline segments in route-tram-powerlines.geojson, 20m→5m fade) — working
+Audio pipeline working (field-tested on Bahnhofstrasse + Paradeplatz hardcoded test):
+- Feeder hiss (proximity-scaled, 6-node comb-filter pool) — working
+- Feeder crackle (debounced one-shot per feeder ID, speed-mode detection) — working
+- Drone (powerline proximity, 20m→5m fade, dual-LFO + reverb) — working
+- Water (bandpass noise pulses on proximity entry) — working, pending field test
+- Sewage (continuous lowpass rumble, distance-modulated) — working, pending field test
+- Electricity (sawtooth oscillator pool, 4 slots) — working, pending field test
+- Telecom (chirp on node entry + highpass cable texture) — working, pending field test
+- Fernwärme (60Hz sine + tremolo) — working, pending field test
 - Tram markers not rendering on map — known cosmetic issue, deprioritised
+
+Audio lifecycle:
+- Unlock Audio: ProximityEngine.init() + AudioContext.resume() only — no synthesis nodes
+- Start: AudioLayers.init() + drone + hiss pool + TramEngine.start()
+- Stop: full teardown — gains faded, sources scheduled to stop, references nulled, _initialized reset
 
 ## Architecture decisions (confirmed)
 
@@ -212,5 +264,7 @@ Audio pipeline confirmed working in field tests on Bahnhofstrasse:
 
 - GPS accuracy in urban environments settles to <1m with patience but starts at 20-30m — proximity radii need to tolerate this startup drift
 - TramEngine API URL required full Zürich prefix with encodeURIComponent on the complete station name
-- ProximityEngine.calculate() must receive realLat/realLng explicitly — null defaults bypass the listener gate entirely
-- Feeder hiss gain control must be implemented separately from the triggered feeder logic — the pool exists but gain modulation requires explicit distance calculations against FEEDER_HISS_RADIUS
+- ProximityEngine.calculate() must receive realLat/realLng explicitly — null defaults bypass the listener gate entirely and return empty arrays for all new layers
+- AudioLayers.update() key shape must match ProximityEngine.calculate() return shape — nested (proximity.water.pipes) not flat (proximity.waterPipes)
+- AudioLayers lifecycle: init() on Start (not on Unlock Audio), full teardown in stop() with _initialized sentinel to guard against in-flight TramEngine ticks after Stop
+- Fernwärme tremolo: LFO must modulate a carrier gain (multiplicative), not the master gain (additive) — additive LFO bleeds through when master=0, producing sound before Start and after Stop

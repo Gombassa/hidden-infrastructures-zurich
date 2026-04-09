@@ -214,8 +214,8 @@ Phase 2 adds the remaining five infrastructure types to the prototype route (wat
 * ✅ Write `scripts/extract-water-infrastructure.py` (single-DXF extractor with pipe/node split, POLYLINE + LWPOLYLINE support, function code filtering)
 * ✅ Write `scripts/extract-lk-geojson.js` (multi-tile batch extractor, all layers, deduplication)
 * ✅ Update ProximityEngine for water layer (50m pipes / 25m fittings)
-* \[ \] Add placeholder Web Audio API synthesis for water layer (hydraulic pulse on proximity entry; gain ramp 50m → 0m)
-* **Deliverable:** Water layer functional
+* ✅ Add placeholder Web Audio API synthesis for water layer (bandpass noise burst on proximity entry, pipe 800Hz / fitting 1200Hz)
+* **Deliverable:** Water layer functional ✅
 
 **Step 2: Sewage Layer**
 
@@ -223,8 +223,8 @@ Phase 2 adds the remaining five infrastructure types to the prototype route (wat
 * ✅ Extract District 1 data → `public/lk-sewage.geojson` (1,219 pipe features)
 * ✅ Filtering: manholes excluded; Nebenleitung secondary lines (LKZ1118-MLU0, lower accuracy) excluded
 * ✅ Update ProximityEngine for sewage layer (80m, continuous rumble modulation — no discrete trigger events)
-* \[ \] Add placeholder Web Audio API synthesis for sewage layer (continuous underground rumble, distance-modulated gain)
-* **Deliverable:** Sewage layer functional
+* ✅ Add placeholder Web Audio API synthesis for sewage layer (looped lowpass noise, gain modulated by distance)
+* **Deliverable:** Sewage layer functional ✅
 
 **Step 3: Electricity & Telecom Layers**
 
@@ -234,8 +234,8 @@ Phase 2 adds the remaining five infrastructure types to the prototype route (wat
 * ✅ Filtering: electricity area footprints excluded; telecom overhead excluded
 * ✅ Update ProximityEngine for electricity layer (40m nodes — looping drone pool on entry; 40m cables — modulate drone intensity)
 * ✅ Update ProximityEngine for telecom layer (40m nodes — chirp trigger on entry; 30m cables — continuous texture modulation)
-* \[ \] Add placeholder Web Audio API synthesis for electricity and telecom layers
-* **Deliverable:** Electricity and telecom layers functional
+* ✅ Add placeholder Web Audio API synthesis for electricity (4-slot sawtooth pool, 1500Hz) and telecom (sine chirp 2→4kHz + highpass cable texture)
+* **Deliverable:** Electricity and telecom layers functional ✅
 
 **Step 4: Fernwärme Layer**
 
@@ -243,8 +243,8 @@ Phase 2 adds the remaining five infrastructure types to the prototype route (wat
 * ✅ Extract District 1 data → `public/lk-fernwaerme.geojson` (194 pipe features)
 * ✅ Added as sixth infrastructure layer — discovered in GeoShop data, fits project theme (genuinely hidden, unknown to most users)
 * ✅ Update ProximityEngine for Fernwärme layer (60m — encounters infrequent, treat as discovery moments)
-* \[ \] Add placeholder Web Audio API synthesis for Fernwärme layer (slow thermal pulse, warm low rumble — distinct from sewage and water)
-* **Deliverable:** Fernwärme layer functional
+* ✅ Add placeholder Web Audio API synthesis for Fernwärme layer (60Hz sine + 0.3Hz tremolo via carrier gain; warm thermal pulse distinct from sewage and water)
+* **Deliverable:** Fernwärme layer functional ✅
 
 **Step 5: Multi-Layer Integration**
 
@@ -428,7 +428,7 @@ At the end of a walk, the user can optionally share their score to a public web 
 
 **Phase 1 (Late March – Early April):** Real engine integration, GPS, spatial audio via PannerNode, Docker build environment, GCP hosting, tram layer to production quality. ✅
 
-**Phase 2 (April):** ~~Water, sewage, electricity, telecom, and Fernwärme layers added to prototype route.~~ Geodata for all 6 layers extracted and filtered (complete). ProximityEngine integration and Web Audio API synthesis for each layer (in progress). Multi-layer integration and mixing.
+**Phase 2 (April):** Geodata for all 6 layers extracted and filtered ✅. ProximityEngine integration complete ✅. Placeholder Web Audio API synthesis for all 5 new layers complete ✅. Audio lifecycle (Unlock/Start/Stop) stable ✅. Deployed to Cloud Run ✅. Remaining: multi-layer mix tuning, field validation of new layers.
 
 **Phase 3 (May):** Geographic expansion to full District 1 (postal code 8001) — district-scale GeoJSON already available, primarily a ProximityEngine culling update. GPS free-roam already complete. Production Max/MSP patches exported via RNBO across all layers.
 

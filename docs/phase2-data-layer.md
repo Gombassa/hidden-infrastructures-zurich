@@ -4,6 +4,14 @@
 
 All six GeoShop tile orders (55297–55302) processed. Six GeoJSON files live in `public/`, deduplicated across tiles. Extraction script: `scripts/extract-lk-geojson.js`.
 
+ProximityEngine rewritten to load all 7 data files in parallel and return proximity results for all 6 infrastructure layers. Per-layer geomType exclusions applied at parse time. Nearest-point-on-segment distance used for all LineString features. ✅
+
+Audio lifecycle stable: Unlock Audio = init only, Start = fresh node graph, Stop = full teardown + _initialized reset. All null-guard races resolved. ✅
+
+Deployed to Cloud Run: https://hidden-infrastructures-50944718104.europe-west6.run.app ✅
+
+**Next: field test.**
+
 ---
 
 ## Extracted Files — Feature Summary
@@ -98,7 +106,9 @@ All six GeoShop tile orders (55297–55302) processed. Six GeoJSON files live in
 
 ## Open Questions
 
-- **Performance:** 6 layers. Estimated active features within 200m culling radius at any District 1 point: ~80–200. Needs field validation once all layers are wired.
+- **Performance:** 6 layers. Estimated active features within 200m culling radius at any District 1 point: ~80–200. Needs field validation — next field test.
+- **Audio mix:** relative levels of all 6 layers untested in real conditions — expect iteration after first field test.
+- **Fernwärme trigger behaviour:** provisional 60m radius and sound design not yet field-validated. Nearest pipe at Paradeplatz was 79m (just outside threshold) — confirm encounters exist on the route.
 
 ---
 
@@ -130,3 +140,22 @@ Filters applied at extraction time so excluded features never enter the GeoJSON 
 | April 2026 | Fernwärme added as sixth infrastructure layer — discovered in GeoShop data, fits project theme |
 | April 2026 | Fernwärme sound design direction: slow thermal pulse, warm low rumble — distinct from sewage (cold/deep) and water (hydraulic/pressurised) |
 | April 2026 | All exclusions applied at extraction time in extract-lk-geojson.js, not at ProximityEngine load time |
+| April 2026 | ProximityEngine complete rewrite — init() takes config object, loads 7 files in parallel |
+| April 2026 | parseTramLk() routes node Points → feeders, trasse LineStrings → powerlines; area and overhead dropped |
+| April 2026 | Generic parseLineFeatures() / parsePointFeatures() handle per-layer geomType exclusions at load time |
+| April 2026 | proximityLines() uses nearestSegmentDist() — nearest point on segment, not endpoints |
+| April 2026 | calculate() returns proximity results for all 6 layers; new layers return empty arrays when listener position is null |
+| April 2026 | route-tram-feeders.geojson and route-tram-powerlines.geojson retired — lk-tram-lk.geojson in use |
+| April 2026 | All 5 ProximityEngine integration steps complete ✅ |
+| April 2026 | AudioLayers key mismatch fixed — update() now reads nested proximity structure (proximity.water.pipes etc.) |
+| April 2026 | Drone oscillators and feeder pool moved to Start path — Unlock Audio only resumes AudioContext, no synthesis |
+| April 2026 | Fernwärme signal chain: _fernOsc → carrierGain (LFO ±0.4) → _fernMasterGain → destination; master zeroed on Stop |
+| April 2026 | All 5 new audio layers gate correctly on Stop — sewage/elec/telecom cable via master gain, water/telecom chirps self-terminate |
+| April 2026 | Field-test at Paradeplatz (hardcoded): powerline 25m, water pipe 17m, sewage 7m, elec node 16m, telecom node 10m, fernwärme 79m (outside 60m threshold — correct) |
+| April 2026 | Electricity 0 excluded confirmed — geomType property present and correct; area features absent from this tile set, filter working correctly |
+| April 2026 | Lifecycle fixed: Unlock Audio = init only, Start = synthesis creation, Stop = full teardown |
+| April 2026 | Stop → Start lifecycle fixed: Stop zeros gains, schedules source stops, nulls JS references, resets _initialized = false. Start creates a fresh node graph. AudioContext holds scheduled stops independently of JS references. |
+| April 2026 | update() null guard added — if (!_initialized) return early; prevents gain node access after Stop nulls references |
+| April 2026 | Post-Stop TramEngine tick race resolved via _initialized sentinel |
+| April 2026 | Paradeplatz test coordinate added to GPS listener as commented-out override; Stadelhofen coordinate included as second option |
+| April 2026 | Deployed Phase 2 build to Cloud Run — all 6 layers live at https://hidden-infrastructures-50944718104.europe-west6.run.app |

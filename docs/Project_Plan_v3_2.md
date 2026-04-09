@@ -65,7 +65,7 @@ The data layer provides the geographic coordinates of every piece of physical in
 | `lk-water.geojson` | 2,092 | 1,274 pipes + 520 fittings | WVZ distribution network | 50m pipe / 25m fitting |
 | `lk-sewage.geojson` | 1,518 | pipes only | ERZ main collectors | 80m |
 | `lk-electricity.geojson` | 3,340 | cables + nodes | ewz cables and transformers | 40m nodes / 40m cables |
-| `lk-tram-lk.geojson` | 2,198 | trasse + nodes + areas | VBZ track and structure | existing feeder/drone logic |
+| `lk-tram-lk.geojson` | 2,198 | trasse + nodes + areas | VBZ track and structure — replaces route-tram-feeders + route-tram-powerlines | nodes: 50m feeder gate / trasse: 5m drone |
 | `lk-telecom.geojson` | 3,426 | cables + nodes + areas | Swisscom + UPC fiber | 40m nodes / 30m cables |
 | `lk-fernwaerme.geojson` | 194 | pipes | District heating network | 60m (provisional) |
 
@@ -213,7 +213,7 @@ Phase 2 adds the remaining five infrastructure types to the prototype route (wat
 * ✅ Extract District 1 data → `public/lk-water.geojson` (1,274 pipes + 520 fittings)
 * ✅ Write `scripts/extract-water-infrastructure.py` (single-DXF extractor with pipe/node split, POLYLINE + LWPOLYLINE support, function code filtering)
 * ✅ Write `scripts/extract-lk-geojson.js` (multi-tile batch extractor, all layers, deduplication)
-* \[ \] Update ProximityEngine for water layer (50m pipes / 25m fittings)
+* ✅ Update ProximityEngine for water layer (50m pipes / 25m fittings)
 * \[ \] Add placeholder Web Audio API synthesis for water layer (hydraulic pulse on proximity entry; gain ramp 50m → 0m)
 * **Deliverable:** Water layer functional
 
@@ -222,7 +222,7 @@ Phase 2 adds the remaining five infrastructure types to the prototype route (wat
 * ✅ Download ERZ Abwasser-Werkleitungsdaten (GeoShop DXF)
 * ✅ Extract District 1 data → `public/lk-sewage.geojson` (1,219 pipe features)
 * ✅ Filtering: manholes excluded; Nebenleitung secondary lines (LKZ1118-MLU0, lower accuracy) excluded
-* \[ \] Update ProximityEngine for sewage layer (80m, continuous rumble modulation — no discrete trigger events)
+* ✅ Update ProximityEngine for sewage layer (80m, continuous rumble modulation — no discrete trigger events)
 * \[ \] Add placeholder Web Audio API synthesis for sewage layer (continuous underground rumble, distance-modulated gain)
 * **Deliverable:** Sewage layer functional
 
@@ -232,8 +232,8 @@ Phase 2 adds the remaining five infrastructure types to the prototype route (wat
 * ✅ Extract electricity → `public/lk-electricity.geojson` (2,969 features: cables + nodes)
 * ✅ Extract telecom → `public/lk-telecom.geojson` (2,845 features: Swisscom + UPC cables and nodes)
 * ✅ Filtering: electricity area footprints excluded; telecom overhead excluded
-* \[ \] Update ProximityEngine for electricity layer (40m nodes — looping drone pool on entry; 40m cables — modulate drone intensity)
-* \[ \] Update ProximityEngine for telecom layer (40m nodes — chirp trigger on entry; 30m cables — continuous texture modulation)
+* ✅ Update ProximityEngine for electricity layer (40m nodes — looping drone pool on entry; 40m cables — modulate drone intensity)
+* ✅ Update ProximityEngine for telecom layer (40m nodes — chirp trigger on entry; 30m cables — continuous texture modulation)
 * \[ \] Add placeholder Web Audio API synthesis for electricity and telecom layers
 * **Deliverable:** Electricity and telecom layers functional
 
@@ -242,7 +242,7 @@ Phase 2 adds the remaining five infrastructure types to the prototype route (wat
 * ✅ Download SIA405 LKMap DXF (GeoShop, included in tile orders)
 * ✅ Extract District 1 data → `public/lk-fernwaerme.geojson` (194 pipe features)
 * ✅ Added as sixth infrastructure layer — discovered in GeoShop data, fits project theme (genuinely hidden, unknown to most users)
-* \[ \] Update ProximityEngine for Fernwärme layer (60m provisional — encounters will be infrequent, treat as discovery moments)
+* ✅ Update ProximityEngine for Fernwärme layer (60m — encounters infrequent, treat as discovery moments)
 * \[ \] Add placeholder Web Audio API synthesis for Fernwärme layer (slow thermal pulse, warm low rumble — distinct from sewage and water)
 * **Deliverable:** Fernwärme layer functional
 

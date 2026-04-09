@@ -143,6 +143,7 @@
 
     import TramEngine      from './src/tram-engine.js';
     import ProximityEngine from './src/proximity-engine.js';
+    import AudioLayers     from './src/audio-layers.js';
 
     window._tramEngine      = TramEngine;
     window._proximityEngine = ProximityEngine;
@@ -408,6 +409,13 @@
       if (navigator.geolocation) {
         gpsWatcherId = navigator.geolocation.watchPosition(
           (pos) => {
+            // ── TEST LOCATION OVERRIDE ───────────────────────────────────────
+            // To activate: uncomment the two override lines, comment out the two real lines.
+            // Paradeplatz (west end of route, dense water/elec/telecom infrastructure):
+            // pos = { coords: { latitude: 47.3707, longitude: 8.5384, speed: null, accuracy: 1 } };
+            // Stadelhofen (east end, tram-dense terminus):
+            // pos = { coords: { latitude: 47.3769, longitude: 8.5417, speed: null, accuracy: 1 } };
+            // ────────────────────────────────────────────────────────────────
             realLat   = pos.coords.latitude;
             realLng   = pos.coords.longitude;
             realSpeed = pos.coords.speed; // m/s, or null if unavailable
@@ -447,7 +455,8 @@
     let ctx       = null;
     let droneGain = null;
     let idlePool  = null; // 6-node comb-filtered noise pool for idle feeder texture
-    let tick      = 0;
+    let tick           = 0;
+    let firstTickLogged = false;
     let realLat     = null;
     let realLng     = null;
     let realHeading = null;
@@ -528,6 +537,19 @@
       if (feederMarkers) {
         const proximity = ProximityEngine.calculate(tramState, realLat, realLng, realHeading, realSpeed);
         appendLog(`[PROXIMITY] listenerLat: ${realLat} listenerLng: ${realLng} tramCount: ${tramState.trams.length} feedersTriggered: ${proximity.feeders.filter(f => f.triggered).length}`, 'll');
+        if (!firstTickLogged) {
+          firstTickLogged = true;
+          const nd = (arr) => { if (!arr?.length) return '—'; let m = Infinity; for (const it of arr) if (it.dist < m) m = it.dist; return m + 'm'; };
+          const tr = (arr) => arr?.filter(i => i.triggered).length ?? 0;
+          appendLog('[FIRST TICK] ── proximity snapshot ──', 'linf');
+          appendLog(`  listener: ${realLat !== null ? realLat.toFixed(5)+', '+realLng.toFixed(5) : 'null (no GPS yet)'} | trams: ${tramState.trams.length}`, 'linf');
+          appendLog(`  powerline (drone): ${proximity.nearestPowerlineDist !== null ? Math.round(proximity.nearestPowerlineDist)+'m' : 'null'}`, 'linf');
+          appendLog(`  water  pipes: ${proximity.water.pipes.length} (nearest ${nd(proximity.water.pipes)}, ${tr(proximity.water.pipes)} triggered) | fittings: ${proximity.water.fittings.length} (nearest ${nd(proximity.water.fittings)}, ${tr(proximity.water.fittings)} triggered)`, 'linf');
+          appendLog(`  sewage pipes: ${proximity.sewage.pipes.length} (nearest ${nd(proximity.sewage.pipes)}, ${tr(proximity.sewage.pipes)} triggered)`, 'linf');
+          appendLog(`  elec   nodes: ${proximity.electricity.nodes.length} (nearest ${nd(proximity.electricity.nodes)}, ${tr(proximity.electricity.nodes)} triggered) | cables: ${proximity.electricity.cables.length} (nearest ${nd(proximity.electricity.cables)}, ${tr(proximity.electricity.cables)} triggered)`, 'linf');
+          appendLog(`  telecom nodes: ${proximity.telecom.nodes.length} (nearest ${nd(proximity.telecom.nodes)}, ${tr(proximity.telecom.nodes)} triggered) | cables: ${proximity.telecom.cables.length} (nearest ${nd(proximity.telecom.cables)}, ${tr(proximity.telecom.cables)} triggered)`, 'linf');
+          appendLog(`  fernwärme pipes: ${proximity.fernwaerme.pipes.length} (nearest ${nd(proximity.fernwaerme.pipes)}, ${tr(proximity.fernwaerme.pipes)} triggered)`, 'linf');
+        }
         for (const feeder of proximity.feeders) {
           const marker = feederMarkers.get(feeder.id);
           if (!marker) continue;
@@ -572,6 +594,7 @@
           else targetGain = 0.01 + (20 - dist) / 15 * (0.3 - 0.01);
           droneGain.gain.gain.setTargetAtTime(targetGain, ctx.currentTime, 2.0);
         }
+        if (ctx) AudioLayers.update(proximity, realLat, realLng, realHeading);
       }
     });
 
@@ -585,7 +608,7 @@
       btnAudio.textContent = 'Loading…';
       try {
         appendLog('Initialising engines…', 'linf');
-        await ProximityEngine.init('/data/processed/substations.geojson', '/data/raw/route-tram-feeders.geojson', '/data/raw/route-tram-powerlines.geojson');
+        await ProximityEngine.init();
         appendLog(`ProximityEngine ready`, 'lok');
 
         initMap();
@@ -607,6 +630,8 @@
     });
 
     btnStart.addEventListener('click', () => {
+      AudioLayers.init(ctx);
+      appendLog('AudioLayers ready (water / sewage / elec / telecom / fernwärme)', 'lok');
       droneGain = startDrone(ctx);
       const convolver = buildReverb(ctx, REVERB_DECAY);
       const reverbGain = ctx.createGain();
@@ -635,6 +660,7 @@
         gpsWatcherId = null;
       }
       if (droneGain) { droneGain.gain.gain.value = 0; droneGain = null; }
+      AudioLayers.stop();
       if (idlePool) {
         for (const node of idlePool) {
           node.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
@@ -653,8 +679,9 @@
 
     // ── STARTUP ───────────────────────────────────────────────────────────────
     appendLog('Real engines: TramEngine + ProximityEngine', 'linf');
-    appendLog('Tram count radius: 150m | Feeder trigger: 50m | GPS + DeviceOrientation', 'linf');
-    appendLog('Spatial audio: PannerNode (Web Audio API) — Phase 1', 'linf');
+    appendLog('Tram: feeder 50m | trasse drone 5m | Water: pipe 50m / fitting 25m | Sewage: 80m', 'linf');
+    appendLog('Electricity: node 40m / cable 40m | Telecom: node 40m / cable 30m | Fernwärme: 60m', 'linf');
+    appendLog('Spatial audio: PannerNode (Web Audio API) — Phase 2', 'linf');
     appendLog('Unlock Audio → Start to begin.', 'll');
   </script>
 </body>

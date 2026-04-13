@@ -51,7 +51,7 @@ index.html         # Main application (root) — GPS + Web Audio API pipeline
 src/
 ├── tram-engine.js       # Live tram positions from transport.opendata.ch
 ├── proximity-engine.js  # Tram ↔ infrastructure distance calculations (all 6 layers)
-└── audio-layers.js      # Web Audio API synthesis for water/sewage/elec/telecom/fernwärme
+└── audio-layers.js      # Web Audio API synthesis for all 6 layers (tram/water/sewage/elec/telecom/fernwärme)
 public/
 ├── lk-tram-lk.geojson       # VBZ tram infrastructure (nodes + trasse)
 ├── lk-water.geojson          # WVZ water pipes + fittings
@@ -180,16 +180,18 @@ ProximityEngine.calculate(tramState, listenerLat, listenerLng, heading, speed);
 - Fernwärme: 60m pipes (provisional)
 
 ### AudioLayers (`src/audio-layers.js`)
-Singleton, default export. Web Audio API placeholder synthesis for the five new infrastructure layers. Lifecycle: `init()` on Start, `stop()` tears down all nodes and resets for next Start.
+Singleton, default export. Web Audio API synthesis for **all 6 infrastructure layers** including tram electrical. Lifecycle: `init()` on Start, `stop()` tears down all nodes and resets for next Start.
 
 ```javascript
 import AudioLayers from './src/audio-layers.js';
-AudioLayers.init(audioContext);                              // call on Start — creates nodes
+AudioLayers.init(audioContext);                                    // call on Start — creates all nodes
 AudioLayers.update(proximity, listenerLat, listenerLng, heading);  // call each TramEngine tick
-AudioLayers.stop();                                          // tears down nodes, resets _initialized
-AudioLayers.LAYER_ENABLED                                    // { water, sewage, electricity, telecom, fernwaerme }
+AudioLayers.onListenerMove(lat, lng, heading);                     // call on GPS fix — updates hiss panner positions between tram ticks
+AudioLayers.stop();                                                // tears down all nodes, resets _initialized
+AudioLayers.LAYER_ENABLED                                          // { tram, water, sewage, electricity, telecom, fernwaerme }
 ```
 
+- Tram electrical: feeder crackle (6-burst noise, HRTF spatial, debounced per feeder ID), comb-filtered hiss pool (6 nodes, distinct delay times per slot), drone (110/112Hz ±LFO, powerline proximity 20m→5m), reverb send
 - Water: bandpass noise burst on proximity entry (pipe 800Hz / fitting 1200Hz)
 - Sewage: looped lowpass noise, gain modulated by distance (continuous)
 - Electricity: 4-slot sawtooth oscillator pool (1500Hz ±3Hz), master gain gated by node proximity
@@ -197,6 +199,7 @@ AudioLayers.LAYER_ENABLED                                    // { water, sewage,
 - Fernwärme: 60Hz sine + tremolo LFO (0.3Hz, ±0.4 carrier gain), gain ramps on proximity
 
 ### GPS Listener (inline in `index.html`)
+Note: `index.html` contains **no audio synthesis code**. All synthesis (including tram electrical) lives in `audio-layers.js`. GPS fix calls `AudioLayers.onListenerMove(lat, lng, heading)` to update hiss panner positions between tram ticks.
 Live GPS via `navigator.geolocation.watchPosition()`. No separate module.
 
 - Updates `realLat` / `realLng` / `realSpeed` on every fix
@@ -219,7 +222,7 @@ Production audio patches are authored in Max/MSP, compiled via RNBO (Cycling '74
 ### Current state
 - Web Audio API direct synthesis is the confirmed production path for Phase 1
 - RNBO/Max MSP deferred; no licence purchases required before Phase 2
-- `index.html` uses: noise burst crackle (PannerNode spatial), comb-filtered hiss pool (PannerNode spatial), detuned oscillator drone (powerline proximity gain), synthetic convolver reverb on drone
+- All tram audio (crackle, hiss pool, drone, reverb) now lives in `audio-layers.js` — `index.html` contains no synthesis code
 
 ---
 
@@ -228,7 +231,7 @@ Production audio patches are authored in Max/MSP, compiled via RNBO (Cycling '74
 Phase 1/2 active on `phase-1` git branch. Deployed to Cloud Run.
 
 Audio pipeline working (field-tested on Bahnhofstrasse + Paradeplatz hardcoded test):
-- Feeder hiss (proximity-scaled, 6-node comb-filter pool) — working
+- Feeder hiss (proximity-scaled, 6-node comb-filter pool, each slot distinct comb delay) — working
 - Feeder crackle (debounced one-shot per feeder ID, speed-mode detection) — working
 - Drone (powerline proximity, 20m→5m fade, dual-LFO + reverb) — working
 - Water (bandpass noise pulses on proximity entry) — working, pending field test
@@ -238,10 +241,13 @@ Audio pipeline working (field-tested on Bahnhofstrasse + Paradeplatz hardcoded t
 - Fernwärme (60Hz sine + tremolo) — working, pending field test
 - Tram markers not rendering on map — known cosmetic issue, deprioritised
 
+All 6 layers now in `audio-layers.js` (tram electrical refactored out of index.html April 2026).
+UI has per-layer toggle buttons (TRAM / WATER / SEWAGE / ELECTRICITY / TELECOM / FERNWÄRME).
+
 Audio lifecycle:
 - Unlock Audio: ProximityEngine.init() + AudioContext.resume() only — no synthesis nodes
-- Start: AudioLayers.init() + drone + hiss pool + TramEngine.start()
-- Stop: full teardown — gains faded, sources scheduled to stop, references nulled, _initialized reset
+- Start: AudioLayers.init(ctx) — creates all 6 layers incl. tram drone + hiss pool; TramEngine.start()
+- Stop: AudioLayers.stop() — full teardown of all 6 layers; TramEngine.stop()
 
 ## Architecture decisions (confirmed)
 
@@ -268,3 +274,5 @@ Audio lifecycle:
 - AudioLayers.update() key shape must match ProximityEngine.calculate() return shape — nested (proximity.water.pipes) not flat (proximity.waterPipes)
 - AudioLayers lifecycle: init() on Start (not on Unlock Audio), full teardown in stop() with _initialized sentinel to guard against in-flight TramEngine ticks after Stop
 - Fernwärme tremolo: LFO must modulate a carrier gain (multiplicative), not the master gain (additive) — additive LFO bleeds through when master=0, producing sound before Start and after Stop
+- Hiss pool comb delay times must be assigned per-slot at init — assigning them only at max buffer creation (as was previously done) makes all slots sound identical
+- onListenerMove() must be called on GPS fix to update hiss panner positions between 10s tram ticks — without it, panning freezes at last tram-tick heading

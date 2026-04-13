@@ -173,3 +173,8 @@ All filters applied at extraction time.
 | April 2026 | Feeder trigger bug identified in field — trams 5m from feeder nodes with feedersTriggered: 0. Cause under investigation |
 | April 2026 | Confirmed: manhole covers excluded (visible); sewage pipes beneath trigger via nearest-point-on-segment |
 | April 2026 | Deployed to Cloud Run — current build live |
+| April 2026 | Tram electrical layer refactored out of index.html into audio-layers.js — all 6 layers now discrete modules with LAYER_ENABLED flags |
+| April 2026 | AudioLayers.onListenerMove(lat, lng, heading) added — updates hiss panner positions on GPS fix between 10s tram ticks |
+| April 2026 | Hiss pool: each of 6 slots now assigned a distinct comb delay time from HISS_COMB_DELAYS at init — previously all slots used same delay (dead code bug) |
+| April 2026 | Map legend removed; replaced with 6 per-layer toggle buttons (TRAM / WATER / SEWAGE / ELECTRICITY / TELECOM / FERNWÄRME) with distinct colours |
+| April 2026 | UI layout changed for mobile field testing: map full-width 400px, log panel below (scroll to view), map/log no longer side-by-side |

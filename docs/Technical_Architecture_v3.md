@@ -204,11 +204,13 @@ The app goes live at a permanent URL, accessible to anyone with a smartphone. Se
 
 ### **2\. Core Engines (ES6 Modules, 498 lines total)**
 
-**TramEngine** (180 lines) — Polls transport.opendata.ch API, interpolates tram positions between stops. Unique among infrastructure types because trams move in real-time.
+**TramEngine** — Polls transport.opendata.ch API, interpolates tram positions between stops. Unique among infrastructure types because trams move in real-time.
 
-**ProximityEngine** (125 lines) — Loads infrastructure geodata for all 5 layers from GeoJSON files. Calculates haversine distances between user, trams, and infrastructure elements. Determines audio trigger parameters based on proximity thresholds. Implements spatial culling (only processes infrastructure within 200-500m of user) — essential when scaling from 366 elements (prototype) to 4,000-5,000 elements (full District 1).
+**ProximityEngine** — Loads infrastructure geodata for all 6 layers from GeoJSON files. Calculates distances between user, trams, and infrastructure elements. Determines audio trigger parameters based on proximity thresholds.
 
-**ListenerEngine** (193 lines) — GPS position from device sensors (`navigator.geolocation`) + compass heading from magnetometer (`DeviceOrientationEvent`). Provides user location and orientation regardless of infrastructure layer count.
+**AudioLayers** — Web Audio API synthesis for all 6 infrastructure layers (tram electrical, water, sewage, electricity, telecom, fernwärme). All synthesis lives here; `index.html` contains no audio synthesis code. `AudioLayers.onListenerMove(lat, lng, heading)` updates spatial panner positions on GPS fix between tram ticks. Per-layer `LAYER_ENABLED` flags control each layer independently at runtime.
+
+**GPS Listener** (inline in `index.html`) — GPS position from `navigator.geolocation.watchPosition()` + compass heading from `DeviceOrientationEvent`.
 
 ### **3\. Spatial Audio Controller (new development)**
 

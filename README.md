@@ -5,12 +5,16 @@ urban infrastructure as users move through District 1. All audio procedurally
 generated via Web Audio API. No samples or pre-rendered assets.
 
 ## Current Status
-Phase 1 in progress. Core tram electrical layer working in the field:
-- Feeder hiss: proximity-scaled continuous texture (6-node comb-filter pool)
-- Feeder crackle: debounced one-shot event on tram+listener proximity
-- Drone: powerline proximity fade (20m→5m)
-- Live GPS tracking via browser geolocation API
-- Real-time tram positions via transport.opendata.ch
+Phase 1/2 complete. All 6 infrastructure layers working:
+- Tram electrical: feeder crackle (HRTF spatial), comb-filtered hiss pool, powerline drone
+- Water: bandpass noise pulse on proximity entry
+- Sewage: continuous lowpass rumble, distance-modulated
+- Electricity: sawtooth oscillator pool (1500Hz)
+- Telecom: chirp on node entry + highpass cable texture
+- Fernwärme: 60Hz sine + 0.3Hz tremolo
+
+All audio layers are discrete modules in `src/audio-layers.js` with per-layer toggle buttons in the UI.
+Live GPS tracking via browser geolocation API. Real-time tram positions via transport.opendata.ch.
 
 ## Running locally
 See STARTUP.md for full instructions.
@@ -32,10 +36,14 @@ docker run -p 8080:80 hidden-infrastructures
 ```
 
 ## Data
-GeoJSON files served from public/data/:
-- public/data/processed/substations.geojson
-- public/data/raw/route-tram-feeders.geojson
-- public/data/raw/route-tram-powerlines.geojson
+GeoJSON files served from `public/`:
+- `public/lk-tram-lk.geojson` — VBZ tram infrastructure (nodes + trasse)
+- `public/lk-water.geojson` — WVZ water pipes + fittings
+- `public/lk-sewage.geojson` — ERZ sewage pipes
+- `public/lk-electricity.geojson` — ewz electricity nodes + cables
+- `public/lk-telecom.geojson` — ewz telecom nodes + cables (Swisscom + UPC)
+- `public/lk-fernwaerme.geojson` — district heating pipes
+- `public/data/processed/route-waypoints.json` — 75 waypoints, 2,682m route
 
 ## Tech stack
 - Web Audio API (synthesis, spatial audio)

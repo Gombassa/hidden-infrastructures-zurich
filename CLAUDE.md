@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Invisible Infrastructures: Zurich - A location-based generative music application that sonifies Zurich's hidden urban infrastructure through spatial audio. Users walk through District 1 (Altstadt) as their smartphone generates real-time procedural soundscapes driven by five layers of invisible systems.
+Hidden Infrastructures: Zürich - A location-based generative music application that sonifies Zurich's hidden urban infrastructure through spatial audio. Users walk through District 1 (Altstadt) as their smartphone generates real-time procedural soundscapes driven by five layers of invisible systems.
 
 **Phase 1 MVP - District 1 (Postal Code 8001):**
 - Route: Stadelhofen → Paradeplatz (~2.5km)
@@ -81,11 +81,11 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 
 **Infrastructure Layers (Phase 1 MVP):**
 1. **Tram electrical:** lk-tram-lk.geojson — nodes (feeders) + trasse (powerlines), full District 1. Real-time tram positions from transport.opendata.ch API.
-2. **Water supply:** lk-water.geojson — 1,274 pipe LineStrings + 520 fitting Points (WVZ Leitungskataster)
+2. **Water supply:** lk-water.geojson — 3,339 pipe LineStrings + 1,424 fitting Points (WVZ Leitungskataster)
 3. **Sewage:** lk-sewage.geojson — pipes only, manholes excluded (ERZ Abwasser-Werkleitungsdaten)
-4. **Electricity grid:** lk-electricity.geojson — nodes + cables, area footprints excluded (ewz Werkleitungsdaten)
-5. **Telecommunications:** lk-telecom.geojson — nodes + cables, overhead excluded (ewz Telecom / Swisscom / UPC)
-6. **Fernwärme:** lk-fernwaerme.geojson — district heating pipes (SIA405 LKMap via GeoShop)
+4. **Electricity grid:** lk-electricity.geojson — nodes + cables, area footprints excluded, total 7,223 features (ewz Werkleitungsdaten)
+5. **Telecommunications:** lk-telecom.geojson — nodes + cables, overhead excluded, total 8,301 features (ewz Telecom / Swisscom / UPC)
+6. **Fernwärme:** lk-fernwaerme.geojson — district heating pipes, 198 features (SIA405 LKMap via GeoShop)
 
 **Route:**
 - 75 waypoints extracted from powerline geometry (A* path-stitching)

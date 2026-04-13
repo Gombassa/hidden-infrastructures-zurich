@@ -45,17 +45,15 @@
     button:disabled { color: #333; border-color: #1a1a1a; cursor: not-allowed; }
     button.active { border-color: #00e87a; color: #00e87a; }
 
-    .bottom {
-      display: flex;
-      gap: 8px;
-      height: 320px;
-    }
     #map {
-      flex: 1;
+      width: 100%;
+      height: 400px;
       border: 1px solid #1e1e1e;
+      margin-bottom: 10px;
     }
     #log {
-      flex: 1;
+      width: 100%;
+      height: 300px;
       background: #050505;
       border: 1px solid #161616;
       overflow-y: auto;
@@ -70,30 +68,24 @@
     .linf { color: #4a90e2; }
     .lok  { color: #00e87a; }
 
-    .map-legend {
-      background: #111;
-      border: 1px solid #1e1e1e;
-      padding: 8px 12px;
-      font-size: 10px;
-      color: #ffffff;
+    .layer-toggles {
       display: flex;
       flex-wrap: wrap;
-      gap: 4px 18px;
-      margin-top: 8px;
+      gap: 6px;
+      margin-bottom: 10px;
     }
-    .legend-row { display: flex; align-items: center; gap: 7px; }
-    .legend-dot {
-      display: inline-block;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      border: 1.5px solid;
-      flex-shrink: 0;
+    .layer-btn {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      color: #333;
+      padding: 6px 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: border-color 0.15s, color 0.15s;
     }
-    .legend-line {
-      display: inline-block;
-      width: 14px; height: 2px;
-      flex-shrink: 0;
-    }
+    .layer-btn.on { /* color set inline per layer */ }
   </style>
 </head>
 <body>
@@ -121,21 +113,16 @@
     <button id="btn-stop" disabled>Stop</button>
   </div>
 
-  <div class="bottom">
-    <div id="map"></div>
-    <div id="log"></div>
+  <div class="layer-toggles">
+    <button id="toggle-tram"        class="layer-btn on" style="border-color:#ff9f43;color:#ff9f43">TRAM</button>
+    <button id="toggle-water"       class="layer-btn on" style="border-color:#4a90e2;color:#4a90e2">WATER</button>
+    <button id="toggle-sewage"      class="layer-btn on" style="border-color:#a0855b;color:#a0855b">SEWAGE</button>
+    <button id="toggle-electricity" class="layer-btn on" style="border-color:#ffd43b;color:#ffd43b">ELECTRICITY</button>
+    <button id="toggle-telecom"     class="layer-btn on" style="border-color:#cc5de8;color:#cc5de8">TELECOM</button>
+    <button id="toggle-fernwaerme"  class="layer-btn on" style="border-color:#ff6b35;color:#ff6b35">FERNWÄRME</button>
   </div>
-  <div class="map-legend" id="map-legend">
-    <div class="legend-row"><span class="legend-dot" style="background:#444;border-color:#333"></span>feeder inactive</div>
-    <div class="legend-row"><span class="legend-dot" style="background:#ff6b35;border-color:#ff6b35"></span>feeder active (tram &lt;30m)</div>
-    <div class="legend-row"><span class="legend-line" style="background:#4a90e2"></span>route: Stadelhofen → Bürkliplatz</div>
-    <div class="legend-row"><span class="legend-dot" style="background:#fff;border-color:#ccc"></span>listener</div>
-    <div class="legend-row"><span class="legend-dot" style="background:#51cf66;border-color:#fff"></span>tram line 2</div>
-    <div class="legend-row"><span class="legend-dot" style="background:#ff6b6b;border-color:#fff"></span>tram line 7</div>
-    <div class="legend-row"><span class="legend-dot" style="background:#4a90e2;border-color:#fff"></span>tram line 9</div>
-    <div class="legend-row"><span class="legend-dot" style="background:#ffd43b;border-color:#fff"></span>tram line 11</div>
-    <div class="legend-row"><span class="legend-dot" style="background:#cc5de8;border-color:#fff"></span>tram line 13</div>
-  </div>
+  <div id="map"></div>
+  <div id="log"></div>
 
   <script type="module">
 
@@ -147,201 +134,7 @@
     window._proximityEngine = ProximityEngine;
 
     // ── CONSTANTS ────────────────────────────────────────────────────────────
-    const R = 6371000;               // Earth radius in metres
-    const FEEDER_HISS_RADIUS  = 25;   // metres — listener within this of a feeder hears continuous hiss
-    const DRONE_FADE_RADIUS   = 50;   // metres — drone fades in linearly as listener approaches a powerline
-    const HISS_COMB_DELAYS    = [0.0023, 0.0031, 0.0041, 0.0057, 0.0071, 0.0089]; // seconds
-    const HISS_COMB_FEEDBACK  = 0.7;
-    const DRONE_LFO_RATE_1    = 0.017;  // Hz — ~60 second cycle
-    const DRONE_LFO_RATE_2    = 0.023;  // Hz — ~43 second cycle, drifts against LFO 1
-    const DRONE_LFO_DEPTH     = 8;      // Hz — sweep range ±8Hz around centre frequency
-    const REVERB_DECAY        = 2.0;    // seconds — large space impulse response
-    const REVERB_WET          = 0.03;   // 3% wet mix
     const TRAM_COLORS = { '2': '#51cf66', '7': '#ff6b6b', '9': '#4a90e2', '11': '#ffd43b', '13': '#cc5de8' };
-
-    // ── HAVERSINE DISTANCE ───────────────────────────────────────────────────
-    // Kept for nearest-feeder-dist display card only.
-    function haversine(lat1, lng1, lat2, lng2) {
-      const toRad = (d) => d * Math.PI / 180;
-      const dLat = toRad(lat2 - lat1);
-      const dLng = toRad(lng2 - lng1);
-      const a = Math.sin(dLat / 2) ** 2
-              + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2))
-              * Math.sin(dLng / 2) ** 2;
-      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    }
-
-    function feederToXYZ(feederLat, feederLng) {
-      if (realLat === null || realLng === null || realHeading === null) {
-        return { x: 0, y: 0, z: -1 };
-      }
-      const metersPerDegLat = 111320;
-      const metersPerDegLng = 111320 * Math.cos(realLat * Math.PI / 180);
-      const dNorth = (feederLat - realLat) * metersPerDegLat;
-      const dEast  = (feederLng - realLng) * metersPerDegLng;
-
-      // Rotate by heading so that forward = -Z in Web Audio coordinates
-      const headingRad = realHeading * Math.PI / 180;
-      const x =  dEast  * Math.cos(headingRad) - dNorth * Math.sin(headingRad);
-      const z = -(dEast  * Math.sin(headingRad) + dNorth * Math.cos(headingRad));
-
-      // Clamp to unit sphere for distant sources — panner distance model handles gain
-      const dist = Math.sqrt(x * x + z * z) || 1;
-      const scale = Math.min(dist, 500) / dist;
-      return { x: x * scale / 500, y: 0, z: z * scale / 500 };
-    }
-
-    // ── WEB AUDIO SYNTHESIS ──────────────────────────────────────────────────
-
-    // 6 percussive noise bursts scheduled over 300ms via Web Audio API.
-    // Bursts spaced 50ms apart; amplitude ramps from 0.1 (hit 1) to 0.6 (hit 6), scaled by gainScalar.
-    // gainScalar = Math.pow(1 - dist/CRACKLE_FALLOFF_RADIUS, 2): 1.0 at 0m, ~0 at 150m.
-    const CRACKLE_FALLOFF_RADIUS = 150; // metres — listener beyond this hears near-silence
-    function triggerCrackle(feederId, feederLat, feederLng, gainScalar = 1) {
-      const burstCount = 6;
-      const spacing    = 0.050; // 50ms between burst onsets
-      const bufLen     = Math.floor(ctx.sampleRate * 0.020); // 20ms buffer per burst
-
-      const panner = ctx.createPanner();
-      panner.panningModel  = 'HRTF';
-      panner.distanceModel = 'inverse';
-      panner.refDistance   = 1;
-      panner.maxDistance   = 500;
-      panner.rolloffFactor = 1;
-      const pos = feederToXYZ(feederLat, feederLng);
-      panner.positionX.value = pos.x;
-      panner.positionY.value = pos.y;
-      panner.positionZ.value = pos.z;
-      panner.connect(ctx.destination);
-
-      for (let i = 0; i < burstCount; i++) {
-        const t0        = ctx.currentTime + i * spacing;
-        const amplitude = (0.1 + i * 0.1) * gainScalar; // 0.1→0.6, scaled by listener distance
-
-        const buffer = ctx.createBuffer(1, bufLen, ctx.sampleRate);
-        const data   = buffer.getChannelData(0);
-        for (let s = 0; s < bufLen; s++) data[s] = Math.random() * 2 - 1;
-
-        const source = ctx.createBufferSource();
-        source.buffer = buffer;
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'highpass';
-        filter.frequency.value = 1200;
-
-        const gain = ctx.createGain();
-        gain.gain.setValueAtTime(0, t0);
-        gain.gain.linearRampToValueAtTime(amplitude, t0 + 0.002); // 2ms attack
-        gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.012); // 10ms decay
-
-        source.connect(filter);
-        filter.connect(gain);
-        gain.connect(panner);
-        source.start(t0);
-        source.stop(t0 + 0.020);
-      }
-    }
-
-    function buildReverb(ctx, decaySeconds) {
-      const length = ctx.sampleRate * decaySeconds;
-      const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
-      for (let ch = 0; ch < 2; ch++) {
-        const data = impulse.getChannelData(ch);
-        for (let i = 0; i < length; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 2);
-        }
-      }
-      const convolver = ctx.createConvolver();
-      convolver.buffer = impulse;
-      return convolver;
-    }
-
-    // Two detuned oscillators with independent LFO frequency sweeps.
-    // Returns { gain, lfo1, lfoGain1, lfo2, lfoGain2 } for downstream gain control and clean teardown.
-    function startDrone(ctx) {
-      const osc1 = ctx.createOscillator();
-      const osc2 = ctx.createOscillator();
-      osc1.frequency.value = 110;
-      osc2.frequency.value = 112;
-
-      const lfo1 = ctx.createOscillator();
-      const lfoGain1 = ctx.createGain();
-      lfo1.type = 'sine';
-      lfo1.frequency.value = DRONE_LFO_RATE_1;
-      lfoGain1.gain.value = DRONE_LFO_DEPTH;
-      lfo1.connect(lfoGain1);
-      lfoGain1.connect(osc1.frequency);
-      lfo1.start();
-
-      const lfo2 = ctx.createOscillator();
-      const lfoGain2 = ctx.createGain();
-      lfo2.type = 'sine';
-      lfo2.frequency.value = DRONE_LFO_RATE_2;
-      lfoGain2.gain.value = DRONE_LFO_DEPTH;
-      lfo2.connect(lfoGain2);
-      lfoGain2.connect(osc2.frequency);
-      lfo2.start();
-
-      const gain = ctx.createGain();
-      gain.gain.value = 0;
-
-      osc1.connect(gain);
-      osc2.connect(gain);
-      gain.connect(ctx.destination);
-      osc1.start();
-      osc2.start();
-
-      return { gain, lfo1, lfoGain1, lfo2, lfoGain2 };
-    }
-
-    // Pool of 6 comb-filtered noise nodes for idle feeder texture.
-    // Each node: BufferSource (loop) → DelayNode (comb) → feedback GainNode → output GainNode.
-    // Comb delay time is assigned per-slot on activation to give each a distinct tonal character.
-    function makeHissNode(ctx) {
-      const bufferSize = ctx.sampleRate * 2;
-      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-
-      const source = ctx.createBufferSource();
-      source.buffer = buffer;
-      source.loop = true;
-
-      const delay = ctx.createDelay(0.02);
-      const feedback = ctx.createGain();
-      const gain = ctx.createGain();
-      gain.gain.value = 0;
-
-      const panner = ctx.createPanner();
-      panner.panningModel  = 'HRTF';
-      panner.distanceModel = 'inverse';
-      panner.refDistance   = 1;
-      panner.maxDistance   = 500;
-      panner.rolloffFactor = 1;
-      panner.positionX.value = 0;
-      panner.positionY.value = 0;
-      panner.positionZ.value = -1;
-
-      source.connect(delay);
-      delay.connect(feedback);
-      feedback.connect(delay);
-      feedback.gain.value = HISS_COMB_FEEDBACK;
-      delay.connect(gain);
-      gain.connect(panner);
-      panner.connect(ctx.destination);
-      source.start();
-
-      return { gain, delay, source, panner, combIndex: null, active: false, feeder: null };
-    }
-
-    let lastCombIndex = -1;
-    function pickCombIndex() {
-      let idx;
-      do { idx = Math.floor(Math.random() * HISS_COMB_DELAYS.length); }
-      while (idx === lastCombIndex);
-      lastCombIndex = idx;
-      return idx;
-    }
 
     // ── MAP ──────────────────────────────────────────────────────────────────
     let map            = null;
@@ -423,8 +216,8 @@
             appendLog(`[GPS] ${realLat} ${realLng} accuracy: ${pos.coords.accuracy}`, 'll');
             if (listenerMarker) listenerMarker.setLatLng([realLat, realLng]);
             if (following && map) map.setView([realLat, realLng], 19);
-            if (pos.coords.accuracy <= 50 && lastFeeders.length > 0) {
-              updateHissGains(realLat, realLng, lastFeeders);
+            if (pos.coords.accuracy <= 50) {
+              AudioLayers.onListenerMove(realLat, realLng, realHeading);
             }
           },
           (err) => appendLog(`GPS error: ${err.message}`, 'lerr'),
@@ -452,19 +245,15 @@
     }
 
     // ── STATE ────────────────────────────────────────────────────────────────
-    let ctx       = null;
-    let droneGain = null;
-    let idlePool  = null; // 6-node comb-filtered noise pool for idle feeder texture
-    let tick           = 0;
+    let ctx             = null;
+    let tick            = 0;
     let firstTickLogged = false;
-    let realLat     = null;
-    let realLng     = null;
-    let realHeading = null;
-    let realSpeed   = null;
-    let following = false;
-    const activeCrackleIds = new Set();
-    let lastFeeders = [];
-    let gpsWatcherId = null;
+    let realLat         = null;
+    let realLng         = null;
+    let realHeading     = null;
+    let realSpeed       = null;
+    let following       = false;
+    let gpsWatcherId    = null;
 
     // ── UI HELPERS ───────────────────────────────────────────────────────────
     const logDiv = document.getElementById('log');
@@ -484,34 +273,6 @@
       const el = document.getElementById(id);
       el.textContent = value;
       el.className = `card-value${alert ? ' alert' : ''}`;
-    }
-
-    // ── HISS GAIN MANAGEMENT ─────────────────────────────────────────────────
-    function updateHissGains(lat, lng, feeders) {
-      if (!ctx || lat === null || lng === null || !idlePool) return;
-      const nearby = feeders
-        .map(f => {
-          const dlat = (f.lat - lat) * 111320;
-          const dlng = (f.lng - lng) * 111320 * Math.cos(lat * Math.PI / 180);
-          return { f, dist: Math.sqrt(dlat * dlat + dlng * dlng) };
-        })
-        .filter(({ dist }) => dist < FEEDER_HISS_RADIUS)
-        .sort((a, b) => a.dist - b.dist);
-      for (let i = 0; i < idlePool.length; i++) {
-        const node = idlePool[i];
-        if (i < nearby.length) {
-          const { f, dist } = nearby[i];
-          node.gain.gain.setTargetAtTime((1 - dist / FEEDER_HISS_RADIUS) * 0.15, ctx.currentTime, 0.5);
-          node.feeder = f;
-          const pos = feederToXYZ(f.lat, f.lng);
-          node.panner.positionX.setTargetAtTime(pos.x, ctx.currentTime, 0.1);
-          node.panner.positionY.setTargetAtTime(pos.y, ctx.currentTime, 0.1);
-          node.panner.positionZ.setTargetAtTime(pos.z, ctx.currentTime, 0.1);
-        } else {
-          node.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
-          node.feeder = null;
-        }
-      }
     }
 
     // ── TRAM MARKER UPDATES ──────────────────────────────────────────────────
@@ -573,29 +334,7 @@
             : { color: '#333',    fillColor: '#444'    }
           );
         }
-        const triggeredIds = new Set(proximity.feeders.filter(f => f.triggered).map(f => f.id));
-        for (const id of activeCrackleIds) {
-          if (!triggeredIds.has(id)) activeCrackleIds.delete(id);
-        }
-        if (ctx) {
-          for (const f of proximity.feeders.filter(f => f.triggered)) {
-            if (!activeCrackleIds.has(f.id)) {
-              let gainScalar = 1;
-              if (realLat !== null && realLng !== null) {
-                const dlat = (f.lat - realLat) * 111320;
-                const dlng = (f.lng - realLng) * 111320 * Math.cos(realLat * Math.PI / 180);
-                const dist = Math.sqrt(dlat * dlat + dlng * dlng);
-                const t = Math.min(dist / CRACKLE_FALLOFF_RADIUS, 1);
-                gainScalar = Math.pow(1 - t, 2);
-              }
-              triggerCrackle(f.id, f.lat, f.lng, gainScalar);
-              activeCrackleIds.add(f.id);
-            }
-          }
-        }
-        lastFeeders = proximity.feeders;
-        updateHissGains(realLat, realLng, lastFeeders);
-        const feederTriggered = triggeredIds.size > 0;
+        const feederTriggered = proximity.feeders.some(f => f.triggered);
         let nearestFeederDist = Infinity;
         if (realLat !== null && realLng !== null) {
           for (const f of proximity.feeders) {
@@ -609,14 +348,6 @@
           nearestFeederDist === Infinity ? '—' : `${Math.round(nearestFeederDist)}m`,
           feederTriggered
         );
-        if (droneGain) {
-          const dist = proximity.nearestPowerlineDist;
-          let targetGain;
-          if (dist === null || dist > 20) targetGain = 0;
-          else if (dist <= 5) targetGain = 0.3;
-          else targetGain = 0.01 + (20 - dist) / 15 * (0.3 - 0.01);
-          droneGain.gain.gain.setTargetAtTime(targetGain, ctx.currentTime, 2.0);
-        }
         if (ctx) AudioLayers.update(proximity, realLat, realLng, realHeading);
       }
     });
@@ -654,19 +385,7 @@
 
     btnStart.addEventListener('click', () => {
       AudioLayers.init(ctx);
-      appendLog('AudioLayers ready (water / sewage / elec / telecom / fernwärme)', 'lok');
-      droneGain = startDrone(ctx);
-      const convolver = buildReverb(ctx, REVERB_DECAY);
-      const reverbGain = ctx.createGain();
-      reverbGain.gain.value = REVERB_WET;
-      droneGain.gain.connect(convolver);
-      convolver.connect(reverbGain);
-      reverbGain.connect(ctx.destination);
-      appendLog('Drone oscillators started (110 + 112 Hz)', 'lok');
-      if (!idlePool) {
-        idlePool = Array.from({ length: 6 }, () => makeHissNode(ctx));
-        appendLog('Idle feeder texture pool ready (6 comb-filtered nodes)', 'lok');
-      }
+      appendLog('AudioLayers ready (tram / water / sewage / elec / telecom / fernwärme)', 'lok');
       TramEngine.start();
       following = true;
       btnStart.disabled = true;
@@ -682,20 +401,33 @@
         navigator.geolocation.clearWatch(gpsWatcherId);
         gpsWatcherId = null;
       }
-      if (droneGain) { droneGain.gain.gain.value = 0; droneGain = null; }
       AudioLayers.stop();
-      if (idlePool) {
-        for (const node of idlePool) {
-          node.gain.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
-          node.feeder = null;
-        }
-      }
-      lastFeeders = [];
       btnStart.disabled = false;
       btnStart.classList.remove('active');
       btnStop.disabled = true;
       appendLog('Engines stopped', 'linf');
     });
+
+    // ── LAYER TOGGLES ────────────────────────────────────────────────────────
+    const LAYER_COLORS = {
+      tram:        '#ff9f43',
+      water:       '#4a90e2',
+      sewage:      '#a0855b',
+      electricity: '#ffd43b',
+      telecom:     '#cc5de8',
+      fernwaerme:  '#ff6b35',
+    };
+    for (const [key, color] of Object.entries(LAYER_COLORS)) {
+      const btn = document.getElementById(`toggle-${key}`);
+      btn.addEventListener('click', () => {
+        AudioLayers.LAYER_ENABLED[key] = !AudioLayers.LAYER_ENABLED[key];
+        const on = AudioLayers.LAYER_ENABLED[key];
+        btn.style.borderColor = on ? color : '#2a2a2a';
+        btn.style.color       = on ? color : '#333';
+        btn.classList.toggle('on', on);
+        appendLog(`[TOGGLE] ${key} ${on ? 'ON' : 'OFF'}`, 'linf');
+      });
+    }
 
     // ── TRAM ERROR SURFACE ────────────────────────────────────────────────────
     window.addEventListener('tram-error', (e) => appendLog(e.detail, 'lerr'));

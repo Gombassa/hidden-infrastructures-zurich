@@ -2,119 +2,124 @@
 
 ## Status
 
-All six GeoShop tile orders (55297–55302) processed. Six GeoJSON files live in `public/`, deduplicated across tiles. Extraction script: `scripts/extract-lk-geojson.js`.
+**GeoShop tile orders:** 12 total (55297–55302 + 55333–55335, 55350–55352). Extraction script: `scripts/extract-lk-geojson.js`. All tiles processed with deduplication across the full set. ✅
 
-ProximityEngine rewritten to load all 7 data files in parallel and return proximity results for all 6 infrastructure layers. Per-layer geomType exclusions applied at parse time. Nearest-point-on-segment distance used for all LineString features. ✅
+**ProximityEngine:** Loads all 7 data files in parallel. Per-layer geomType exclusions applied at parse time. Nearest-point-on-segment distance used for all LineString features. Returns proximity results for all 6 infrastructure layers. ✅
 
-Audio lifecycle stable: Unlock Audio = init only, Start = fresh node graph, Stop = full teardown + _initialized reset. All null-guard races resolved. ✅
+**Audio lifecycle:** Unlock Audio = init only, Start = fresh node graph, Stop = full teardown + _initialized reset. All null-guard races resolved. ✅
 
-Deployed to Cloud Run: https://hidden-infrastructures-50944718104.europe-west6.run.app ✅
+**Proximity logging:** Single-line `[PROXIMITY]` tick covers all 6 layers — lat/lng, trams/feeders, water/sewage/elec/telecom/fernwärme nearest distance and triggered count. ✅
 
-**Next: field test.**
+**Basemap:** Swisstopo `ch.swisstopo.leichte-basiskarte` — Swiss open data, consistent with project data provenance. ✅
+
+**Deployed:** https://hidden-infrastructures-50944718104.europe-west6.run.app ✅
+
+**Open blocker:** Feeder trigger bug — trams as close as 5m to feeder nodes with feedersTriggered: 0. Under investigation.
 
 ---
 
 ## Extracted Files — Feature Summary
 
-### lk-water.geojson — 1,794 features
-- 1,274 LineString pipe segments, 520 Point fittings
-- Dominant pipe types: `LKZ1315-MLU1` (620) = connection pipes, `LKZ1314-MLU1` (344) = distribution pipes
-- geomType split: `pipe` / `fitting`
-- **Sonification use:** proximity-to-pipe triggers hydraulic pulse; fitting density modulates texture intensity
+Current feature counts reflect all 12 tile orders after deduplication and per-layer exclusion filtering.
+
+### lk-water.geojson — 2,799 features
+- 1,482 LineString pipe segments, 610 Point fittings (after 0 exclusions from this layer)
+- Dominant pipe types: `LKZ1315-MLU1` = connection pipes, `LKZ1314-MLU1` = distribution pipes
+- **Sonification use:** pipe proximity triggers hydraulic pulse; fitting proximity modulates texture intensity
 - **ProximityEngine:** 50m for pipes, 25m for fittings
 
-### lk-sewage.geojson — 6,289 features (pipes only after filtering)
-- 3,266 LineString pipes — manhole points excluded from sonification (visible on street, not hidden infrastructure)
-- Dominated by `LKZ1118-MLU0` (2,047 = Nebenleitung, lower accuracy secondary lines)
-- **Sonification use:** pipe proximity only — continuous underground rumble modulated by distance to nearest pipe segment
-- **ProximityEngine:** 80m for pipes; no point triggers
-- **Filtering:** exclude all `manhole` geomType features from ProximityEngine load
+### lk-sewage.geojson — 1,952 features (pipes only after filtering)
+- Manhole points excluded — visible on street, sewage pipes beneath them still trigger via nearest-point-on-segment
+- Lower accuracy secondary lines (LKZ1118-MLU0) excluded entirely
+- **Sonification use:** continuous underground rumble modulated by distance to nearest pipe segment; no discrete trigger events
+- **ProximityEngine:** 80m for pipes
 
-### lk-electricity.geojson — 5,536 features (nodes + cables after filtering)
-- 736 Point nodes, 2,233 LineString cables retained; 2,567 area (trasse footprints) excluded
-- **Sonification use:** high-frequency drone character, distinct from tram layer. Node points trigger looping drone events on proximity entry — drawn from a pool (same pattern as feeder crackle pool). Cable lines modulate drone density/intensity by proximity.
+### lk-electricity.geojson — 4,676 features (nodes + cables after filtering)
+- 816 Point nodes, 2,524 LineString cables retained; area (trasse footprints) excluded
+- geomType property confirmed present and correctly named; area features absent from current tile set
+- **Sonification use:** high-frequency drone character (1500–1600Hz), distinct from tram layer. Node proximity entry triggers looping drone from pool; cable proximity modulates pool intensity
 - **ProximityEngine:** 40m for nodes, 40m for cables
-- **Filtering:** exclude all `area` geomType features from ProximityEngine load
 
-### lk-telecom.geojson — 2,850 features (cables + nodes after filtering)
-- 2,136 LineString cables, 411 Point nodes, 298 area retained; 5 overhead excluded
+### lk-telecom.geojson — 4,750 features (cables + nodes after filtering)
+- 498 Point nodes, 2,580 LineString cables retained; 348 overhead excluded
 - Mix of Swisscom (`LKZ161SU…`) and UPC (`LKZ161UU…`) infrastructure
-- **Sonification use:** node points as discrete chirp triggers; cable lines for continuous fiber texture
+- **Sonification use:** node points as discrete chirp triggers (2kHz→4kHz sweep, 200ms); cable proximity adds continuous high-frequency texture
 - **ProximityEngine:** 40m for nodes, 30m for cables
-- **Filtering:** exclude all `overhead` geomType features
 
-### lk-tram-lk.geojson — 2,677 features (trasse + nodes after filtering)
-- `trasse` (1,344), `area` (403), `node` (355) retained; `overhead` (575) excluded
-- **Replaces** `route-tram-feeders.geojson` and `route-tram-powerlines.geojson` — route-specific VBZ files retired for Phase 2+. `lk-tram-lk` covers full District 1.
-- **Filtering:** exclude all `overhead` geomType features
-- **Known:** some dedupKeys have start == end coordinates (zero-length segments from DXF point collapse) — not a bug, safe to leave
+### lk-tram-lk.geojson — 2,474 features (trasse + nodes after filtering)
+- 380 nodes, 1,397 trasse retained; 421 overhead + area excluded
+- Replaces route-specific VBZ files (`route-tram-feeders.geojson`, `route-tram-powerlines.geojson`) — covers full District 1
+- **Known:** some dedupKeys have start == end coordinates (zero-length segments from DXF point collapse) — not a bug
+- **Open:** feeder trigger bug — trams within 5m of nodes not triggering. Under investigation.
 
-### lk-fernwaerme.geojson — 171 features ✨ new layer
-- All LineString pipes; 3 layer variants of `LKZ141EU…`, concentrated in orders 55301/55302
-- Sparse coverage — district heating network is limited in this area
-- **Added as a sixth infrastructure layer.** Fits the project theme precisely: genuinely hidden, unknown to most users, discovered through the data rather than prior knowledge.
-- **Sonification use:** TBD in sound design phase. Sparseness is an asset — encounters will be rarer and more surprising.
+### lk-fernwaerme.geojson — 198 features ✨ sixth layer
+- All LineString pipes; concentrated in orders 55301/55302 and surrounding tiles; +4 features from new tile set confirms sparse network
+- Discovered in GeoShop data — not in original project plan. Fits the project theme precisely: genuinely hidden, unknown to most users
+- **Sonification use:** slow thermal pulse — sine tone 120–180Hz with 0.3Hz tremolo LFO, gain ramping with proximity. Warm and tonal, distinct from sewage (noise-based) and water (800Hz)
 - **ProximityEngine:** 60m provisional
+- **Sparseness is an asset:** encounters will be rare and surprising
 
 ---
 
-## Infrastructure Layers — Revised Summary
+## Infrastructure Layers — Current Summary
 
-| Layer | File | Active Features | Trigger Type | Radius |
-|-------|------|----------------|--------------|--------|
-| Tram electrical | lk-tram-lk.geojson | trasse + node (excl. overhead) | existing feeder/drone logic | existing |
-| Water | lk-water.geojson | pipe + fitting | hydraulic pulse on proximity | 50m pipe / 25m fitting |
-| Sewage | lk-sewage.geojson | pipe only (excl. manhole) | continuous rumble modulation | 80m |
-| Electricity | lk-electricity.geojson | node + cable (excl. area) | looping drone pool on node entry | 40m |
-| Telecom | lk-telecom.geojson | node + cable (excl. overhead) | chirp trigger on node entry | 40m node / 30m cable |
-| Fernwärme | lk-fernwaerme.geojson | pipe | TBD | 60m provisional |
+| Layer | File | Features (post-filter) | Trigger Type | Radius |
+|-------|------|----------------------|--------------|--------|
+| Tram electrical | lk-tram-lk.geojson | 2,474 (trasse + node) | feeder crackle pool / trasse drone | existing |
+| Water | lk-water.geojson | 2,799 (pipe + fitting) | hydraulic pulse on proximity | 50m pipe / 25m fitting |
+| Sewage | lk-sewage.geojson | 1,952 (pipe only) | continuous rumble modulation | 80m |
+| Electricity | lk-electricity.geojson | 4,676 (node + cable) | looping drone pool on node entry (1500–1600Hz) | 40m |
+| Telecom | lk-telecom.geojson | 4,750 (node + cable) | chirp trigger on node entry | 40m node / 30m cable |
+| Fernwärme | lk-fernwaerme.geojson | 198 (pipe) | thermal pulse, 120–180Hz tonal | 60m provisional |
+
+**Total active features: 16,849**
 
 ---
 
 ## ProximityEngine Integration Plan
 
-### Step 1 — Water (`lk-water.geojson`)
-- Load pipe LineStrings and fitting Points separately, filter by geomType
-- Proximity check: nearest point on each pipe segment to listener (not just endpoint)
-- Trigger: crossing 50m threshold → hydraulic pulse event
-- Modulation: continuous gain ramp 50m → 0m
+All 5 steps complete ✅
 
-### Step 2 — Sewage (`lk-sewage.geojson`)
-- Load pipe LineStrings only — filter out manhole geomType on load
-- Proximity check: nearest point on pipe segment to listener
-- Modulation: continuous rumble gain ramp, no discrete trigger events
+### Step 1 — Water (`lk-water.geojson`) ✅
+- Pipe LineStrings and fitting Points loaded separately, filtered by geomType
+- Nearest point on segment distance check
+- Trigger: crossing 50m → hydraulic pulse; continuous gain ramp 50m → 0m
 
-### Step 3 — Electricity (`lk-electricity.geojson`)
-- Load node Points and cable LineStrings — filter out area geomType on load
-- Node proximity: entering 40m → claim a drone from pool, loop until exit
-- Cable proximity: modulate drone pool intensity by nearest cable distance
-- Pool pattern mirrors feeder crackle pool from tram layer
+### Step 2 — Sewage (`lk-sewage.geojson`) ✅
+- Pipe LineStrings only — manhole and LKZ1118-MLU0 excluded on load
+- Continuous rumble gain ramp, no discrete trigger events
+- Manhole covers excluded as visible surface feature; pipes beneath still trigger
 
-### Step 4 — Telecom (`lk-telecom.geojson`)
-- Load node Points and cable LineStrings — filter out overhead geomType on load
-- Node proximity: entering 40m → chirp trigger event
-- Cable proximity: continuous texture modulation
+### Step 3 — Electricity (`lk-electricity.geojson`) ✅
+- Node Points and cable LineStrings; area excluded on load
+- Node entry → claim drone from pool (1500–1600Hz, looping until exit)
+- Cable proximity modulates pool intensity
 
-### Step 5 — Fernwärme (`lk-fernwaerme.geojson`)
-- Load pipe LineStrings
-- Proximity check: nearest point on pipe segment to listener
-- Radius: 60m
-- Trigger and modulation behaviour TBD in sound design phase
-- Sparseness noted: encounters will be infrequent — treat as a discovery moment
+### Step 4 — Telecom (`lk-telecom.geojson`) ✅
+- Node Points and cable LineStrings; overhead excluded on load
+- Node entry → chirp event (2kHz→4kHz, 200ms)
+- Cable proximity → continuous high-frequency texture
+
+### Step 5 — Fernwärme (`lk-fernwaerme.geojson`) ✅
+- Pipe LineStrings, no exclusions
+- Nearest point on segment, 60m radius
+- Thermal pulse: 120–180Hz sine + 0.3Hz tremolo LFO
+- Sound design direction confirmed; field validation pending
 
 ---
 
 ## Open Questions
 
-- **Performance:** 6 layers. Estimated active features within 200m culling radius at any District 1 point: ~80–200. Needs field validation — next field test.
-- **Audio mix:** relative levels of all 6 layers untested in real conditions — expect iteration after first field test.
-- **Fernwärme trigger behaviour:** provisional 60m radius and sound design not yet field-validated. Nearest pipe at Paradeplatz was 79m (just outside threshold) — confirm encounters exist on the route.
+- **Feeder trigger bug:** resolved. ✅ Root cause was listenerNear gate requiring listener within 50m of the triggered feeder node. Fixed by removing gate; exponential gain falloff (150m radius, (1-t)²) now handles perceived distance.
+- **Audio mix:** relative levels of all 6 layers untested in real field conditions — expect iteration after first successful field test.
+- **Fernwärme field validation:** 60m radius and sound design not yet validated in the field. Coverage confirmed sparse (+4 features across 6 new tiles).
+- **Performance under full load:** 16,849 total features, 6 layers. Active set within 200m culling radius estimated ~100–250. Needs field validation.
 
 ---
 
 ## Extraction Exclusions — `extract-lk-geojson.js`
 
-Filters applied at extraction time so excluded features never enter the GeoJSON output. After implementation, re-run script and record revised feature counts.
+All filters applied at extraction time.
 
 | Layer | Exclude geomType | Exclude layer |
 |-------|-----------------|---------------|
@@ -123,6 +128,7 @@ Filters applied at extraction time so excluded features never enter the GeoJSON 
 | Telecom | `overhead` | — |
 | Tram | `overhead` | — |
 | Fernwärme | — | — |
+| Water | — | `LKZ131B` (internal, low accuracy), misc/unknown |
 
 ---
 
@@ -134,28 +140,36 @@ Filters applied at extraction time so excluded features never enter the GeoJSON 
 | April 2026 | Water: excluded internal lines (LKZ131B) and misc/unknown features |
 | April 2026 | Sewage: manhole points excluded — visible on street, not hidden infrastructure |
 | April 2026 | Sewage: LKZ1118-MLU0 (Nebenleitung, lower accuracy) excluded entirely |
-| April 2026 | Electricity: trasse area footprints excluded from audio pipeline; node trigger radius set to 40m (not 100m) |
+| April 2026 | Electricity: trasse area footprints excluded from audio pipeline; node trigger radius set to 40m |
+| April 2026 | Electricity: drone frequency range set to 1500–1600Hz — high and abrasive, distinct from tram |
 | April 2026 | Telecom: overhead cable features excluded |
 | April 2026 | Tram: overhead features excluded; route-specific VBZ files retired in favour of lk-tram-lk.geojson |
 | April 2026 | Fernwärme added as sixth infrastructure layer — discovered in GeoShop data, fits project theme |
-| April 2026 | Fernwärme sound design direction: slow thermal pulse, warm low rumble — distinct from sewage (cold/deep) and water (hydraulic/pressurised) |
-| April 2026 | All exclusions applied at extraction time in extract-lk-geojson.js, not at ProximityEngine load time |
+| April 2026 | Fernwärme sound design: 120–180Hz sine tone, 0.3Hz tremolo LFO — warm/tonal, distinct from sewage (noise) and water (800Hz) |
+| April 2026 | All exclusions applied at extraction time in extract-lk-geojson.js |
 | April 2026 | ProximityEngine complete rewrite — init() takes config object, loads 7 files in parallel |
 | April 2026 | parseTramLk() routes node Points → feeders, trasse LineStrings → powerlines; area and overhead dropped |
 | April 2026 | Generic parseLineFeatures() / parsePointFeatures() handle per-layer geomType exclusions at load time |
 | April 2026 | proximityLines() uses nearestSegmentDist() — nearest point on segment, not endpoints |
-| April 2026 | calculate() returns proximity results for all 6 layers; new layers return empty arrays when listener position is null |
+| April 2026 | calculate() returns proximity results for all 6 layers; returns empty arrays when listener position is null |
 | April 2026 | route-tram-feeders.geojson and route-tram-powerlines.geojson retired — lk-tram-lk.geojson in use |
 | April 2026 | All 5 ProximityEngine integration steps complete ✅ |
-| April 2026 | AudioLayers key mismatch fixed — update() now reads nested proximity structure (proximity.water.pipes etc.) |
-| April 2026 | Drone oscillators and feeder pool moved to Start path — Unlock Audio only resumes AudioContext, no synthesis |
-| April 2026 | Fernwärme signal chain: _fernOsc → carrierGain (LFO ±0.4) → _fernMasterGain → destination; master zeroed on Stop |
-| April 2026 | All 5 new audio layers gate correctly on Stop — sewage/elec/telecom cable via master gain, water/telecom chirps self-terminate |
-| April 2026 | Field-test at Paradeplatz (hardcoded): powerline 25m, water pipe 17m, sewage 7m, elec node 16m, telecom node 10m, fernwärme 79m (outside 60m threshold — correct) |
-| April 2026 | Electricity 0 excluded confirmed — geomType property present and correct; area features absent from this tile set, filter working correctly |
-| April 2026 | Lifecycle fixed: Unlock Audio = init only, Start = synthesis creation, Stop = full teardown |
-| April 2026 | Stop → Start lifecycle fixed: Stop zeros gains, schedules source stops, nulls JS references, resets _initialized = false. Start creates a fresh node graph. AudioContext holds scheduled stops independently of JS references. |
-| April 2026 | update() null guard added — if (!_initialized) return early; prevents gain node access after Stop nulls references |
+| April 2026 | AudioLayers key mismatch fixed — update() reads nested proximity structure (proximity.water.pipes etc.) |
+| April 2026 | Drone oscillators and feeder pool moved to Start path — Unlock Audio only resumes AudioContext |
+| April 2026 | Fernwärme signal chain: _fernOsc → carrierGain (LFO ±0.4) → _fernMasterGain → destination |
+| April 2026 | All 5 new audio layers gate correctly on Stop |
+| April 2026 | Hardcoded test at Paradeplatz: powerline 25m, water 17m, sewage 7m, elec node 16m, telecom 10m, fernwärme 79m (outside 60m — correct) |
+| April 2026 | Electricity 0 excluded confirmed — area features absent from current tile set, filter working |
+| April 2026 | Audio lifecycle: Unlock Audio = init, Start = synthesis, Stop = full teardown + _initialized = false |
+| April 2026 | update() null guard: if (!_initialized) return — prevents gain node access after Stop |
 | April 2026 | Post-Stop TramEngine tick race resolved via _initialized sentinel |
-| April 2026 | Paradeplatz test coordinate added to GPS listener as commented-out override; Stadelhofen coordinate included as second option |
-| April 2026 | Deployed Phase 2 build to Cloud Run — all 6 layers live at https://hidden-infrastructures-50944718104.europe-west6.run.app |
+| April 2026 | Paradeplatz + Stadelhofen test coordinates added as commented-out GPS overrides |
+| April 2026 | Basemap: OpenStreetMap → Swisstopo ch.swisstopo.leichte-basiskarte |
+| April 2026 | Map pan-to-GPS on first fix; District 1 centre remains default if GPS unavailable |
+| April 2026 | Map zoom: 15 → 14 |
+| April 2026 | TramEngine stop race fixed — running boolean flag prevents in-flight tick callbacks after Stop |
+| April 2026 | 6 additional GeoShop tile orders (55333–55335, 55350–55352) — 12 tiles total. +4,081 net new features. Total 16,849 |
+| April 2026 | [PROXIMITY] tick log extended to single line covering all 6 layers with nearest distance and triggered count |
+| April 2026 | Feeder trigger bug identified in field — trams 5m from feeder nodes with feedersTriggered: 0. Cause under investigation |
+| April 2026 | Confirmed: manhole covers excluded (visible); sewage pipes beneath trigger via nearest-point-on-segment |
+| April 2026 | Deployed to Cloud Run — current build live |

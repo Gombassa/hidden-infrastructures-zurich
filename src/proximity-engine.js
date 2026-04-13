@@ -300,23 +300,32 @@ const ProximityEngine = {
     const ON_TRAM_SPEED = 3; // m/s ≈ 10 km/h
     const onTram = speed !== null && speed > ON_TRAM_SPEED;
 
+    // ── DEBUG: tram → nearest-feeder distances ───────────────────────────────
+    // Remove once feeder triggering is confirmed working in the field.
+    if (trams.length > 0 && feeders.length > 0) {
+      const lines = trams.map((tram) => {
+        let minDist = Infinity;
+        let nearestId = null;
+        for (const fed of feeders) {
+          const d = haversineDistance(fed.lng, fed.lat, tram.lng, tram.lat);
+          if (d < minDist) { minDist = d; nearestId = fed.id; }
+        }
+        return `L${tram.line}@(${tram.lat.toFixed(4)},${tram.lng.toFixed(4)})→${nearestId}:${Math.round(minDist)}m`;
+      });
+      (window.appendLog || console.log)(`[FEEDER-DBG] ${lines.join(' | ')}`, 'll');
+    }
+
     const feederResults = feeders.map((fed) => {
       let triggered = false;
       let triggeringTram = null;
       let bestDist = Infinity;
 
-      const listenerNear = onTram
-        || listenerLat === null || listenerLng === null
-        || haversineDistance(fed.lng, fed.lat, listenerLng, listenerLat) < FEEDER_LISTENER_RADIUS;
-
-      if (listenerNear) {
-        for (const tram of trams) {
-          const d = haversineDistance(fed.lng, fed.lat, tram.lng, tram.lat);
-          if (d < FEEDER_TRIGGER_RADIUS && d < bestDist) {
-            triggered = true;
-            triggeringTram = tram.line;
-            bestDist = d;
-          }
+      for (const tram of trams) {
+        const d = haversineDistance(fed.lng, fed.lat, tram.lng, tram.lat);
+        if (d < FEEDER_TRIGGER_RADIUS && d < bestDist) {
+          triggered = true;
+          triggeringTram = tram.line;
+          bestDist = d;
         }
       }
 

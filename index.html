@@ -16,8 +16,7 @@
       font-size: 13px;
       line-height: 1.5;
     }
-    h1 { color: #ffffff; font-size: 15px; letter-spacing: 2px; margin-bottom: 2px; }
-    h2 { color: #888; font-size: 11px; margin-bottom: 14px; font-weight: normal; letter-spacing: 1px; }
+    h1 { color: #ffffff; font-size: 15px; letter-spacing: 2px; margin-bottom: 14px; }
 
     .cards {
       display: grid;
@@ -100,7 +99,6 @@
 <body>
 
   <h1>HIDDEN INFRASTRUCTURES: ZÜRICH</h1>
-  <h2>phase 1 — real engines → proximity → web audio pipeline test</h2>
 
   <div class="cards">
     <div class="card">
@@ -196,8 +194,10 @@
     // ── WEB AUDIO SYNTHESIS ──────────────────────────────────────────────────
 
     // 6 percussive noise bursts scheduled over 300ms via Web Audio API.
-    // Bursts spaced 50ms apart; amplitude ramps from 0.1 (hit 1) to 0.6 (hit 6).
-    function triggerCrackle(feederId, feederLat, feederLng) {
+    // Bursts spaced 50ms apart; amplitude ramps from 0.1 (hit 1) to 0.6 (hit 6), scaled by gainScalar.
+    // gainScalar = Math.pow(1 - dist/CRACKLE_FALLOFF_RADIUS, 2): 1.0 at 0m, ~0 at 150m.
+    const CRACKLE_FALLOFF_RADIUS = 150; // metres — listener beyond this hears near-silence
+    function triggerCrackle(feederId, feederLat, feederLng, gainScalar = 1) {
       const burstCount = 6;
       const spacing    = 0.050; // 50ms between burst onsets
       const bufLen     = Math.floor(ctx.sampleRate * 0.020); // 20ms buffer per burst
@@ -216,7 +216,7 @@
 
       for (let i = 0; i < burstCount; i++) {
         const t0        = ctx.currentTime + i * spacing;
-        const amplitude = 0.1 + i * 0.1; // 0.1 → 0.6 linear across 6 hits
+        const amplitude = (0.1 + i * 0.1) * gainScalar; // 0.1→0.6, scaled by listener distance
 
         const buffer = ctx.createBuffer(1, bufLen, ctx.sampleRate);
         const data   = buffer.getChannelData(0);
@@ -350,11 +350,11 @@
     let tramMarkerPool = null; // Array<L.CircleMarker>, fixed pool of 10
 
     function initMap() {
-      map = L.map('map').setView([47.3693, 8.5411], 15);
+      map = L.map('map').setView([47.3693, 8.5411], 14);
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
-        maxZoom: 19,
+      L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg', {
+        attribution: '© <a href="https://www.swisstopo.admin.ch/">swisstopo</a>',
+        maxZoom: 18,
       }).addTo(map);
 
       // Route polyline — loaded directly from GeoJSON; waypoints are [lng, lat]
@@ -536,7 +536,22 @@
       // Update feeder colours based purely on tram proximity (no listener required)
       if (feederMarkers) {
         const proximity = ProximityEngine.calculate(tramState, realLat, realLng, realHeading, realSpeed);
-        appendLog(`[PROXIMITY] listenerLat: ${realLat} listenerLng: ${realLng} tramCount: ${tramState.trams.length} feedersTriggered: ${proximity.feeders.filter(f => f.triggered).length}`, 'll');
+        {
+          const _nd = (arr) => { if (!arr?.length) return '—'; let m = Infinity; for (const it of arr) if (it.dist < m) m = it.dist; return m === Infinity ? '—' : Math.round(m) + 'm'; };
+          const _tr = (arr) => arr?.filter(i => i.triggered).length ?? 0;
+          const _lat = realLat !== null ? realLat.toFixed(5) : 'null';
+          const _lng = realLng !== null ? realLng.toFixed(5) : 'null';
+          appendLog(
+            `[PROXIMITY] lat: ${_lat} lng: ${_lng}` +
+            ` | trams: ${tramState.trams.length} feeders: ${_tr(proximity.feeders)}` +
+            ` | water pipes: ${_nd(proximity.water?.pipes)}/${_tr(proximity.water?.pipes)}` +
+            ` sewage: ${_nd(proximity.sewage?.pipes)}/${_tr(proximity.sewage?.pipes)}` +
+            ` elec: ${_nd([...(proximity.electricity?.nodes??[]), ...(proximity.electricity?.cables??[])])}/${_tr(proximity.electricity?.nodes) + _tr(proximity.electricity?.cables)}` +
+            ` telecom: ${_nd([...(proximity.telecom?.nodes??[]), ...(proximity.telecom?.cables??[])])}/${_tr(proximity.telecom?.nodes) + _tr(proximity.telecom?.cables)}` +
+            ` fernw: ${_nd(proximity.fernwaerme?.pipes)}/${_tr(proximity.fernwaerme?.pipes)}`,
+            'll'
+          );
+        }
         if (!firstTickLogged) {
           firstTickLogged = true;
           const nd = (arr) => { if (!arr?.length) return '—'; let m = Infinity; for (const it of arr) if (it.dist < m) m = it.dist; return m + 'm'; };
@@ -565,7 +580,15 @@
         if (ctx) {
           for (const f of proximity.feeders.filter(f => f.triggered)) {
             if (!activeCrackleIds.has(f.id)) {
-              triggerCrackle(f.id, f.lat, f.lng);
+              let gainScalar = 1;
+              if (realLat !== null && realLng !== null) {
+                const dlat = (f.lat - realLat) * 111320;
+                const dlng = (f.lng - realLng) * 111320 * Math.cos(realLat * Math.PI / 180);
+                const dist = Math.sqrt(dlat * dlat + dlng * dlng);
+                const t = Math.min(dist / CRACKLE_FALLOFF_RADIUS, 1);
+                gainScalar = Math.pow(1 - t, 2);
+              }
+              triggerCrackle(f.id, f.lat, f.lng, gainScalar);
               activeCrackleIds.add(f.id);
             }
           }

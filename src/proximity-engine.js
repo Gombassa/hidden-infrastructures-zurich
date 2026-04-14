@@ -16,6 +16,21 @@ const TELECOM_NODE_RADIUS    = 40;   // listener-to-telecom node
 const TELECOM_CABLE_RADIUS   = 30;   // listener-to-cable (nearest point on segment)
 const FERNWAERME_PIPE_RADIUS = 60;   // listener-to-heat pipe (nearest point on segment)
 
+// ── CULL ─────────────────────────────────────────────────────────────────────
+const CULL_RADIUS = 100; // metres — bounding-box pre-filter before precise distance math
+
+function cullBounds(lat, lng) {
+  const latDelta = CULL_RADIUS / 111320;
+  const lngDelta = CULL_RADIUS / (111320 * Math.cos(lat * Math.PI / 180));
+  return { minLat: lat - latDelta, maxLat: lat + latDelta, minLng: lng - lngDelta, maxLng: lng + lngDelta };
+}
+function cullPoints(features, b) {
+  return features.filter(f => f.lat >= b.minLat && f.lat <= b.maxLat && f.lng >= b.minLng && f.lng <= b.maxLng);
+}
+function cullLines(features, b) {
+  return features.filter(f => f.midLat >= b.minLat && f.midLat <= b.maxLat && f.midLng >= b.minLng && f.midLng <= b.maxLng);
+}
+
 // ── STATE ────────────────────────────────────────────────────────────────────
 let substations     = null;  // [{id, lat, lng}]
 let feeders         = null;  // [{id, lat, lng}]  — lk-tram-lk nodes (geomType=node)
@@ -363,27 +378,28 @@ const ProximityEngine = {
       };
     }
 
+    const b = cullBounds(listenerLat, listenerLng);
     return {
       substations: substationResults,
       feeders: feederResults,
       nearestPowerlineDist,
       water: {
-        pipes:    proximityLines(listenerLng, listenerLat, waterPipes,    WATER_PIPE_RADIUS),
-        fittings: proximityPoints(listenerLng, listenerLat, waterFittings, WATER_FITTING_RADIUS),
+        pipes:    proximityLines(listenerLng, listenerLat,  cullLines(waterPipes, b),     WATER_PIPE_RADIUS),
+        fittings: proximityPoints(listenerLng, listenerLat, cullPoints(waterFittings, b), WATER_FITTING_RADIUS),
       },
       sewage: {
-        pipes: proximityLines(listenerLng, listenerLat, sewagePipes, SEWAGE_PIPE_RADIUS),
+        pipes: proximityLines(listenerLng, listenerLat, cullLines(sewagePipes, b), SEWAGE_PIPE_RADIUS),
       },
       electricity: {
-        nodes:  proximityPoints(listenerLng, listenerLat, elecNodes,  ELEC_NODE_RADIUS),
-        cables: proximityLines(listenerLng, listenerLat,  elecCables, ELEC_CABLE_RADIUS),
+        nodes:  proximityPoints(listenerLng, listenerLat, cullPoints(elecNodes, b),  ELEC_NODE_RADIUS),
+        cables: proximityLines(listenerLng, listenerLat,  cullLines(elecCables, b),  ELEC_CABLE_RADIUS),
       },
       telecom: {
-        nodes:  proximityPoints(listenerLng, listenerLat, telecomNodes,  TELECOM_NODE_RADIUS),
-        cables: proximityLines(listenerLng, listenerLat,  telecomCables, TELECOM_CABLE_RADIUS),
+        nodes:  proximityPoints(listenerLng, listenerLat, cullPoints(telecomNodes, b),  TELECOM_NODE_RADIUS),
+        cables: proximityLines(listenerLng, listenerLat,  cullLines(telecomCables, b),  TELECOM_CABLE_RADIUS),
       },
       fernwaerme: {
-        pipes: proximityLines(listenerLng, listenerLat, fernwaermePipes, FERNWAERME_PIPE_RADIUS),
+        pipes: proximityLines(listenerLng, listenerLat, cullLines(fernwaermePipes, b), FERNWAERME_PIPE_RADIUS),
       },
     };
   },

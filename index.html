@@ -136,11 +136,22 @@
     // ── CONSTANTS ────────────────────────────────────────────────────────────
     const TRAM_COLORS = { '2': '#51cf66', '7': '#ff6b6b', '9': '#4a90e2', '11': '#ffd43b', '13': '#cc5de8' };
 
+    // ── LAYER COLORS (shared by toggles + overlays) ──────────────────────────
+    const LAYER_COLORS = {
+      tram:        '#ff9f43',
+      water:       '#4a90e2',
+      sewage:      '#a0855b',
+      electricity: '#ffd43b',
+      telecom:     '#cc5de8',
+      fernwaerme:  '#ff6b35',
+    };
+
     // ── MAP ──────────────────────────────────────────────────────────────────
     let map            = null;
     let listenerMarker = null;
     let feederMarkers  = null; // Map<id, L.CircleMarker>
     let tramMarkerPool = null; // Array<L.CircleMarker>, fixed pool of 10
+    let overlayGroups  = null; // { [layer]: L.LayerGroup } — triggered-feature debug markers
 
     function initMap() {
       map = L.map('map').setView([47.3693, 8.5411], 14);
@@ -195,6 +206,11 @@
         fillOpacity: 0.9,
         weight: 2,
       }).addTo(map);
+
+      // Triggered-feature overlay groups — one per audio layer, dev tool only
+      overlayGroups = Object.fromEntries(
+        Object.keys(LAYER_COLORS).map(k => [k, L.layerGroup().addTo(map)])
+      );
 
       appendLog(`Map ready — ${initialProximity.feeders.length} feeders`, 'lok');
 
@@ -275,6 +291,49 @@
       el.className = `card-value${alert ? ' alert' : ''}`;
     }
 
+    // ── TRIGGERED-FEATURE OVERLAYS ───────────────────────────────────────────
+    function _updateTriggerOverlays(proximity) {
+      if (!overlayGroups || !map) return;
+      const dot = (lat, lng, color) => L.circleMarker([lat, lng], {
+        radius: 5, color, fillColor: color, fillOpacity: 0.85, weight: 1,
+      });
+      const pt  = f => [f.lat,    f.lng];
+      const mid = f => [f.midLat, f.midLng];
+
+      overlayGroups.tram.clearLayers();
+      if (AudioLayers.LAYER_ENABLED.tram)
+        for (const f of proximity.feeders.filter(f => f.triggered))
+          dot(...pt(f), LAYER_COLORS.tram).addTo(overlayGroups.tram);
+
+      overlayGroups.water.clearLayers();
+      if (AudioLayers.LAYER_ENABLED.water) {
+        for (const f of (proximity.water?.pipes    || []).filter(f => f.triggered)) dot(...mid(f), LAYER_COLORS.water).addTo(overlayGroups.water);
+        for (const f of (proximity.water?.fittings || []).filter(f => f.triggered)) dot(...pt(f),  LAYER_COLORS.water).addTo(overlayGroups.water);
+      }
+
+      overlayGroups.sewage.clearLayers();
+      if (AudioLayers.LAYER_ENABLED.sewage)
+        for (const f of (proximity.sewage?.pipes || []).filter(f => f.triggered))
+          dot(...mid(f), LAYER_COLORS.sewage).addTo(overlayGroups.sewage);
+
+      overlayGroups.electricity.clearLayers();
+      if (AudioLayers.LAYER_ENABLED.electricity) {
+        for (const f of (proximity.electricity?.nodes  || []).filter(f => f.triggered)) dot(...pt(f),  LAYER_COLORS.electricity).addTo(overlayGroups.electricity);
+        for (const f of (proximity.electricity?.cables || []).filter(f => f.triggered)) dot(...mid(f), LAYER_COLORS.electricity).addTo(overlayGroups.electricity);
+      }
+
+      overlayGroups.telecom.clearLayers();
+      if (AudioLayers.LAYER_ENABLED.telecom) {
+        for (const f of (proximity.telecom?.nodes  || []).filter(f => f.triggered)) dot(...pt(f),  LAYER_COLORS.telecom).addTo(overlayGroups.telecom);
+        for (const f of (proximity.telecom?.cables || []).filter(f => f.triggered)) dot(...mid(f), LAYER_COLORS.telecom).addTo(overlayGroups.telecom);
+      }
+
+      overlayGroups.fernwaerme.clearLayers();
+      if (AudioLayers.LAYER_ENABLED.fernwaerme)
+        for (const f of (proximity.fernwaerme?.pipes || []).filter(f => f.triggered))
+          dot(...mid(f), LAYER_COLORS.fernwaerme).addTo(overlayGroups.fernwaerme);
+    }
+
     // ── TRAM MARKER UPDATES ──────────────────────────────────────────────────
     TramEngine.onUpdate((tramState) => {
       if (!tramMarkerPool) return;
@@ -349,6 +408,7 @@
           feederTriggered
         );
         if (ctx) AudioLayers.update(proximity, realLat, realLng, realHeading);
+        _updateTriggerOverlays(proximity);
       }
     });
 
@@ -409,14 +469,6 @@
     });
 
     // ── LAYER TOGGLES ────────────────────────────────────────────────────────
-    const LAYER_COLORS = {
-      tram:        '#ff9f43',
-      water:       '#4a90e2',
-      sewage:      '#a0855b',
-      electricity: '#ffd43b',
-      telecom:     '#cc5de8',
-      fernwaerme:  '#ff6b35',
-    };
     for (const [key, color] of Object.entries(LAYER_COLORS)) {
       const btn = document.getElementById(`toggle-${key}`);
       btn.addEventListener('click', () => {
@@ -425,6 +477,7 @@
         btn.style.borderColor = on ? color : '#2a2a2a';
         btn.style.color       = on ? color : '#333';
         btn.classList.toggle('on', on);
+        if (overlayGroups?.[key] && !on) overlayGroups[key].clearLayers();
         appendLog(`[TOGGLE] ${key} ${on ? 'ON' : 'OFF'}`, 'linf');
       });
     }

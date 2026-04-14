@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hidden Infrastructures — Debug Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #111; color: #ccc; font-family: 'Courier New', monospace; display: flex; height: 100vh; }
+    #map { flex: 1; }
+    #sidebar {
+      width: 260px; flex-shrink: 0; background: #1a1a1a; padding: 16px;
+      overflow-y: auto; border-left: 1px solid #2a2a2a; display: flex; flex-direction: column; gap: 12px;
+    }
+    h1 { font-size: 11px; letter-spacing: 2px; color: #555; text-transform: uppercase; }
+    .section-label { font-size: 10px; letter-spacing: 1px; color: #444; text-transform: uppercase; margin-top: 4px; }
+    .layer-row { display: flex; align-items: center; gap: 8px; }
+    .layer-btn {
+      flex: 1; padding: 5px 8px; font-family: inherit; font-size: 10px; letter-spacing: 1px;
+      background: transparent; border: 1px solid; border-radius: 2px; cursor: pointer;
+      text-transform: uppercase; transition: opacity 0.15s;
+    }
+    .layer-btn.off { border-color: #2a2a2a !important; color: #333 !important; }
+    .layer-count { font-size: 10px; color: #555; white-space: nowrap; min-width: 52px; text-align: right; }
+    #status { font-size: 10px; color: #555; line-height: 1.6; }
+    #status .ok  { color: #51cf66; }
+    #status .err { color: #ff6b6b; }
+    .divider { border: none; border-top: 1px solid #2a2a2a; }
+    #click-info { font-size: 10px; color: #666; line-height: 1.6; }
+    .radius-row { display: flex; justify-content: space-between; }
+    .radius-label { }
+    .radius-val   { color: #888; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="sidebar">
+    <h1>Infrastructure Debug Map</h1>
+
+    <div>
+      <div class="section-label">Layers</div>
+      <div id="layer-controls" style="display:flex;flex-direction:column;gap:6px;margin-top:6px;"></div>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="section-label">Click map — proximity radii</div>
+      <div id="click-info" style="margin-top:6px;color:#444;">Click any point to show<br>cull + trigger radii.</div>
+    </div>
+
+    <hr class="divider">
+
+    <div id="status"><span class="ok">Loading…</span></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // ── LAYER CONFIG ──────────────────────────────────────────────────────────
+    const LAYERS = [
+      { key: 'tram',        label: 'TRAM',        color: '#ff9f43', url: '/lk-tram-lk.geojson' },
+      { key: 'water',       label: 'WATER',       color: '#4a90e2', url: '/lk-water.geojson' },
+      { key: 'sewage',      label: 'SEWAGE',      color: '#a0855b', url: '/lk-sewage.geojson' },
+      { key: 'electricity', label: 'ELECTRICITY', color: '#ffd43b', url: '/lk-electricity.geojson' },
+      { key: 'telecom',     label: 'TELECOM',     color: '#cc5de8', url: '/lk-telecom.geojson' },
+      { key: 'fernwaerme',  label: 'FERNWÄRME',   color: '#ff6b35', url: '/lk-fernwaerme.geojson' },
+    ];
+
+    // Trigger radii in metres (matches proximity-engine.js)
+    const CULL_RADIUS = 100;
+    const TRIGGER_RADII = [
+      { label: 'sewage pipe',    r: 80,  color: '#a0855b' },
+      { label: 'fernwärme pipe', r: 60,  color: '#ff6b35' },
+      { label: 'water pipe',     r: 50,  color: '#4a90e2' },
+      { label: 'elec node/cable',r: 40,  color: '#ffd43b' },
+      { label: 'telecom node',   r: 40,  color: '#cc5de8' },
+      { label: 'telecom cable',  r: 30,  color: '#cc5de8' },
+      { label: 'water fitting',  r: 25,  color: '#4a90e2' },
+    ];
+
+    // ── MAP ───────────────────────────────────────────────────────────────────
+    const renderer = L.canvas({ padding: 0.5 });
+    const map = L.map('map', { renderer }).setView([47.3693, 8.5411], 15);
+
+    L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg', {
+      attribution: '© <a href="https://www.swisstopo.admin.ch/">swisstopo</a>',
+      maxZoom: 18,
+    }).addTo(map);
+
+    // ── LAYER STATE ───────────────────────────────────────────────────────────
+    const layerGroups = {};   // key → L.LayerGroup
+    const layerCounts = {};   // key → { points, lines }
+    const countEls    = {};   // key → DOM element
+
+    // ── BUILD SIDEBAR CONTROLS ────────────────────────────────────────────────
+    const controlsEl = document.getElementById('layer-controls');
+    for (const cfg of LAYERS) {
+      const row = document.createElement('div');
+      row.className = 'layer-row';
+
+      const btn = document.createElement('button');
+      btn.className = 'layer-btn';
+      btn.textContent = cfg.label;
+      btn.style.borderColor = cfg.color;
+      btn.style.color = cfg.color;
+      btn.dataset.key = cfg.key;
+
+      const countEl = document.createElement('span');
+      countEl.className = 'layer-count';
+      countEl.textContent = '…';
+      countEls[cfg.key] = countEl;
+
+      btn.addEventListener('click', () => {
+        const grp = layerGroups[cfg.key];
+        if (!grp) return;
+        if (map.hasLayer(grp)) { grp.remove(); btn.classList.add('off'); }
+        else                   { grp.addTo(map); btn.classList.remove('off'); }
+      });
+
+      row.appendChild(btn);
+      row.appendChild(countEl);
+      controlsEl.appendChild(row);
+    }
+
+    // ── CLICK RADIUS OVERLAY ──────────────────────────────────────────────────
+    const clickGroup = L.layerGroup().addTo(map);
+
+    map.on('click', (e) => {
+      clickGroup.clearLayers();
+      const { lat, lng } = e.latlng;
+
+      // Cull radius (outermost, white dashed)
+      L.circle([lat, lng], {
+        radius: CULL_RADIUS, color: '#ffffff', weight: 1,
+        dashArray: '4 4', fill: false, renderer,
+      }).addTo(clickGroup);
+
+      // Trigger radii, inner to outer
+      const drawn = new Set();
+      for (const { label, r, color } of [...TRIGGER_RADII].sort((a, b) => b.r - a.r)) {
+        if (drawn.has(r)) continue;
+        drawn.add(r);
+        L.circle([lat, lng], { radius: r, color, weight: 1, fill: false, renderer }).addTo(clickGroup);
+      }
+
+      // Centre dot
+      L.circleMarker([lat, lng], { radius: 3, color: '#fff', fillColor: '#fff', fillOpacity: 1, weight: 1, renderer }).addTo(clickGroup);
+
+      // Update sidebar info
+      const infoEl = document.getElementById('click-info');
+      infoEl.innerHTML = `<div style="color:#888;margin-bottom:4px">${lat.toFixed(6)}, ${lng.toFixed(6)}</div>`
+        + `<div class="radius-row"><span>cull</span><span class="radius-val">${CULL_RADIUS}m (dashed)</span></div>`
+        + TRIGGER_RADII.map(({ label, r, color }) =>
+            `<div class="radius-row"><span style="color:${color}">${label}</span><span class="radius-val">${r}m</span></div>`
+          ).join('');
+    });
+
+    // ── STATUS LOG ────────────────────────────────────────────────────────────
+    const statusEl = document.getElementById('status');
+    function log(msg, cls = '') {
+      const line = document.createElement('div');
+      if (cls) line.className = cls;
+      line.textContent = msg;
+      statusEl.appendChild(line);
+    }
+    statusEl.innerHTML = '';
+
+    // ── LOAD GEOJSON ──────────────────────────────────────────────────────────
+    function stylePoint(cfg) {
+      return { radius: 3, color: cfg.color, fillColor: cfg.color, fillOpacity: 0.7, weight: 1, renderer };
+    }
+    function styleLine(cfg) {
+      return { color: cfg.color, weight: 1.5, opacity: 0.7, renderer };
+    }
+
+    async function loadLayer(cfg) {
+      const res = await fetch(cfg.url);
+      if (!res.ok) throw new Error(`${cfg.url} → HTTP ${res.status}`);
+      const geojson = await res.json();
+
+      let points = 0, lines = 0;
+      const grp = L.layerGroup();
+
+      L.geoJSON(geojson, {
+        renderer,
+        pointToLayer: (feature, latlng) => {
+          points++;
+          return L.circleMarker(latlng, stylePoint(cfg));
+        },
+        style: () => styleLine(cfg),
+        onEachFeature: (feature) => {
+          if (feature.geometry.type === 'LineString' || feature.geometry.type === 'MultiLineString') lines++;
+        },
+        filter: (feature) => {
+          // Exclude area footprints and overhead for cleaner rendering
+          const gt = feature.properties?.geomType;
+          if (gt === 'area')     return false;
+          if (gt === 'overhead') return false;
+          return true;
+        },
+      }).addTo(grp);
+
+      layerGroups[cfg.key] = grp;
+      layerCounts[cfg.key] = { points, lines };
+      countEls[cfg.key].textContent = `${points + lines} ft`;
+      grp.addTo(map);
+      log(`✓ ${cfg.label} — ${points} pts + ${lines} lines`, 'ok');
+    }
+
+    // ── LOAD ROUTE ────────────────────────────────────────────────────────────
+    async function loadRoute() {
+      const res = await fetch('route-waypoints.json');
+      if (!res.ok) return;
+      const waypoints = await res.json();
+      const latlngs = waypoints.map(wp => [wp.lat, wp.lng]);
+      L.polyline(latlngs, { color: '#ffffff', weight: 2, opacity: 0.5, dashArray: '6 4' }).addTo(map);
+      log(`✓ Route — ${waypoints.length} waypoints`, 'ok');
+    }
+
+    // ── MAIN ──────────────────────────────────────────────────────────────────
+    (async () => {
+      log('Loading layers…');
+      try {
+        await loadRoute();
+        await Promise.all(LAYERS.map(cfg => loadLayer(cfg).catch(e => log(`✗ ${cfg.label}: ${e.message}`, 'err'))));
+        log('All layers loaded.');
+      } catch (e) {
+        log(`Error: ${e.message}`, 'err');
+      }
+    })();
+  </script>
+</body>
+</html>

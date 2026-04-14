@@ -593,9 +593,9 @@ const AudioLayers = (() => {
       let nearestCableDist = Infinity;
       for (const c of cables) { if (c.dist < nearestCableDist) nearestCableDist = c.dist; }
       const ELEC_CABLE_RADIUS = 40;
-      let masterTarget = _elecActive.size > 0 ? 0.7 : 0;
+      let masterTarget = _elecActive.size > 0 ? 0.175 : 0;
       if (nearestCableDist <= ELEC_CABLE_RADIUS) {
-        masterTarget = Math.min(1.0, masterTarget + (1 - nearestCableDist / ELEC_CABLE_RADIUS) * 0.3);
+        masterTarget = Math.min(0.25, masterTarget + (1 - nearestCableDist / ELEC_CABLE_RADIUS) * 0.075);
       }
       _elecMasterGain.gain.setTargetAtTime(masterTarget, t, 0.8);
     } else if (!LAYER_ENABLED.electricity && _elecMasterGain) {
@@ -701,7 +701,39 @@ const AudioLayers = (() => {
     _initialized = false;
   }
 
-  return { init, update, onListenerMove, stop, LAYER_ENABLED };
+  // ── SET LAYER ENABLED ─────────────────────────────────────────────────────
+  // Call from toggle handler instead of writing LAYER_ENABLED directly.
+  // Immediately ramps the layer's continuous gains to silence on disable
+  // so audio stops within ~50ms rather than waiting for the next update() tick.
+  function setLayerEnabled(layer, enabled) {
+    LAYER_ENABLED[layer] = enabled;
+    if (!_ctx || !_initialized || enabled) return;
+    const t  = _ctx.currentTime;
+    const TC = 0.05; // ~50ms — feels immediate
+    switch (layer) {
+      case 'tram':
+        if (_droneGain) _droneGain.gain.setTargetAtTime(0, t, TC);
+        if (_idlePool) for (const node of _idlePool) node.gain.gain.setTargetAtTime(0, t, TC);
+        break;
+      case 'sewage':
+        if (_sewageGain) _sewageGain.gain.setTargetAtTime(0, t, TC);
+        break;
+      case 'electricity':
+        if (_elecMasterGain) _elecMasterGain.gain.setTargetAtTime(0, t, TC);
+        for (const slot of _elecPool) slot.slotGain.gain.setTargetAtTime(0, t, TC);
+        _elecActive.clear();
+        break;
+      case 'telecom':
+        if (_telecomCableGain) _telecomCableGain.gain.setTargetAtTime(0, t, TC);
+        break;
+      case 'fernwaerme':
+        if (_fernMasterGain) _fernMasterGain.gain.setTargetAtTime(0, t, TC);
+        break;
+      // water: one-shot pulses only, no continuous gain to ramp
+    }
+  }
+
+  return { init, update, onListenerMove, stop, setLayerEnabled, LAYER_ENABLED };
 })();
 
 export default AudioLayers;

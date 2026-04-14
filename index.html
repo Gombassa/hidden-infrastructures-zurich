@@ -420,7 +420,7 @@
     for (const [key, color] of Object.entries(LAYER_COLORS)) {
       const btn = document.getElementById(`toggle-${key}`);
       btn.addEventListener('click', () => {
-        AudioLayers.LAYER_ENABLED[key] = !AudioLayers.LAYER_ENABLED[key];
+        AudioLayers.setLayerEnabled(key, !AudioLayers.LAYER_ENABLED[key]);
         const on = AudioLayers.LAYER_ENABLED[key];
         btn.style.borderColor = on ? color : '#2a2a2a';
         btn.style.color       = on ? color : '#333';

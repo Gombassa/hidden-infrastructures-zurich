@@ -1,0 +1,32 @@
+steps:
+  # Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - '-t'
+      - 'europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/hidden-infrastructures:$COMMIT_SHA'
+      - '.'
+
+  # Push to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - 'europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/hidden-infrastructures:$COMMIT_SHA'
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - hidden-infrastructures
+      - '--image=europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/hidden-infrastructures:$COMMIT_SHA'
+      - '--region=europe-west6'
+      - '--allow-unauthenticated'
+      - '--port=8080'
+
+images:
+  - 'europe-west6-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/hidden-infrastructures:$COMMIT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

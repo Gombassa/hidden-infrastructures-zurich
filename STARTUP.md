@@ -1,63 +1,44 @@
 # STARTUP
 
 ## Prerequisites
-Run all commands from the project root directory (hiddeninfrastructures-zurich/).
 
-```
+Run all commands from the project root directory.
+
 cd "C:\Users\robin\Documents\GitHub\hidden-infrastructures-zurich"
-```
 
 ---
 
 ## Local development (desktop browser only)
 
-**Terminal 1 — start Vite dev server:**
-```
+Terminal 1 — start Vite dev server:
+
 npx vite --host
-```
+
 Open http://localhost:8080 in browser.
+
+Shut down: Ctrl+C in Terminal 1.
 
 ---
 
 ## Mobile testing (phone GPS + real device)
 
-**Terminal 1 — start Vite dev server:**
-```
-npx vite --host
-```
-
-**Terminal 2 — start Cloudflare tunnel:**
-```
-npx cloudflared tunnel --url http://localhost:8080
-```
-Copy the `trycloudflare.com` URL from Terminal 2 output.  
-Open it in a **new tab** on your phone (do not follow a link — type it directly).
-
+Push to main branch — Cloud Run redeploys automatically.
+Open the Cloud Run service URL in Android Chrome.
+Cloud Run service URL: https://hidden-infrastructures-50944718104.europe-west6.run.app/
+Open in Android Chrome for GPS field testing.
 ---
 
-## Docker (local test)
+## Docker (local test only)
 
-```bash
-cd C:\Users\robin\Documents\GitHub\hidden-infrastructures-zurich
 docker build -t hidden-infrastructures .
 docker run -p 8080:80 hidden-infrastructures
-```
 
----
-
-## Shut down
-
-**Kill Cloudflare tunnel (Windows):**
-```bash
-taskkill /IM cloudflared.exe /F
-```
-
-**Kill Vite:**
-`Ctrl+C` in Terminal 1.
+Open http://localhost:8080 in browser.
 
 ---
 
 ## Notes
+
 - Vite sets required COEP/COOP headers for AudioWorklet + SharedArrayBuffer
-- `allowedHosts: true` in vite.config.js permits any Cloudflare tunnel hostname
-- The tunnel URL changes every session
+- allowedHosts: true in vite.config.js permits any hostname
+- Cloud Run deployment triggered automatically on push to main via cloudbuild.yaml

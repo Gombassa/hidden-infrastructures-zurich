@@ -223,6 +223,7 @@ Production audio patches are authored in Max/MSP, compiled via RNBO (Cycling '74
 - Web Audio API direct synthesis is the confirmed production path for Phase 1
 - RNBO/Max MSP deferred; no licence purchases required before Phase 2
 - All tram audio (crackle, hiss pool, drone, reverb) now lives in `audio-layers.js` — `index.html` contains no synthesis code
+- Cloud Run service URL: https://hidden-infrastructures-50944718104.europe-west6.run.app/
 
 ---
 
@@ -276,3 +277,17 @@ Audio lifecycle:
 - Fernwärme tremolo: LFO must modulate a carrier gain (multiplicative), not the master gain (additive) — additive LFO bleeds through when master=0, producing sound before Start and after Stop
 - Hiss pool comb delay times must be assigned per-slot at init — assigning them only at max buffer creation (as was previously done) makes all slots sound identical
 - onListenerMove() must be called on GPS fix to update hiss panner positions between 10s tram ticks — without it, panning freezes at last tram-tick heading
+
+## Next Steps (as of April 2026)
+
+- Field test water, sewage, electricity, telecom, Fernwärme layers on route
+- Fix tram markers not rendering on map (deprioritised cosmetic)
+- District musical theme — deferred to later phase
+- RNBO/Max MSP integration — deferred to Phase 2
+- Phase 2 planning: Districts 2-6 expansion
+
+## Next Session
+
+- Field test water, sewage, electricity, telecom, Fernwärme layers on route
+- Fix tram markers not rendering on map (deprioritised)
+- Investigate Cloud Run build trigger reliability

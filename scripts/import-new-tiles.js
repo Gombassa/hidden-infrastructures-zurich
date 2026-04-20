@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const GEOSHOP_DIR = join(__dirname, '../data/raw/GeoShop');
-const MANIFEST_PATH = join(GEOSHOP_DIR, '.processed-orders.json');
+const MANIFEST_PATH = join(__dirname, '../data/processed/.processed-orders.json');
 
 const allOrders = readdirSync(GEOSHOP_DIR).filter(name => name.startsWith('order_'));
 

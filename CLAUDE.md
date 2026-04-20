@@ -40,9 +40,6 @@ node scripts/extract-route-waypoints.js
 # Import new GeoShop tile deliveries
 node scripts/import-new-tiles.js
 
-# View generated maps
-open data/processed/substations-map.html
-open data/processed/tram-simulation-live.html
 ```
 
 **Dependencies:** `npm install`

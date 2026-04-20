@@ -14,7 +14,8 @@ const ELEC_NODE_RADIUS       = 40;   // listener-to-transformer node
 const ELEC_CABLE_RADIUS      = 40;   // listener-to-cable (nearest point on segment)
 const TELECOM_NODE_RADIUS    = 40;   // listener-to-telecom node
 const TELECOM_CABLE_RADIUS   = 30;   // listener-to-cable (nearest point on segment)
-const FERNWAERME_PIPE_RADIUS = 60;   // listener-to-heat pipe (nearest point on segment)
+const FERNWAERME_PIPE_RADIUS  = 30;   // listener-to-heat pipe (nearest point on segment)
+const SEWAGE_JUNCTION_RADIUS  = 15;   // listener-to-sewage junction
 
 // ── CULL ─────────────────────────────────────────────────────────────────────
 const CULL_RADIUS = 100; // metres — bounding-box pre-filter before precise distance math
@@ -32,6 +33,9 @@ function cullLines(features, b) {
 }
 
 // ── STATE ────────────────────────────────────────────────────────────────────
+let _prevCalcLat = null;  // listener position from previous calculate() call
+let _prevCalcLng = null;
+
 let substations     = null;  // [{id, lat, lng}]
 let feeders         = null;  // [{id, lat, lng}]  — lk-tram-lk nodes (geomType=node)
 let powerlines      = null;  // [[[lng,lat],...]] — lk-tram-lk trasse (geomType=trasse)
@@ -39,6 +43,7 @@ let powerlines      = null;  // [[[lng,lat],...]] — lk-tram-lk trasse (geomTyp
 let waterPipes      = null;  // [{id, coords, midLat, midLng}]
 let waterFittings   = null;  // [{id, lat, lng}]
 let sewagePipes     = null;  // [{id, coords, midLat, midLng}]
+let sewageJunctions = null;  // [{id, lat, lng}] — pre-computed pipe-endpoint clusters
 let elecNodes       = null;  // [{id, lat, lng}]
 let elecCables      = null;  // [{id, coords, midLat, midLng}]
 let telecomNodes    = null;  // [{id, lat, lng}]
@@ -89,6 +94,134 @@ function nearestSegmentDist(listenerLng, listenerLat, coords) {
     if (d < minDist) minDist = d;
   }
   return minDist;
+}
+
+// Bearing (0–360° from N) from listener to nearest point on nearest segment.
+// Used to pan spatially-anchored sounds toward the pipe's direction.
+function nearestSegmentBearing(listenerLng, listenerLat, coords) {
+  const toRad = (d) => d * Math.PI / 180;
+  const cosLat = Math.cos(toRad(listenerLat));
+  let minDist = Infinity;
+  let bestBearing = 0;
+  for (let i = 0; i < coords.length - 1; i++) {
+    const aLng = coords[i][0],     aLat = coords[i][1];
+    const bLng = coords[i + 1][0], bLat = coords[i + 1][1];
+    // Find parameter t of nearest point on segment
+    const bx = (bLng - aLng) * cosLat;
+    const by = bLat - aLat;
+    const px = (listenerLng - aLng) * cosLat;
+    const py = listenerLat - aLat;
+    const segLenSq = bx * bx + by * by;
+    const tParam = segLenSq === 0 ? 0 : Math.max(0, Math.min(1, (px * bx + py * by) / segLenSq));
+    const nLng = aLng + tParam * (bLng - aLng);
+    const nLat = aLat + tParam * (bLat - aLat);
+    const dx = px - tParam * bx;
+    const dy = py - tParam * by;
+    const d = Math.sqrt(dx * dx + dy * dy);
+    if (d < minDist) {
+      minDist = d;
+      const dLng = (nLng - listenerLng) * cosLat;
+      const dLat = nLat - listenerLat;
+      bestBearing = (Math.atan2(dLng, dLat) * 180 / Math.PI + 360) % 360;
+    }
+  }
+  return bestBearing;
+}
+
+// True if segments AB and CD cross (strictly — not at shared endpoints).
+// Works in raw lng/lat: topological sign test is valid for short segments.
+function segsCross(aLng, aLat, bLng, bLat, cLng, cLat, dLng, dLat) {
+  const cross = (ox, oy, ax, ay, bx, by) =>
+    (ax - ox) * (by - oy) - (ay - oy) * (bx - ox);
+  const d1 = cross(cLng, cLat, dLng, dLat, aLng, aLat);
+  const d2 = cross(cLng, cLat, dLng, dLat, bLng, bLat);
+  const d3 = cross(aLng, aLat, bLng, bLat, cLng, cLat);
+  const d4 = cross(aLng, aLat, bLng, bLat, dLng, dLat);
+  return (d1 * d2 < 0) && (d3 * d4 < 0);
+}
+
+// Acute angle (0–90°) between movement vector (prev→listener) and the nearest
+// segment of a LineString. 0 = perfectly parallel, 90 = perpendicular.
+function nearestSegAngleDeg(listenerLng, listenerLat, prevLng, prevLat, coords) {
+  const cosLat = Math.cos(listenerLat * Math.PI / 180);
+  const mvx = (listenerLng - prevLng) * cosLat;
+  const mvy = listenerLat - prevLat;
+  const mvMag = Math.sqrt(mvx * mvx + mvy * mvy);
+  if (mvMag < 1e-10) return 90;
+  let minDist = Infinity;
+  let bestAngle = 90;
+  for (let i = 0; i < coords.length - 1; i++) {
+    const d = pointToSegmentDistance(
+      listenerLng, listenerLat,
+      coords[i][0], coords[i][1], coords[i + 1][0], coords[i + 1][1],
+    );
+    if (d < minDist) {
+      minDist = d;
+      const sx = (coords[i + 1][0] - coords[i][0]) * cosLat;
+      const sy = coords[i + 1][1] - coords[i][1];
+      const sMag = Math.sqrt(sx * sx + sy * sy);
+      if (sMag < 1e-10) continue;
+      const dot = Math.abs(mvx * sx + mvy * sy);
+      let angle = Math.acos(Math.min(1, dot / (mvMag * sMag))) * 180 / Math.PI;
+      if (angle > 90) angle = 180 - angle;
+      bestAngle = angle;
+    }
+  }
+  return bestAngle;
+}
+
+// Extend a proximityLines result array with crossing + alongside flags.
+// canDetect = hasPrev && moveDist > MIN_MOVE_METRES; culledFeatures must align with results by index.
+function extendLinesWithMovement(results, culledFeatures, canDetect, prevLng, prevLat, curLng, curLat) {
+  const ALONGSIDE_RADIUS = 20;
+  const ALONGSIDE_ANGLE  = 35;
+  return results.map((result, i) => {
+    const coords = culledFeatures[i].coords;
+    let crossing  = false;
+    let alongside = false;
+    if (canDetect) {
+      for (let s = 0; s < coords.length - 1 && !crossing; s++) {
+        crossing = segsCross(prevLng, prevLat, curLng, curLat,
+          coords[s][0], coords[s][1], coords[s + 1][0], coords[s + 1][1]);
+      }
+      if (!crossing && result.dist <= ALONGSIDE_RADIUS) {
+        alongside = nearestSegAngleDeg(curLng, curLat, prevLng, prevLat, coords) < ALONGSIDE_ANGLE;
+      }
+    }
+    return { ...result, crossing, alongside };
+  });
+}
+
+// Pre-compute sewage pipe-endpoint clusters as junction points.
+// A junction is where ≥2 pipe endpoints fall within THRESH metres of each other.
+function computeSewageJunctions(pipes, thresh = 8) {
+  const pts = [];
+  for (const p of pipes) {
+    const c = p.coords;
+    pts.push([c[0][0], c[0][1]]);
+    pts.push([c[c.length - 1][0], c[c.length - 1][1]]);
+  }
+  const latDelta = thresh / 111320;
+  const merged   = new Uint8Array(pts.length);
+  const junctions = [];
+  for (let i = 0; i < pts.length; i++) {
+    if (merged[i]) continue;
+    const cluster = [i];
+    for (let j = i + 1; j < pts.length; j++) {
+      if (merged[j]) continue;
+      if (Math.abs(pts[j][1] - pts[i][1]) > latDelta) continue;
+      if (haversineDistance(pts[i][0], pts[i][1], pts[j][0], pts[j][1]) <= thresh) cluster.push(j);
+    }
+    cluster.forEach(k => (merged[k] = 1));
+    if (cluster.length >= 2) {
+      junctions.push({
+        id:  `sj-${junctions.length}`,
+        lng: cluster.reduce((s, k) => s + pts[k][0], 0) / cluster.length,
+        lat: cluster.reduce((s, k) => s + pts[k][1], 0) / cluster.length,
+      });
+    }
+  }
+  return junctions;
 }
 
 // Midpoint of a coordinate array — used as the representative position for PannerNode.
@@ -240,15 +373,18 @@ const ProximityEngine = {
       `  lk-tram-lk: ${tramLkJson.features.length} total → ${feeders.length} nodes + ${powerlines.length} trasse (${tramLkJson.features.length - feeders.length - powerlines.length} excluded)`, 'linf'
     );
 
-    waterPipes    = parseLineFeatures(waterJson,    'pipe',    'water-pipe');
-    waterFittings = parsePointFeatures(waterJson,   'fitting', 'water-fit');
+    waterPipes    = parseLineFeatures(waterJson, 'pipe', 'water-pipe');
+    // LKZ1322 = hydrants (above-ground, visible) — excluded from audio triggers
+    const waterJsonNoHydrants = { ...waterJson, features: waterJson.features.filter(f => f.properties.layer !== 'LKZ1322-MSU-') };
+    waterFittings = parsePointFeatures(waterJsonNoHydrants, 'fitting', 'water-fit');
     (window.appendLog || console.log)(
       `  lk-water: ${waterJson.features.length} total → ${waterPipes.length} pipes + ${waterFittings.length} fittings (${waterJson.features.length - waterPipes.length - waterFittings.length} excluded)`, 'linf'
     );
 
-    sewagePipes = parseLineFeatures(sewageJson, 'pipe', 'sewage-pipe');
+    sewagePipes     = parseLineFeatures(sewageJson, 'pipe', 'sewage-pipe');
+    sewageJunctions = computeSewageJunctions(sewagePipes);
     (window.appendLog || console.log)(
-      `  lk-sewage: ${sewageJson.features.length} total → ${sewagePipes.length} pipes (${sewageJson.features.length - sewagePipes.length} excluded)`, 'linf'
+      `  lk-sewage: ${sewageJson.features.length} total → ${sewagePipes.length} pipes + ${sewageJunctions.length} junctions (${sewageJson.features.length - sewagePipes.length} excluded)`, 'linf'
     );
 
     elecNodes  = parsePointFeatures(elecJson, 'node',  'elec-node');
@@ -379,27 +515,68 @@ const ProximityEngine = {
     }
 
     const b = cullBounds(listenerLat, listenerLng);
+
+    // Extend water + sewage pipes with crossing/alongside using prev listener position
+    const MIN_MOVE_METRES = 0.5;
+    const hasPrev   = _prevCalcLat !== null;
+    const moveDist  = hasPrev ? haversineDistance(_prevCalcLng, _prevCalcLat, listenerLng, listenerLat) : 0;
+    const canDetect = hasPrev && moveDist > MIN_MOVE_METRES;
+
+    const culledWaterPipes    = cullLines(waterPipes, b);
+    const culledSewagePipes   = cullLines(sewagePipes, b);
+    const culledElecCables    = cullLines(elecCables, b);
+    const culledTelecomCables = cullLines(telecomCables, b);
+    const culledFernPipes     = cullLines(fernwaermePipes, b);
+
+    const waterPipeResults  = extendLinesWithMovement(
+      proximityLines(listenerLng, listenerLat, culledWaterPipes,  WATER_PIPE_RADIUS),
+      culledWaterPipes,  canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+    );
+    const sewagePipeResults = extendLinesWithMovement(
+      proximityLines(listenerLng, listenerLat, culledSewagePipes, SEWAGE_PIPE_RADIUS),
+      culledSewagePipes, canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+    );
+    const elecCableResults  = extendLinesWithMovement(
+      proximityLines(listenerLng, listenerLat, culledElecCables,  ELEC_CABLE_RADIUS),
+      culledElecCables,  canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+    );
+    const telecomCableResults = extendLinesWithMovement(
+      proximityLines(listenerLng, listenerLat, culledTelecomCables, TELECOM_CABLE_RADIUS),
+      culledTelecomCables, canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+    );
+    const fernPipeResults   = extendLinesWithMovement(
+      proximityLines(listenerLng, listenerLat, culledFernPipes, FERNWAERME_PIPE_RADIUS),
+      culledFernPipes, canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+    ).map((result, i) => ({
+      ...result,
+      bearing: nearestSegmentBearing(listenerLng, listenerLat, culledFernPipes[i].coords),
+    }));
+
+    _prevCalcLat = listenerLat;
+    _prevCalcLng = listenerLng;
+
     return {
       substations: substationResults,
       feeders: feederResults,
       nearestPowerlineDist,
       water: {
-        pipes:    proximityLines(listenerLng, listenerLat,  cullLines(waterPipes, b),     WATER_PIPE_RADIUS),
+        pipes:    waterPipeResults,
         fittings: proximityPoints(listenerLng, listenerLat, cullPoints(waterFittings, b), WATER_FITTING_RADIUS),
       },
       sewage: {
-        pipes: proximityLines(listenerLng, listenerLat, cullLines(sewagePipes, b), SEWAGE_PIPE_RADIUS),
+        pipes:     sewagePipeResults,
+        junctions: proximityPoints(listenerLng, listenerLat, cullPoints(sewageJunctions, b), SEWAGE_JUNCTION_RADIUS),
       },
       electricity: {
-        nodes:  proximityPoints(listenerLng, listenerLat, cullPoints(elecNodes, b),  ELEC_NODE_RADIUS),
-        cables: proximityLines(listenerLng, listenerLat,  cullLines(elecCables, b),  ELEC_CABLE_RADIUS),
+        nodes:  proximityPoints(listenerLng, listenerLat, cullPoints(elecNodes, b), ELEC_NODE_RADIUS),
+        cables: elecCableResults,
       },
       telecom: {
         nodes:  proximityPoints(listenerLng, listenerLat, cullPoints(telecomNodes, b),  TELECOM_NODE_RADIUS),
-        cables: proximityLines(listenerLng, listenerLat,  cullLines(telecomCables, b),  TELECOM_CABLE_RADIUS),
+        cables: telecomCableResults,
       },
       fernwaerme: {
-        pipes: proximityLines(listenerLng, listenerLat, cullLines(fernwaermePipes, b), FERNWAERME_PIPE_RADIUS),
+        pipes: fernPipeResults,
       },
     };
   },

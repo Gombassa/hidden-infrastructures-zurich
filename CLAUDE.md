@@ -112,26 +112,26 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 - Feeder attributes are minimal (only `objectid`, `einbaudatu`) — no substation_id or connectivity metadata
 - Infrastructure geodata is static snapshots — only tram positions update in real-time
 - Water/sewage/electricity/telecom/Fernwärme layers use static infrastructure positions — no real-time flow/usage data available
-- Fernwärme coverage is sparse in District 1 — encounters will be infrequent (nearest pipe at Paradeplatz was 79m, just outside 60m threshold)
-- Audio synthesis in audio-layers.js is placeholder Web Audio API — production sound design via Max/MSP + RNBO deferred to Phase 3
+- Fernwärme coverage is sparse in District 1 — 30m radius means encounters will be infrequent (intentional — rare discovery moments)
+- Audio synthesis in audio-layers.js is procedural Web Audio API — production sound design via Max/MSP + RNBO deferred to Phase 3
+- Tram markers not rendering on map — known cosmetic issue, deprioritised
+- ALONGSIDE_RADIUS (20m) and ALONGSIDE_ANGLE (35°) are uniform across all layers — may need per-layer tuning after field testing
 
-## Audio Layers (Phase 1 MVP - District 1)
+## Audio Layers (Phase 2 complete)
 
 **Infrastructure Layers (procedurally generated):**
-1. **Tram electrical** - Feeder crackle when trams draw power, comb-filtered hiss, powerline drone
-2. **Water supply** - Hydraulic pulse on proximity entry, flow textures
-3. **Sewage** - Deep bass rumble, distance-modulated continuous texture
-4. **Electricity grid** - Sawtooth oscillator pool (1500Hz), node entry triggers, cable density modulation
-5. **Telecommunications** - Chirp on node entry (2→4kHz sweep), continuous highpass fiber texture
-6. **Fernwärme** - Slow 60Hz sine tone with 0.3Hz tremolo, warm thermal pulse on proximity
+1. **Tram electrical** — Feeder crackle (HRTF spatial), comb-filtered hiss pool (6 slots, distinct delay times), powerline drone (dual-LFO, reverb)
+2. **Water supply** — Proximity-scaled pulse on entry; fitting cluster drip; pipe crossing knock; alongside loop
+3. **Sewage** — Deep bass rumble (distance-modulated); rhythmic gurgle below 20m; junction thud; pipe crossing; alongside loop
+4. **Electricity grid** — 8-slot sawtooth pool (1490–1510Hz spread + beating); node cluster density gain; cable crossing snap; alongside loop
+5. **Telecommunications** — 4-slot LFO-gated burst pool (density-modulated rate); node chirp + dwell handshake; cable crossing click; alongside loop
+6. **Fernwärme** — 60Hz sine + tremolo; bearing-panned StereoPanner; 30m radius; crossing burst; alongside loop
 
-**District Musical Theme:**
-- District 1 (Altstadt): Procedurally-generated electronic theme reflecting historic center character
-- Composed layer that infrastructure sounds "perform" atop
+**Shared density reverb:** 5 layers feed a shared convolver whose wet level scales with active layer count (0.007–0.07). Dense infrastructure zones feel spatially richer.
 
-**Future Expansion (Districts 2-6):**
-- Each district receives unique musical theme
-- Same 5 infrastructure layers with district-specific sonic character
+**District Musical Theme:** Deferred to Phase 3.
+
+**Future Expansion (Districts 2-6):** Each district receives unique musical theme. Same 6 infrastructure layers with district-specific sonic character.
 
 ## Engine Modules (src/)
 
@@ -161,13 +161,17 @@ ProximityEngine.calculate(tramState, listenerLat, listenerLng, heading, speed);
 //     substations: [{id, lat, lng, tramCount, nearestTramDist}],
 //     feeders:     [{id, lat, lng, triggered, triggeringTram}],
 //     nearestPowerlineDist,          // metres to nearest tram trasse segment
-//     water:       { pipes: [{id, midLat, midLng, dist, triggered}], fittings: [...] },
-//     sewage:      { pipes: [...] },
-//     electricity: { nodes: [{id, lat, lng, dist, triggered}], cables: [...] },
-//     telecom:     { nodes: [...], cables: [...] },
-//     fernwaerme:  { pipes: [...] },
+//     water:       { pipes:    [{id, midLat, midLng, dist, triggered, crossing, alongside}],
+//                    fittings: [{id, lat, lng, dist, triggered}] },
+//     sewage:      { pipes:     [{...crossing, alongside}],
+//                    junctions: [{id, lat, lng, dist, triggered}] },
+//     electricity: { nodes:  [{id, lat, lng, dist, triggered}],
+//                    cables: [{...crossing, alongside}] },
+//     telecom:     { nodes:  [{id, lat, lng, dist, triggered}],
+//                    cables: [{...crossing, alongside}] },
+//     fernwaerme:  { pipes: [{...crossing, alongside, bearing}] },  // bearing = 0–360° from N
 //   }
-// New layer arrays are empty when listenerLat/Lng is null.
+// Layer arrays are empty when listenerLat/Lng is null.
 ```
 
 - Substation radius: 150m (tramCount = trams within this range)
@@ -177,7 +181,7 @@ ProximityEngine.calculate(tramState, listenerLat, listenerLng, heading, speed);
 - Sewage: 80m pipe (nearest point on segment)
 - Electricity: 40m nodes / 40m cables
 - Telecom: 40m nodes / 30m cables
-- Fernwärme: 60m pipes (provisional)
+- Fernwärme: 30m pipes
 
 ### AudioLayers (`src/audio-layers.js`)
 Singleton, default export. Web Audio API synthesis for **all 6 infrastructure layers** including tram electrical. Lifecycle: `init()` on Start, `stop()` tears down all nodes and resets for next Start.
@@ -191,12 +195,26 @@ AudioLayers.stop();                                                // tears down
 AudioLayers.LAYER_ENABLED                                          // { tram, water, sewage, electricity, telecom, fernwaerme }
 ```
 
-- Tram electrical: feeder crackle (6-burst noise, HRTF spatial, debounced per feeder ID), comb-filtered hiss pool (6 nodes, distinct delay times per slot), drone (110/112Hz ±LFO, powerline proximity 20m→5m), reverb send
-- Water: bandpass noise burst on proximity entry (pipe 800Hz / fitting 1200Hz)
-- Sewage: looped lowpass noise, gain modulated by distance (continuous)
-- Electricity: 4-slot sawtooth oscillator pool (1500Hz ±3Hz), master gain gated by node proximity
-- Telecom nodes: sine chirp (2→4kHz sweep) on proximity entry; cable: looped highpass noise texture
-- Fernwärme: 60Hz sine + tremolo LFO (0.3Hz, ±0.4 carrier gain), gain ramps on proximity
+**Per-layer synthesis:**
+- **Tram electrical:** feeder crackle (6-burst noise, HRTF spatial, debounced per feeder ID), comb-filtered hiss pool (6 nodes, distinct delay times 2.3–8.9ms), drone (110/112Hz dual-LFO ±8Hz, powerline proximity 20m→5m), private convolver reverb + shared density reverb send
+- **Water:** proximity-scaled bandpass pulse on entry (pipe 800Hz / fitting 1200Hz, 30s cooldown, gain 0.04–0.18 by distance); fitting cluster drip rate (2800Hz, ±25% jitter, up to 3Hz); pipe crossing knock (380Hz); alongside knock loop (~3.5s ±30%)
+- **Sewage:** looped lowpass rumble (gain by distance, 80m); rhythmic gurgle below 20m (100Hz, random 1.25–5s); junction thud on entry (55Hz, 10s cooldown); pipe crossing transient (200Hz); alongside loop (~4s ±35%); shared density reverb send
+- **Electricity:** 8-slot sawtooth pool (1490–1510Hz spread, +3Hz beating per slot, LFO amplitude modulation); node cluster density gain multiplier (1.0–1.8× at 5+ nodes within 30m); cable crossing snap (2200Hz); alongside loop (~5s ±40%); shared density reverb send
+- **Telecom:** 4-slot LFO-gated burst pool (5000–6800Hz HP, 22/38/54/78Hz gate rates); cable density modulates rate 0.5–2.0×; node-entry chirp (2→4kHz, debounced); node dwell handshake after 5s (1→8kHz, 8s cooldown); cable crossing click (3500→6000Hz); alongside loop (~4s ±45%); shared density reverb send
+- **Fernwärme:** 60Hz sine + tremolo LFO (0.3Hz, ±0.4 carrier gain — multiplicative, prevents bleed); StereoPanner driven by `nearestSegmentBearing` relative to heading; 30m radius, 0.4s ramp-in; crossing burst (60Hz, 0.5s) through panner; alongside loop (~6s ±40%); shared density reverb send
+
+**Shared density reverb (`_initSharedReverb`):**
+- 5 continuous-gain nodes (drone, sewage, elecMaster, telecomBurstMaster, fernMaster) all connect to `_sharedReverbBus` → ConvolverNode (1.8s IR) → `_sharedReverbOut` → destination
+- `_sharedReverbOut.gain` = `pow((density−1)/5, 1.5) × 0.07`, computed each tick from active layer count (0–6); kicks in at 2+ overlapping layers; slow TC 2.5s
+
+**Line-crossing / alongside detection (`extendLinesWithMovement`):**
+- Applied to all 5 LineString layers (water pipes, sewage pipes, electricity cables, telecom cables, fernwärme pipes)
+- `crossing`: cross-product sign test on listener movement vector vs each segment (`segsCross`)
+- `alongside`: acute angle between movement vector and nearest segment < 35°, within 20m (`nearestSegAngleDeg`)
+- All extended computations happen BEFORE `_prevCalcLat/Lng` is updated each tick
+- `MIN_MOVE_METRES = 0.5` — prevents spurious events on GPS jitter
+
+**Note on `_sharedReverbBus` init order:** `_initSharedReverb()` must be called first in `init()` — all layer inits reference `_sharedReverbBus` when connecting their send.
 
 ### GPS Listener (inline in `index.html`)
 Note: `index.html` contains **no audio synthesis code**. All synthesis (including tram electrical) lives in `audio-layers.js`. GPS fix calls `AudioLayers.onListenerMove(lat, lng, heading)` to update hiss panner positions between tram ticks.
@@ -229,26 +247,27 @@ Production audio patches are authored in Max/MSP, compiled via RNBO (Cycling '74
 
 ## Current State (April 2026)
 
-Phase 1/2 active on `phase-1` git branch. Deployed to Cloud Run.
+Phase 2 complete on `main` branch. Deployed to Cloud Run.
 
-Audio pipeline working (field-tested on Bahnhofstrasse + Paradeplatz hardcoded test):
-- Feeder hiss (proximity-scaled, 6-node comb-filter pool, each slot distinct comb delay) — working
-- Feeder crackle (debounced one-shot per feeder ID, speed-mode detection) — working
-- Drone (powerline proximity, 20m→5m fade, dual-LFO + reverb) — working
-- Water (bandpass noise pulses on proximity entry) — working, pending field test
-- Sewage (continuous lowpass rumble, distance-modulated) — working, pending field test
-- Electricity (sawtooth oscillator pool, 4 slots) — working, pending field test
-- Telecom (chirp on node entry + highpass cable texture) — working, pending field test
-- Fernwärme (60Hz sine + tremolo) — working, pending field test
+All 6 audio layers implemented with event-driven synthesis:
+- Feeder hiss (6-node comb-filter pool, HRTF spatial) ✅
+- Feeder crackle (debounced per feeder ID, speed-mode detection) ✅
+- Drone (powerline proximity 20m→5m, dual-LFO, reverb) ✅
+- Water (proximity-scaled pulse, fitting drip, crossing knock, alongside loop) ✅
+- Sewage (rumble, gurgle, junction thud, crossing, alongside) ✅
+- Electricity (8-slot pool, density gain, crossing snap, alongside) ✅
+- Telecom (burst pool, dwell handshake, crossing click, alongside) ✅
+- Fernwärme (bearing panner, 30m radius, crossing, alongside) ✅
+- Shared density reverb (0–6 layers → 0–0.07 wet) ✅
+- Line-crossing/alongside detection on all 5 LineString layers ✅
 - Tram markers not rendering on map — known cosmetic issue, deprioritised
 
-All 6 layers now in `audio-layers.js` (tram electrical refactored out of index.html April 2026).
-UI has per-layer toggle buttons (TRAM / WATER / SEWAGE / ELECTRICITY / TELECOM / FERNWÄRME).
+30 GeoShop orders processed (55297–55476). Manifest: `data/processed/.processed-orders.json`.
 
 Audio lifecycle:
 - Unlock Audio: ProximityEngine.init() + AudioContext.resume() only — no synthesis nodes
-- Start: AudioLayers.init(ctx) — creates all 6 layers incl. tram drone + hiss pool; TramEngine.start()
-- Stop: AudioLayers.stop() — full teardown of all 6 layers; TramEngine.stop()
+- Start: AudioLayers.init(ctx) — creates all nodes incl. shared reverb bus first; TramEngine.start()
+- Stop: AudioLayers.stop() — full teardown of all layers + timers + cooldown maps; TramEngine.stop()
 
 ## Architecture decisions (confirmed)
 
@@ -275,19 +294,18 @@ Audio lifecycle:
 - AudioLayers.update() key shape must match ProximityEngine.calculate() return shape — nested (proximity.water.pipes) not flat (proximity.waterPipes)
 - AudioLayers lifecycle: init() on Start (not on Unlock Audio), full teardown in stop() with _initialized sentinel to guard against in-flight TramEngine ticks after Stop
 - Fernwärme tremolo: LFO must modulate a carrier gain (multiplicative), not the master gain (additive) — additive LFO bleeds through when master=0, producing sound before Start and after Stop
-- Hiss pool comb delay times must be assigned per-slot at init — assigning them only at max buffer creation (as was previously done) makes all slots sound identical
+- Hiss pool comb delay times must be assigned per-slot at init — assigning them only at max buffer creation makes all slots sound identical
 - onListenerMove() must be called on GPS fix to update hiss panner positions between 10s tram ticks — without it, panning freezes at last tram-tick heading
+- extendLinesWithMovement() calls must all happen BEFORE `_prevCalcLat = listenerLat` update — otherwise crossing detection uses the wrong prev position
+- _initSharedReverb() must be called first in init() — all 5 layer inits reference _sharedReverbBus when connecting their send; null reference if order is wrong
+- Telecom cables were initially wired through plain proximityLines (no crossing/alongside); fixed by switching to extendLinesWithMovement — verify all LineString layers use the extended path
+- GeoShop manifest must live in a tracked directory (data/processed/) not gitignored raw/ — otherwise import-new-tiles.js changes are lost on clone
+- StereoPanner vs PannerNode HRTF for bass: Fernwärme uses StereoPanner (not HRTF PannerNode) because HRTF provides poor directional cues below ~200Hz — a 60Hz fundamental won't localise meaningfully with head-related transfer functions. StereoPanner gives usable left/right separation at bass frequencies. Apply this whenever adding spatial positioning to sub-200Hz sources
 
 ## Next Steps (as of April 2026)
 
-- Field test water, sewage, electricity, telecom, Fernwärme layers on route
+- Field test all 6 layers + shared density reverb on full Stadelhofen → Paradeplatz route
+- Calibrate alongside/crossing sensitivity and density reverb wet levels from real-world positions
 - Fix tram markers not rendering on map (deprioritised cosmetic)
-- District musical theme — deferred to later phase
-- RNBO/Max MSP integration — deferred to Phase 2
-- Phase 2 planning: Districts 2-6 expansion
-
-## Next Session
-
-- Field test water, sewage, electricity, telecom, Fernwärme layers on route
-- Fix tram markers not rendering on map (deprioritised)
-- Investigate Cloud Run build trigger reliability
+- District musical theme — deferred to Phase 3
+- RNBO/Max MSP production sound design — deferred to Phase 3

@@ -2,7 +2,7 @@
 
 ## Status
 
-**GeoShop tile orders:** 12 total (55297–55302 + 55333–55335, 55350–55352). Extraction script: `scripts/extract-lk-geojson.js`. All tiles processed with deduplication across the full set. ✅
+**GeoShop tile orders:** 30 total (55297–55476). Extraction script: `scripts/extract-lk-geojson.js`. Manifest: `data/processed/.processed-orders.json` (tracked in git). Automated ingestion: `scripts/import-new-tiles.js`. All tiles processed with deduplication. ✅
 
 **ProximityEngine:** Loads all 7 data files in parallel. Per-layer geomType exclusions applied at parse time. Nearest-point-on-segment distance used for all LineString features. Returns proximity results for all 6 infrastructure layers. ✅
 
@@ -14,7 +14,7 @@
 
 **Deployed:** https://hidden-infrastructures-50944718104.europe-west6.run.app ✅
 
-**Open blocker:** Feeder trigger bug — trams as close as 5m to feeder nodes with feedersTriggered: 0. Under investigation.
+**Open blocker:** None. All known bugs resolved.
 
 ---
 
@@ -63,16 +63,18 @@ Current feature counts reflect all 12 tile orders after deduplication and per-la
 
 ## Infrastructure Layers — Current Summary
 
-| Layer | File | Features (post-filter) | Trigger Type | Radius |
-|-------|------|----------------------|--------------|--------|
-| Tram electrical | lk-tram-lk.geojson | 2,474 (trasse + node) | feeder crackle pool / trasse drone | existing |
-| Water | lk-water.geojson | 2,799 (pipe + fitting) | hydraulic pulse on proximity | 50m pipe / 25m fitting |
-| Sewage | lk-sewage.geojson | 1,952 (pipe only) | continuous rumble modulation | 80m |
-| Electricity | lk-electricity.geojson | 4,676 (node + cable) | looping drone pool on node entry (1500–1600Hz) | 40m |
-| Telecom | lk-telecom.geojson | 4,750 (node + cable) | chirp trigger on node entry | 40m node / 30m cable |
-| Fernwärme | lk-fernwaerme.geojson | 198 (pipe) | thermal pulse, 120–180Hz tonal | 60m provisional |
+| Layer | File | Features (post-filter) | Trigger Type | Radius | Crossing/Alongside |
+|-------|------|----------------------|--------------|--------|-------------------|
+| Tram electrical | lk-tram-lk.geojson | 2,899 (trasse + node) | feeder crackle pool / trasse drone | 50m feeder / 5m drone | — (tram-driven, not walker) |
+| Water | lk-water.geojson | 4,763 (pipe + fitting) | hydraulic pulse on entry; drip rate from fitting cluster; crossing knock; alongside knock loop | 50m pipe / 25m fitting | ✅ crossing + alongside |
+| Sewage | lk-sewage.geojson | 3,552 (pipe only) | continuous rumble; gurgle below 20m; junction thud; crossing transient; alongside gurgle loop | 80m pipe / 15m junction | ✅ crossing + alongside |
+| Electricity | lk-electricity.geojson | 7,223 (node + cable) | 8-slot oscillator pool; density gain; crossing snap; alongside snap loop | 40m node / 40m cable | ✅ crossing + alongside |
+| Telecom | lk-telecom.geojson | 8,301 (node + cable) | 4-slot burst pool (LFO-gated); node entry chirp; dwell handshake; crossing click; alongside click loop | 40m node / 30m cable | ✅ crossing + alongside |
+| Fernwärme | lk-fernwaerme.geojson | 198 (pipe) | 60Hz sine + tremolo; bearing-panned StereoPanner; crossing burst; alongside burst loop | 30m pipe | ✅ crossing + alongside |
 
-**Total active features: 16,849**
+**Total active features: 26,936**
+
+**Shared density reverb:** All 5 continuous-gain layers send to shared convolver (1.8s IR). Wet level driven by active layer count: 2 layers → 0.006, 4 layers → 0.033, 6 layers → 0.070. Slow TC (2.5s) accumulates spatial depth as the listener enters denser infrastructure.
 
 ---
 
@@ -97,23 +99,32 @@ All 5 steps complete ✅
 
 ### Step 4 — Telecom (`lk-telecom.geojson`) ✅
 - Node Points and cable LineStrings; overhead excluded on load
-- Node entry → chirp event (2kHz→4kHz, 200ms)
-- Cable proximity → continuous high-frequency texture
+- Node entry → chirp event (2kHz→4kHz, 200ms, per-node debounce)
+- Node dwell → handshake chirp after 5s (1→8kHz, 8s cooldown per node)
+- Cable proximity → 4-slot burst pool (LFO-gated noise, 22/38/54/78Hz per slot); density modulates rate 0.5–2.0×
+- Cable crossing → click (3500→6000Hz, 3s cooldown)
+- Alongside → click loop ~4s ±45%
+- `extendLinesWithMovement` applied to telecom cables ✅ (was missing, fixed)
 
 ### Step 5 — Fernwärme (`lk-fernwaerme.geojson`) ✅
 - Pipe LineStrings, no exclusions
-- Nearest point on segment, 60m radius
-- Thermal pulse: 120–180Hz sine + 0.3Hz tremolo LFO
-- Sound design direction confirmed; field validation pending
+- `extendLinesWithMovement` applied; `nearestSegmentBearing` returned per pipe
+- Radius: 30m (tightened from 60m for dramatic rare encounters)
+- Thermal drone: 60Hz sine + 0.3Hz tremolo LFO on carrier gain (multiplicative — prevents bleed)
+- StereoPanner: bearing from listener to nearest pipe segment, relative to heading; `sin(relBearing)` pan value, 1s TC
+- Fast ramp-in: 0.4s time constant
+- Crossing → 60Hz burst (0.5s, gain 0.15) routed through StereoPanner
+- Alongside → burst loop ~6s ±40%
 
 ---
 
 ## Open Questions
 
-- **Feeder trigger bug:** resolved. ✅ Root cause was listenerNear gate requiring listener within 50m of the triggered feeder node. Fixed by removing gate; exponential gain falloff (150m radius, (1-t)²) now handles perceived distance.
-- **Audio mix:** relative levels of all 6 layers untested in real field conditions — expect iteration after first successful field test.
-- **Fernwärme field validation:** 60m radius and sound design not yet validated in the field. Coverage confirmed sparse (+4 features across 6 new tiles).
-- **Performance under full load:** 16,849 total features, 6 layers. Active set within 200m culling radius estimated ~100–250. Needs field validation.
+- **Audio mix:** relative levels of all 6 layers plus shared density reverb untested in real field conditions — expect iteration after first full-route field test.
+- **Fernwärme field validation:** 30m radius and bearing panning not yet validated in the field. Coverage confirmed sparse.
+- **Performance under full load:** 26,936 total features, 6 layers. Active set within culling radius estimated ~100–250. Needs field validation.
+- **Alongside ALONGSIDE_RADIUS (20m):** currently uniform across all layers — may need per-layer tuning after field test.
+- **Density reverb levels:** exponential curve (max 0.07 wet at 6 layers) to be calibrated against real-world multi-layer positions.
 
 ---
 
@@ -178,3 +189,28 @@ All filters applied at extraction time.
 | April 2026 | Hiss pool: each of 6 slots now assigned a distinct comb delay time from HISS_COMB_DELAYS at init — previously all slots used same delay (dead code bug) |
 | April 2026 | Map legend removed; replaced with 6 per-layer toggle buttons (TRAM / WATER / SEWAGE / ELECTRICITY / TELECOM / FERNWÄRME) with distinct colours |
 | April 2026 | UI layout changed for mobile field testing: map full-width 400px, log panel below (scroll to view), map/log no longer side-by-side |
+| April 2026 | GeoShop manifest moved from data/raw/GeoShop/.processed-orders.json (gitignored) to data/processed/.processed-orders.json (tracked in git) |
+| April 2026 | scripts/import-new-tiles.js created — scans GeoShop dir, diffs against manifest, runs extractor for new orders, updates manifest; 30 orders now tracked |
+| April 2026 | extendLinesWithMovement() added to ProximityEngine — cross-product sign test (segsCross) for line crossing; acute angle check (nearestSegAngleDeg <35°, ≤20m) for alongside; applied to water pipes, sewage pipes, electricity cables at this point |
+| April 2026 | Water: proximity-scaled gain on pulse re-trigger (0.04–0.18 by distance, 30s cooldown per pipe/fitting ID) |
+| April 2026 | Water: fitting cluster drip rate — count fittings within 15m, drip rate = min(count×0.5, 3Hz), 2800Hz bursts with ±25% jitter |
+| April 2026 | Water: pipe crossing one-shot knock (380Hz, 0.4s) + alongside loop (~3.5s ±30% jitter) |
+| April 2026 | Hydrant exclusion: LKZ1322-MSU- filtered at parsePointFeatures call for water layer |
+| April 2026 | Sewage: rhythmic gurgle below 20m (100Hz, random 1.25–5s interval) |
+| April 2026 | Sewage: computeSewageJunctions() — clusters pipe endpoints within 8m at init; junction thud on entry (55Hz, 0.6s, 10s cooldown) |
+| April 2026 | Sewage: pipe crossing transient (200Hz, 0.35s) + alongside loop (~4s ±35% jitter) |
+| April 2026 | Electricity: oscillator pool expanded 4→8 slots; frequency spread 1490–1510Hz per slot; +3Hz beating per slot pair |
+| April 2026 | Electricity: node cluster density gain multiplier — count nodes within 30m, gain 1.0→1.8× at 5+ nodes |
+| April 2026 | Electricity: cable crossing snap (2200Hz, 0.08s) + alongside loop (~5s ±40% jitter) |
+| April 2026 | Telecom: cable layer upgraded from plain proximityLines to extendLinesWithMovement — crossing/alongside now available (was missing) |
+| April 2026 | Telecom: single looping noise replaced with 4-slot burst pool (5000/5600/6200/6800Hz HP); each slot LFO-gated at 22/38/54/78Hz; cable density modulates rate 0.5–2.0× |
+| April 2026 | Telecom: node dwell tracking — Map(id→firstSeenMs); handshake chirp (1→8kHz, 0.4s, gain 0.18) after 5s dwell, 8s cooldown per node |
+| April 2026 | Telecom: cable crossing click (3500→6000Hz, 0.06s) + alongside loop (~4s ±45% jitter) |
+| April 2026 | Fernwärme: radius 30m (from 60m provisional) — tighter for dramatic discovery encounters |
+| April 2026 | Fernwärme: nearestSegmentBearing() added to ProximityEngine — bearing from listener to nearest point on nearest pipe segment, returned in pipe proximity result |
+| April 2026 | Fernwärme: extendLinesWithMovement applied — crossing/alongside now available |
+| April 2026 | Fernwärme: StereoPanner added to signal chain; pan = sin(relBearing) updated each tick with 1s TC |
+| April 2026 | Fernwärme: ramp-in TC 2.5s → 0.4s for dramatic entry |
+| April 2026 | Fernwärme: crossing burst (60Hz, 0.5s, 3s cooldown) + alongside loop (~6s ±40% jitter); both routed through StereoPanner |
+| April 2026 | Shared density reverb bus: 5 continuous-gain outputs (drone, sewage, elecMaster, telecomBurstMaster, fernMaster) send to shared convolver (1.8s IR); wet level = pow((density−1)/5, 1.5)×0.07; kicks in at 2+ active layers |
+| April 2026 | All 6 layers' crossing/alongside timers and cooldown maps cleared on stop() and setLayerEnabled(false) |

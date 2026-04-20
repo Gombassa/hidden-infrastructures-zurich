@@ -2,8 +2,8 @@
 
 ## **Project Plan — 6 Infrastructure Layers, District 1**
 
-**Document version:** v3.3 — April 2026
-**Changes from v3.2:** Tram electrical audio refactored into `audio-layers.js`; per-layer toggle UI added; mobile-optimised layout for Pixel 9a field testing.
+**Document version:** v3.4 — April 2026
+**Changes from v3.3:** Audio synthesis enriched across all 6 layers — line-crossing/alongside detection, layer-appropriate transients, proximity-scaled re-triggers, oscillator pool expansion, burst pool for telecom, Fernwärme bearing panning + radius tightened to 30m; shared density reverb bus driven by active layer count (0–6); `scripts/import-new-tiles.js` automates GeoShop tile ingestion; GeoShop order manifest relocated to `data/processed/.processed-orders.json`; 30 GeoShop orders now processed (55297–55476).
 
 ---
 
@@ -72,7 +72,7 @@ The data layer provides the geographic coordinates of every piece of physical in
 | `lk-electricity.geojson` | 7,223 | cables + nodes | ewz cables and transformers | 40m nodes / 40m cables |
 | `lk-tram-lk.geojson` | 2,899 | trasse + nodes (overhead + area excluded) | VBZ track and structure — replaces route-tram-feeders + route-tram-powerlines | nodes: 50m feeder gate / trasse: 5m drone |
 | `lk-telecom.geojson` | 8,301 | cables + nodes (overhead excluded) | Swisscom + UPC fiber | 40m nodes / 30m cables |
-| `lk-fernwaerme.geojson` | 198 | pipes | District heating network | 60m (provisional) |
+| `lk-fernwaerme.geojson` | 198 | pipes | District heating network | 30m (tightened — rare discovery encounters) |
 
 **GeoShop extraction pipeline (`scripts/extract-lk-geojson.js`):**
 
@@ -216,52 +216,52 @@ Phase 2 adds the remaining five infrastructure types to the prototype route (wat
 
 **Step 1: Water Supply Layer**
 
-* ✅ Download WVZ Leitungskataster (GeoShop DXF, 6 tile orders)
-* ✅ Extract District 1 data → `public/lk-water.geojson` (1,274 pipes + 520 fittings)
+* ✅ Download WVZ Leitungskataster (GeoShop DXF, multiple tile orders)
+* ✅ Extract District 1 data → `public/lk-water.geojson` (3,339 pipes + 1,424 fittings)
 * ✅ Write `scripts/extract-water-infrastructure.py` (single-DXF extractor with pipe/node split, POLYLINE + LWPOLYLINE support, function code filtering)
 * ✅ Write `scripts/extract-lk-geojson.js` (multi-tile batch extractor, all layers, deduplication)
-* ✅ Update ProximityEngine for water layer (50m pipes / 25m fittings)
-* ✅ Add placeholder Web Audio API synthesis for water layer (bandpass noise burst on proximity entry, pipe 800Hz / fitting 1200Hz)
-* **Deliverable:** Water layer functional ✅
+* ✅ Update ProximityEngine for water layer (50m pipes / 25m fittings); hydrant exclusion (LKZ1322-MSU-)
+* ✅ Audio synthesis: proximity-scaled bandpass noise burst on entry (pipe 800Hz / fitting 1200Hz, 30s cooldown); fitting cluster drip rate (2800Hz, ±25% jitter); pipe crossing one-shot knock (380Hz); alongside loop (~3.5s ±30% jitter)
+* **Deliverable:** Water layer fully functional ✅
 
 **Step 2: Sewage Layer**
 
 * ✅ Download ERZ Abwasser-Werkleitungsdaten (GeoShop DXF)
-* ✅ Extract District 1 data → `public/lk-sewage.geojson` (1,219 pipe features)
-* ✅ Filtering: manholes excluded; Nebenleitung secondary lines (LKZ1118-MLU0, lower accuracy) excluded
-* ✅ Update ProximityEngine for sewage layer (80m, continuous rumble modulation — no discrete trigger events)
-* ✅ Add placeholder Web Audio API synthesis for sewage layer (looped lowpass noise, gain modulated by distance)
-* **Deliverable:** Sewage layer functional ✅
+* ✅ Extract District 1 data → `public/lk-sewage.geojson` (pipes only, manholes and secondary lines excluded)
+* ✅ Update ProximityEngine: 80m continuous rumble; junction cluster detection (8m endpoint snap); crossing/alongside via `extendLinesWithMovement`
+* ✅ Audio synthesis: looped lowpass rumble (gain modulated by distance); rhythmic gurgle below 20m (random 1.25–5s interval); junction thud on entry (55Hz, 10s cooldown); pipe crossing transient (200Hz); alongside loop (~4s ±35% jitter)
+* **Deliverable:** Sewage layer fully functional ✅
 
 **Step 3: Electricity & Telecom Layers**
 
 * ✅ Download ewz Werkleitungsdaten (GeoShop DXF)
-* ✅ Extract electricity → `public/lk-electricity.geojson` (2,969 features: cables + nodes)
-* ✅ Extract telecom → `public/lk-telecom.geojson` (2,845 features: Swisscom + UPC cables and nodes)
-* ✅ Filtering: electricity area footprints excluded; telecom overhead excluded
-* ✅ Update ProximityEngine for electricity layer (40m nodes — looping drone pool on entry; 40m cables — modulate drone intensity)
-* ✅ Update ProximityEngine for telecom layer (40m nodes — chirp trigger on entry; 30m cables — continuous texture modulation)
-* ✅ Add placeholder Web Audio API synthesis for electricity (4-slot sawtooth pool, 1500Hz) and telecom (sine chirp 2→4kHz + highpass cable texture)
-* **Deliverable:** Electricity and telecom layers functional ✅
+* ✅ Extract electricity → `public/lk-electricity.geojson` (7,223 features: underground cables + nodes; area footprints excluded)
+* ✅ Extract telecom → `public/lk-telecom.geojson` (8,301 features: Swisscom + UPC cables + nodes; overhead excluded)
+* ✅ ProximityEngine: electricity 40m nodes / 40m cables; telecom 40m nodes / 30m cables; both LineString layers use `extendLinesWithMovement`
+* ✅ Electricity audio: 8-slot sawtooth oscillator pool (1490–1510Hz spread, +3Hz beating per slot); node cluster density gain multiplier (up to 1.8× at 5+ nodes within 30m); cable crossing snap (2200Hz); alongside loop (~5s ±40% jitter)
+* ✅ Telecom audio: 4-slot amplitude-gated burst pool (5000–6800Hz, LFO gates at 22/38/54/78Hz per slot); cable density modulates LFO rate (0.5–2.0×); node dwell handshake chirp after 5s (1→8kHz, 8s cooldown); cable crossing click (3500→6000Hz); alongside loop (~4s ±45% jitter)
+* **Deliverable:** Electricity and telecom layers fully functional ✅
 
 **Step 4: Fernwärme Layer**
 
 * ✅ Download SIA405 LKMap DXF (GeoShop, included in tile orders)
-* ✅ Extract District 1 data → `public/lk-fernwaerme.geojson` (194 pipe features)
+* ✅ Extract District 1 data → `public/lk-fernwaerme.geojson` (198 pipe features)
 * ✅ Added as sixth infrastructure layer — discovered in GeoShop data, fits project theme (genuinely hidden, unknown to most users)
-* ✅ Update ProximityEngine for Fernwärme layer (60m — encounters infrequent, treat as discovery moments)
-* ✅ Add placeholder Web Audio API synthesis for Fernwärme layer (60Hz sine + 0.3Hz tremolo via carrier gain; warm thermal pulse distinct from sewage and water)
-* **Deliverable:** Fernwärme layer functional ✅
+* ✅ ProximityEngine: 30m radius (tightened from 60m for dramatic encounters); `extendLinesWithMovement` for crossing/alongside; `nearestSegmentBearing` computes bearing from listener to nearest point on nearest pipe segment
+* ✅ Audio synthesis: 60Hz sine + 0.3Hz tremolo (carrier-gain LFO, not master, prevents bleed); StereoPanner driven by pipe bearing relative to listener heading; fast ramp-in (0.4s time constant); thermal crossing burst (60Hz, 0.5s); alongside loop (~6s ±40% jitter)
+* **Deliverable:** Fernwärme layer fully functional ✅
 
-**Step 5: Multi-Layer Integration**
+**Step 5: Multi-Layer Integration & Audio Enrichment**
 
-* ✅ 7-layer audio mixing (6 infrastructure + 1 theme)
-* ✅ User controls (toggle layers, adjust mix)
-* ✅ Performance optimisation (6x data volume vs Phase 1)
-* ✅ Test all layers simultaneously on full route
-* **Deliverable:** Complete multi-infrastructure experience on prototype route ✅
+* ✅ 6-layer audio mixing with per-layer LAYER_ENABLED toggle
+* ✅ User controls (toggle buttons per layer)
+* ✅ Spatial culling in ProximityEngine (bounding-box pre-filter, all layers)
+* ✅ Line-crossing / alongside detection for all 5 LineString layers (water pipes, sewage pipes, electricity cables, telecom cables, fernwärme pipes) via `extendLinesWithMovement` helper (cross-product sign test + acute angle threshold 35°, ALONGSIDE_RADIUS 20m)
+* ✅ Shared density reverb bus: 5 continuous-gain outputs (drone, sewage, elec, telecom, fern) send to shared convolver; wet level driven by active layer count (0→6 layers); exponential curve 0.007–0.07 wet (kicks in at 2+ overlapping layers, peaks at all 6); makes Bahnhofstrasse multi-layer overlap noticeably richer
+* ✅ `scripts/import-new-tiles.js` — scans `data/raw/GeoShop` for new `order_*` dirs, diffs against `data/processed/.processed-orders.json` manifest, runs extractor if new tiles found, updates manifest; 30 orders now processed (55297–55476)
+* **Deliverable:** Complete multi-infrastructure experience, event-driven audio, shared spatial depth ✅
 
-**Milestone 2:** End of April — All 6 infrastructure types working on 2.7km route
+**Milestone 2:** End of April — All 6 infrastructure types working, line-event detection, density reverb ✅
 
 ---
 
@@ -419,6 +419,7 @@ At the end of a walk, the user can optionally share their score to a public web 
 ### **Extraction Scripts**
 
 * `scripts/extract-lk-geojson.js` — Batch DXF extractor for all GeoShop layers; handles multi-tile deduplication, LV95→WGS84 via proj4, layer routing by regex
+* `scripts/import-new-tiles.js` — Automated tile ingestion: scans `data/raw/GeoShop` for new `order_*` dirs, diffs against `data/processed/.processed-orders.json`, runs extractor for new tiles, updates manifest; 30 orders processed to date
 * `scripts/extract-water-infrastructure.py` — Single-DXF water extractor; outputs pipes and nodes as separate files; uses ezdxf (handles POLYLINE + LWPOLYLINE)
 * `scripts/extract-route-waypoints.js` — Route waypoint extraction from VBZ powerline geometry (A* path-stitching, Union-Find merge, arc-length sampling)
 
@@ -435,7 +436,7 @@ At the end of a walk, the user can optionally share their score to a public web 
 
 **Phase 1 (Late March – Early April):** Real engine integration, GPS, spatial audio via PannerNode, Docker build environment, GCP hosting, tram layer to production quality. ✅
 
-**Phase 2 (April):** Geodata for all 6 layers extracted and filtered ✅. ProximityEngine integration complete ✅. Web Audio API synthesis for all 6 layers complete ✅. Tram electrical refactored into audio-layers.js ✅. Per-layer toggle UI ✅. Audio lifecycle (Unlock/Start/Stop) stable ✅. Deployed to Cloud Run ✅. Remaining: multi-layer mix tuning, field validation of all 6 layers.
+**Phase 2 (April):** Geodata for all 6 layers extracted and filtered ✅. ProximityEngine integration complete ✅. Web Audio API synthesis for all 6 layers complete ✅. Tram electrical refactored into audio-layers.js ✅. Per-layer toggle UI ✅. Audio lifecycle (Unlock/Start/Stop) stable ✅. Line-crossing/alongside detection for all 5 LineString layers ✅. Layer-appropriate crossing transients (knock/snap/click/burst) ✅. Alongside loops ✅. Fernwärme bearing panning + 30m radius ✅. Shared density reverb bus (0–6 layers, 0–0.07 wet) ✅. 30 GeoShop tile orders processed ✅. Automated tile ingestion script ✅. Deployed to Cloud Run ✅. Remaining: field validation of all 6 layers, multi-layer mix tuning.
 
 **Phase 3 (May):** Geographic expansion to full District 1 (postal code 8001) — district-scale GeoJSON already available, primarily a ProximityEngine culling update. GPS free-roam already complete. Production Max/MSP patches exported via RNBO across all layers.
 
@@ -577,6 +578,6 @@ Development continues regardless of funding outcome.
 
 ---
 
-**Document Version:** 3.2
+**Document Version:** 3.4
 **Last Updated:** April 2026
-**Next Review:** End of Phase 2
+**Next Review:** End of Phase 3 (field validation + production sound design)

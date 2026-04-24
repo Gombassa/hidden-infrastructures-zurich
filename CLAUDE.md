@@ -262,7 +262,7 @@ All 6 audio layers implemented with event-driven synthesis:
 - Line-crossing/alongside detection on all 5 LineString layers ✅
 - Tram markers not rendering on map — known cosmetic issue, deprioritised
 
-30 GeoShop orders processed (55297–55476). Manifest: `data/processed/.processed-orders.json`.
+42 GeoShop orders processed (55297–55567). Manifest: `data/processed/.processed-orders.json`.
 
 Audio lifecycle:
 - Unlock Audio: ProximityEngine.init() + AudioContext.resume() only — no synthesis nodes

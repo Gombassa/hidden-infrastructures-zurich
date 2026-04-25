@@ -17,6 +17,18 @@ const TELECOM_CABLE_RADIUS   = 30;   // listener-to-cable (nearest point on segm
 const FERNWAERME_PIPE_RADIUS  = 30;   // listener-to-heat pipe (nearest point on segment)
 const SEWAGE_JUNCTION_RADIUS  = 15;   // listener-to-sewage junction
 
+// Per-layer alongside detection thresholds (radius metres, angle degrees from segment)
+const WATER_ALONGSIDE_RADIUS    = 20;
+const WATER_ALONGSIDE_ANGLE     = 35;
+const SEWAGE_ALONGSIDE_RADIUS   = 20;
+const SEWAGE_ALONGSIDE_ANGLE    = 35;
+const ELEC_ALONGSIDE_RADIUS     = 20;
+const ELEC_ALONGSIDE_ANGLE      = 35;
+const TELECOM_ALONGSIDE_RADIUS  = 20;
+const TELECOM_ALONGSIDE_ANGLE   = 35;
+const FERN_ALONGSIDE_RADIUS     = 20;
+const FERN_ALONGSIDE_ANGLE      = 35;
+
 // ── CULL ─────────────────────────────────────────────────────────────────────
 const CULL_RADIUS = 100; // metres — bounding-box pre-filter before precise distance math
 
@@ -172,9 +184,7 @@ function nearestSegAngleDeg(listenerLng, listenerLat, prevLng, prevLat, coords) 
 
 // Extend a proximityLines result array with crossing + alongside flags.
 // canDetect = hasPrev && moveDist > MIN_MOVE_METRES; culledFeatures must align with results by index.
-function extendLinesWithMovement(results, culledFeatures, canDetect, prevLng, prevLat, curLng, curLat) {
-  const ALONGSIDE_RADIUS = 20;
-  const ALONGSIDE_ANGLE  = 35;
+function extendLinesWithMovement(results, culledFeatures, canDetect, prevLng, prevLat, curLng, curLat, alongsideRadius, alongsideAngle) {
   return results.map((result, i) => {
     const coords = culledFeatures[i].coords;
     let crossing  = false;
@@ -184,8 +194,8 @@ function extendLinesWithMovement(results, culledFeatures, canDetect, prevLng, pr
         crossing = segsCross(prevLng, prevLat, curLng, curLat,
           coords[s][0], coords[s][1], coords[s + 1][0], coords[s + 1][1]);
       }
-      if (!crossing && result.dist <= ALONGSIDE_RADIUS) {
-        alongside = nearestSegAngleDeg(curLng, curLat, prevLng, prevLat, coords) < ALONGSIDE_ANGLE;
+      if (!crossing && result.dist <= alongsideRadius) {
+        alongside = nearestSegAngleDeg(curLng, curLat, prevLng, prevLat, coords) < alongsideAngle;
       }
     }
     return { ...result, crossing, alongside };
@@ -531,22 +541,27 @@ const ProximityEngine = {
     const waterPipeResults  = extendLinesWithMovement(
       proximityLines(listenerLng, listenerLat, culledWaterPipes,  WATER_PIPE_RADIUS),
       culledWaterPipes,  canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+      WATER_ALONGSIDE_RADIUS, WATER_ALONGSIDE_ANGLE,
     );
     const sewagePipeResults = extendLinesWithMovement(
       proximityLines(listenerLng, listenerLat, culledSewagePipes, SEWAGE_PIPE_RADIUS),
       culledSewagePipes, canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+      SEWAGE_ALONGSIDE_RADIUS, SEWAGE_ALONGSIDE_ANGLE,
     );
     const elecCableResults  = extendLinesWithMovement(
       proximityLines(listenerLng, listenerLat, culledElecCables,  ELEC_CABLE_RADIUS),
       culledElecCables,  canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+      ELEC_ALONGSIDE_RADIUS, ELEC_ALONGSIDE_ANGLE,
     );
     const telecomCableResults = extendLinesWithMovement(
       proximityLines(listenerLng, listenerLat, culledTelecomCables, TELECOM_CABLE_RADIUS),
       culledTelecomCables, canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+      TELECOM_ALONGSIDE_RADIUS, TELECOM_ALONGSIDE_ANGLE,
     );
     const fernPipeResults   = extendLinesWithMovement(
       proximityLines(listenerLng, listenerLat, culledFernPipes, FERNWAERME_PIPE_RADIUS),
       culledFernPipes, canDetect, _prevCalcLng, _prevCalcLat, listenerLng, listenerLat,
+      FERN_ALONGSIDE_RADIUS, FERN_ALONGSIDE_ANGLE,
     ).map((result, i) => ({
       ...result,
       bearing: nearestSegmentBearing(listenerLng, listenerLat, culledFernPipes[i].coords),

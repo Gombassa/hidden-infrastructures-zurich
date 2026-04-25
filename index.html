@@ -164,16 +164,6 @@
         maxZoom: 18,
       }).addTo(map);
 
-      // Route polyline — loaded directly from GeoJSON; waypoints are [lng, lat]
-      fetch('/data/processed/route-waypoints.json')
-        .then(r => r.json())
-        .then(data => {
-          const routeLatLngs = data.waypoints.map(([lng, lat]) => [lat, lng]);
-          L.polyline(routeLatLngs, { color: '#4a90e2', weight: 2, opacity: 0.7 }).addTo(map);
-          appendLog(`Route polyline loaded — ${routeLatLngs.length} waypoints`, 'lok');
-        })
-        .catch(e => appendLog(`Route load failed: ${e.message}`, 'lerr'));
-
       // Feeder markers — calculate with no trams to get all positions
       const initialProximity = ProximityEngine.calculate({ trams: [] }, realLat, realLng, realHeading, realSpeed);
       feederMarkers = new Map();

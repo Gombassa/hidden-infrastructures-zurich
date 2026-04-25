@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hidden Infrastructures: Zürich — Infrastructure Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background: #080808;
+      color: #ffffff;
+      padding: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    h1 { color: #ffffff; font-size: 15px; letter-spacing: 2px; margin-bottom: 14px; }
+
+    .layer-toggles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .layer-btn {
+      background: #111;
+      border: 1px solid #2a2a2a;
+      color: #333;
+      padding: 6px 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    #map {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #1e1e1e;
+      margin-bottom: 10px;
+    }
+
+    #status {
+      color: #888;
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+
+    .buttons { display: flex; gap: 8px; }
+    button {
+      background: #111;
+      color: #ffffff;
+      border: 1px solid #2a2a2a;
+      padding: 8px 18px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    button:hover { border-color: #555; color: #ffffff; }
+  </style>
+</head>
+<body>
+
+  <h1>HIDDEN INFRASTRUCTURES: ZÜRICH — INFRASTRUCTURE MAP</h1>
+
+  <div class="layer-toggles">
+    <button class="layer-btn" id="toggle-tram"        style="border-color:#ff9f43;color:#ff9f43">TRAM</button>
+    <button class="layer-btn" id="toggle-water"       style="border-color:#4a90e2;color:#4a90e2">WATER</button>
+    <button class="layer-btn" id="toggle-sewage"      style="border-color:#a0855b;color:#a0855b">SEWAGE</button>
+    <button class="layer-btn" id="toggle-electricity" style="border-color:#ffd43b;color:#ffd43b">ELECTRICITY</button>
+    <button class="layer-btn" id="toggle-telecom"     style="border-color:#cc5de8;color:#cc5de8">TELECOM</button>
+    <button class="layer-btn" id="toggle-fernwaerme"  style="border-color:#ff6b35;color:#ff6b35">FERNWÄRME</button>
+  </div>
+
+  <div id="map"></div>
+
+  <div id="status">Loading 6 layers…</div>
+
+  <div class="buttons">
+    <button onclick="history.back()">← BACK</button>
+  </div>
+
+  <script>
+    const LAYERS = [
+      { key: 'tram',        color: '#ff9f43', file: 'public/lk-tram-lk.geojson',    label: 'TRAM' },
+      { key: 'water',       color: '#4a90e2', file: 'public/lk-water.geojson',       label: 'WATER' },
+      { key: 'sewage',      color: '#a0855b', file: 'public/lk-sewage.geojson',      label: 'SEWAGE' },
+      { key: 'electricity', color: '#ffd43b', file: 'public/lk-electricity.geojson', label: 'ELECTRICITY' },
+      { key: 'telecom',     color: '#cc5de8', file: 'public/lk-telecom.geojson',     label: 'TELECOM' },
+      { key: 'fernwaerme',  color: '#ff6b35', file: 'public/lk-fernwaerme.geojson',  label: 'FERNWÄRME' },
+    ];
+
+    const map = L.map('map').setView([47.3740, 8.5400], 15);
+
+    L.tileLayer(
+      'https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg',
+      { attribution: '© <a href="https://www.swisstopo.admin.ch/">swisstopo</a>', maxZoom: 18 }
+    ).addTo(map);
+
+    const layerGroups  = {};
+    const layerVisible = {};
+
+    function makeGeoJSONLayer(geojson, color) {
+      return L.geoJSON(geojson, {
+        style: () => ({ color, weight: 1.5, opacity: 0.7, fillOpacity: 0 }),
+        pointToLayer: (_feature, latlng) => L.circleMarker(latlng, {
+          radius: 3, color, fillColor: color, fillOpacity: 0.8, weight: 1,
+        }),
+      });
+    }
+
+    async function loadLayer(layer) {
+      const res    = await fetch(layer.file);
+      const geojson = await res.json();
+      const count  = geojson.features.length;
+
+      const leafletLayer = makeGeoJSONLayer(geojson, layer.color);
+      leafletLayer.addTo(map);
+      layerGroups[layer.key]  = leafletLayer;
+      layerVisible[layer.key] = true;
+
+      const btn = document.getElementById(`toggle-${layer.key}`);
+      btn.textContent = `${layer.label} (${count.toLocaleString()})`;
+
+      return count;
+    }
+
+    const statusEl = document.getElementById('status');
+
+    Promise.all(LAYERS.map(loadLayer))
+      .then(counts => {
+        const total = counts.reduce((a, b) => a + b, 0);
+        statusEl.textContent = `6 layers loaded — ${total.toLocaleString()} features`;
+      })
+      .catch(err => {
+        statusEl.textContent = `Error loading layers: ${err.message}`;
+      });
+
+    for (const layer of LAYERS) {
+      const btn = document.getElementById(`toggle-${layer.key}`);
+      btn.addEventListener('click', () => {
+        const group = layerGroups[layer.key];
+        if (!group) return;
+        const visible = layerVisible[layer.key];
+        if (visible) {
+          group.removeFrom(map);
+          btn.style.borderColor = '#2a2a2a';
+          btn.style.color       = '#333';
+        } else {
+          group.addTo(map);
+          btn.style.borderColor = layer.color;
+          btn.style.color       = layer.color;
+        }
+        layerVisible[layer.key] = !visible;
+      });
+    }
+  </script>
+</body>
+</html>

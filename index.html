@@ -157,39 +157,12 @@
     let overlayGroups  = null; // { [layer]: L.LayerGroup } — triggered-feature debug markers
 
     function initMap() {
-      map = L.map('map').setView([47.3693, 8.5411], 14);
+      map = L.map('map').setView([47.3693, 8.5411], 15);
 
       L.tileLayer('https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.pixelkarte-farbe/default/current/3857/{z}/{x}/{y}.jpeg', {
         attribution: '© <a href="https://www.swisstopo.admin.ch/">swisstopo</a>',
         maxZoom: 18,
       }).addTo(map);
-
-      // Feeder markers — calculate with no trams to get all positions
-      const initialProximity = ProximityEngine.calculate({ trams: [] }, realLat, realLng, realHeading, realSpeed);
-      feederMarkers = new Map();
-      for (const feeder of initialProximity.feeders) {
-        const marker = L.circleMarker([feeder.lat, feeder.lng], {
-          radius: 3,
-          color: '#333',
-          fillColor: '#444',
-          fillOpacity: 1,
-          weight: 1,
-        }).addTo(map);
-        feederMarkers.set(feeder.id, marker);
-      }
-
-      // Tram marker pool — 10 slots, shown/hidden based on active tram count
-      tramMarkerPool = [];
-      for (let i = 0; i < 10; i++) {
-        tramMarkerPool.push(L.circleMarker([47.37, 8.54], {
-          radius: 5,
-          color: '#fff',
-          fillColor: '#888',
-          fillOpacity: 0,
-          opacity: 0,
-          weight: 1.5,
-        }).addTo(map));
-      }
 
       // Listener marker — starts at Stadelhofen
       listenerMarker = L.circleMarker([47.3693, 8.5411], {
@@ -204,8 +177,6 @@
       overlayGroups = Object.fromEntries(
         Object.keys(LAYER_COLORS).map(k => [k, L.layerGroup().addTo(map)])
       );
-
-      appendLog(`Map ready — ${initialProximity.feeders.length} feeders`, 'lok');
 
       // Real GPS — centre map on actual device position
       if (navigator.geolocation) {
@@ -418,7 +389,34 @@
         await ProximityEngine.init();
         appendLog(`ProximityEngine ready`, 'lok');
 
-        initMap();
+        // Feeder markers — added after ProximityEngine data is available
+        const initialProximity = ProximityEngine.calculate({ trams: [] }, realLat, realLng, realHeading, realSpeed);
+        feederMarkers = new Map();
+        for (const feeder of initialProximity.feeders) {
+          const marker = L.circleMarker([feeder.lat, feeder.lng], {
+            radius: 3,
+            color: '#333',
+            fillColor: '#444',
+            fillOpacity: 1,
+            weight: 1,
+          }).addTo(map);
+          feederMarkers.set(feeder.id, marker);
+        }
+
+        // Tram marker pool — 10 slots, shown/hidden based on active tram count
+        tramMarkerPool = [];
+        for (let i = 0; i < 10; i++) {
+          tramMarkerPool.push(L.circleMarker([47.37, 8.54], {
+            radius: 5,
+            color: '#fff',
+            fillColor: '#888',
+            fillOpacity: 0,
+            opacity: 0,
+            weight: 1.5,
+          }).addTo(map));
+        }
+
+        appendLog(`Map overlays ready — ${initialProximity.feeders.length} feeders`, 'lok');
 
         ctx = new AudioContext();
         window._ctx = ctx;
@@ -484,6 +482,8 @@
     appendLog('Electricity: node 40m / cable 40m | Telecom: node 40m / cable 30m | Fernwärme: 60m', 'linf');
     appendLog('Spatial audio: PannerNode (Web Audio API) — Phase 2', 'linf');
     appendLog('Unlock Audio → Start to begin.', 'll');
+
+    initMap();
   </script>
 </body>
 </html>

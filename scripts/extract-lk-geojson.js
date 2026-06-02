@@ -340,6 +340,48 @@ function bboxStr(bbox) {
 }
 
 // ---------------------------------------------------------------------------
+// SIA 405 semantic properties
+// ---------------------------------------------------------------------------
+
+function deriveSemanticProps(layerName, infraType) {
+  const props = {};
+
+  // accuracyClass — last character of layer string, numeric 0–3 or null
+  const lastChar = layerName[layerName.length - 1];
+  const n = parseInt(lastChar, 10);
+  props.accuracyClass = (!isNaN(n) && n >= 0 && n <= 3) ? n : null;
+
+  // pipeType (sewage only)
+  if (infraType === 'sewage') {
+    if (/^LKZ1111/.test(layerName))      props.pipeType = 'gravity';
+    else if (/^LKZ1113/.test(layerName)) props.pipeType = 'pressure';
+    else                                  props.pipeType = 'other';
+  }
+
+  // diameterClass (water pipes only — LKZ131x; fittings LKZ132x return null)
+  if (infraType === 'water') {
+    const m = layerName.match(/^LKZ131([0-9])/);
+    props.diameterClass = m ? parseInt(m[1], 10) : null;
+  }
+
+  // operator (telecom only)
+  if (infraType === 'telecom') {
+    const m = layerName.match(/^LKZ16[0-9]([SU])/);
+    props.operator = m ? (m[1] === 'S' ? 'swisscom' : 'upc') : null;
+  }
+
+  // voltageClass (electricity only)
+  if (infraType === 'electricity') {
+    if (/LKZ1520/.test(layerName))      props.voltageClass = 'metering';
+    else if (/LKZ1522/.test(layerName)) props.voltageClass = 'switching';
+    else if (/LKZ1511/.test(layerName)) props.voltageClass = 'cable';
+    else                                 props.voltageClass = null;
+  }
+
+  return props;
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -402,6 +444,9 @@ function main() {
         for (const feature of fc.features) {
           if (feature.properties && feature.properties._dedupKey) {
             dedupSet.add(feature.properties._dedupKey);
+            Object.assign(feature.properties, deriveSemanticProps(
+              feature.properties.layer, feature.properties.infraType
+            ));
           }
           existingFeatures.push(feature);
         }
@@ -476,6 +521,7 @@ function main() {
               geomType:  rule.geomType,
               source:    sourceLabel,
               _dedupKey: key,
+              ...deriveSemanticProps(entity.layer, rule.infraType),
             },
           });
           s.newAdded++;
@@ -498,6 +544,7 @@ function main() {
               geomType:  rule.geomType,
               source:    sourceLabel,
               _dedupKey: key,
+              ...deriveSemanticProps(entity.layer, rule.infraType),
             },
           });
           s.newAdded++;

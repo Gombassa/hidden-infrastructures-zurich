@@ -9,13 +9,12 @@ Hidden Infrastructures: Zürich - A location-based generative music application 
 **Phase 1 MVP - District 1 (Postal Code 8001):**
 - Route: Stadelhofen → Paradeplatz (~2.5km)
 - Six infrastructure layers: tram electrical, water supply, sewage, electricity grid, telecommunications, Fernwärme (district heating)
-- Target completion: July 2026
-- Public launch: August 2026
+- Public launch target: October 2026 (see `docs/Project_Plan_v3_5.md`, "Timeline Reality Check" — slipped from the original September target by decision, not by cutting scope)
 - Future expansion: Districts 2-6 (2027-2030)
 
 **Technical approach:**
 - Progressive Web App (browser-based, platform-agnostic)
-- Max/MSP → RNBO → WebAssembly AudioWorklet for production audio synthesis (Cycling '74)
+- Web Audio API — direct browser-native synthesis is the production audio path. **Max/MSP → RNBO → WebAssembly AudioWorklet was dropped in July 2026** (see `docs/Technical_Architecture_v5.md`, "Architecture Decision: Dropping Max/MSP + RNBO") — do not reintroduce it without checking that document first. Each sonic behaviour is a self-contained JS instrument module with a paired HTML control surface (authoring-only by default); see `docs/Implementation_Plan.md` for the build plan.
 - Web Audio API PannerNode (HRTF mode) for spatial audio
 - Real-time + static data from Stadt Zürich open data programs
 - Zero personal data collection, GPS processed entirely on-device
@@ -113,7 +112,7 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 - Infrastructure geodata is static snapshots — only tram positions update in real-time
 - Water/sewage/electricity/telecom/Fernwärme layers use static infrastructure positions — no real-time flow/usage data available
 - Fernwärme coverage is sparse in District 1 — 30m radius means encounters will be infrequent (intentional — rare discovery moments)
-- Audio synthesis in audio-layers.js is procedural Web Audio API — production sound design via Max/MSP + RNBO deferred to Phase 3
+- `audio-layers.js`'s Web Audio API synthesis is the production implementation, currently being decomposed into per-behaviour instrument modules (Phase 3, `docs/Implementation_Plan.md`) — it is not a placeholder awaiting a Max/MSP + RNBO patch set, that path is dropped
 - Tram markers not rendering on map — known cosmetic issue, deprioritised
 - ALONGSIDE_RADIUS (20m) and ALONGSIDE_ANGLE (35°) are uniform across all layers — may need per-layer tuning after field testing
 
@@ -226,28 +225,23 @@ Live GPS via `navigator.geolocation.watchPosition()`. No separate module.
 - Follows position at zoom 19 while `following = true` (Start → Stop)
 - Logs each fix to on-screen log panel via `appendLog`
 
-## RNBO Integration (Production Audio)
+## RNBO Integration — DEPRECATED (July 2026)
 
-Production audio patches are authored in Max/MSP, compiled via RNBO (Cycling '74) to self-contained WASM modules, and run in an AudioWorklet on a dedicated high-priority thread.
+**This section is historical. Do not follow it.** Max/MSP → RNBO → WASM/AudioWorklet was dropped as the production audio path in July 2026. See `docs/Technical_Architecture_v5.md` ("Architecture Decision: Dropping Max/MSP + RNBO") for why, and `docs/Implementation_Plan.md` for what replaced it — self-contained Web Audio instrument modules authored directly in JavaScript, with paired HTML control surfaces. The Max/MSP + RNBO licence budget line was removed entirely, not deferred (`docs/Project_Plan_v3_5.md`). The 19 Max for Live patches that existed before this pivot are archived at `docs/archive/max/` and `max/` (all headed "superseded, retained as sonic specification").
 
-### Workflow
-1. Design patch in Max/MSP with RNBO objects
-2. Export from RNBO as Web target → generates `patch.wasm` + `rnbo.min.js`
-3. Load in browser: `createDevice` from RNBO JS API → returns device node
-4. Connect: `device.node.connect(pannerNode)` for spatial positioning
-5. Control parameters via `device.parametersById.get('paramName').value = x`
+The workflow that used to be described here (design in Max/MSP with RNBO objects → export Web target → `createDevice` from RNBO JS API → connect to `pannerNode` → control via `device.parametersById`) is not in use and should not be reintroduced without re-reading the architecture decision above first — it was dropped for stated reasons (cost, and single-runtime authoring/deployment), not lost or forgotten.
 
-### Current state
-- Web Audio API direct synthesis is the confirmed production path for Phase 1
-- RNBO/Max MSP deferred; no licence purchases required before Phase 2
-- All tram audio (crackle, hiss pool, drone, reverb) now lives in `audio-layers.js` — `index.html` contains no synthesis code
+**Current state:**
+
+- Web Audio API direct synthesis is the confirmed production path — not a placeholder, not pending a native-audio toolchain
+- All tram audio (crackle, hiss pool, drone, reverb) lives in `audio-layers.js`, currently being decomposed into per-behaviour instrument modules — `index.html` contains no synthesis code
 - Cloud Run service URL: https://hidden-infrastructures-50944718104.europe-west6.run.app/
 
 ---
 
-## Current State (April 2026)
+## Current State (July 2026)
 
-Phase 2 complete on `main` branch. Deployed to Cloud Run.
+Phase 2 complete on `main` branch. Deployed to Cloud Run. Phase 3 (instrument architecture rebuild, replacing `audio-layers.js` — see `docs/Implementation_Plan.md`) is next; the list below describes the Phase 2 implementation that Phase 3 is rebuilding, not a finished end state.
 
 All 6 audio layers implemented with event-driven synthesis:
 - Feeder hiss (6-node comb-filter pool, HRTF spatial) ✅
@@ -272,7 +266,7 @@ Audio lifecycle:
 ## Architecture decisions (confirmed)
 
 - WebPd and Three.js dropped entirely
-- RNBO/Max MSP deferred; Web Audio API is the validated production synthesis path
+- RNBO/Max MSP **dropped entirely** (July 2026, not merely deferred) — Web Audio API instruments authored directly in JavaScript are the production path; see `docs/Technical_Architecture_v5.md`
 - ListenerEngine simulation stripped out; live GPS via `watchPosition()` only
 - pole-ping sound layer dropped
 - district-theme deferred to later phase
@@ -302,10 +296,13 @@ Audio lifecycle:
 - GeoShop manifest must live in a tracked directory (data/processed/) not gitignored raw/ — otherwise import-new-tiles.js changes are lost on clone
 - StereoPanner vs PannerNode HRTF for bass: Fernwärme uses StereoPanner (not HRTF PannerNode) because HRTF provides poor directional cues below ~200Hz — a 60Hz fundamental won't localise meaningfully with head-related transfer functions. StereoPanner gives usable left/right separation at bass frequencies. Apply this whenever adding spatial positioning to sub-200Hz sources
 
-## Next Steps (as of April 2026)
+## Next Steps (as of July 2026)
 
-- Field test all 6 layers + shared density reverb on full Stadelhofen → Paradeplatz route
+See `docs/Project_Plan_v3_5.md` (phase calendar, Timeline Reality Check) and `docs/Implementation_Plan.md` (instrument build order) for the current plan. In brief:
+
+- Phase 3: resolve the instrument interface contract (`docs/Technical_Architecture_v5.md`), then rebuild all 6 layers as ~23 self-contained instrument modules + HTML control surfaces, retiring `audio-layers.js` once feature parity is field-confirmed
+- Field test the rebuilt layers + shared density reverb on the full Stadelhofen → Paradeplatz route (supersedes the old "field test Phase 2" item — Phase 2's implementation is what's being replaced)
 - Calibrate alongside/crossing sensitivity and density reverb wet levels from real-world positions
 - Fix tram markers not rendering on map (deprioritised cosmetic)
-- District musical theme — deferred to Phase 3
-- RNBO/Max MSP production sound design — deferred to Phase 3
+- District musical theme — deferred, unchanged
+- Phase 4: PWA (Service Worker, manifest, offline caching), user testing, documentation, public launch — expected October 2026

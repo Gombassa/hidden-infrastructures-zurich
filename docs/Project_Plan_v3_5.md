@@ -2,7 +2,22 @@
 
 ## **Project Plan — 6 Infrastructure Layers, District 1**
 
-**Document version:** v3.5.1 — July 2026
+**Document version:** v3.5.2 — July 2026
+
+**Changes from v3.5.1 (this revision — correction pass):**
+- **District musical theme moves into Phase 3 scope**, as its own workstream (not a 24th instrument — inventory stays at 23). Added to Executive Summary, Phase 3 (new "Additional workstream" subsection), Success Criteria (restored), Risk Mitigation ("Sound Design Risks" — theme risk is now live, not deferred), Phase 1's "Dropped from Phase 1" note updated to say it was later un-deferred. Removed its CHF 1,500 budget line entirely (built as regular Phase 3 work instead, not commissioned) — Artistic Development CHF 5,500 → CHF 4,000, grand total CHF 12,200 → **CHF 10,700**; arithmetic shown in the Budget section rather than asserted.
+- **PWA groundwork given an actual Phase 3 step** (app-shell Service Worker/Manifest scaffolding), consistent with `Implementation_Plan.md`'s dependency note that this could start before instrument work finishes. Phase 4 Week 1 reframed as completion, not a start-from-scratch week.
+- **Old Phase 3 data-expansion carryover items accounted for explicitly** rather than silently dropped: spatial culling confirmed done (verified in `src/proximity-engine.js`); district-boundary coverage and full-scale culling performance folded into Phase 4 field testing as explicit checks (neither was previously verified, despite the old plan implying otherwise); dynamic infrastructure loading dropped as moot (the live map never renders the full dataset); the old Phase 4 UI item reconciled against "Walk Recording & Score Archive" (options page is post-launch, not Phase 3/4) with a light UX pass folded into Week 4 for what's left of it.
+- **Instrument count corrected 22 → 21** remaining after the two Step 1 proof instruments, in both places it appeared (Phase 3 Step 1, Timeline Reality Check).
+- **Phase 3 relabelled** "late July – early September 2026" (from "August 2026," which never lined up with the Timeline Reality Check's 27 July start).
+- **Timeline Reality Check re-run** to account for the theme and PWA-groundwork scope added above: **11–13 weeks** from 27 July (was 10–12), landing **mid-to-late October** (was early-to-mid October). The theme's added time is a flagged estimate (+1 week), not a verified figure — no prior data point exists for it.
+- **Phase 1's stale unchecked item removed:** "User testing (3-5 people)" was still listed unresolved on a phase marked Complete; removed and noted as absorbed into Phase 4's testing round instead.
+- **GeoShop order count and feature totals corrected**: 30 orders (55297–55476) was already stale against the committed codebase (79 orders) before this pass, and the working tree has since moved to **88 orders (55297–56642)** — corrected throughout (Data Layer, Critical Path, Technical Stack). Total infrastructure features corrected from the long-standing 26,936 figure to the current **83,751** (see `README.md` and `docs/Technical_Architecture_v5.md` for the per-layer breakdown) — this was roughly 3× stale, not a rounding error.
+- **Trigger radii range corrected** 25–80m → **5–80m** (5m is the tram trasse drone gate, `POWERLINE_DRONE_RADIUS` in `src/proximity-engine.js`; 80m is sewage) in Risk Mitigation.
+- **Budget header** now names the specific application (Digitale Künste — Umsetzung und Präsentation, 1 September 2026 deadline) rather than the generic programme name.
+- **Success Criteria changes from v3.5 recorded here for the first time** (they were made without a changelog entry when v3.5 was written): battery-drain (<25% over full exploration) and the "spatial culling handles ~11,000 features" criterion were both dropped from Technical; "15+ user testing participants" was softened to "count per Timeline Reality Check"; "Documented with high-quality video/photos" was dropped from Artistic. Also dropped at that point, without a stated reason and not restored in this pass either — flagging rather than silently continuing to omit: "Tram/water/data events create synchronised experiences," "Free-roam exploration feels natural and compelling," "Stadt Zürich acknowledges project in digital arts context," and "Open-source code enables adaptation to other cities." Only the district-theme criterion has been restored (see above), since only that one was explicitly asked for.
+- **Phase 2's detailed step-by-step content** (per-layer audio synthesis specifics, multi-layer integration steps) was moved to `docs/archive/Project_Plan_v3_4.md` when v3.5 was written, replaced with a pointer — noted here since A10 asked for a complete record of what moved where.
+
 **Changes from v3.5:** Resolved the Timeline Reality Check's open cut-list — accept a launch slip into October rather than compress scope to hit September. Confirmed control surfaces are built for all 23 instruments but authoring-only by default (not a scope cut), and granularity holds at 23 (not consolidated). Pre-launch testing scope (15 vs. a smaller pilot) remains the one lever still open if October slips further.
 **Changes from v3.4:** Dropped Max/MSP + RNBO as the production audio path; browser-native Web Audio instruments (with paired HTML control surfaces) are now the sole production toolchain — see `docs/Technical_Architecture_v5.md` for the architecture and `docs/Implementation_Plan.md` for the build plan. Removed the CHF 619 Max/MSP + RNBO licence line from the budget. Rebased the phase calendar from the stale May/June–August plan to a realistic timeline starting 27 July 2026, and added a plain assessment of what fits before the September 2026 launch target and what doesn't. Updated Technical Stack and Risk Mitigation sections to reflect the toolchain change.
 
@@ -24,7 +39,7 @@ The app collects zero personal data. GPS coordinates are processed entirely on-d
   * Electricity grid (transformers, distribution, voltage)
   * Telecommunications (fiber, cellular, data)
   * District heating / Fernwärme (thermal distribution network)
-* Plus: District 1 musical theme (procedural electronic ambient) — deferred to a later phase, see below
+* Plus: District 1 musical theme (procedural electronic ambient) — Phase 3 scope (see below); not one of the 23 instruments, a distinct workstream
 * Real-time events: trams passing, water flowing, data transmitting
 * Download a recording of your walk or share your score to a public archive
 * Infrastructure becomes visceral and tangible
@@ -34,7 +49,7 @@ The app collects zero personal data. GPS coordinates are processed entirely on-d
 * **Phase 0 (March):** Data pipeline and audio synthesis proven. Web Audio API integration with stub engines complete. ✅
 * **Phase 1 (Late March–Early April):** Real engine integration, GPS free-roam, Docker build environment, tram layer audio pipeline field-validated. ✅
 * **Phase 2 (April):** Add 5 infrastructure types on prototype route (water, sewage, electricity, telecom, Fernwärme). Web Audio placeholder synthesis for all 6 layers, field-validated. ✅
-* **Phase 3 (August 2026):** Rebuild all 6 layers' audio as self-contained browser-native instruments with HTML control surfaces, replacing the single `audio-layers.js` module. Resolve the interface contract. PWA groundwork.
+* **Phase 3 (late July – early September 2026):** Rebuild all 6 layers' audio as self-contained browser-native instruments with HTML control surfaces, replacing the single `audio-layers.js` module. Resolve the interface contract. District 1 musical theme composition. PWA groundwork (app-shell caching, started here rather than Phase 4).
 * **Phase 4 (September–October 2026):** PWA completion, testing, launch. See "Timeline Reality Check" below — full scope does not fit inside September; launch is expected to land in October instead, by decision rather than by shrinking scope.
 
 The project focuses on District 1 (postal code 8001), where all six infrastructure datasets are publicly accessible through Stadt Zürich's open data portal (VBZ, WVZ, ERZ, ewz, SIA405 LKMap). The tram network has already validated the technical workflow from raw geodata through to spatial audio. Much of the infrastructure is physically visible — overhead wires, manhole covers, transformer boxes — which anchors the sonic experience to things the listener can actually see. Real-time tram data adds a live, dynamic layer that changes with every walk. The district is compact enough to build and test within the project timeline, but the architecture is designed to expand to Districts 2-6 in future.
@@ -53,7 +68,7 @@ Two JavaScript engine modules and an inline GPS listener form the core of the ap
 
 ### **Data Layer**
 
-30 GeoShop tile orders (55297–55476) processed. All six infrastructure layers extracted and serving from `public/`. See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log, and `docs/Technical_Architecture_v5.md` for the current per-layer feature counts and ProximityEngine radii — `phase2-data-layer.md`'s own feature-count table reflects an earlier 12-order snapshot and is stale against the current 30-order totals; flagged there rather than corrected, since that document's data content is otherwise out of scope for this revision.
+88 GeoShop tile orders (55297–56642) processed, per `data/processed/.processed-orders.json` — corrected in this revision from the previously stated 30 (55297–55476); that figure was already stale against the committed codebase (79 orders at last commit) before the working tree moved further ahead to 88. All six infrastructure layers extracted and serving from `public/`. See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log, and `docs/Technical_Architecture_v5.md` for the current per-layer feature counts and ProximityEngine radii — `phase2-data-layer.md`'s own feature-count table reflects a much earlier 12-order snapshot and is stale against the current totals; flagged there rather than corrected, since that document's data content is otherwise out of scope for this revision. See `CLAUDE.md`'s standing instruction for how these figures get kept current going forward.
 
 **Real-time API:** transport.opendata.ch confirmed working.
 
@@ -72,7 +87,7 @@ The 19 Max for Live patches authored before this pivot are archived at `docs/arc
 - Three.js dropped: not required for current synthesis architecture
 - `ListenerEngine` simulation mode stripped; live GPS via `navigator.geolocation.watchPosition()` is the only listener tracking mode
 - `pole-ping` sound layer dropped
-- District ambient theme deferred to a later phase
+- District ambient theme: was deferred through Phase 1–2, now pulled into Phase 3 scope as its own workstream (see Phase 3 below) — not one of the 23 instruments
 - Vite used as the dev server; GeoJSON data files served via the `public/` directory
 - Cloudflare Tunnel provides HTTPS on Android Chrome during field testing
 
@@ -124,12 +139,13 @@ Phase 1 shifts from proof-of-concept to a polished tram layer experience.
 * ✅ UI cards updating with live data
 * ✅ Feeder markers turning red on tram proximity
 * ✅ GCP hosting and deployment
-* ⬜ User testing (3-5 people)
+
+User testing (originally listed here as a 3-5 person Phase 1 item) never happened at Phase 1 scale and is absorbed into Phase 4's testing round instead — removed from this checklist rather than left open indefinitely.
 
 **Dropped from Phase 1:**
 
 * pole-ping sound layer — dropped entirely
-* district-theme — deferred to later phase
+* district-theme — deferred at the time; since pulled into Phase 3 scope (see Phase 3 below), not dropped for good
 * Three.js — dropped entirely
 
 ---
@@ -163,23 +179,44 @@ Phase 2 added the remaining five infrastructure types (water, sewage, electricit
 
 ---
 
-### **Phase 3: Instrument Architecture (August 2026)**
+### **Phase 3: Instrument Architecture (late July – early September 2026)**
 
-Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained instrument modules (one per sonic behaviour) plus HTML control surfaces, per `docs/Technical_Architecture_v5.md` and `docs/Implementation_Plan.md`. This is the direct successor to what was previously planned as "Max/MSP patch authoring + RNBO export" — same sonic goals, different toolchain.
+Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained instrument modules (one per sonic behaviour) plus HTML control surfaces, per `docs/Technical_Architecture_v5.md` and `docs/Implementation_Plan.md`. This is the direct successor to what was previously planned as "Max/MSP patch authoring + RNBO export" — same sonic goals, different toolchain. It also carries forward the district musical theme (pulled in from later-phase deferral, see below) and starts PWA groundwork.
+
+**Carried over from the old Phase 3 data-expansion plan (v3.4 and earlier) — resolved here rather than left open indefinitely:**
+
+* ✅ **Spatial culling added to ProximityEngine** — done. `CULL_RADIUS = 100` with `cullBounds()`/`cullPoints()`/`cullLines()` is live in `src/proximity-engine.js`, reducing the working set from 83,751 total features to the few hundred within range on every tick.
+* **Verify `lk-*.geojson` coverage against the full District 1 boundary** — still genuinely open; no automated boundary check exists in the codebase. Folded into Phase 4's field testing (Week 2–3) as an explicit check rather than assumed fine — free-roam testers walking the district edges will surface any gap directly.
+* **Test spatial culling performance at full district scale** — not formally profiled, but informally exercised: the live Cloud Run deployment already culls against the current 83,751-feature dataset in normal operation with no reported performance issues. Folded into Phase 4 field testing as an explicit check, since "no reported issues so far" isn't the same as "measured," especially as the feature count keeps growing with each GeoShop ingestion.
+* **Dynamic infrastructure loading (render/cull by layer within radius)** — dropped, moot. `index.html`'s live map never renders the full per-layer dataset — only the listener marker, tram marker pool, feeder markers, and debug overlay markers for currently-triggered features. The separate `infrastructure-map.html` dev tool does render full layers unculled, but it's a static debug view outside the live GPS path, not subject to the concern this item was written for.
+* **Phase 4 UI work (UX design pass, options page)** — reconciled against the Walk Recording & Score Archive section below, which already places score recording and local audio download post-launch: the "options page" for those features is post-launch, not Phase 3/4, consistent with that section rather than contradicting it. Layer toggle buttons (the other half of the old UI item) already shipped in Phase 2 — confirmed live in `index.html`. What's left of the old "UX design process" ambition is a light pass, not a dedicated phase: confirming the GPS-permission flow and layer-toggle affordances read clearly, folded into Phase 4 Week 4 (Documentation & Polish) rather than given its own week.
 
 **Step 1: Interface Contract**
 
 * [ ] Build one instrument under each (or a fast subset) of the three candidate contracts in `docs/Technical_Architecture_v5.md`
-* [ ] Decide the contract before building the remaining ~22 instruments
+* [ ] Decide the contract before building the remaining 21 instruments
 * **Deliverable:** Chosen interface contract, validated against at least one pool-type instrument (not just a simple one-shot)
 
 **Step 2: Instrument Build-out**
 
-* [ ] Build remaining instruments grouped by layer, per the order and reasoning in `docs/Implementation_Plan.md`
+* [ ] Build remaining 21 instruments grouped by layer, per the order and reasoning in `docs/Implementation_Plan.md`
 * [ ] HTML control surface per instrument, authoring-only by default (see Timeline Reality Check and `docs/Implementation_Plan.md`, Decision Points item 2)
 * [ ] Resolve pool-exhaustion behaviour (silent drop vs. nearest-wins swap) explicitly for each pool instrument
 * [ ] Mapping-curve audit pass on all layers except tram crackle (already validated)
 * **Deliverable:** All 6 layers running on the new instrument architecture, `audio-layers.js` retired
+
+**Additional workstream: District Musical Theme** (parallel to Steps 1–3, not numbered as a step to avoid colliding with `docs/Implementation_Plan.md`'s own Step 1–9 numbering for the instrument build specifically)
+
+* [ ] Compose a procedural ambient foundation (sustained tones, slow harmonic drift) reflecting Altstadt/District 1 character
+* [ ] Iterate based on how the theme sits underneath the six infrastructure layers during a walk — the theme is a foundation the layers perform atop, not the other way around
+* **Deliverable:** District 1 musical theme running continuously, providing a coherent musical foundation without competing with the infrastructure layers for attention
+* **Not one of the 23 instruments** — it's a distinct workstream with its own deliverable; the instrument inventory in `docs/Implementation_Plan.md` stays at 23
+
+**Additional workstream: PWA Groundwork** (parallel to Steps 1–3)
+
+* [ ] Service Worker skeleton + Web App Manifest scaffolding for the app shell (HTML/JS/GeoJSON)
+* [ ] No control-surface caching yet — deferred until a specific control is promoted to production (see `docs/Technical_Architecture_v5.md`, control-surface decision)
+* **Deliverable:** App-shell caching functional; Phase 4 Week 1 becomes a matter of finishing PWA work, not starting it from scratch
 
 **Step 3: Reintegration**
 
@@ -187,27 +224,28 @@ Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained
 * [ ] Field-validate the rebuilt layers against the current field-tested baseline (no regression)
 * **Deliverable:** Feature parity with the current field-tested experience, on the new architecture
 
-**Milestone 3:** All 6 layers rebuilt as instruments, interface contract resolved and applied consistently.
+**Milestone 3:** All 6 layers rebuilt as instruments, interface contract resolved and applied consistently, district theme composed, PWA app-shell caching functional.
 
 ---
 
 ### **Phase 4: PWA, Testing & Launch (September–October 2026)**
 
-**Week 1: Progressive Web App**
+**Week 1: Progressive Web App (completion)**
 
-* [ ] Service Worker for offline capability
-* [ ] Web App Manifest (installable)
-* [ ] Cache geodata and instrument code on first load
+* [ ] Finish Service Worker (offline capability) and Web App Manifest (installable) — app-shell scaffolding already done in Phase 3
+* [ ] Cache geodata and instrument code; add any control surface that's been individually promoted to production by this point
 * **Deliverable:** PWA works offline
 
 **Week 2–3: User Testing**
 
 * [ ] Recruit and schedule testers, walk District 1, collect structured feedback
+* [ ] Confirm `lk-*.geojson` coverage against the full District 1 boundary and spatial-culling performance at full scale as part of free-roam testing (carried over from Phase 3, see above — not separately scheduled)
 * [ ] Fix critical bugs, refine mix based on real-world use
 * **Deliverable:** Beta-tested experience — see Timeline Reality Check for participant-count trade-off
 
 **Week 4: Documentation & Polish**
 
+* [ ] Light UX pass — confirm GPS-permission flow and layer-toggle affordances read clearly (the old dedicated "UX design process" ambition, scaled down to match how minimal the actual UI is)
 * [ ] User guide, technical documentation, demo video, press kit materials
 * **Deliverable:** Launch-ready materials
 
@@ -223,9 +261,9 @@ Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained
 
 Today is 27 July 2026. The public launch target was September 2026. Between now and launch sits the Stadt Zürich Digitale Künste — Umsetzung und Präsentation funding application, due 1 September (out of scope for this document, but it will consume real working days in the first third of Phase 3).
 
-**Decision: accept a launch slip into October rather than cutting scope to force September.** At full scope — interface-contract decision, 23 instruments each with its own authoring-only HTML control surface, PWA work, a 15-person testing round, and documentation — this does not fit before the end of September for a solo developer. Rough accounting: 1 week for the interface-contract decision (now also covering the pool-exhaustion policy — see `docs/Implementation_Plan.md`), 4–5 weeks to build and control-surface 22 remaining instruments (with reduced velocity around the 1 September deadline), 1 week PWA, 2–3 weeks for testing (scheduling and running 15 walks takes real calendar time, not just working hours), 1 week documentation, plus launch week. That totals to roughly 10–12 weeks from today — landing in early-to-mid October.
+**Decision: accept a launch slip into October rather than cutting scope to force September.** At full scope — interface-contract decision, 23 instruments each with its own authoring-only HTML control surface, the district musical theme, PWA groundwork plus completion, a 15-person testing round, and documentation — this does not fit before the end of September for a solo developer. Rough accounting: 1 week for the interface-contract decision (now also covering the pool-exhaustion policy — see `docs/Implementation_Plan.md`), 4–5 weeks to build and control-surface the 21 remaining instruments (with reduced velocity around the 1 September deadline), **+1 week (estimate, not verified against any prior data point) for the district musical theme workstream, newly pulled into Phase 3 scope**, 1 week PWA completion (groundwork now front-loaded into Phase 3's parallel slack alongside the instrument weeks, so it isn't added as separate sequential time — treat this as risk reduction for Phase 4 Week 1, not a time saving), 2–3 weeks for testing (scheduling and running 15 walks takes real calendar time, not just working hours), 1 week documentation, plus launch week. That totals to roughly **11–13 weeks** from today — landing in **mid-to-late October**, roughly a week or two later than this document's previous estimate, because the theme and PWA-groundwork scope added by this revision aren't free.
 
-This was weighed against cutting scope to hit September instead — reducing control-surface count, shrinking the pre-launch testing pool, or consolidating instrument granularity — and October was chosen over those cuts. Instrument granularity stays at 23 (see `docs/Implementation_Plan.md`, Decision Points) and control surfaces still get built for all 23 as an authoring tool (just not shipped to production by default, which removes production-hardening time from the estimate without removing the surfaces themselves). Pre-launch testing scope (15 vs. a smaller pilot) remains open and is the one lever still available if October slips further — see Phase 4, Week 2–3 below.
+This was weighed against cutting scope to hit September instead — reducing control-surface count, shrinking the pre-launch testing pool, or consolidating instrument granularity — and October was chosen over those cuts. Instrument granularity stays at 23 (see `docs/Implementation_Plan.md`, Decision Points) and control surfaces still get built for all 23 as an authoring tool (just not shipped to production by default, which removes production-hardening time from the estimate without removing the surfaces themselves). Pre-launch testing scope (15 vs. a smaller pilot) remains open and is the one lever still available if mid-to-late October slips further — see Phase 4, Week 2–3 below.
 
 **Development continues regardless of funding outcome** — this was true before the pivot and remains true now; the toolchain narrowing described in this revision is not contingent on the pending application either.
 
@@ -278,7 +316,7 @@ Rather than storing audio, the archive captures the "score" of each walk — the
 
 * **VBZ Infrastruktur OGD** — tram infrastructure geodata
 * **transport.opendata.ch** — live tram positions
-* **GeoShop (Stadt Zürich)** — DXF tile deliveries for all 6 infrastructure layers (30 orders processed)
+* **GeoShop (Stadt Zürich)** — DXF tile deliveries for all 6 infrastructure layers (88 orders processed)
 
 ### **Extraction Scripts**
 
@@ -300,9 +338,9 @@ Rather than storing audio, the archive captures the "score" of each walk — the
 
 **Phase 1 (Late March – Early April):** Real engine integration, GPS, spatial audio via PannerNode, Docker build environment, GCP hosting, tram layer to production quality. ✅
 
-**Phase 2 (April):** Geodata for all 6 layers extracted and filtered ✅. ProximityEngine integration complete ✅. Web Audio API synthesis for all 6 layers complete ✅. Line-crossing/alongside detection for all 5 LineString layers ✅. Shared density reverb bus ✅. 30 GeoShop tile orders processed ✅. Deployed to Cloud Run ✅.
+**Phase 2 (April):** Geodata for all 6 layers extracted and filtered ✅. ProximityEngine integration complete ✅. Web Audio API synthesis for all 6 layers complete ✅. Line-crossing/alongside detection for all 5 LineString layers ✅. Shared density reverb bus ✅. Deployed to Cloud Run ✅. GeoShop tile ingestion has continued past Phase 2 via `scripts/import-new-tiles.js`; 88 orders processed to date (55297–56642) — see Data Layer above.
 
-**Phase 3 (August 2026):** Interface contract decided. ~23 instruments + HTML control surfaces built, replacing `audio-layers.js`. Feature parity with the current field-tested baseline confirmed.
+**Phase 3 (late July – early September 2026):** Interface contract decided. 23 instruments + HTML control surfaces built, replacing `audio-layers.js`. District musical theme composed. PWA app-shell groundwork done. Feature parity with the current field-tested baseline confirmed.
 
 **Phase 4 (September–October 2026):** PWA (Service Worker, offline caching, Web App Manifest), user testing, documentation, public launch. See Timeline Reality Check above — launch is expected in October, accepted rather than compressed to hit September.
 
@@ -316,7 +354,7 @@ Development continues regardless of funding outcome.
 
 **GPS accuracy in urban canyons**
 
-* **Mitigation:** ProximityEngine trigger radii are already wide enough (25–80m depending on layer type) to tolerate GPS drift of 10-30m typical in urban canyons. Compass heading from `DeviceOrientationEvent` may be distorted by steel buildings, but spatial audio panning tolerates several degrees of error without audible impact.
+* **Mitigation:** ProximityEngine trigger radii are already wide enough (5–80m depending on layer type — 5m at the tram trasse drone gate, up to 80m for sewage pipes) to tolerate GPS drift of 10-30m typical in urban canyons. Compass heading from `DeviceOrientationEvent` may be distorted by steel buildings, but spatial audio panning tolerates several degrees of error without audible impact.
 * **Fallback:** The experience degrades softly — wider GPS scatter means slightly less precise spatial positioning, but infrastructure sounds still respond to proximity. No hard failure mode.
 
 **Battery drain**
@@ -344,7 +382,8 @@ Development continues regardless of funding outcome.
 
 **District theme composition**
 
-* **Challenge:** Deferred to a later phase — not part of the current build. Noted here only to confirm it remains out of scope for Phase 3/4.
+* **Challenge:** Creating compelling procedural generative music is difficult — the theme needs to work as a foundation that infrastructure sounds perform atop, across infinite walk variations. No longer deferred: it's in Phase 3 scope now (see above), so this risk is live for the current build, not a someday-concern.
+* **Mitigation:** Start with a simple ambient foundation (sustained tones, slow harmonic drift) and iterate based on how the infrastructure layers interact with it. The infrastructure layers carry the experience; the theme enhances but isn't load-bearing. If generative composition doesn't produce satisfying results, a well-crafted static ambient bed still functions.
 
 ---
 
@@ -366,6 +405,7 @@ Development continues regardless of funding outcome.
 * \[ \] 70%+ would recommend to others
 * \[ \] Users report "seeing infrastructure differently"
 * \[ \] Clear sonic differentiation between 6 infrastructure types
+* \[ \] District 1 theme provides coherent musical foundation — restored here since the theme is back in Phase 3 scope (v3.4 had this criterion; it was dropped without comment when the theme was deferred, then never restored when v3.5 first cut the deferral language either)
 
 ### **Artistic**
 
@@ -386,7 +426,7 @@ Development continues regardless of funding outcome.
 
 ## **Budget**
 
-**Total: CHF 12,200** (Stadt Zürich Digitale Künste application)
+**Total: CHF 10,700** (Stadt Zürich Digitale Künste — Umsetzung und Präsentation, 1 September 2026 deadline)
 
 ### **Infrastructure & Hosting (CHF 1,200)**
 
@@ -400,7 +440,7 @@ Development continues regardless of funding outcome.
 
 * Replacement laptop (current machine failing): CHF 2,500
 
-### **Artistic Development (CHF 5,500)**
+### **Artistic Development (CHF 4,000)**
 
 * Infrastructure layer sound design (6 layers): CHF 4,000
   * Tram electrical (synthesis complete): CHF 0
@@ -409,8 +449,8 @@ Development continues regardless of funding outcome.
   * Electricity grid sonification: CHF 1,000
   * Telecommunications/fiber sonification: CHF 1,000
   * Fernwärme / district heating sonification (sparse network — included within budget envelope): CHF 0
-* District 1 musical theme composition: CHF 1,500
-  * Procedurally-generated electronic theme reflecting district character
+
+District 1 musical theme composition (CHF 1,500 in v3.5) is removed from the budget entirely, not reallocated — the theme is now built as part of Phase 3's regular development work (see Phase 3, "Additional workstream: District Musical Theme") rather than commissioned separately.
 
 ### **Testing & Iteration (CHF 1,500)**
 
@@ -425,7 +465,7 @@ Development continues regardless of funding outcome.
 
 **Post-launch annual costs:** ~CHF 500 (GCP hosting + domain)
 
-**Note:** the Audio software licences line (Max/MSP CHF 354 + RNBO CHF 265 = CHF 619) present in v3.4's budget is removed entirely, not reallocated — the Artistic Development subtotal drops from CHF 6,119 to CHF 5,500 and the grand total from CHF 12,819 to CHF 12,200 accordingly. No other budget figures have been altered. Separately: `docs/archive/Technical_Architecture_v4.md`'s footer cited this application's total as CHF 13,200, which never matched this document's CHF 12,819 even before this revision — a pre-existing contradiction between the two documents, flagged here rather than resolved, since which figure is authoritative wasn't established in this task.
+**Note:** two lines have now been removed entirely from v3.4's original budget, neither reallocated. Arithmetic, shown rather than trusted: v3.4's Artistic Development was CHF 6,119 (sound design 4,000 + theme composition 1,500 + licences 619). Audio software licences (Max/MSP CHF 354 + RNBO CHF 265 = CHF 619) were removed in v3.5, giving CHF 5,500. District 1 musical theme composition (CHF 1,500) is removed in this revision, giving CHF 5,500 − 1,500 = **CHF 4,000** Artistic Development. Grand total: v3.4's CHF 12,819 − 619 (licences) − 1,500 (theme) = **CHF 10,700**. No other budget figures have been altered. Separately: `docs/archive/Technical_Architecture_v4.md`'s footer cited this application's total as CHF 13,200, which never matched this document's CHF 12,819 even before either revision — a pre-existing contradiction between the two documents, flagged here rather than resolved, since which figure is authoritative wasn't established in this task.
 
 ---
 

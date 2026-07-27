@@ -64,7 +64,7 @@ This diffs against `data/processed/.processed-orders.json`, runs the extractor f
 
 ## Notes
 
-- Vite sets required COEP/COOP headers for AudioWorklet + SharedArrayBuffer
+- Vite sets COEP/COOP headers, which enable cross-origin isolation for `SharedArrayBuffer` and high-resolution timers — not required by AudioWorklet itself. Neither SharedArrayBuffer nor AudioWorklet is currently used in the codebase; the headers are retained without an active requirement today (see `docs/Technical_Architecture_v5.md`, Deployment)
 - `allowedHosts: true` in `vite.config.js` permits any hostname (required for Cloudflare tunnel)
 - Cloud Run deployment triggered automatically on push to `main` via `cloudbuild.yaml`
 - All 6 audio layers are togglable via the UI buttons (TRAM / WATER / SEWAGE / ELECTRICITY / TELECOM / FERNWÄRME)

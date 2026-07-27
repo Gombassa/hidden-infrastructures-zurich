@@ -50,16 +50,16 @@ docker run -p 8080:80 hidden-infrastructures
 GeoJSON files served from `public/` — see `CLAUDE.md`'s standing instruction for how these figures are kept current (generated from source once the planned `import-new-tiles.js` extension exists; manual until then):
 
 <!-- GEOSHOP-COUNTS:START -->
-83,751 features total, 88 GeoShop tile orders processed (55297–56642).
+84,098 features total, 91 GeoShop tile orders processed (55297–56685).
 
 | File | Features | Source |
 |---|---|---|
-| `public/lk-tram-lk.geojson` | 11,106 | VBZ tram infrastructure (nodes + trasse) |
-| `public/lk-water.geojson` | 15,171 | WVZ water pipes + fittings (hydrants excluded) |
-| `public/lk-sewage.geojson` | 11,081 | ERZ sewage pipes (manholes excluded) |
-| `public/lk-electricity.geojson` | 21,642 | ewz electricity nodes + underground cables |
-| `public/lk-telecom.geojson` | 24,275 | ewz telecom nodes + cables (Swisscom + UPC, overhead excluded) |
-| `public/lk-fernwaerme.geojson` | 476 | SIA405 district heating pipes |
+| `public/lk-tram-lk.geojson` | 11,148 | VBZ tram infrastructure (nodes + trasse) |
+| `public/lk-water.geojson` | 15,223 | WVZ water pipes + fittings (hydrants excluded) |
+| `public/lk-sewage.geojson` | 11,101 | ERZ sewage pipes (manholes excluded) |
+| `public/lk-electricity.geojson` | 21,719 | ewz electricity nodes + underground cables |
+| `public/lk-telecom.geojson` | 24,374 | ewz telecom nodes + cables (Swisscom + UPC, overhead excluded) |
+| `public/lk-fernwaerme.geojson` | 533 | SIA405 district heating pipes |
 <!-- GEOSHOP-COUNTS:END -->
 | `public/data/processed/route-waypoints.json` | 75 pts | 2,682m route, Stadelhofen → Paradeplatz (legacy — drives tram interpolation, not the free-roam user experience) |
 

@@ -80,12 +80,12 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 
 **Infrastructure Layers (all 6 complete since Phase 2):**
 <!-- GEOSHOP-COUNTS:START (generated from data/processed/.processed-orders.json + public/lk-*.geojson — see standing instruction below; manual until scripts/import-new-tiles.js is extended to write this block) -->
-1. **Tram electrical:** lk-tram-lk.geojson — nodes (feeders) + trasse (powerlines), full District 1, total 11,106 features (8,986 trasse + 2,120 nodes). Real-time tram positions from transport.opendata.ch API.
-2. **Water supply:** lk-water.geojson — 10,531 pipe LineStrings + 4,640 fitting Points, total 15,171 features (WVZ Leitungskataster)
-3. **Sewage:** lk-sewage.geojson — pipes only, manholes excluded, total 11,081 features (ERZ Abwasser-Werkleitungsdaten)
-4. **Electricity grid:** lk-electricity.geojson — nodes + cables, area footprints excluded, total 21,642 features (ewz Werkleitungsdaten)
-5. **Telecommunications:** lk-telecom.geojson — nodes + cables, overhead excluded, total 24,275 features (ewz Telecom / Swisscom / UPC)
-6. **Fernwärme:** lk-fernwaerme.geojson — district heating pipes, 476 features (SIA405 LKMap via GeoShop)
+1. **Tram electrical:** lk-tram-lk.geojson — nodes (feeders) + trasse (powerlines), full District 1, total 11,148 features (9,020 trasse + 2,128 nodes). Real-time tram positions from transport.opendata.ch API.
+2. **Water supply:** lk-water.geojson — 10,568 pipe LineStrings + 4,655 fitting Points, total 15,223 features (WVZ Leitungskataster)
+3. **Sewage:** lk-sewage.geojson — pipes only, manholes excluded, total 11,101 features (ERZ Abwasser-Werkleitungsdaten)
+4. **Electricity grid:** lk-electricity.geojson — nodes + cables, area footprints excluded, total 21,719 features (ewz Werkleitungsdaten)
+5. **Telecommunications:** lk-telecom.geojson — nodes + cables, overhead excluded, total 24,374 features (ewz Telecom / Swisscom / UPC)
+6. **Fernwärme:** lk-fernwaerme.geojson — district heating pipes, 533 features (SIA405 LKMap via GeoShop)
 <!-- GEOSHOP-COUNTS:END -->
 
 **Route:**
@@ -259,9 +259,9 @@ All 6 audio layers implemented with event-driven synthesis:
 - Tram markers not rendering on map — known cosmetic issue, deprioritised
 
 <!-- GEOSHOP-COUNTS:START -->
-88 GeoShop orders processed (55297–56642). Manifest: `data/processed/.processed-orders.json`. Total infrastructure features: 83,751 across the 6 layers (see Key Data above for the per-layer breakdown).
+91 GeoShop orders processed (55297–56685). Manifest: `data/processed/.processed-orders.json`. Total infrastructure features: 84,098 across the 6 layers (see Key Data above for the per-layer breakdown).
 <!-- GEOSHOP-COUNTS:END -->
-(Corrected in this revision from a previously-stated 42 orders / 26,936 features, which had drifted roughly 3× stale.)
+(Updated via `/extract` — 3 new orders, +347 features, all six layers. Previously 88 orders / 83,751 features.)
 
 **Standing instruction — these figures go stale on every tile import.**
 

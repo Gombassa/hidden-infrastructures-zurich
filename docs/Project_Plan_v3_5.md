@@ -68,7 +68,7 @@ Two JavaScript engine modules and an inline GPS listener form the core of the ap
 
 ### **Data Layer**
 
-88 GeoShop tile orders (55297–56642) processed, per `data/processed/.processed-orders.json` — corrected in this revision from the previously stated 30 (55297–55476); that figure was already stale against the committed codebase (79 orders at last commit) before the working tree moved further ahead to 88. All six infrastructure layers extracted and serving from `public/`. See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log, and `docs/Technical_Architecture_v5.md` for the current per-layer feature counts and ProximityEngine radii — `phase2-data-layer.md`'s own feature-count table reflects a much earlier 12-order snapshot and is stale against the current totals; flagged there rather than corrected, since that document's data content is otherwise out of scope for this revision. See `CLAUDE.md`'s standing instruction for how these figures get kept current going forward.
+91 GeoShop tile orders (55297–56685) processed, per `data/processed/.processed-orders.json` — updated via `/extract` (3 new orders, +347 features across all six layers; was 88 orders/55297–56642). All six infrastructure layers extracted and serving from `public/`. See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log, and `docs/Technical_Architecture_v5.md` for the current per-layer feature counts and ProximityEngine radii — `phase2-data-layer.md`'s own feature-count table reflects a much earlier 12-order snapshot and is stale against the current totals; flagged there rather than corrected, since that document's data content is otherwise out of scope for this revision. See `CLAUDE.md`'s standing instruction for how these figures get kept current going forward.
 
 **Real-time API:** transport.opendata.ch confirmed working.
 
@@ -185,9 +185,9 @@ Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained
 
 **Carried over from the old Phase 3 data-expansion plan (v3.4 and earlier) — resolved here rather than left open indefinitely:**
 
-* ✅ **Spatial culling added to ProximityEngine** — done. `CULL_RADIUS = 100` with `cullBounds()`/`cullPoints()`/`cullLines()` is live in `src/proximity-engine.js`, reducing the working set from 83,751 total features to the few hundred within range on every tick.
+* ✅ **Spatial culling added to ProximityEngine** — done. `CULL_RADIUS = 100` with `cullBounds()`/`cullPoints()`/`cullLines()` is live in `src/proximity-engine.js`, reducing the working set from 84,098 total features to the few hundred within range on every tick.
 * **Verify `lk-*.geojson` coverage against the full District 1 boundary** — still genuinely open; no automated boundary check exists in the codebase. Folded into Phase 4's field testing (Week 2–3) as an explicit check rather than assumed fine — free-roam testers walking the district edges will surface any gap directly.
-* **Test spatial culling performance at full district scale** — not formally profiled, but informally exercised: the live Cloud Run deployment already culls against the current 83,751-feature dataset in normal operation with no reported performance issues. Folded into Phase 4 field testing as an explicit check, since "no reported issues so far" isn't the same as "measured," especially as the feature count keeps growing with each GeoShop ingestion.
+* **Test spatial culling performance at full district scale** — not formally profiled, but informally exercised: the live Cloud Run deployment already culls against the current 84,098-feature dataset in normal operation with no reported performance issues. Folded into Phase 4 field testing as an explicit check, since "no reported issues so far" isn't the same as "measured," especially as the feature count keeps growing with each GeoShop ingestion.
 * **Dynamic infrastructure loading (render/cull by layer within radius)** — dropped, moot. `index.html`'s live map never renders the full per-layer dataset — only the listener marker, tram marker pool, feeder markers, and debug overlay markers for currently-triggered features. The separate `infrastructure-map.html` dev tool does render full layers unculled, but it's a static debug view outside the live GPS path, not subject to the concern this item was written for.
 * **Phase 4 UI work (UX design pass, options page)** — reconciled against the Walk Recording & Score Archive section below, which already places score recording and local audio download post-launch: the "options page" for those features is post-launch, not Phase 3/4, consistent with that section rather than contradicting it. Layer toggle buttons (the other half of the old UI item) already shipped in Phase 2 — confirmed live in `index.html`. What's left of the old "UX design process" ambition is a light pass, not a dedicated phase: confirming the GPS-permission flow and layer-toggle affordances read clearly, folded into Phase 4 Week 4 (Documentation & Polish) rather than given its own week.
 
@@ -316,7 +316,7 @@ Rather than storing audio, the archive captures the "score" of each walk — the
 
 * **VBZ Infrastruktur OGD** — tram infrastructure geodata
 * **transport.opendata.ch** — live tram positions
-* **GeoShop (Stadt Zürich)** — DXF tile deliveries for all 6 infrastructure layers (88 orders processed)
+* **GeoShop (Stadt Zürich)** — DXF tile deliveries for all 6 infrastructure layers (91 orders processed)
 
 ### **Extraction Scripts**
 
@@ -338,7 +338,7 @@ Rather than storing audio, the archive captures the "score" of each walk — the
 
 **Phase 1 (Late March – Early April):** Real engine integration, GPS, spatial audio via PannerNode, Docker build environment, GCP hosting, tram layer to production quality. ✅
 
-**Phase 2 (April):** Geodata for all 6 layers extracted and filtered ✅. ProximityEngine integration complete ✅. Web Audio API synthesis for all 6 layers complete ✅. Line-crossing/alongside detection for all 5 LineString layers ✅. Shared density reverb bus ✅. Deployed to Cloud Run ✅. GeoShop tile ingestion has continued past Phase 2 via `scripts/import-new-tiles.js`; 88 orders processed to date (55297–56642) — see Data Layer above.
+**Phase 2 (April):** Geodata for all 6 layers extracted and filtered ✅. ProximityEngine integration complete ✅. Web Audio API synthesis for all 6 layers complete ✅. Line-crossing/alongside detection for all 5 LineString layers ✅. Shared density reverb bus ✅. Deployed to Cloud Run ✅. GeoShop tile ingestion has continued past Phase 2 via `scripts/import-new-tiles.js`; 91 orders processed to date (55297–56685) — see Data Layer above.
 
 **Phase 3 (late July – early September 2026):** Interface contract decided. 23 instruments + HTML control surfaces built, replacing `audio-layers.js`. District musical theme composed. PWA app-shell groundwork done. Feature parity with the current field-tested baseline confirmed.
 

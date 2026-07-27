@@ -23,6 +23,10 @@ Phase 2 complete. All 6 infrastructure layers working with event-driven audio an
 
 **Line-crossing detection:** all 5 LineString layers (water pipes, sewage pipes, electricity cables, telecom cables, fernwärme pipes) detect when the walker's path crosses or runs alongside a line, firing layer-appropriate one-shot transients and looping alongside events.
 
+## Audio architecture
+
+All synthesis is direct Web Audio API code in `src/audio-layers.js` — no Max/MSP, no RNBO, no compiled WASM patches. This is the confirmed production path, not a placeholder pending a native-audio toolchain. Each of the ~23 sonic behaviours across the six layers (proximity pulses, crossing transients, alongside loops, oscillator/burst pools, continuous drones) is being rebuilt as a self-contained instrument module with a paired HTML control surface for hands-on sound design and MIDI-driven auditioning. See `docs/Technical_Architecture_v5.md` for the interface contract under consideration and `docs/Implementation_Plan.md` for the build plan. `max/` holds archived Max for Live specifications retained as sonic reference — not part of the current toolchain.
+
 ## Running locally
 
 See STARTUP.md for full instructions.
@@ -59,6 +63,8 @@ To ingest new GeoShop tile deliveries:
 ```bash
 node scripts/import-new-tiles.js
 ```
+
+**Provenance:** all infrastructure geodata originates from Stadt Zürich's Open Government Data program (VBZ, WVZ, ERZ, ewz, SIA405 LKMap via GeoShop) and transport.opendata.ch. **Code license:** not yet chosen — no `LICENSE` file exists in this repository yet; open item ahead of any public/open-source release.
 
 ## Architecture
 

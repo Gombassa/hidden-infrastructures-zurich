@@ -79,12 +79,14 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 ## Key Data
 
 **Infrastructure Layers (all 6 complete since Phase 2):**
-1. **Tram electrical:** lk-tram-lk.geojson — nodes (feeders) + trasse (powerlines), full District 1. Real-time tram positions from transport.opendata.ch API.
-2. **Water supply:** lk-water.geojson — 10,531 pipe LineStrings + 4,640 fitting Points (WVZ Leitungskataster)
-3. **Sewage:** lk-sewage.geojson — pipes only, manholes excluded (ERZ Abwasser-Werkleitungsdaten)
+<!-- GEOSHOP-COUNTS:START (generated from data/processed/.processed-orders.json + public/lk-*.geojson — see standing instruction below; manual until scripts/import-new-tiles.js is extended to write this block) -->
+1. **Tram electrical:** lk-tram-lk.geojson — nodes (feeders) + trasse (powerlines), full District 1, total 11,106 features (8,986 trasse + 2,120 nodes). Real-time tram positions from transport.opendata.ch API.
+2. **Water supply:** lk-water.geojson — 10,531 pipe LineStrings + 4,640 fitting Points, total 15,171 features (WVZ Leitungskataster)
+3. **Sewage:** lk-sewage.geojson — pipes only, manholes excluded, total 11,081 features (ERZ Abwasser-Werkleitungsdaten)
 4. **Electricity grid:** lk-electricity.geojson — nodes + cables, area footprints excluded, total 21,642 features (ewz Werkleitungsdaten)
 5. **Telecommunications:** lk-telecom.geojson — nodes + cables, overhead excluded, total 24,275 features (ewz Telecom / Swisscom / UPC)
 6. **Fernwärme:** lk-fernwaerme.geojson — district heating pipes, 476 features (SIA405 LKMap via GeoShop)
+<!-- GEOSHOP-COUNTS:END -->
 
 **Route:**
 - 75 waypoints extracted from powerline geometry (A* path-stitching)
@@ -256,13 +258,18 @@ All 6 audio layers implemented with event-driven synthesis:
 - Line-crossing/alongside detection on all 5 LineString layers ✅
 - Tram markers not rendering on map — known cosmetic issue, deprioritised
 
-88 GeoShop orders processed (55297–56642). Manifest: `data/processed/.processed-orders.json`. Total infrastructure features: 83,751 across the 6 layers (see Key Data above for the per-layer breakdown) — corrected in this revision from a previously-stated 42 orders / 26,936 features, which had drifted roughly 3× stale.
+<!-- GEOSHOP-COUNTS:START -->
+88 GeoShop orders processed (55297–56642). Manifest: `data/processed/.processed-orders.json`. Total infrastructure features: 83,751 across the 6 layers (see Key Data above for the per-layer breakdown).
+<!-- GEOSHOP-COUNTS:END -->
+(Corrected in this revision from a previously-stated 42 orders / 26,936 features, which had drifted roughly 3× stale.)
 
-**Standing instruction — these figures go stale on every tile import.** After any run of `scripts/import-new-tiles.js` or `scripts/extract-lk-geojson.js`, re-read the order count/range from `data/processed/.processed-orders.json` and the per-layer feature counts from `public/lk-*.geojson`, then update all of the following before considering the ingestion done:
-- This file: Key Data (per-layer counts, lines ~82–87) and Current State (order count/range + total, above)
-- `README.md`: the Data section table (per-file counts + total) and the "GeoShop tile orders processed" count in Current Status
-- `docs/Technical_Architecture_v5.md`: the Data Layer table (per-layer counts) and order count/range
-- `docs/Project_Plan_v3_5.md`: Data Layer section (order count/range), Technical Stack → Data Sources (order count), Critical Path → Phase 2 (order count/range)
+**Standing instruction — these figures go stale on every tile import.**
+
+The root cause of the drift this file's July 2026 correction pass found (this file carried the newest count while every other document kept an older one) wasn't neglect — it was maintenance happening in exactly one place, and that place happened to be the one an agent reads rather than the one a funder or collaborator reads. The fix is to generate these figures from source, not to designate one more document to hand-maintain. **Agreed plan (not yet built — build when `scripts/import-new-tiles.js` is next touched, not as a standalone task):** extend that script so that, after it updates the manifest, it also regenerates the counts and rewrites the block between the `<!-- GEOSHOP-COUNTS:START -->` / `<!-- GEOSHOP-COUNTS:END -->` marker comments in each file listed below, computed directly from `data/processed/.processed-orders.json` and `public/lk-*.geojson`. Once that exists, restating the numbers in three places costs nothing, because nobody is retyping them.
+
+**Until that script exists**, do this by hand after any run of `scripts/import-new-tiles.js` or `scripts/extract-lk-geojson.js`: re-read the order count/range from `data/processed/.processed-orders.json` and the per-layer feature counts from `public/lk-*.geojson`, then update every marker block (and the un-marked mentions alongside them) before considering the ingestion done:
+- This file, `README.md`, and `docs/Technical_Architecture_v5.md`: each has a `<!-- GEOSHOP-COUNTS:START/END -->` marker block — update everything inside those markers
+- `docs/Project_Plan_v3_5.md`: Data Layer section (order count/range), Technical Stack → Data Sources (order count), Critical Path → Phase 2 (order count/range) — not marker-wrapped, since these are woven into prose rather than a standalone block; update by hand regardless of whether the script above ever gets built
 - Do **not** update `docs/phase2-data-layer.md` — it's an intentionally frozen iteration log, not a live figure; its staleness is flagged elsewhere rather than corrected.
 
 Audio lifecycle:

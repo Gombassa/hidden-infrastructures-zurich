@@ -280,7 +280,10 @@ sharedReverbBus → Convolver (1.8s IR) → sharedReverbOut (density-driven wet)
 
 # Data Layer
 
-88 GeoShop DXF tile orders (55297–56642) processed via `scripts/extract-lk-geojson.js`, per `data/processed/.processed-orders.json`. New tile ingestion automated via `scripts/import-new-tiles.js`. (Corrected in this revision from a previously-stated 30 orders/55297–55476, which was already stale against the committed codebase — 79 orders — before the working tree moved further ahead to 88. Counted directly from the current `public/lk-*.geojson` files, not carried over from any prior document.)
+Extraction pipeline: `scripts/extract-lk-geojson.js` processes GeoShop DXF tile orders tracked in `data/processed/.processed-orders.json`; new tile ingestion is automated via `scripts/import-new-tiles.js`. See `CLAUDE.md`'s standing instruction for how the figures below are kept current (generated from source once the planned `import-new-tiles.js` extension exists; manual until then).
+
+<!-- GEOSHOP-COUNTS:START -->
+88 GeoShop DXF tile orders (55297–56642) processed.
 
 | File | Features | Content | ProximityEngine radius |
 |---|---|---|---|
@@ -291,7 +294,10 @@ sharedReverbBus → Convolver (1.8s IR) → sharedReverbOut (density-driven wet)
 | `lk-telecom.geojson` | 24,275 | 20,649 cables + 3,626 nodes (overhead excluded) | 40m nodes / 30m cables |
 | `lk-fernwaerme.geojson` | 476 | District heating pipes | 30m pipes |
 
-**Total: 83,751 features** across the six infrastructure layers (plus `substations.geojson`, 71 features, loaded separately — see ProximityEngine Output Shape above). This is roughly 3× the long-standing 26,936 figure quoted elsewhere — not a rounding correction, a genuine drift that had gone unnoticed since at least the last several GeoShop-import commits.
+**Total: 83,751 features** across the six infrastructure layers (plus `substations.geojson`, 71 features, loaded separately — see ProximityEngine Output Shape above).
+<!-- GEOSHOP-COUNTS:END -->
+
+Corrected in this revision from a previously-stated 30 orders/55297–55476 and 26,936 total features (roughly 3× stale) — the order count was already stale against the committed codebase (79 orders) before the working tree moved further ahead to 88; counted directly from the current `public/lk-*.geojson` files, not carried over from any prior document.
 
 See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log. Note: that document's own "Extracted Files" feature counts reflect an earlier 12-order snapshot and are stale against the totals above (30 orders) — flagged, not corrected, per that document's own scope.
 

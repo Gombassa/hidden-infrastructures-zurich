@@ -47,7 +47,10 @@ docker run -p 8080:80 hidden-infrastructures
 
 ## Data
 
-GeoJSON files served from `public/` (83,751 features total, 88 GeoShop tile orders processed — see `CLAUDE.md`'s standing instruction for keeping these current):
+GeoJSON files served from `public/` — see `CLAUDE.md`'s standing instruction for how these figures are kept current (generated from source once the planned `import-new-tiles.js` extension exists; manual until then):
+
+<!-- GEOSHOP-COUNTS:START -->
+83,751 features total, 88 GeoShop tile orders processed (55297–56642).
 
 | File | Features | Source |
 |---|---|---|
@@ -57,6 +60,7 @@ GeoJSON files served from `public/` (83,751 features total, 88 GeoShop tile orde
 | `public/lk-electricity.geojson` | 21,642 | ewz electricity nodes + underground cables |
 | `public/lk-telecom.geojson` | 24,275 | ewz telecom nodes + cables (Swisscom + UPC, overhead excluded) |
 | `public/lk-fernwaerme.geojson` | 476 | SIA405 district heating pipes |
+<!-- GEOSHOP-COUNTS:END -->
 | `public/data/processed/route-waypoints.json` | 75 pts | 2,682m route, Stadelhofen → Paradeplatz (legacy — drives tram interpolation, not the free-roam user experience) |
 
 To ingest new GeoShop tile deliveries:

@@ -2,7 +2,8 @@
 
 ## **Project Plan — 6 Infrastructure Layers, District 1**
 
-**Document version:** v3.5 — July 2026
+**Document version:** v3.5.1 — July 2026
+**Changes from v3.5:** Resolved the Timeline Reality Check's open cut-list — accept a launch slip into October rather than compress scope to hit September. Confirmed control surfaces are built for all 23 instruments but authoring-only by default (not a scope cut), and granularity holds at 23 (not consolidated). Pre-launch testing scope (15 vs. a smaller pilot) remains the one lever still open if October slips further.
 **Changes from v3.4:** Dropped Max/MSP + RNBO as the production audio path; browser-native Web Audio instruments (with paired HTML control surfaces) are now the sole production toolchain — see `docs/Technical_Architecture_v5.md` for the architecture and `docs/Implementation_Plan.md` for the build plan. Removed the CHF 619 Max/MSP + RNBO licence line from the budget. Rebased the phase calendar from the stale May/June–August plan to a realistic timeline starting 27 July 2026, and added a plain assessment of what fits before the September 2026 launch target and what doesn't. Updated Technical Stack and Risk Mitigation sections to reflect the toolchain change.
 
 ---
@@ -34,7 +35,7 @@ The app collects zero personal data. GPS coordinates are processed entirely on-d
 * **Phase 1 (Late March–Early April):** Real engine integration, GPS free-roam, Docker build environment, tram layer audio pipeline field-validated. ✅
 * **Phase 2 (April):** Add 5 infrastructure types on prototype route (water, sewage, electricity, telecom, Fernwärme). Web Audio placeholder synthesis for all 6 layers, field-validated. ✅
 * **Phase 3 (August 2026):** Rebuild all 6 layers' audio as self-contained browser-native instruments with HTML control surfaces, replacing the single `audio-layers.js` module. Resolve the interface contract. PWA groundwork.
-* **Phase 4 (September–October 2026):** PWA completion, testing, launch. See "Timeline Reality Check" below — full scope does not fit inside September; this section states plainly what would have to move or shrink.
+* **Phase 4 (September–October 2026):** PWA completion, testing, launch. See "Timeline Reality Check" below — full scope does not fit inside September; launch is expected to land in October instead, by decision rather than by shrinking scope.
 
 The project focuses on District 1 (postal code 8001), where all six infrastructure datasets are publicly accessible through Stadt Zürich's open data portal (VBZ, WVZ, ERZ, ewz, SIA405 LKMap). The tram network has already validated the technical workflow from raw geodata through to spatial audio. Much of the infrastructure is physically visible — overhead wires, manhole covers, transformer boxes — which anchors the sonic experience to things the listener can actually see. Real-time tram data adds a live, dynamic layer that changes with every walk. The district is compact enough to build and test within the project timeline, but the architecture is designed to expand to Districts 2-6 in future.
 
@@ -175,7 +176,7 @@ Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained
 **Step 2: Instrument Build-out**
 
 * [ ] Build remaining instruments grouped by layer, per the order and reasoning in `docs/Implementation_Plan.md`
-* [ ] HTML control surface per instrument (or per the reduced set — see Timeline Reality Check)
+* [ ] HTML control surface per instrument, authoring-only by default (see Timeline Reality Check and `docs/Implementation_Plan.md`, Decision Points item 2)
 * [ ] Resolve pool-exhaustion behaviour (silent drop vs. nearest-wins swap) explicitly for each pool instrument
 * [ ] Mapping-curve audit pass on all layers except tram crackle (already validated)
 * **Deliverable:** All 6 layers running on the new instrument architecture, `audio-layers.js` retired
@@ -220,18 +221,13 @@ Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained
 
 ### **Timeline Reality Check**
 
-Today is 27 July 2026. The public launch target is September 2026. Between now and then sits the Stadt Zürich Digitale Künste — Umsetzung und Präsentation funding application, due 1 September (out of scope for this document, but it will consume real working days in the first third of Phase 3).
+Today is 27 July 2026. The public launch target was September 2026. Between now and launch sits the Stadt Zürich Digitale Künste — Umsetzung und Präsentation funding application, due 1 September (out of scope for this document, but it will consume real working days in the first third of Phase 3).
 
-At full scope — interface-contract decision, ~23 instruments each with its own HTML control surface, PWA work, a 15-person testing round, and documentation — this does not fit before the end of September for a solo developer. Rough accounting: 1 week for the interface-contract decision, 4–5 weeks to build and control-surface 22 remaining instruments (with reduced velocity around the 1 September deadline), 1 week PWA, 2–3 weeks for testing (scheduling and running 15 walks takes real calendar time, not just working hours), 1 week documentation, plus launch week. That totals to roughly 10–12 weeks from today — landing in early-to-mid October, not September.
+**Decision: accept a launch slip into October rather than cutting scope to force September.** At full scope — interface-contract decision, 23 instruments each with its own authoring-only HTML control surface, PWA work, a 15-person testing round, and documentation — this does not fit before the end of September for a solo developer. Rough accounting: 1 week for the interface-contract decision (now also covering the pool-exhaustion policy — see `docs/Implementation_Plan.md`), 4–5 weeks to build and control-surface 22 remaining instruments (with reduced velocity around the 1 September deadline), 1 week PWA, 2–3 weeks for testing (scheduling and running 15 walks takes real calendar time, not just working hours), 1 week documentation, plus launch week. That totals to roughly 10–12 weeks from today — landing in early-to-mid October.
+
+This was weighed against cutting scope to hit September instead — reducing control-surface count, shrinking the pre-launch testing pool, or consolidating instrument granularity — and October was chosen over those cuts. Instrument granularity stays at 23 (see `docs/Implementation_Plan.md`, Decision Points) and control surfaces still get built for all 23 as an authoring tool (just not shipped to production by default, which removes production-hardening time from the estimate without removing the surfaces themselves). Pre-launch testing scope (15 vs. a smaller pilot) remains open and is the one lever still available if October slips further — see Phase 4, Week 2–3 below.
 
 **Development continues regardless of funding outcome** — this was true before the pivot and remains true now; the toolchain narrowing described in this revision is not contingent on the pending application either.
-
-To land closer to the September target, one or more of the following would need to be cut or deferred — presented as options, not a decision made here:
-
-* **Build HTML control surfaces for only the first 1–2 instruments** (enough to validate the interface contract), and defer the rest to post-launch iteration. The control surfaces are an authoring tool, not user-facing functionality (pending the open question in `docs/Technical_Architecture_v5.md` on whether they ship at all) — they don't block what actually gets heard in the app.
-* **Reduce pre-launch user testing from 15 participants to a smaller pilot** (5–8), moving the fuller 15-person round to shortly after launch instead of before it.
-* **Consolidate instrument granularity** from 23 per-behaviour modules toward per-layer instruments with behaviour modes (explicitly allowed as a later correction in `docs/Technical_Architecture_v5.md`) — fewer modules to build and control-surface, at the cost of less isolated control over each behaviour during authoring.
-* **Accept a launch date in the first half of October** rather than compressing the estimate to fit September.
 
 This section will need revisiting once the interface-contract decision (Phase 3, Step 1) is made and its actual build time is known — the estimate above is necessarily approximate before that.
 
@@ -308,7 +304,7 @@ Rather than storing audio, the archive captures the "score" of each walk — the
 
 **Phase 3 (August 2026):** Interface contract decided. ~23 instruments + HTML control surfaces built, replacing `audio-layers.js`. Feature parity with the current field-tested baseline confirmed.
 
-**Phase 4 (September–October 2026):** PWA (Service Worker, offline caching, Web App Manifest), user testing, documentation, public launch. See Timeline Reality Check above for what may need to shrink to land in September specifically.
+**Phase 4 (September–October 2026):** PWA (Service Worker, offline caching, Web App Manifest), user testing, documentation, public launch. See Timeline Reality Check above — launch is expected in October, accepted rather than compressed to hit September.
 
 Development continues regardless of funding outcome.
 
@@ -433,6 +429,6 @@ Development continues regardless of funding outcome.
 
 ---
 
-**Document Version:** 3.5
+**Document Version:** 3.5.1
 **Last Updated:** July 2026
-**Next Review:** End of Phase 3, Step 1 (interface contract decided) — the Timeline Reality Check above should be revisited then with an actual build-time data point.
+**Next Review:** End of Phase 3, Step 1 (interface contract and pool-exhaustion policy decided) — the Timeline Reality Check above should be revisited then with an actual build-time data point.

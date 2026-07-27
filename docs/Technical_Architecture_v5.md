@@ -143,7 +143,7 @@ This is a simplification of an already-working path, not a rescue or a reinventi
 
 ## Granularity: one instrument per sonic behaviour
 
-**Current decision, explicitly revisable.** Each sonic behaviour gets its own instrument module — not one instrument per infrastructure layer. Water, for example, yields four instruments (proximity pulse, fitting-cluster drip, pipe-crossing knock, alongside loop) rather than one "water instrument." This mirrors how `audio-layers.js` is already internally organised (distinct trigger/schedule functions per behaviour) and matches the Max for Live patch boundaries in `docs/archive/max/patch-inventory.md`.
+**Confirmed decision (held at 23; revisit only if Phase 3 Steps 2–3 show unmanageable duplication in practice — not pre-emptively).** Each sonic behaviour gets its own instrument module — not one instrument per infrastructure layer. Water, for example, yields four instruments (proximity pulse, fitting-cluster drip, pipe-crossing knock, alongside loop) rather than one "water instrument." This mirrors how `audio-layers.js` is already internally organised (distinct trigger/schedule functions per behaviour) and matches the Max for Live patch boundaries in `docs/archive/max/patch-inventory.md`.
 
 **Behaviour inventory** (derived from `src/audio-layers.js`, cross-checked against the 19 archived M4L patches):
 
@@ -200,13 +200,13 @@ Each behaviour becomes its own small module (a factory function returning `{ upd
 - **Score archive:** logging has to be added per module rather than once, since there's no shared entry point to intercept.
 - **Trade-off:** cheapest to build first, but the least future-proof — with no enforced contract, 23 modules can drift into 23 slightly different shapes over time, and the HTML control surfaces won't be reusable across instruments.
 
-**Not resolved here.** Recommended reading order: skim all three, then see `docs/Implementation_Plan.md`'s first build phase, which proposes building one instrument under each candidate contract (or a fast elimination after building the first one) before committing.
+**Not resolved here — deliberately.** `docs/Implementation_Plan.md` ("Decision Points," item 1) expands this into explicit comparison criteria (code volume, pool-fit, control-surface reusability, score-archive logging fit, mapping-curve-audit fit) to apply once the two Step 1 proof instruments — water proximity pulse and electricity oscillator pool — exist. Skim all three options above first, then use that criteria list rather than a gut read of which felt nicer to write for two small examples.
 
-## Open questions not resolved by this document
+## Open questions — status
 
-- **Does the HTML control surface ship in the production build, or stay authoring-only?** Unresolved — there may be UX value in exposing hands-on controls to end users that isn't obvious without seeing the surfaces working first. Decide after the first instrument is built and used, not before.
-- **Pool-exhaustion behaviour.** Today, electricity's pool silently drops a claim if all 8 slots are taken (`_elecClaim` returns early with no swap). Telecom's pool has no exhaustion case since it doesn't claim per-feature. Whatever replaces these needs to answer explicitly whether pool exhaustion means silent drop or nearest-wins swap — this should not be inherited by accident from the current silent-drop behaviour.
-- **Mapping-curve audit.** Feeder crackle's (1−t)² falloff over 150m is validated and should be carried forward as-is. The other layers' proximity-to-gain curves (mostly linear) have not had the same scrutiny — flagged in `docs/archive/max/TECHNICAL_NOTES.md` and repeated here so it doesn't get lost in the pivot.
+- **Does the HTML control surface ship in the production build, or stay authoring-only?** **Resolved: authoring-only by default.** All 23 instruments still get a control surface as a dev tool for sound design and MIDI-driven auditioning. A specific control may later be promoted into the production UI, decided per-control once it exists and can be tried — only if there's schedule headroom to harden it for production use and the result is one worth giving end-users, not by default. See `docs/Implementation_Plan.md`, Decision Points, item 2.
+- **Pool-exhaustion behaviour.** **Resolved to decide early, once** — as part of Phase 3 Step 1 (`docs/Implementation_Plan.md`), against the electricity pool proof instrument, as a single policy rather than three separate per-pool decisions made at whatever point each pool gets built. The policy itself (silent drop vs. nearest-wins swap) isn't chosen in this document — only that it gets decided in Step 1, not inherited by accident the way electricity's current silent-drop behaviour was.
+- **Mapping-curve audit.** Still open, and it's a task rather than a decision. Feeder crackle's (1−t)² falloff over 150m is validated and should be carried forward as-is. The other layers' proximity-to-gain curves (mostly linear) have not had the same scrutiny — flagged in `docs/archive/max/TECHNICAL_NOTES.md` and repeated here so it doesn't get lost in the pivot.
 
 ---
 
@@ -318,8 +318,9 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.0
+**Document Version:** 5.1
 **Last Updated:** July 2026
+**Changes from v5.0:** Resolved four of the five open items from the instrument-architecture section: control surfaces confirmed authoring-only by default (with a per-control promotion path); pool-exhaustion policy moved to be decided once in Phase 3 Step 1 rather than per-pool; granularity confirmed held at 23. Interface contract itself remains open but its decision criteria are now expanded in `docs/Implementation_Plan.md`.
 **Changes from v4.0:** Removed Max/MSP + RNBO as the production audio path; documented the pivot decision and rationale. Added Audio Instrument Architecture section: 23-behaviour inventory cross-checked against 19 archived M4L patches, three interface-contract candidates with trade-offs, open questions (control-surface shipping, pool-exhaustion behaviour, mapping-curve audit). Rebased "Future Development Work" off the stale May/June/August phase calendar to point at `Project_Plan_v3_5.md` and the new `Implementation_Plan.md`. Noted `docs/phase2-data-layer.md`'s feature-count staleness without altering that document.
 **Author:** Robin Pender
 **Contact:** robinpender23@gmail.com

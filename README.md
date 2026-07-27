@@ -25,7 +25,7 @@ Phase 2 complete. All 6 infrastructure layers working with event-driven audio an
 
 ## Audio architecture
 
-All synthesis is direct Web Audio API code in `src/audio-layers.js` — no Max/MSP, no RNBO, no compiled WASM patches. This is the confirmed production path, not a placeholder pending a native-audio toolchain. Each of the ~23 sonic behaviours across the six layers (proximity pulses, crossing transients, alongside loops, oscillator/burst pools, continuous drones) is being rebuilt as a self-contained instrument module with a paired HTML control surface for hands-on sound design and MIDI-driven auditioning. See `docs/Technical_Architecture_v5.md` for the interface contract under consideration and `docs/Implementation_Plan.md` for the build plan. `max/` holds archived Max for Live specifications retained as sonic reference — not part of the current toolchain.
+All synthesis is direct Web Audio API code in `src/audio-layers.js` — no Max/MSP, no RNBO, no compiled WASM patches. This is the confirmed production path, not a placeholder pending a native-audio toolchain. Each of the 23 sonic behaviours across the six layers (proximity pulses, crossing transients, alongside loops, oscillator/burst pools, continuous drones), plus the District 1 musical theme as a separate workstream, will be rebuilt as a self-contained instrument module with a paired HTML control surface for hands-on sound design and MIDI-driven auditioning — Phase 3, not yet started. See `docs/Technical_Architecture_v5.md` for the interface contract under consideration and `docs/Implementation_Plan.md` for the build plan. `max/` holds archived Max for Live specifications retained as sonic reference — not part of the current toolchain.
 
 ## Running locally
 
@@ -47,17 +47,17 @@ docker run -p 8080:80 hidden-infrastructures
 
 ## Data
 
-GeoJSON files served from `public/` (26,936 features total, 30 GeoShop tile orders processed):
+GeoJSON files served from `public/` (83,751 features total, 88 GeoShop tile orders processed — see `CLAUDE.md`'s standing instruction for keeping these current):
 
 | File | Features | Source |
 |---|---|---|
-| `public/lk-tram-lk.geojson` | 2,899 | VBZ tram infrastructure (nodes + trasse) |
-| `public/lk-water.geojson` | 4,763 | WVZ water pipes + fittings (hydrants excluded) |
-| `public/lk-sewage.geojson` | 3,552 | ERZ sewage pipes (manholes excluded) |
-| `public/lk-electricity.geojson` | 7,223 | ewz electricity nodes + underground cables |
-| `public/lk-telecom.geojson` | 8,301 | ewz telecom nodes + cables (Swisscom + UPC, overhead excluded) |
-| `public/lk-fernwaerme.geojson` | 198 | SIA405 district heating pipes |
-| `public/data/processed/route-waypoints.json` | 75 pts | 2,682m route, Stadelhofen → Paradeplatz |
+| `public/lk-tram-lk.geojson` | 11,106 | VBZ tram infrastructure (nodes + trasse) |
+| `public/lk-water.geojson` | 15,171 | WVZ water pipes + fittings (hydrants excluded) |
+| `public/lk-sewage.geojson` | 11,081 | ERZ sewage pipes (manholes excluded) |
+| `public/lk-electricity.geojson` | 21,642 | ewz electricity nodes + underground cables |
+| `public/lk-telecom.geojson` | 24,275 | ewz telecom nodes + cables (Swisscom + UPC, overhead excluded) |
+| `public/lk-fernwaerme.geojson` | 476 | SIA405 district heating pipes |
+| `public/data/processed/route-waypoints.json` | 75 pts | 2,682m route, Stadelhofen → Paradeplatz (legacy — drives tram interpolation, not the free-roam user experience) |
 
 To ingest new GeoShop tile deliveries:
 ```bash
@@ -85,7 +85,7 @@ Key ProximityEngine capabilities: nearest-point-on-segment distance, spatial bou
 - Docker + Nginx (containerised deployment)
 - Google Cloud Run (hosting)
 - transport.opendata.ch (live tram positions)
-- Stadt Zürich open data / GeoShop (infrastructure geodata, 30 tile orders)
+- Stadt Zürich open data / GeoShop (infrastructure geodata, 88 tile orders)
 
 ## Repository
 

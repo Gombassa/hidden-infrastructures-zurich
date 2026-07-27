@@ -50,7 +50,7 @@ Current feature counts reflect all 12 tile orders after deduplication and per-la
 - 380 nodes, 1,397 trasse retained; 421 overhead + area excluded
 - Replaces route-specific VBZ files (`route-tram-feeders.geojson`, `route-tram-powerlines.geojson`) — covers full District 1
 - **Known:** some dedupKeys have start == end coordinates (zero-length segments from DXF point collapse) — not a bug
-- **Open:** feeder trigger bug — trams within 5m of nodes not triggering. Under investigation.
+- **Resolved:** feeder trigger bug — trams within 5m of nodes not triggering. Fixed (confirmed by project owner; exception to this document otherwise being a frozen iteration log).
 
 ### lk-fernwaerme.geojson — 198 features ✨ sixth layer
 - All LineString pipes; concentrated in orders 55301/55302 and surrounding tiles; +4 features from new tile set confirms sparse network
@@ -182,6 +182,7 @@ All filters applied at extraction time.
 | April 2026 | 6 additional GeoShop tile orders (55333–55335, 55350–55352) — 12 tiles total. +4,081 net new features. Total 16,849 |
 | April 2026 | [PROXIMITY] tick log extended to single line covering all 6 layers with nearest distance and triggered count |
 | April 2026 | Feeder trigger bug identified in field — trams 5m from feeder nodes with feedersTriggered: 0. Cause under investigation |
+| July 2026 | Feeder trigger bug resolved — fixed (exception noted for this otherwise-frozen log; see lk-tram-lk.geojson section above) |
 | April 2026 | Confirmed: manhole covers excluded (visible); sewage pipes beneath trigger via nearest-point-on-segment |
 | April 2026 | Deployed to Cloud Run — current build live |
 | April 2026 | Tram electrical layer refactored out of index.html into audio-layers.js — all 6 layers now discrete modules with LAYER_ENABLED flags |

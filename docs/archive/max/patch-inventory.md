@@ -1,3 +1,7 @@
+> **Superseded.** This document inventories the Max for Live patches authored under the Max/MSP → RNBO → WASM production-audio path. That path was dropped in July 2026 in favour of browser-native Web Audio instruments authored directly in JavaScript (see `docs/Technical_Architecture_v5.md` and `docs/Implementation_Plan.md`). No longer maintained.
+>
+> Retained as sonic specification: the signal chains, envelope shapes, proximity mappings, and pool structures documented below are the source material the new instruments are built from. The mapping-curve decisions and pool-design rationale carry forward directly; the Max-specific object notes (`line~`, `adsr~`, `comb~`, `reson~` limitations) are historical — Web Audio has its own equivalents and constraints, covered in the new implementation docs.
+
 # Max for Live Patch Inventory
 
 All .amxd files live in:

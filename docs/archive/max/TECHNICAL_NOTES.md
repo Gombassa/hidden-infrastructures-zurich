@@ -1,3 +1,7 @@
+> **Superseded.** These are environment notes for the Max for Live / RNBO authoring path, dropped in July 2026 in favour of browser-native Web Audio instruments (see `docs/Technical_Architecture_v5.md` and `docs/Implementation_Plan.md`). No longer maintained.
+>
+> Retained as sonic specification. The object-level findings below (`line~` message syntax, `adsr~`/`comb~`/`reson~` limitations, gate/cooldown patterns, pool slot-gating) are Max-specific and now historical — Web Audio API has different primitives and different constraints. But the underlying design decisions they encode — the one-shot-with-cooldown pattern, the randomised-loop-with-jitter pattern, the 50ms slot-ramp to avoid clicks, the pool gating approach itself — carry forward directly into the new instrument design. One mapping curve is called out explicitly as validated and carried forward without re-derivation: the **feeder crackle (1−t)² falloff**, `CRACKLE_FALLOFF_RADIUS` 150m, in `src/audio-layers.js`. The other layers' proximity-to-gain curves (mostly linear) have not had the same scrutiny and should get an audit pass as part of the new instrument build, not be assumed correct by default.
+
 # Max for Live Technical Notes
 ## Environment: Max 8 / Live 10
 

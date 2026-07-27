@@ -4,10 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Hidden Infrastructures: Zürich - A location-based generative music application that sonifies Zurich's hidden urban infrastructure through spatial audio. Users walk through District 1 (Altstadt) as their smartphone generates real-time procedural soundscapes driven by five layers of invisible systems.
+Hidden Infrastructures: Zürich - A location-based generative music application that sonifies Zurich's hidden urban infrastructure through spatial audio. Users walk through District 1 (Altstadt) as their smartphone generates real-time procedural soundscapes driven by six layers of invisible systems.
 
-**Phase 1 MVP - District 1 (Postal Code 8001):**
-- Route: Stadelhofen → Paradeplatz (~2.5km)
+**District 1 (Postal Code 8001) — Phase 2 complete, Phase 3 next:**
+- Original prototype route: Stadelhofen → Paradeplatz, 2,682m (drove tram position interpolation during Phase 0–2; the live user experience is free-roam across District 1, not confined to this route — see `docs/Project_Plan_v3_5.md`)
 - Six infrastructure layers: tram electrical, water supply, sewage, electricity grid, telecommunications, Fernwärme (district heating)
 - Public launch target: October 2026 (see `docs/Project_Plan_v3_5.md`, "Timeline Reality Check" — slipped from the original September target by decision, not by cutting scope)
 - Future expansion: Districts 2-6 (2027-2030)
@@ -78,13 +78,13 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 
 ## Key Data
 
-**Infrastructure Layers (Phase 1 MVP):**
+**Infrastructure Layers (all 6 complete since Phase 2):**
 1. **Tram electrical:** lk-tram-lk.geojson — nodes (feeders) + trasse (powerlines), full District 1. Real-time tram positions from transport.opendata.ch API.
-2. **Water supply:** lk-water.geojson — 3,339 pipe LineStrings + 1,424 fitting Points (WVZ Leitungskataster)
+2. **Water supply:** lk-water.geojson — 10,531 pipe LineStrings + 4,640 fitting Points (WVZ Leitungskataster)
 3. **Sewage:** lk-sewage.geojson — pipes only, manholes excluded (ERZ Abwasser-Werkleitungsdaten)
-4. **Electricity grid:** lk-electricity.geojson — nodes + cables, area footprints excluded, total 7,223 features (ewz Werkleitungsdaten)
-5. **Telecommunications:** lk-telecom.geojson — nodes + cables, overhead excluded, total 8,301 features (ewz Telecom / Swisscom / UPC)
-6. **Fernwärme:** lk-fernwaerme.geojson — district heating pipes, 198 features (SIA405 LKMap via GeoShop)
+4. **Electricity grid:** lk-electricity.geojson — nodes + cables, area footprints excluded, total 21,642 features (ewz Werkleitungsdaten)
+5. **Telecommunications:** lk-telecom.geojson — nodes + cables, overhead excluded, total 24,275 features (ewz Telecom / Swisscom / UPC)
+6. **Fernwärme:** lk-fernwaerme.geojson — district heating pipes, 476 features (SIA405 LKMap via GeoShop)
 
 **Route:**
 - 75 waypoints extracted from powerline geometry (A* path-stitching)
@@ -112,7 +112,7 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 - Infrastructure geodata is static snapshots — only tram positions update in real-time
 - Water/sewage/electricity/telecom/Fernwärme layers use static infrastructure positions — no real-time flow/usage data available
 - Fernwärme coverage is sparse in District 1 — 30m radius means encounters will be infrequent (intentional — rare discovery moments)
-- `audio-layers.js`'s Web Audio API synthesis is the production implementation, currently being decomposed into per-behaviour instrument modules (Phase 3, `docs/Implementation_Plan.md`) — it is not a placeholder awaiting a Max/MSP + RNBO patch set, that path is dropped
+- `audio-layers.js`'s Web Audio API synthesis is the production implementation. Phase 3 (not yet started) will decompose it into per-behaviour instrument modules — see `docs/Implementation_Plan.md`. It is not a placeholder awaiting a Max/MSP + RNBO patch set; that path is dropped
 - Tram markers not rendering on map — known cosmetic issue, deprioritised
 - ALONGSIDE_RADIUS (20m) and ALONGSIDE_ANGLE (35°) are uniform across all layers — may need per-layer tuning after field testing
 
@@ -126,9 +126,9 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 5. **Telecommunications** — 4-slot LFO-gated burst pool (density-modulated rate); node chirp + dwell handshake; cable crossing click; alongside loop
 6. **Fernwärme** — 60Hz sine + tremolo; bearing-panned StereoPanner; 30m radius; crossing burst; alongside loop
 
-**Shared density reverb:** 5 layers feed a shared convolver whose wet level scales with active layer count (0.007–0.07). Dense infrastructure zones feel spatially richer.
+**Shared density reverb:** 5 layers feed a shared convolver whose wet level scales with active layer count (`pow((density-1)/5, 1.5) * 0.07`, ≈0.006–0.07 — corrected from a previously-stated 0.007). Dense infrastructure zones feel spatially richer.
 
-**District Musical Theme:** Deferred to Phase 3.
+**District Musical Theme:** Phase 3 scope — a distinct workstream, not one of the 23 instruments (`docs/Implementation_Plan.md`, Step 9). Not yet built.
 
 **Future Expansion (Districts 2-6):** Each district receives unique musical theme. Same 6 infrastructure layers with district-specific sonic character.
 
@@ -234,14 +234,14 @@ The workflow that used to be described here (design in Max/MSP with RNBO objects
 **Current state:**
 
 - Web Audio API direct synthesis is the confirmed production path — not a placeholder, not pending a native-audio toolchain
-- All tram audio (crackle, hiss pool, drone, reverb) lives in `audio-layers.js`, currently being decomposed into per-behaviour instrument modules — `index.html` contains no synthesis code
+- All tram audio (crackle, hiss pool, drone, reverb) lives in `audio-layers.js` today; Phase 3 (not yet started) will decompose it into per-behaviour instrument modules — `index.html` contains no synthesis code
 - Cloud Run service URL: https://hidden-infrastructures-50944718104.europe-west6.run.app/
 
 ---
 
 ## Current State (July 2026)
 
-Phase 2 complete on `main` branch. Deployed to Cloud Run. Phase 3 (instrument architecture rebuild, replacing `audio-layers.js` — see `docs/Implementation_Plan.md`) is next; the list below describes the Phase 2 implementation that Phase 3 is rebuilding, not a finished end state.
+Phase 2 complete on `main` branch. Deployed to Cloud Run. Phase 3 (instrument architecture rebuild, replacing `audio-layers.js` — see `docs/Implementation_Plan.md`) has not started yet; the list below describes the current Phase 2 implementation that Phase 3 will rebuild, not a finished end state. Do not describe any of it in past tense as already decomposed into instruments — it isn't yet.
 
 All 6 audio layers implemented with event-driven synthesis:
 - Feeder hiss (6-node comb-filter pool, HRTF spatial) ✅
@@ -256,7 +256,14 @@ All 6 audio layers implemented with event-driven synthesis:
 - Line-crossing/alongside detection on all 5 LineString layers ✅
 - Tram markers not rendering on map — known cosmetic issue, deprioritised
 
-42 GeoShop orders processed (55297–55567). Manifest: `data/processed/.processed-orders.json`.
+88 GeoShop orders processed (55297–56642). Manifest: `data/processed/.processed-orders.json`. Total infrastructure features: 83,751 across the 6 layers (see Key Data above for the per-layer breakdown) — corrected in this revision from a previously-stated 42 orders / 26,936 features, which had drifted roughly 3× stale.
+
+**Standing instruction — these figures go stale on every tile import.** After any run of `scripts/import-new-tiles.js` or `scripts/extract-lk-geojson.js`, re-read the order count/range from `data/processed/.processed-orders.json` and the per-layer feature counts from `public/lk-*.geojson`, then update all of the following before considering the ingestion done:
+- This file: Key Data (per-layer counts, lines ~82–87) and Current State (order count/range + total, above)
+- `README.md`: the Data section table (per-file counts + total) and the "GeoShop tile orders processed" count in Current Status
+- `docs/Technical_Architecture_v5.md`: the Data Layer table (per-layer counts) and order count/range
+- `docs/Project_Plan_v3_5.md`: Data Layer section (order count/range), Technical Stack → Data Sources (order count), Critical Path → Phase 2 (order count/range)
+- Do **not** update `docs/phase2-data-layer.md` — it's an intentionally frozen iteration log, not a live figure; its staleness is flagged elsewhere rather than corrected.
 
 Audio lifecycle:
 - Unlock Audio: ProximityEngine.init() + AudioContext.resume() only — no synthesis nodes
@@ -269,7 +276,7 @@ Audio lifecycle:
 - RNBO/Max MSP **dropped entirely** (July 2026, not merely deferred) — Web Audio API instruments authored directly in JavaScript are the production path; see `docs/Technical_Architecture_v5.md`
 - ListenerEngine simulation stripped out; live GPS via `watchPosition()` only
 - pole-ping sound layer dropped
-- district-theme deferred to later phase
+- district-theme: was deferred through Phase 1–2, now Phase 3 scope (see Key Data → District Musical Theme, and `docs/Project_Plan_v3_5.md`) — not deferred anymore
 - Two-stage Docker build implemented (node:20-alpine → nginx:alpine)
 - GeoJSON data files served via `public/` directory
 - Cloudflare Tunnel used for HTTPS on Android Chrome during field testing

@@ -1,3 +1,7 @@
+> **Superseded.** This is a Max for Live / RNBO patch specification, dropped in July 2026 in favour of a browser-native Web Audio instrument (see `docs/Technical_Architecture_v5.md` and `docs/Implementation_Plan.md`). No longer maintained.
+>
+> Retained as sonic specification. The circle-of-fifths chord logic, signal chain, and parameter values below carry forward directly. `circleoffifths.js` in this same directory is plain JS, not a Max artifact — it is not superseded and should be wired into the new gurgle instrument as-is, not reimplemented. The MPK Mini Mk4 MIDI mapping is Max-era but a reasonable starting point for the new instrument's own control surface. The "RNBO Export Notes" section (including the `js`-object-has-no-RNBO-equivalent note) is fully historical.
+
 # Sewage Patch Specification
 
 ## Overview

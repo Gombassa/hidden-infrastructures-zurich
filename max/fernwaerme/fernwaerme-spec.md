@@ -1,3 +1,7 @@
+> **Superseded.** This is a Max for Live / RNBO patch specification, dropped in July 2026 in favour of a browser-native Web Audio instrument (see `docs/Technical_Architecture_v5.md` and `docs/Implementation_Plan.md`). No longer maintained.
+>
+> Retained as sonic specification. The signal chain, parameter values, and build order below carry forward directly into the new Fernwärme tone/tremolo/panner instrument. The MPK Mini Mk4 MIDI control mapping is Max-era but still a useful starting point for that instrument's own HTML control surface — the CC-to-parameter assignments are a reasonable default, not a hard requirement, for the new authoring surface. The "RNBO Export Notes" section is fully historical; there is no RNBO export step anymore.
+
 # Fernwärme Patch Specification
 
 ## Overview

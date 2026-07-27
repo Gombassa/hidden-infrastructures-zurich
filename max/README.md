@@ -4,16 +4,16 @@ Max for Live patch development for **Hidden Infrastructures: Zürich** — **sup
 
 The Max/MSP → RNBO → WASM production-audio path documented below has been dropped in favour of browser-native Web Audio instruments authored directly in JavaScript. See `docs/Technical_Architecture_v5.md` and `docs/Implementation_Plan.md` for the current architecture and build plan.
 
-This directory's content remains valuable as sonic specification — signal chains, proximity mappings, envelope shapes, and the MIDI control mappings in `fernwaerme/fernwaerme-spec.md` and `sewage/sewage-spec.md` — and the translation work for each new instrument reads from it. `sewage/circleoffifths.js` is plain JS (not a Max patch) and is directly reusable, not something to translate.
+`fernwaerme/fernwaerme-spec.md` and `sewage/sewage-spec.md` now carry the same superseded header as the rest of this directory — including their MPK Mini Mk4 MIDI control-mapping tables, which are Max-era but still a reasonable starting point when designing each new instrument's own HTML control surface. `sewage/circleoffifths.js` is the one exception: it's plain JS, not a Max artifact, is not superseded, and should be wired into the new gurgle instrument as-is rather than reimplemented.
 
-The patch and object-level inventory previously here has moved to `docs/archive/max/` (`patch-inventory.md`, `TECHNICAL_NOTES.md`) with superseded headers.
+The patch and object-level inventory previously here has moved to `docs/archive/max/` (`patch-inventory.md`, `TECHNICAL_NOTES.md`) with the same superseded headers.
 
 ## Subdirectories
 
 | Directory | Layer |
 |---|---|
-| `fernwaerme/` | Fernwärme (district heating) — spec + MIDI mapping |
-| `sewage/` | Sewage — spec, MIDI mapping, `circleoffifths.js` (reusable) |
+| `fernwaerme/` | Fernwärme (district heating) — superseded spec + MIDI mapping |
+| `sewage/` | Sewage — superseded spec + MIDI mapping, `circleoffifths.js` (live, reusable) |
 
 ## Workflow (historical — not in use)
 

@@ -161,6 +161,8 @@ Water's and Fernwärme's crossing/alongside behaviours were added to the JS afte
 
 Density-gain and rate-modulation (electricity's node-count multiplier, telecom's cable-count LFO scaling) are treated as **parameters of the pool instrument**, not separate instruments — they modulate an existing sound rather than producing an independent one.
 
+The District 1 musical theme is now Phase 3 scope (`docs/Project_Plan_v3_5.md`) rather than deferred indefinitely — but it is deliberately **not** a 24th entry in the table above. It's a continuous ambient foundation the six layers perform atop, architecturally closer to the shared density reverb bus (a piece of infrastructure the layers all relate to) than to a per-behaviour instrument tied to proximity events from one layer's geodata. The 23-instrument count and the granularity decision above are unaffected by the theme's schedule move.
+
 **If this doesn't hold:** if 23 per-behaviour modules produce unmanageable duplication (most behaviours share the one-shot-with-cooldown or randomised-loop-with-jitter shape already documented in `docs/archive/max/patch-inventory.md`), consolidating toward per-layer instruments with behaviour *modes* is an acceptable later correction. The interface contract below is written so that change wouldn't require revisiting the surrounding application wiring — see Option B.
 
 ## The interface contract — open decision
@@ -278,16 +280,18 @@ sharedReverbBus → Convolver (1.8s IR) → sharedReverbOut (density-driven wet)
 
 # Data Layer
 
-30 GeoShop DXF tile orders (55297–55476) processed via `scripts/extract-lk-geojson.js`. Manifest tracked at `data/processed/.processed-orders.json`. New tile ingestion automated via `scripts/import-new-tiles.js`.
+88 GeoShop DXF tile orders (55297–56642) processed via `scripts/extract-lk-geojson.js`, per `data/processed/.processed-orders.json`. New tile ingestion automated via `scripts/import-new-tiles.js`. (Corrected in this revision from a previously-stated 30 orders/55297–55476, which was already stale against the committed codebase — 79 orders — before the working tree moved further ahead to 88. Counted directly from the current `public/lk-*.geojson` files, not carried over from any prior document.)
 
 | File | Features | Content | ProximityEngine radius |
 |---|---|---|---|
-| `lk-water.geojson` | 4,763 | 3,339 pipes + 1,424 fittings (WVZ, hydrants excluded) | 50m pipe / 25m fitting |
-| `lk-sewage.geojson` | 3,552 | Pipes only (manholes, Nebenleitung excluded) | 80m pipe / 15m junction |
-| `lk-electricity.geojson` | 7,223 | Underground cables + nodes (area footprints excluded) | 40m nodes / 40m cables |
-| `lk-tram-lk.geojson` | 2,899 | Trasse + nodes (overhead/area excluded) | 50m feeders / 5m drone |
-| `lk-telecom.geojson` | 8,301 | Cables + nodes (overhead excluded) | 40m nodes / 30m cables |
-| `lk-fernwaerme.geojson` | 198 | District heating pipes | 30m pipes |
+| `lk-water.geojson` | 15,171 | 10,531 pipes + 4,640 fittings (WVZ, hydrants excluded) | 50m pipe / 25m fitting |
+| `lk-sewage.geojson` | 11,081 | Pipes only (manholes, Nebenleitung excluded) | 80m pipe / 15m junction |
+| `lk-electricity.geojson` | 21,642 | 15,577 cables + 6,065 nodes (area footprints excluded) | 40m nodes / 40m cables |
+| `lk-tram-lk.geojson` | 11,106 | 8,986 trasse + 2,120 nodes (overhead/area excluded) | 50m feeders / 5m drone |
+| `lk-telecom.geojson` | 24,275 | 20,649 cables + 3,626 nodes (overhead excluded) | 40m nodes / 30m cables |
+| `lk-fernwaerme.geojson` | 476 | District heating pipes | 30m pipes |
+
+**Total: 83,751 features** across the six infrastructure layers (plus `substations.geojson`, 71 features, loaded separately — see ProximityEngine Output Shape above). This is roughly 3× the long-standing 26,936 figure quoted elsewhere — not a rounding correction, a genuine drift that had gone unnoticed since at least the last several GeoShop-import commits.
 
 See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log. Note: that document's own "Extracted Files" feature counts reflect an earlier 12-order snapshot and are stale against the totals above (30 orders) — flagged, not corrected, per that document's own scope.
 
@@ -295,7 +299,7 @@ See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log. N
 
 **Hosting:** Google Cloud Platform, Cloud Run. Current URL: https://hidden-infrastructures-50944718104.europe-west6.run.app/
 
-**Docker:** Multi-stage build — Node.js build stage (Vite) → Nginx serve stage. COEP/COOP headers for AudioWorklet compatibility (retained for potential future AudioWorklet use even though the RNBO path that originally motivated it is dropped — AudioWorklet remains a legitimate option for any instrument that needs off-main-thread processing).
+**Docker:** Multi-stage build — Node.js build stage (Vite) → Nginx serve stage. `nginx.conf` and `vite.config.js` both set `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: credentialless`. This pair enables cross-origin isolation, which is required for `SharedArrayBuffer` and high-resolution timers — **not** for AudioWorklet itself, which does not require cross-origin isolation. As of this writing, neither SharedArrayBuffer nor AudioWorklet is actually used anywhere in the codebase, so these headers are currently retained without an active requirement. Kept in case a future instrument needs off-main-thread processing via AudioWorklet combined with SharedArrayBuffer for shared memory between the audio thread and main thread — a legitimate forward-looking reason, but distinct from what was previously stated here.
 
 **Dev workflow:** `npx vite --host` (port 8080) + Cloudflare Tunnel for HTTPS on Android Chrome field testing.
 
@@ -318,8 +322,9 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.1
+**Document Version:** 5.2
 **Last Updated:** July 2026
+**Changes from v5.1 (correction pass):** Corrected the COEP/COOP justification in Deployment — the correct reason is SharedArrayBuffer/high-resolution-timer cross-origin isolation, not AudioWorklet, and neither is currently used in the codebase, so the headers are retained without an active requirement today. Verified substations are still loaded and emitted (7 files, not 6) — no change needed, a prior assumption that they'd been removed did not hold. Added a note that the District 1 musical theme, now Phase 3 scope, is deliberately not a 24th instrument. Corrected the Data Layer table's feature counts and order count, both roughly 3× stale (26,936 → 83,751 total features; 30 orders/55297–55476 → 88 orders/55297–56642) — counted directly from the current `public/lk-*.geojson` files and `data/processed/.processed-orders.json`, not carried over from prior documents.
 **Changes from v5.0:** Resolved four of the five open items from the instrument-architecture section: control surfaces confirmed authoring-only by default (with a per-control promotion path); pool-exhaustion policy moved to be decided once in Phase 3 Step 1 rather than per-pool; granularity confirmed held at 23. Interface contract itself remains open but its decision criteria are now expanded in `docs/Implementation_Plan.md`.
 **Changes from v4.0:** Removed Max/MSP + RNBO as the production audio path; documented the pivot decision and rationale. Added Audio Instrument Architecture section: 23-behaviour inventory cross-checked against 19 archived M4L patches, three interface-contract candidates with trade-offs, open questions (control-surface shipping, pool-exhaustion behaviour, mapping-curve audit). Rebased "Future Development Work" off the stale May/June/August phase calendar to point at `Project_Plan_v3_5.md` and the new `Implementation_Plan.md`. Noted `docs/phase2-data-layer.md`'s feature-count staleness without altering that document.
 **Author:** Robin Pender

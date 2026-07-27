@@ -1,7 +1,8 @@
 # Hidden Infrastructures: Zürich — Instrument Implementation Plan
 
-**Document version:** 1.0
+**Document version:** 1.1
 **Date:** July 2026
+**Changes from 1.0 (correction pass):** Fixed two internal cross-reference errors (Fernwärme mislabelled "Step 9" in Step 3's text — Fernwärme is Step 7; the pool-paradigm checkpoint list said "Steps 4 and 8" — should be "Steps 4 and 6," Step 8 is reintegration, not a pool checkpoint). Added Step 9 — District Musical Theme, per its move into Phase 3 scope, deliberately outside the 23-instrument inventory. Re-ran the Timeline Reality Check reference to 11–13 weeks / mid-to-late October, matching the Project Plan's re-estimate.
 **Companion to:** `docs/Technical_Architecture_v5.md` (architecture, interface-contract candidates, open questions), `docs/Project_Plan_v3_5.md` (phase calendar, budget, timeline reality check)
 
 This document is the build plan for Phase 3 of `Project_Plan_v3_5.md`: replacing `src/audio-layers.js` with self-contained instrument modules and HTML control surfaces. It does not repeat the architecture rationale — see the Architecture doc for why this pivot happened and what the interface-contract candidates are.
@@ -10,7 +11,7 @@ This document is the build plan for Phase 3 of `Project_Plan_v3_5.md`: replacing
 
 ## Instrument Inventory
 
-23 instruments across 6 layers, one per sonic behaviour (see `docs/Technical_Architecture_v5.md` for the granularity decision and how this count was derived). "Spec" = an archived Max for Live patch exists at `docs/archive/max/patch-inventory.md` documenting its signal chain; "no spec" = the behaviour was added to `audio-layers.js` after the Max patches were authored and has to be built directly from the current JS.
+23 instruments across 6 layers, one per sonic behaviour (see `docs/Technical_Architecture_v5.md` for the granularity decision and how this count was derived). The District 1 musical theme (Step 9 below) is deliberately not counted among these 23 — see that step for why. "Spec" = an archived Max for Live patch exists at `docs/archive/max/patch-inventory.md` documenting its signal chain; "no spec" = the behaviour was added to `audio-layers.js` after the Max patches were authored and has to be built directly from the current JS.
 
 | # | Layer | Instrument | Spec? | Pool? |
 |---|---|---|---|---|
@@ -49,7 +50,7 @@ This document is the build plan for Phase 3 of `Project_Plan_v3_5.md`: replacing
 Build exactly two instruments, each under whichever of the three candidate contracts (Architecture doc, "The interface contract") seem most promising — or all three for the first one if it's cheap enough to tell quickly:
 
 1. **Water proximity pulse** (#1) — the simplest possible case: a single one-shot, no pool, a documented spec (`WaterProximityPulse.amxd`) with a known translation issue already flagged (`docs/archive/max/TECHNICAL_NOTES.md`: "line~ has envelope as arguments not message-driven"). Good for proving lifecycle (`init`/`update`/`trigger`/`destroy`), parameter feed from ProximityEngine's shape, and HTML control-surface binding, without pool complexity muddying the read.
-2. **Electricity oscillator pool** (#5) — the most conventional of the three existing pool paradigms (persistent claim/release keyed by feature ID, closest to a standard synth voice-allocation pattern), so it's the most representative single pool exemplar to validate the contract against. Deliberately *not* tram's hiss pool or telecom's burst pool here — those are each other's edge cases and are exercised later (see Steps 4 and 8) as checkpoints on whether the contract generalises, not as the first thing it's designed against.
+2. **Electricity oscillator pool** (#5) — the most conventional of the three existing pool paradigms (persistent claim/release keyed by feature ID, closest to a standard synth voice-allocation pattern), so it's the most representative single pool exemplar to validate the contract against. Deliberately *not* tram's hiss pool or telecom's burst pool here — those are each other's edge cases and are exercised later (see Steps 4 and 6) as checkpoints on whether the contract generalises, not as the first thing it's designed against.
 
 **Also decide during this step, as a single policy applied to all three pool instruments (not per-pool as each is built):** pool-exhaustion behaviour — silent drop vs. nearest-wins swap. This was originally listed as a separate later decision point; folded in here because it's cheaper to answer once, against the electricity pool proof instrument, than to re-litigate it three times (Step 1 electricity, Step 4 tram, Step 6 telecom) or worse, let each inherit whatever the port from `audio-layers.js` happens to do by accident (today: electricity silently drops, telecom has no exhaustion case at all since it never claims per-feature). Whichever policy is chosen, note explicitly in Step 4 and Step 6 whether tram's and telecom's pool *shapes* even have a meaningful equivalent to "exhaustion" — tram's stateless reassignment and telecom's always-on collective gating may not.
 
@@ -74,7 +75,7 @@ Build exactly two instruments, each under whichever of the three candidate contr
 ### Step 3 — Water layer completion
 
 4. Fitting-cluster drip (#2) — spec'd, similar shape to the already-built proximity pulse.
-5. Pipe-crossing knock (#3), alongside loop (#4) — **no spec.** This is deliberately the first "build without a Max reference" case, but it's a low-complexity one (single 380Hz tone, one-shot vs. looped-with-jitter variant of the same sound) — a safe place to establish the pattern for translating straight from `audio-layers.js` before doing the same thing for Fernwärme (Step 9), which is sonically more novel.
+5. Pipe-crossing knock (#3), alongside loop (#4) — **no spec.** This is deliberately the first "build without a Max reference" case, but it's a low-complexity one (single 380Hz tone, one-shot vs. looped-with-jitter variant of the same sound) — a safe place to establish the pattern for translating straight from `audio-layers.js` before doing the same thing for Fernwärme (Step 7), which is sonically more novel.
 
 **Done means:** water layer fully on the new architecture, field-validated.
 
@@ -112,6 +113,14 @@ Wire the instrument set into the existing GPS/TramEngine/ProximityEngine data fl
 
 **Done means:** no regression from the current field-tested experience; `audio-layers.js` can now be safely removed.
 
+### Step 9 — District Musical Theme
+
+Not one of the 23 instruments (see Architecture doc, "Granularity") — a separate, parallel workstream pulled into Phase 3 scope from indefinite deferral (`docs/Project_Plan_v3_5.md`). Compose a procedural ambient foundation (sustained tones, slow harmonic drift) and iterate against how it sits underneath the six infrastructure layers during an actual walk — the theme supports the layers, not the reverse. Architecturally closer to the shared density reverb bus (something all layers relate to) than to a per-behaviour instrument driven by one layer's proximity data, which is why it isn't in the Instrument Inventory table.
+
+No dependency on Steps 1–8 — it doesn't touch the interface contract, any pool, or `audio-layers.js`, and could in principle be built in parallel with them. Sequenced last here only because it has no risk-sequencing reason to go earlier, not because it's blocked.
+
+**Done means:** theme plays continuously and audibly under the six infrastructure layers on a full field walk without masking them or without being masked by dense multi-layer zones (e.g. Bahnhofstrasse); a listener can articulate that both the theme and the infrastructure layers are present.
+
 ---
 
 ## Dependencies
@@ -119,6 +128,7 @@ Wire the instrument set into the existing GPS/TramEngine/ProximityEngine data fl
 - Step 1 hard-blocks Steps 2–7 (can't build 22 more instruments against an undecided contract).
 - Steps 2–7 (per-layer) have no dependencies on each other — the order above is a reasoning-based recommendation for risk sequencing, not a technical requirement. They could be reordered or parallelised if more than one person were building, but as a solo effort the sequencing matters for catching contract problems early rather than late.
 - Step 8 depends on all of Steps 2–7 being complete.
+- Step 9 (district theme) has no dependency on Steps 1–8 and none of them depend on it — it can run in parallel with any of them.
 - PWA work (`Project_Plan_v3_5.md` Phase 4, Week 1) no longer has an open dependency on the control-surface shipping question — that's resolved (authoring-only by default, see Decision Points below), so Service Worker caching scope is just the app shell (HTML/JS/GeoJSON) plus any individual control that's later promoted to production. Core app-shell caching could reasonably start before Step 8 finishes; add a promoted control to the cache list only once it's actually promoted.
 - User testing (`Project_Plan_v3_5.md` Phase 4, Week 2–3) hard-depends on Step 8 — testing an incomplete rebuild would produce feedback about bugs that are already known and about to be fixed, not useful signal.
 
@@ -132,7 +142,7 @@ Status as of this revision — five of six resolved, one (interface contract its
 2. **HTML control surfaces: ship in production or authoring-only?** **Resolved: authoring-only by default.** Build one per instrument as a dev tool for sound design and MIDI-driven auditioning (all 23 still get built — this doesn't reduce Step 1–7 scope). Whether any *specific* control gets promoted into the production UI is decided per-control, later, once it exists and can actually be tried — promote only if there's schedule headroom to harden it for production (mobile-responsive, accessible, no dev-only affordances left in) and the result is one you want end-users to have, not by default. Treat every surface as authoring-only until a specific one earns promotion.
 3. **Pool-exhaustion behaviour.** **Resolved: decide early, once, in Step 1** (moved into that step above) rather than per-pool as each pool instrument gets built later — see Step 1 for the full reasoning.
 4. **Granularity: 23 per-behaviour modules vs. consolidating toward per-layer instruments.** **Resolved: hold at 23.** No consolidation. The Instrument Inventory table above and the build order both assume this; revisit only if Step 2–3 (the first two real layers) show unmanageable duplication in practice, not pre-emptively.
-5. **Timeline trade-off.** **Resolved: accept a slip into October rather than cutting scope to force September.** `docs/Project_Plan_v3_5.md`'s Timeline Reality Check is updated accordingly — the September-specific cut list there is now historical framing, not a live option being weighed.
+5. **Timeline trade-off.** **Resolved: accept a slip into October rather than cutting scope to force September.** `docs/Project_Plan_v3_5.md`'s Timeline Reality Check is updated accordingly — the September-specific cut list there is now historical framing, not a live option being weighed. Re-run since that resolution to account for the district theme (Step 9) and PWA groundwork being added to Phase 3 scope: current estimate is **11–13 weeks from 27 July, landing mid-to-late October** (was 10–12 weeks / early-to-mid October before those additions) — see the Project Plan for the accounting.
 6. **`max/fernwaerme/fernwaerme-spec.md`, `max/sewage/sewage-spec.md`, `max/README.md`.** **Resolved: superseded-header treatment applied to the fernwärme and sewage specs**, same pattern as `patch-inventory.md`/`TECHNICAL_NOTES.md` — including their Max-era MIDI control-mapping tables (MPK Mini Mk4 CC assignments), which are now historical but remain a useful reference point when designing the new instruments' own MIDI mapping. `circleoffifths.js` is unaffected — it's plain JS, not a Max artifact, and stays live.
 
 ---
@@ -143,4 +153,5 @@ Status as of this revision — five of six resolved, one (interface contract its
 - **HTML control surface scope balloons.** 23 surfaces is a lot of bespoke UI even if each is small — this risk doesn't go away just because they're authoring-only (decision #2); it still takes real time to build 23 of anything. It's mitigated, not eliminated, by not needing production hardening (accessibility, mobile-responsive, no dev-only affordances) on any surface unless and until it's individually promoted — most of them never will be, so most of the 23 stay at "good enough to drive with MIDI" quality, not shipped-product quality.
 - **Regression during the rebuild.** Mitigated by not deleting `src/audio-layers.js` until Step 8's parity check passes (see above).
 - **Stale data pulled into an instrument's parameters.** `docs/phase2-data-layer.md` has feature counts from an earlier 12-order snapshot; if a radius or count gets copied from there instead of from `docs/Technical_Architecture_v5.md` or live code, it'll be wrong. Source parameters from the architecture doc's tables or the current `src/audio-layers.js`/`src/proximity-engine.js`, not from the data-layer iteration log.
+- **District theme undermines rather than supports the layers.** Composing generative ambient music that stays a foundation rather than competing for attention is genuinely hard — see `docs/Project_Plan_v3_5.md`, Risk Mitigation, "Sound Design Risks" for the fuller treatment (start simple, iterate against the layers, a static ambient bed is an acceptable fallback if generative composition underdelivers).
 - **Grant-deadline contention.** The Umsetzung und Präsentation application (1 September) sits inside Step 2–6's build window and will take real days away from instrument work — already factored into the Project Plan's Timeline Reality Check, not an unaccounted-for risk, but worth naming here so it isn't forgotten mid-build.

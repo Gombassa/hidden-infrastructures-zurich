@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WATER FLOW — continuous</title>
+<style>
+  :root {
+    --paper:   #E9EBE6;
+    --paper-2: #F4F5F2;
+    --paper-3: #DFE2DB;
+    --ink:     #14171A;
+    --ink-2:   #5A6169;
+    --ink-3:   #8B9199;
+    --rule:    #C6CAC3;
+    --water:   #1A6E9E;
+    --live:    #0F7A78;
+    --warn:    #B85C1E;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    --sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+         font-size:13px; line-height:1.45; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1180px; margin:0 auto; padding:22px 20px 60px; }
+
+  .masthead { display:flex; align-items:flex-end; justify-content:space-between; gap:20px;
+              flex-wrap:wrap; border-bottom:1.5px solid var(--ink); padding-bottom:10px; }
+  .title { font-size:clamp(26px,5vw,42px); font-weight:700; letter-spacing:-0.035em;
+           text-transform:uppercase; margin:0; line-height:0.95; }
+  .title span { color:var(--water); }
+  .masthead-meta { font-family:var(--mono); font-size:10.5px; color:var(--ink-2);
+                   text-align:right; letter-spacing:0.02em; white-space:nowrap; }
+  .masthead-meta b { color:var(--ink); font-weight:500; }
+  .strapline { font-family:var(--mono); font-size:11px; color:var(--ink-2);
+               margin:8px 0 20px; letter-spacing:0.01em; }
+  .strapline em { color:var(--water); font-style:normal; }
+
+  .panel { background:var(--paper-2); border:1px solid var(--rule); padding:12px 13px 14px; }
+  .panel-head { display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+                margin:0 0 10px; border-bottom:1px solid var(--rule); padding-bottom:6px; }
+  .panel-head h2 { font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:0.14em;
+                   text-transform:uppercase; margin:0; }
+  .panel-head .note { font-family:var(--mono); font-size:9.5px; color:var(--ink-3);
+                      letter-spacing:0.03em; text-align:right; }
+
+  .hero { margin:0 0 14px; }
+  .scope-frame { position:relative; border:1px solid var(--rule); background:var(--paper-2); }
+  canvas#scope { display:block; width:100%; height:190px; }
+  .scope-tag { position:absolute; font-family:var(--mono); font-size:9.5px;
+               letter-spacing:0.06em; pointer-events:none; }
+  .scope-tag.corner { left:8px; top:7px; color:var(--ink-3); }
+
+  .transport { display:flex; gap:10px; align-items:center; margin:14px 0 18px; flex-wrap:wrap; }
+  button { font-family:var(--mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+           padding:9px 14px; border:1px solid var(--ink); background:var(--paper-2); color:var(--ink);
+           cursor:pointer; transition:background .12s,color .12s; }
+  button:hover:not(:disabled) { background:var(--ink); color:var(--paper-2); }
+  button:disabled { opacity:.35; cursor:not-allowed; }
+  button:focus-visible { outline:2px solid var(--live); outline-offset:2px; }
+  button.primary { background:var(--water); border-color:var(--water); color:#fff; font-weight:600; }
+  button.primary:hover:not(:disabled) { background:var(--ink); border-color:var(--ink); }
+  button.ghost { border-color:var(--rule); color:var(--ink-2); }
+  button.ghost:hover:not(:disabled) { background:var(--ink-2); color:var(--paper-2); border-color:var(--ink-2); }
+  button.on { background:var(--live); border-color:var(--live); color:#fff; }
+
+  .grid { display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); align-items:start; }
+  .row { display:grid; grid-template-columns:92px 1fr; gap:9px; align-items:center; margin-bottom:7px; }
+  .row:last-child { margin-bottom:0; }
+  .row > label { font-family:var(--mono); font-size:10px; color:var(--ink-2); letter-spacing:0.03em; line-height:1.2; }
+  .rng { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+  .field { display:flex; align-items:center; gap:5px; }
+  .field span { font-family:var(--mono); font-size:8.5px; color:var(--ink-3);
+                letter-spacing:0.06em; text-transform:uppercase; }
+  input[type=number] { font-family:var(--mono); font-size:11px; width:100%; min-width:0; padding:5px 6px;
+                       border:1px solid var(--rule); background:var(--paper); color:var(--ink); }
+  input[type=number]:focus-visible { outline:2px solid var(--live); outline-offset:-1px; }
+  input[type=range] { width:100%; accent-color:var(--water); }
+  select { font-family:var(--mono); font-size:11px; padding:5px 6px; border:1px solid var(--rule);
+           background:var(--paper); color:var(--ink); width:100%; }
+  .val { font-family:var(--mono); font-size:10.5px; color:var(--ink); min-width:46px; text-align:right; }
+  .hint { font-family:var(--mono); font-size:9.5px; color:var(--ink-3); line-height:1.5;
+          margin:9px 0 0; padding-top:8px; border-top:1px dashed var(--rule); }
+  .hint b { color:var(--water); font-weight:500; }
+  .dim { opacity:.35; pointer-events:none; }
+
+  .pipes { margin-top:14px; }
+  table { width:100%; border-collapse:collapse; font-family:var(--mono); font-size:10.5px; }
+  th { text-align:left; font-weight:600; font-size:9px; letter-spacing:0.1em; text-transform:uppercase;
+       color:var(--ink-3); border-bottom:1px solid var(--rule); padding:0 8px 5px 0; white-space:nowrap; }
+  td { padding:6px 8px 6px 0; border-bottom:1px solid var(--paper-3); white-space:nowrap; vertical-align:middle; }
+  tbody tr:last-child td { border-bottom:none; }
+  td.pid { color:var(--water); font-weight:600; }
+  td.slider { width:34%; min-width:130px; }
+  td.slider input { width:100%; }
+  tr.out td { opacity:.4; }
+  .bar { display:inline-block; height:7px; background:var(--water); vertical-align:middle; }
+  .barwrap { display:inline-block; width:64px; height:7px; background:var(--paper-3); vertical-align:middle; }
+
+  .status { font-family:var(--mono); font-size:10px; color:var(--ink-2); margin-top:16px;
+            padding-top:9px; border-top:1px solid var(--rule);
+            display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+  .status .ok { color:var(--live); }
+
+  input:disabled, select:disabled { opacity:.4; }
+  .mode-toggle { display:flex; gap:6px; margin:14px 0 10px; }
+  .mode-toggle button.active { background:var(--ink); color:var(--paper-2); }
+  .mode-toggle button.active.gps { background:var(--live); border-color:var(--live); }
+  .gps-panel { display:none; margin:0 0 18px; }
+  .gps-panel.on { display:block; }
+  .gps-transport { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
+  .gps-transport button.big { padding:16px 20px; font-size:13px; min-width:140px; }
+  .gps-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px; margin-bottom:4px; }
+  .gps-stat { background:var(--paper); border:1px solid var(--rule); padding:8px 10px; }
+  .gps-stat .lab { font-family:var(--mono); font-size:9px; color:var(--ink-3); text-transform:uppercase; letter-spacing:0.08em; }
+  .gps-stat .v { font-family:var(--mono); font-size:15px; color:var(--ink); margin-top:2px; }
+  .gps-stat .v.ok { color:var(--live); }
+  .gps-stat .v.no { color:var(--warn); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="title">Water <span>Flow</span></h1>
+    <div class="masthead-meta">
+      WATER SUPPLY · CONTINUOUS · NEW BEHAVIOUR<br>
+      <b>RESONANCE FROM PIPE DIAMETER</b><br>
+      HIDDEN INFRASTRUCTURES : ZÜRICH
+    </div>
+  </header>
+
+  <p class="strapline">
+    Mains are pressurised and permanently full, so flow reads as turbulence exciting the bore —
+    <em>pitched</em>, where sewage's gravity flow is not. Resonance is driven by each pipe's
+    <em>diameterClass</em> — confirmed present on all 10,568 real pipes, but the wide↔narrow ordering across
+    its 7 values is only independently confirmed for two of them; see the Pipes panel below.
+  </p>
+
+  <section class="hero">
+    <div class="scope-frame">
+      <canvas id="scope" width="1160" height="190"></canvas>
+      <div class="scope-tag corner" id="scopeLabel">SPECTRUM — AUDIO NOT STARTED</div>
+    </div>
+  </section>
+
+  <div class="transport">
+    <button id="btnAudio" class="primary">Enable audio</button>
+    <button id="btnWalk" class="ghost" disabled>Simulate walk</button>
+    <button id="btnPanic" class="ghost" disabled>Silence</button>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">MASTER</span>
+      <input type="range" id="master" min="0" max="1" step="0.01" value="0.6" style="width:130px">
+      <span class="val" id="masterV">0.60</span>
+    </div>
+  </div>
+
+  <div class="mode-toggle">
+    <button id="modeManual" class="active" type="button">Manual</button>
+    <button id="modeGps" class="gps" type="button">GPS walk</button>
+  </div>
+
+  <section class="panel gps-panel" id="gpsPanel">
+    <div class="panel-head"><h2>GPS walk</h2><div class="note">live water-pipe proximity from device position</div></div>
+
+    <div class="gps-transport">
+      <button id="btnGpsStart" class="primary big" type="button">Start walk</button>
+      <button id="btnGpsStop" class="ghost big" type="button" disabled>Stop walk</button>
+      <button id="btnDownloadLog" class="ghost" type="button">Download log</button>
+    </div>
+
+    <div class="gps-stats">
+      <div class="gps-stat"><div class="lab">Fixes</div><div class="v" id="gpsFixCount">0</div></div>
+      <div class="gps-stat"><div class="lab">Accuracy</div><div class="v" id="gpsAccuracy">—</div></div>
+      <div class="gps-stat"><div class="lab">Speed</div><div class="v" id="gpsSpeed">—</div></div>
+      <div class="gps-stat"><div class="lab">Pipe set</div><div class="v" id="gpsPipeSet">not loaded</div></div>
+      <div class="gps-stat"><div class="lab">Wake lock</div><div class="v" id="gpsWakeLock">—</div></div>
+    </div>
+
+    <p class="hint">
+      Uses the same <b>RADIUS</b> field as the Proximity panel below — one radius, shared by both modes.
+      Nearest distance, pipes in range, and pipes actually assigned a resonator slot (capped at 6) are the
+      existing <b>NEAREST m / IN RANGE / ACTIVE RES</b> fields in the Readout panel — they read whichever pipe
+      source is active. Fetches <code>/lk-water.geojson</code> directly (not through ProximityEngine, which
+      parses pipes without carrying <code>diameterClass</code> or <code>_dedupKey</code> through) and computes
+      nearest-point-on-segment distance locally, the same way <code>proximity-engine.js</code> does. No stealing
+      or hysteresis on slot assignment — nearest 6 in range, reassigned fresh every fix; whether that
+      reassignment is audible as churn is one of the things this walk is for.
+    </p>
+  </section>
+
+  <div class="grid">
+
+    <section class="panel">
+      <div class="panel-head"><h2>Flow</h2><div class="note">broadband turbulence</div></div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="flowLvl" min="0" max="1" step="0.01" value="0.42"><span class="val" id="flowLvlV">0.42</span></div>
+      </div>
+      <div class="row"><label>CUTOFF Hz</label>
+        <div class="rng">
+          <div class="field"><span>far</span><input type="number" id="lpFar" value="420" step="10" min="60" max="12000"></div>
+          <div class="field"><span>near</span><input type="number" id="lpNear" value="2600" step="10" min="60" max="12000"></div>
+        </div>
+      </div>
+      <div class="row"><label>HP Hz</label>
+        <div class="field"><input type="number" id="hp" value="140" step="10" min="20" max="2000"></div>
+      </div>
+      <div class="row"><label>WANDER Hz</label>
+        <div class="field"><input type="range" id="wRate" min="0.01" max="0.6" step="0.01" value="0.07"><span class="val" id="wRateV">0.07</span></div>
+      </div>
+      <div class="row"><label>WANDER DEP</label>
+        <div class="field"><input type="range" id="wDep" min="0" max="600" step="5" value="180"><span class="val" id="wDepV">180</span></div>
+      </div>
+      <p class="hint">Cutoff opens as you approach — distant pipes are heard through more ground. Wander keeps the bed from sitting still; it modulates cutoff, not amplitude, so it doesn't read as tremolo.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Resonance</h2><div class="note">bore excited by flow</div></div>
+      <div class="row"><label>MODE</label>
+        <div class="field">
+          <select id="resMode">
+            <option value="bank" selected>Bank — one per pipe</option>
+            <option value="single">Single — nearest pipe</option>
+            <option value="fixed">Fixed — ignore diameter</option>
+          </select>
+        </div>
+      </div>
+      <div class="row"><label>DIA → Hz</label>
+        <div class="rng">
+          <div class="field"><span>widest</span><input type="number" id="resLo" value="185" step="5" min="40" max="4000"></div>
+          <div class="field"><span>narrowest</span><input type="number" id="resHi" value="880" step="5" min="40" max="4000"></div>
+        </div>
+      </div>
+      <div class="row"><label>Q</label>
+        <div class="field"><input type="range" id="resQ" min="1" max="40" step="0.5" value="14"><span class="val" id="resQV">14.0</span></div>
+      </div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="resLvl" min="0" max="1" step="0.01" value="0.55"><span class="val" id="resLvlV">0.55</span></div>
+      </div>
+      <div class="row"><label>GLIDE s</label>
+        <div class="field"><input type="range" id="glide" min="0.05" max="6" step="0.05" value="1.2"><span class="val" id="glideV">1.20</span></div>
+      </div>
+      <p class="hint"><b>Bank</b> gives every pipe in range its own resonance, weighted by proximity — the local network geometry becomes a chord. <b>Single</b> tracks only the nearest and glides between pipes. <b>Fixed</b> parks everything at the widest frequency, for A/B against the diameter mapping.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Pressure</h2><div class="note">standing sub component</div></div>
+      <div class="row"><label>FREQ Hz</label>
+        <div class="field"><input type="number" id="subHz" value="58" step="1" min="20" max="200"></div>
+      </div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="subLvl" min="0" max="0.4" step="0.005" value="0.05"><span class="val" id="subLvlV">0.050</span></div>
+      </div>
+      <p class="hint">Keep this low. Sewage owns the bass — its rumble is 180 Hz lowpass with a 100 Hz gurgle and a 55 Hz junction thud. Anything substantial here collides with it. Set to 0 to hear whether water still reads as pressurised without it.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Proximity</h2><div class="note">50 m pipe radius</div></div>
+      <div class="row"><label>RADIUS m</label>
+        <div class="field"><input type="number" id="radius" value="50" step="1" min="5" max="200"></div>
+      </div>
+      <div class="row"><label>FALLOFF exp</label>
+        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
+      </div>
+      <div class="row"><label>RAMP s</label>
+        <div class="field"><input type="range" id="ramp" min="0.1" max="5" step="0.1" value="1.5"><span class="val" id="rampV">1.50</span></div>
+      </div>
+      <p class="hint">Falloff <b>1.0</b> is linear, matching the other layers today. <b>2.0</b> is the crackle's validated (1−t)² curve. Sewage's continuous rumble uses a 1.5 s time constant — worth matching or deliberately not.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Density</h2><div class="note">pipe count in range</div></div>
+      <div class="row"><label>GAIN ×</label>
+        <div class="rng">
+          <div class="field"><span>1 pipe</span><input type="number" id="dGain1" value="1.0" step="0.05" min="0.2" max="3"></div>
+          <div class="field"><span>6+ pipes</span><input type="number" id="dGain6" value="1.55" step="0.05" min="0.2" max="3"></div>
+        </div>
+      </div>
+      <div class="row"><label>CUTOFF +Hz</label>
+        <div class="field"><input type="range" id="dCut" min="0" max="1500" step="25" value="450"><span class="val" id="dCutV">450</span></div>
+      </div>
+      <p class="hint">Dense junctions should feel like more water moving, not just louder. Density opens the cutoff as well as raising gain.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Readout</h2><div class="note">live state</div></div>
+      <div class="row"><label>NEAREST m</label><div class="field"><span class="val" id="roNear" style="min-width:0">—</span></div></div>
+      <div class="row"><label>IN RANGE</label><div class="field"><span class="val" id="roCount" style="min-width:0">—</span></div></div>
+      <div class="row"><label>LAYER GAIN</label><div class="field"><span class="val" id="roGain" style="min-width:0">—</span></div></div>
+      <div class="row"><label>CUTOFF Hz</label><div class="field"><span class="val" id="roCut" style="min-width:0">—</span></div></div>
+      <div class="row"><label>ACTIVE RES</label><div class="field"><span class="val" id="roRes" style="min-width:0">—</span></div></div>
+      <p class="hint">This layer has no discrete events. Entry, drip, crossing and alongside stay in the four existing water instruments — this is only the bed underneath them.</p>
+    </section>
+
+  </div>
+
+  <section class="panel pipes" id="pipesPanel">
+    <div class="panel-head">
+      <h2>Simulated pipes</h2>
+      <div class="note">distance in metres · diameter 0 = widest main, 1 = narrowest connection</div>
+    </div>
+    <div id="pipeWrap"></div>
+    <p class="hint">
+      Diameter here is normalised for the simulated set above. For real pipes, <b>diameterClass</b> is populated
+      on all 10,568 LineString pipes in <b>lk-water.geojson</b> (never null — the 4,655 nulls in the file are all
+      fitting Points, correctly) with 7 distinct values: <b>0, 3, 4, 5, 7, 8, 9</b>. It is the trailing digit of
+      the pipe's DXF layer code (<code>LKZ131X</code>), not a literal diameter measurement. Only two values have a
+      confirmed size relationship — <code>docs/phase2-data-layer.md</code> identifies <b>4 = distribution pipes</b>
+      (wider) and <b>5 = connection pipes</b> (narrower, and by far the most common class, matching service
+      connections vastly outnumbering mains). The city's own LK legend PDF documents only a coarse
+      &lt;500mm/≥500mm cartographic split, not a code table, so it doesn't resolve the rest. The remaining five
+      values (<b>0, 3, 7, 8, 9</b>) are ranked here by <b>inverse feature count</b> — rarer class ⇒ assumed larger,
+      more specialised main, a heuristic chosen because it reproduces the one confirmed relationship (5 more common
+      than 4) without a special case. Full assumed order, widest → narrowest:
+      <b>8, 0, 3, 9, 7, 4, 5</b>. This is a stated guess, not verified data — revisit once the WVZ layer-code table
+      is available.
+    </p>
+  </section>
+
+  <div class="status">
+    <div id="modeStatus">Walk simulation — off</div>
+    <div id="ctxStatus">AudioContext — not created</div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const num = id => parseFloat($(id).value);
+  const clamp = (v,a,b) => Math.min(b, Math.max(a, v));
+
+  const bindReadout = (input, out, digits) => {
+    const sync = () => { out.textContent = parseFloat(input.value).toFixed(digits); };
+    input.addEventListener('input', sync); sync();
+  };
+  bindReadout($('flowLvl'), $('flowLvlV'), 2);
+  bindReadout($('wRate'),   $('wRateV'),   2);
+  bindReadout($('wDep'),    $('wDepV'),    0);
+  bindReadout($('resQ'),    $('resQV'),    1);
+  bindReadout($('resLvl'),  $('resLvlV'),  2);
+  bindReadout($('glide'),   $('glideV'),   2);
+  bindReadout($('subLvl'),  $('subLvlV'),  3);
+  bindReadout($('falloff'), $('falloffV'), 1);
+  bindReadout($('ramp'),    $('rampV'),    2);
+  bindReadout($('dCut'),    $('dCutV'),    0);
+  bindReadout($('master'),  $('masterV'),  2);
+
+  // ---------- simulated pipe set ----------
+  const N_SLOTS = 6;
+  const pipes = [
+    { id: 'W-114820', dia: 0.05, dist: 12 },
+    { id: 'W-114833', dia: 0.28, dist: 26 },
+    { id: 'W-118002', dia: 0.52, dist: 41 },
+    { id: 'W-118117', dia: 0.71, dist: 19 },
+    { id: 'W-121440', dia: 0.88, dist: 34 },
+    { id: 'W-121502', dia: 0.97, dist: 63 }
+  ];
+  pipes.forEach((p, i) => { p.phase = i * 1.7; p.rate = 0.05 + i * 0.017; });
+
+  function diaToHz(dia) {
+    const lo = num('resLo'), hi = num('resHi');   // widest → narrowest
+    return lo * Math.pow(hi / lo, clamp(dia, 0, 1));
+  }
+
+  // ---------- diameterClass → normalised dia (0=widest..1=narrowest) ----------
+  // diameterClass is the trailing digit of a pipe's DXF layer code (LKZ131X), not a
+  // literal diameter measurement. Only two of its 7 values have a confirmed size
+  // relationship (docs/phase2-data-layer.md: 4=distribution/wider, 5=connection/
+  // narrower). The rest are ranked by inverse feature count as a stated, unverified
+  // guess — see the hint text in the Pipes panel. Revisit once the WVZ layer-code
+  // table is available; do not present this ordering as confirmed elsewhere.
+  const DIAMETER_CLASS_ORDER = [8, 0, 3, 9, 7, 4, 5]; // widest → narrowest
+  function diaClassToNormalized(diameterClass) {
+    const i = DIAMETER_CLASS_ORDER.indexOf(diameterClass);
+    return i === -1 ? 0.5 : i / (DIAMETER_CLASS_ORDER.length - 1);
+  }
+
+  // ---------- geometry (ported from src/proximity-engine.js — not exported there) ----------
+  function pointToSegmentDistance(pLng, pLat, aLng, aLat, bLng, bLat) {
+    const R = 6371000;
+    const toRad = d => d * Math.PI / 180;
+    const cosLat = Math.cos(toRad((aLat + bLat) / 2));
+    const bx = (bLng - aLng) * toRad(1) * R * cosLat;
+    const by = (bLat - aLat) * toRad(1) * R;
+    const px = (pLng - aLng) * toRad(1) * R * cosLat;
+    const py = (pLat - aLat) * toRad(1) * R;
+    const segLenSq = bx * bx + by * by;
+    const t = segLenSq === 0 ? 0 : Math.max(0, Math.min(1, (px * bx + py * by) / segLenSq));
+    const dx = px - t * bx, dy = py - t * by;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+  function nearestSegmentDist(listenerLng, listenerLat, coords) {
+    let minDist = Infinity;
+    for (let i = 0; i < coords.length - 1; i++) {
+      const d = pointToSegmentDistance(listenerLng, listenerLat,
+        coords[i][0], coords[i][1], coords[i + 1][0], coords[i + 1][1]);
+      if (d < minDist) minDist = d;
+    }
+    return minDist;
+  }
+
+  function renderPipes() {
+    const wrap = $('pipeWrap');
+    if (!wrap.dataset.built) {
+      wrap.innerHTML = '<table><thead><tr>' +
+        '<th>Pipe</th><th>Diameter</th><th class="slider">Distance m</th>' +
+        '<th>Dist</th><th>Res Hz</th><th>Weight</th></tr></thead><tbody>' +
+        pipes.map((p, i) =>
+          '<tr id="pr' + i + '">' +
+            '<td class="pid">' + p.id + '</td>' +
+            '<td><input type="range" data-dia="' + i + '" min="0" max="1" step="0.01" value="' + p.dia + '" style="width:76px"> <span id="pd' + i + '">' + p.dia.toFixed(2) + '</span></td>' +
+            '<td class="slider"><input type="range" data-dist="' + i + '" min="0" max="90" step="0.5" value="' + p.dist + '"></td>' +
+            '<td id="pm' + i + '">' + p.dist.toFixed(1) + '</td>' +
+            '<td id="ph' + i + '">—</td>' +
+            '<td><span class="barwrap"><span class="bar" id="pb' + i + '" style="width:0"></span></span></td>' +
+          '</tr>').join('') +
+        '</tbody></table>';
+      wrap.dataset.built = '1';
+      wrap.querySelectorAll('[data-dist]').forEach(el => {
+        el.addEventListener('input', () => {
+          pipes[+el.dataset.dist].dist = parseFloat(el.value);
+          if (walking) { walking = false; $('btnWalk').classList.remove('on'); $('modeStatus').textContent = 'Walk simulation — off'; }
+        });
+      });
+      wrap.querySelectorAll('[data-dia]').forEach(el => {
+        el.addEventListener('input', () => {
+          const i = +el.dataset.dia;
+          pipes[i].dia = parseFloat(el.value);
+          $('pd' + i).textContent = pipes[i].dia.toFixed(2);
+        });
+      });
+    }
+  }
+  renderPipes();
+
+  // ---------- audio ----------
+  let ctx = null, master = null, analyser = null, freqData = null, noiseBuf = null;
+  let flowSrc, flowHP, flowLP, flowGain, layerGain, sub, subGain, wander, wanderGain;
+  let resSrc = null;
+  const slots = [];   // { bp, gain, assigned }
+
+  function makeNoise(ac) {
+    const len = ac.sampleRate * 3;
+    const buf = ac.createBuffer(1, len, ac.sampleRate);
+    const d = buf.getChannelData(0);
+    let last = 0;
+    for (let i = 0; i < len; i++) {
+      const w = Math.random() * 2 - 1;
+      last = (last + 0.02 * w) / 1.02;   // gently brown-tinted — less hissy than white
+      d[i] = last * 3.5;
+    }
+    return buf;
+  }
+
+  function build(ac) {
+    layerGain = ac.createGain();
+    layerGain.gain.value = 0.0001;
+    layerGain.connect(master);
+
+    // --- flow bed
+    flowSrc = ac.createBufferSource();
+    flowSrc.buffer = noiseBuf; flowSrc.loop = true;
+
+    flowHP = ac.createBiquadFilter();
+    flowHP.type = 'highpass'; flowHP.frequency.value = num('hp');
+
+    flowLP = ac.createBiquadFilter();
+    flowLP.type = 'lowpass'; flowLP.frequency.value = num('lpFar'); flowLP.Q.value = 0.7;
+
+    flowGain = ac.createGain();
+    flowGain.gain.value = num('flowLvl');
+
+    flowSrc.connect(flowHP).connect(flowLP).connect(flowGain).connect(layerGain);
+
+    // cutoff wander
+    wander = ac.createOscillator();
+    wander.type = 'sine';
+    wander.frequency.value = num('wRate');
+    wanderGain = ac.createGain();
+    wanderGain.gain.value = num('wDep');
+    wander.connect(wanderGain).connect(flowLP.frequency);
+
+    // --- resonator bank, excited by its own tap off the same noise
+    resSrc = ac.createBufferSource();
+    resSrc.buffer = noiseBuf; resSrc.loop = true;
+    const resIn = ac.createGain();
+    resIn.gain.value = 1;
+    resSrc.connect(resIn);
+
+    for (let i = 0; i < N_SLOTS; i++) {
+      const bp = ac.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.frequency.value = 300;
+      bp.Q.value = num('resQ');
+      const g = ac.createGain();
+      g.gain.value = 0.0001;
+      resIn.connect(bp).connect(g).connect(layerGain);
+      slots.push({ bp, gain: g, assigned: null });
+    }
+
+    // --- pressure sub
+    sub = ac.createOscillator();
+    sub.type = 'sine';
+    sub.frequency.value = num('subHz');
+    subGain = ac.createGain();
+    subGain.gain.value = num('subLvl');
+    sub.connect(subGain).connect(layerGain);
+
+    const t = ac.currentTime;
+    flowSrc.start(t); resSrc.start(t); wander.start(t); sub.start(t);
+  }
+
+  // ---------- per-tick update (stands in for AudioLayers.update) ----------
+  let walking = false, walkT = 0;
+
+  function tick() {
+    requestAnimationFrame(tick);
+    if (walking) {
+      walkT += 1 / 60;
+      pipes.forEach((p, i) => {
+        const v = 45 + 42 * Math.sin(walkT * p.rate * 2 * Math.PI + p.phase);
+        p.dist = clamp(v, 0.5, 90);
+        const el = document.querySelector('[data-dist="' + i + '"]');
+        if (el) el.value = p.dist;
+      });
+    }
+    if (ctx) update();
+    if (mode === 'manual') paintPipes(); else paintGpsStatus();
+  }
+
+  function paintPipes() {
+    const R = num('radius');
+    pipes.forEach((p, i) => {
+      const inR = p.dist <= R;
+      const row = $('pr' + i);
+      if (row) row.classList.toggle('out', !inR);
+      const m = $('pm' + i); if (m) m.textContent = p.dist.toFixed(1);
+      const h = $('ph' + i); if (h) h.textContent = Math.round(diaToHz(p.dia));
+      const b = $('pb' + i);
+      if (b) {
+        const w = inR ? Math.pow(1 - p.dist / R, num('falloff')) : 0;
+        b.style.width = Math.round(w * 64) + 'px';
+      }
+    });
+  }
+
+  function update() {
+    const now = ctx.currentTime;
+    const R = num('radius');
+    const inRange = activePipes().filter(p => p.dist <= R).sort((a, b) => a.dist - b.dist);
+    const nearest = inRange.length ? inRange[0].dist : Infinity;
+
+    // layer gain from nearest pipe, scaled by density
+    const prox = inRange.length ? Math.pow(1 - nearest / R, num('falloff')) : 0;
+    const dNorm = clamp((inRange.length - 1) / 5, 0, 1);
+    const dMul = num('dGain1') + (num('dGain6') - num('dGain1')) * dNorm;
+    const target = prox * dMul;
+    layerGain.gain.setTargetAtTime(Math.max(0.0001, target), now, num('ramp'));
+
+    // flow shaping
+    flowGain.gain.setTargetAtTime(num('flowLvl'), now, 0.15);
+    flowHP.frequency.setTargetAtTime(num('hp'), now, 0.15);
+    const cut = num('lpFar') + (num('lpNear') - num('lpFar')) * prox + num('dCut') * dNorm;
+    flowLP.frequency.setTargetAtTime(cut, now, 0.3);
+    wander.frequency.setTargetAtTime(num('wRate'), now, 0.2);
+    wanderGain.gain.setTargetAtTime(num('wDep'), now, 0.2);
+
+    sub.frequency.setTargetAtTime(num('subHz'), now, 0.2);
+    subGain.gain.setTargetAtTime(num('subLvl'), now, 0.3);
+
+    // resonator assignment
+    const mode = $('resMode').value;
+    const q = num('resQ'), lvl = num('resLvl'), gl = num('glide');
+    let active = 0;
+
+    if (mode === 'single' || mode === 'fixed') {
+      const hz = mode === 'fixed' ? num('resLo')
+                                  : (inRange.length ? diaToHz(inRange[0].dia) : num('resLo'));
+      slots.forEach((s, i) => {
+        s.bp.Q.setTargetAtTime(q, now, 0.2);
+        if (i === 0) {
+          s.bp.frequency.setTargetAtTime(hz, now, gl);
+          s.gain.gain.setTargetAtTime(Math.max(0.0001, inRange.length ? lvl : 0.0001), now, num('ramp'));
+          active = inRange.length ? 1 : 0;
+        } else {
+          s.gain.gain.setTargetAtTime(0.0001, now, 0.4);
+        }
+      });
+    } else {
+      slots.forEach((s, i) => {
+        const p = inRange[i];
+        s.bp.Q.setTargetAtTime(q, now, 0.2);
+        if (p) {
+          const w = Math.pow(1 - p.dist / R, num('falloff'));
+          s.bp.frequency.setTargetAtTime(diaToHz(p.dia), now, gl);
+          // divide by slot count so a dense bank doesn't simply get louder
+          s.gain.gain.setTargetAtTime(Math.max(0.0001, lvl * w / Math.max(1, Math.sqrt(inRange.length))), now, num('ramp'));
+          active++;
+        } else {
+          s.gain.gain.setTargetAtTime(0.0001, now, 0.5);
+        }
+      });
+    }
+
+    $('roNear').textContent  = inRange.length ? nearest.toFixed(1) : '—';
+    $('roCount').textContent = String(inRange.length);
+    $('roGain').textContent  = target.toFixed(3);
+    $('roCut').textContent   = Math.round(cut);
+    $('roRes').textContent   = String(active);
+  }
+
+  // ---------- analyser ----------
+  const cv = $('scope'), c2 = cv.getContext('2d');
+  function resizeScope() {
+    const r = cv.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    cv.width = Math.round(r.width * dpr);
+    cv.height = Math.round(190 * dpr);
+    c2.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener('resize', resizeScope);
+  resizeScope();
+  const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+
+  function drawScope() {
+    requestAnimationFrame(drawScope);
+    const w = cv.clientWidth, h = 190;
+    c2.clearRect(0, 0, w, h);
+    c2.fillStyle = css('--paper-2'); c2.fillRect(0, 0, w, h);
+
+    const nyq = ctx ? ctx.sampleRate / 2 : 24000;
+    const fMin = 30, fMax = Math.min(12000, nyq);
+    const xOf = f => (Math.log10(f / fMin) / Math.log10(fMax / fMin)) * w;
+
+    c2.strokeStyle = css('--rule'); c2.lineWidth = 1;
+    c2.fillStyle = css('--ink-3');
+    c2.font = '9px ui-monospace, Menlo, monospace';
+    [50, 100, 200, 500, 1000, 2000, 5000, 10000].forEach(f => {
+      if (f < fMin || f > fMax) return;
+      const x = Math.round(xOf(f)) + 0.5;
+      c2.beginPath(); c2.moveTo(x, 0); c2.lineTo(x, h - 14); c2.stroke();
+      c2.fillText(f >= 1000 ? (f / 1000) + 'k' : String(f), x + 3, h - 4);
+    });
+
+    // resonance markers
+    if (ctx) {
+      const R = num('radius');
+      const inRange = activePipes().filter(p => p.dist <= R);
+      c2.setLineDash([2, 3]);
+      c2.strokeStyle = css('--water');
+      inRange.forEach(p => {
+        const f = diaToHz(p.dia);
+        if (f < fMin || f > fMax) return;
+        const x = Math.round(xOf(f)) + 0.5;
+        c2.globalAlpha = 0.25 + 0.75 * Math.pow(1 - p.dist / R, 1);
+        c2.beginPath(); c2.moveTo(x, 6); c2.lineTo(x, h - 14); c2.stroke();
+      });
+      c2.globalAlpha = 1; c2.setLineDash([]);
+    }
+
+    if (!ctx || !analyser) return;
+    analyser.getByteFrequencyData(freqData);
+    const bins = freqData.length;
+    c2.beginPath();
+    let started = false;
+    for (let x = 0; x <= w; x++) {
+      const f = fMin * Math.pow(fMax / fMin, x / w);
+      const bin = Math.min(bins - 1, Math.round((f / nyq) * bins));
+      const v = freqData[bin] / 255;
+      const y = h - 16 - v * (h - 30);
+      if (!started) { c2.moveTo(x, y); started = true; } else c2.lineTo(x, y);
+    }
+    c2.strokeStyle = css('--ink'); c2.lineWidth = 1.2; c2.stroke();
+    c2.lineTo(w, h - 16); c2.lineTo(0, h - 16); c2.closePath();
+    c2.fillStyle = 'rgba(20,23,26,0.08)'; c2.fill();
+  }
+  drawScope();
+  tick();
+
+  // ---------- GPS mode ----------
+  // Fetches lk-water.geojson directly rather than through ProximityEngine:
+  // ProximityEngine's water branch works fine without tram state, but its
+  // parseLineFeatures() never carries diameterClass or _dedupKey through from
+  // the raw properties — only {id, coords, midLat, midLng}, with id a
+  // synthetic array-index string. Since this instrument's whole premise is
+  // diameterClass-driven resonance, that's a dead end; fetching and parsing
+  // the file ourselves (as the hiss instrument does for lk-tram-lk.geojson)
+  // is the only way to get diameterClass at all.
+  let mode = 'manual';
+  let gpsWaterFeatures = null;   // cached [{id, dia, coords}] — all real pipes, parsed once
+  let gpsWaterLoading = null;
+  let gpsPipes = [];             // live [{id, dia, dist}] — rebuilt every fix, read by activePipes()
+  let gpsWatchId = null;
+  let gpsFixCount = 0;
+  let wakeLock = null;
+  const sessionLog = [];
+  let logStartPerf = null;
+  let logIntervalId = null;
+
+  function activePipes() { return mode === 'gps' ? gpsPipes : pipes; }
+
+  function loadGpsWaterFeatures() {
+    if (gpsWaterFeatures) return Promise.resolve(gpsWaterFeatures);
+    if (gpsWaterLoading) return gpsWaterLoading;
+    $('gpsPipeSet').textContent = 'loading…';
+    gpsWaterLoading = fetch('/lk-water.geojson')
+      .then(r => r.json())
+      .then(json => {
+        gpsWaterFeatures = json.features
+          .filter(f => f.properties.geomType === 'pipe' && f.geometry.type === 'LineString')
+          .map(f => ({
+            id: f.properties._dedupKey,
+            dia: diaClassToNormalized(f.properties.diameterClass),
+            coords: f.geometry.coordinates,
+          }));
+        $('gpsPipeSet').textContent = gpsWaterFeatures.length + ' pipes';
+        return gpsWaterFeatures;
+      })
+      .catch(err => {
+        $('gpsPipeSet').textContent = 'load failed';
+        gpsWaterLoading = null;
+        throw err;
+      });
+    return gpsWaterLoading;
+  }
+
+  // Cheap bounding-box pre-filter before the precise per-segment distance pass —
+  // same CULL_RADIUS pattern as proximity-engine.js, needed here because there
+  // are ~10x more water pipes than tram nodes.
+  const CULL_RADIUS_M = 150;
+  function cullBounds(lat, lng) {
+    const latDelta = CULL_RADIUS_M / 111320;
+    const lngDelta = CULL_RADIUS_M / (111320 * Math.cos(lat * Math.PI / 180));
+    return { minLat: lat - latDelta, maxLat: lat + latDelta, minLng: lng - lngDelta, maxLng: lng + lngDelta };
+  }
+  function coordsInBounds(coords, b) {
+    for (const [lng, lat] of coords) {
+      if (lat >= b.minLat && lat <= b.maxLat && lng >= b.minLng && lng <= b.maxLng) return true;
+    }
+    return false;
+  }
+
+  function updateGpsStat(id, text, cls) {
+    const el = $(id);
+    el.textContent = text;
+    el.className = 'v' + (cls ? ' ' + cls : '');
+  }
+
+  async function onGpsFix(pos) {
+    gpsFixCount++;
+    $('gpsFixCount').textContent = String(gpsFixCount);
+    const { latitude, longitude, accuracy, speed } = pos.coords;
+    updateGpsStat('gpsAccuracy', accuracy != null ? Math.round(accuracy) + ' m' : '—',
+      accuracy != null ? (accuracy <= 50 ? 'ok' : 'no') : '');
+    updateGpsStat('gpsSpeed', speed != null ? speed.toFixed(1) + ' m/s' : '—');
+
+    // Screen sleep / tab backgrounding suspends the AudioContext — resume on every fix.
+    if (ctx && ctx.state === 'suspended') { try { await ctx.resume(); } catch (e) {} }
+
+    const features = await loadGpsWaterFeatures().catch(() => null);
+    if (!features) return;
+
+    const b = cullBounds(latitude, longitude);
+    const nearby = features.filter(f => coordsInBounds(f.coords, b));
+    gpsPipes = nearby.map(f => ({
+      id: f.id,
+      dia: f.dia,
+      dist: nearestSegmentDist(longitude, latitude, f.coords),
+    }));
+  }
+
+  function onGpsError(err) {
+    updateGpsStat('gpsAccuracy', 'error', 'no');
+  }
+
+  async function requestWakeLock() {
+    if (!('wakeLock' in navigator)) { updateGpsStat('gpsWakeLock', 'unsupported'); return; }
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+      updateGpsStat('gpsWakeLock', 'active', 'ok');
+      wakeLock.addEventListener('release', () => updateGpsStat('gpsWakeLock', 'released'));
+    } catch (err) {
+      updateGpsStat('gpsWakeLock', 'denied', 'no');
+    }
+  }
+  function releaseWakeLock() {
+    if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && gpsWatchId !== null && !wakeLock) requestWakeLock();
+  });
+
+  // Low-rate (1 Hz) session log — aggregate numbers only, no coordinates, no
+  // pipe ids: this is a continuous bed with no per-voice identity to protect,
+  // just the same score-archive prototype as the hiss instrument's log.
+  // "elapsed" is milliseconds since Start walk, not wall-clock time.
+  function logTick() {
+    const R = num('radius');
+    const inRange = activePipes().filter(p => p.dist <= R);
+    const nearest = inRange.length ? Math.min(...inRange.map(p => p.dist)) : null;
+    sessionLog.push({
+      tMs: logStartPerf !== null ? Math.round(performance.now() - logStartPerf) : null,
+      nearestDist: nearest !== null ? +nearest.toFixed(1) : null,
+      inRangeCount: inRange.length,
+      slotHz: slots.map(s => Math.round(s.bp.frequency.value)),
+      layerGain: layerGain ? +layerGain.gain.value.toFixed(4) : null,
+    });
+  }
+
+  function downloadLog() {
+    const payload = {
+      note: 'no coordinates or pipe identities recorded — aggregate proximity numbers only',
+      radiusMeters: num('radius'),
+      diameterClassOrder: DIAMETER_CLASS_ORDER,
+      paramsAtWalkStart: {
+        resMode: $('resMode').value, resLo: num('resLo'), resHi: num('resHi'), resQ: num('resQ'),
+        resLvl: num('resLvl'), glide: num('glide'), flowLvl: num('flowLvl'), hp: num('hp'),
+        lpFar: num('lpFar'), lpNear: num('lpNear'), wRate: num('wRate'), wDep: num('wDep'),
+        subHz: num('subHz'), subLvl: num('subLvl'), falloff: num('falloff'), ramp: num('ramp'),
+        dGain1: num('dGain1'), dGain6: num('dGain6'), dCut: num('dCut'), master: num('master'),
+      },
+      events: sessionLog,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'water-flow-log-' + Math.random().toString(36).slice(2, 10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function startGpsWalk() {
+    if (gpsWatchId !== null) return;
+    if (!navigator.geolocation) return;
+    logStartPerf = performance.now();
+    sessionLog.length = 0;
+    gpsFixCount = 0;
+    loadGpsWaterFeatures();
+    gpsWatchId = navigator.geolocation.watchPosition(onGpsFix, onGpsError,
+      { enableHighAccuracy: true, maximumAge: 5000 });
+    logIntervalId = setInterval(logTick, 1000);
+    requestWakeLock();
+    $('btnGpsStart').disabled = true;
+    $('btnGpsStop').disabled = false;
+  }
+
+  function stopGpsWalk() {
+    if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
+    if (logIntervalId !== null) { clearInterval(logIntervalId); logIntervalId = null; }
+    releaseWakeLock();
+    updateGpsStat('gpsWakeLock', '—');
+    $('btnGpsStart').disabled = false;
+    $('btnGpsStop').disabled = true;
+  }
+
+  function paintGpsStatus() {
+    // The shared Readout panel (roNear/roCount/roRes/etc.) already reflects
+    // activePipes() via update() — nothing GPS-specific to paint there.
+  }
+
+  function setMode(next) {
+    mode = next;
+    $('modeManual').classList.toggle('active', mode === 'manual');
+    $('modeGps').classList.toggle('active', mode === 'gps');
+    $('gpsPanel').classList.toggle('on', mode === 'gps');
+    $('btnWalk').disabled = (mode === 'gps') || !ctx;
+    $('pipesPanel').classList.toggle('dim', mode === 'gps');
+    if (mode === 'gps' && walking) {
+      walking = false;
+      $('btnWalk').classList.remove('on');
+      $('modeStatus').textContent = 'Walk simulation — off';
+    }
+    if (mode === 'manual') stopGpsWalk();
+  }
+  $('modeManual').addEventListener('click', () => setMode('manual'));
+  $('modeGps').addEventListener('click', () => setMode('gps'));
+  $('btnGpsStart').addEventListener('click', startGpsWalk);
+  $('btnGpsStop').addEventListener('click', stopGpsWalk);
+  $('btnDownloadLog').addEventListener('click', downloadLog);
+
+  // ---------- controls ----------
+  async function enableAudio() {
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    await ctx.resume();
+    noiseBuf = makeNoise(ctx);
+    master = ctx.createGain();
+    master.gain.value = num('master');
+    analyser = ctx.createAnalyser();
+    analyser.fftSize = 4096;
+    analyser.smoothingTimeConstant = 0.8;
+    freqData = new Uint8Array(analyser.frequencyBinCount);
+    master.connect(analyser);
+    master.connect(ctx.destination);
+    build(ctx);
+
+    $('btnAudio').textContent = 'Audio running';
+    $('btnAudio').disabled = true;
+    $('btnWalk').disabled = false;
+    $('btnPanic').disabled = false;
+    $('scopeLabel').textContent = 'SPECTRUM — ' + Math.round(ctx.sampleRate / 1000) + ' kHz · dashed = pipe resonances';
+    $('ctxStatus').innerHTML = 'AudioContext — <span class="ok">running @ ' + ctx.sampleRate + ' Hz</span>';
+    setMode(mode); // reconcile btnWalk disabled state now that ctx exists
+  }
+
+  $('btnAudio').addEventListener('click', enableAudio);
+  $('master').addEventListener('input', () => {
+    if (master) master.gain.setTargetAtTime(num('master'), ctx.currentTime, 0.02);
+  });
+  $('btnWalk').addEventListener('click', () => {
+    walking = !walking;
+    $('btnWalk').classList.toggle('on', walking);
+    $('modeStatus').textContent = 'Walk simulation — ' + (walking ? 'running' : 'off');
+  });
+  $('btnPanic').addEventListener('click', () => {
+    pipes.forEach((p, i) => {
+      p.dist = 90;
+      const el = document.querySelector('[data-dist="' + i + '"]');
+      if (el) el.value = 90;
+    });
+    walking = false; $('btnWalk').classList.remove('on');
+    $('modeStatus').textContent = 'Walk simulation — off';
+  });
+  document.addEventListener('keydown', e => {
+    if (e.code === 'Space' && !/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)) {
+      e.preventDefault();
+      if (!ctx) enableAudio(); else $('btnWalk').click();
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -198,9 +198,11 @@
   </header>
 
   <p class="strapline">
-    One voice per feeder in range, built on entry from a seed hashed off the feeder's <em>objectid</em> — so a given feeder
-    always sounds like itself. Two LFOs on separate rates modulate comb delay and filter cutoff. A <em>600 Hz</em> tone
-    sits under the noise: 50 Hz mains through 12-pulse rectification.
+    One voice per feeder in range, built on entry from a seed hashed off the feeder's <em>_dedupKey</em> — a per-point
+    coordinate hash, not the <em>objectid</em> this used to say; tram nodes don't actually carry that property. That seed
+    is internal to the synth and never leaves this page — so a given feeder always sounds like itself <em>to you</em>,
+    but the exported log carries only random per-voice tokens unrelated to it. Two LFOs on separate rates modulate comb
+    delay and filter cutoff. A <em>600 Hz</em> tone sits under the noise: 50 Hz mains through 12-pulse rectification.
   </p>
 
   <section class="hero">
@@ -270,14 +272,17 @@
 
     <p class="hint">
       Feeder identity here is <b>_dedupKey</b> (a per-point coordinate hash baked in at extraction time, in
-      <code>lk-tram-lk.geojson</code>) — not the <i>objectid</i> the manual field above implies, since tram nodes don't
-      carry that property. <b>_dedupKey</b> stays stable across GeoShop re-extraction, unlike ProximityEngine's own
-      feeder id (an array index). It is used only to match live position against the feeder set and is <b>never written
-      to the downloaded log</b> — only the derived seed is, since the key itself encodes the feeder's coordinates.
-      Default radius is 50 m as specified; production's actual hiss-trigger radius
-      (<code>FEEDER_HISS_RADIUS</code> in <code>audio-layers.js</code>) is 25 m, so voices left at 50 m may spawn
-      near-silent until under ~25 m. Bearing-driven HRTF positioning is deliberately not wired in this pass — this
-      walk is for the voice model and allocation policy first; positioning is next.
+      <code>lk-tram-lk.geojson</code>) — not the <i>objectid</i> the manual field above used to imply, since tram nodes
+      don't carry that property. <b>_dedupKey</b> stays stable across GeoShop re-extraction (verified by re-extracting
+      one order in isolation and diffing keys), unlike ProximityEngine's own feeder id (an array index). It is used
+      only to match live position against the feeder set. Neither the key nor the timbre seed derived from it is ever
+      written to the log — the feeder set is small (~2,100 nodes) and public, so a logged seed could be reverse-matched
+      against every feeder's hash and the walk reconstructed. Each voice instead gets a random <b>log token</b> and
+      <b>replay seed</b>, generated fresh at spawn, with no relationship to the feeder. Default radius is 50 m as
+      specified; production's actual hiss-trigger radius (<code>FEEDER_HISS_RADIUS</code> in <code>audio-layers.js</code>)
+      is 25 m, so voices left at 50 m may spawn near-silent until under ~25 m. Bearing-driven HRTF positioning is
+      deliberately not wired in this pass — this walk is for the voice model and allocation policy first; positioning
+      is next.
     </p>
   </section>
 
@@ -461,6 +466,18 @@
   }
   const hex = n => (n >>> 0).toString(16).padStart(8, '0').toUpperCase();
 
+  // Random, feeder-unrelated identity for the exported log — see the
+  // "session log" section below for why this exists alongside (and never
+  // derived from) the timbre seed.
+  function randomLogToken() {
+    const arr = new Uint8Array(8);
+    crypto.getRandomValues(arr);
+    return Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
+  }
+  function randomReplaySeed() {
+    return crypto.getRandomValues(new Uint32Array(1))[0];
+  }
+
   const $ = id => document.getElementById(id);
   const num = id => parseFloat($(id).value);
   const lerp = (a, b, t) => a + (b - a) * t;
@@ -527,9 +544,11 @@
   // ---------- the instrument ----------
   class HissVoice {
     constructor(ac, dest, feederId, distance, source = 'manual') {
-      this.feederId = feederId;
+      this.feederId = feederId;       // internal only — never logged (Part B: identity split)
       this.source = source;
-      this.seed = hashId(feederId);
+      this.seed = hashId(feederId);   // timbre seed — internal only — never logged
+      this.logToken = randomLogToken();     // exported: correlates this voice's events, unrelated to feeder
+      this.replaySeed = randomReplaySeed(); // exported: what a replay page seeds its RNG with, unrelated to feeder
       this.distance = distance;
       const rnd = mulberry32(this.seed);
 
@@ -633,7 +652,7 @@
       this.releasing = true;
       log(reason === 'steal' ? 'steal' : 'rel',
           (reason === 'steal' ? 'STEAL  ' : 'RELEASE') + ' ' + this.feederId + ' @ ' + this.distance.toFixed(1) + ' m');
-      logSession(reason === 'steal' ? 'steal' : 'release', this.seed, this.distance, this.source);
+      logSession(reason === 'steal' ? 'steal' : 'release', this.logToken, this.replaySeed, this.distance);
       const t = ctx.currentTime, r = num('rel');
       this.env.gain.cancelScheduledValues(t);
       this.env.gain.setValueAtTime(Math.max(0.0002, this.env.gain.value), t);
@@ -673,7 +692,7 @@
     if (existing) {
       existing.setDistance(d);
       log('upd', 'UPDATE ' + id + ' → ' + d.toFixed(1) + ' m');
-      logSession('update', existing.seed, d, source);
+      logSession('update', existing.logToken, existing.replaySeed, d);
       renderVoices();
       return existing;
     }
@@ -689,7 +708,7 @@
       if (policy === 'refuse') {
         counts.refuse++; flash($('btnSpawn'));
         log('refuse', 'REFUSE ' + id + ' @ ' + d.toFixed(1) + ' m — cap ' + cap);
-        logSession('refuse', hashId(id), d, source);
+        logSession('refuse', randomLogToken(), randomReplaySeed(), d);
         renderVoices(); return null;
       }
       if (policy === 'margin') {
@@ -698,7 +717,7 @@
           counts.refuse++; flash($('btnSpawn'));
           log('refuse', 'HOLD   ' + id + ' @ ' + d.toFixed(1) + ' m — needs < ' +
               threshold.toFixed(1) + ' m to take ' + furthest.feederId);
-          logSession('hold', hashId(id), d, source);
+          logSession('hold', randomLogToken(), randomReplaySeed(), d);
           renderVoices(); return null;
         }
       }
@@ -710,7 +729,7 @@
     const v = new HissVoice(ctx, master, id, d, source);
     voices.push(v);
     log('spawn', 'SPAWN  ' + id + ' @ ' + d.toFixed(1) + ' m — seed ' + hex(v.seed));
-    logSession('spawn', v.seed, d, source);
+    logSession('spawn', v.logToken, v.replaySeed, d);
     renderVoices();
     return v;
   }
@@ -724,21 +743,52 @@
   function releaseAll() { voices.slice().forEach(v => v.release()); }
 
   // ---------- session log (for DOWNLOAD LOG) ----------
-  // Deliberately stores the derived seed, never feederId — in GPS mode feederId
-  // is _dedupKey, which encodes the feeder's own coordinates. No positions of
-  // any kind (device or infrastructure) leave this page in the exported JSON.
+  //
+  // This log is a score-archive prototype (Project_Plan_v3_5) and is built to
+  // three constraints that must not be "simplified" away later:
+  //
+  // 1. feederId (_dedupKey) and the timbre seed derived from it NEVER appear
+  //    here, in any encoding — not hashed, not truncated. The feeder set is
+  //    small (~2,100 nodes) and public, so a logged seed is a reverse-lookup
+  //    table away from being a feeder id, and a log of feeder ids + distances
+  //    reconstructs the walk. A per-session salt does not fix this — it only
+  //    adds one more brute-forceable value. So instead each voice gets a
+  //    randomLogToken()/randomReplaySeed() pair from crypto.getRandomValues(),
+  //    generated fresh per spawn with NO derivation from the feeder, the
+  //    timbre seed, the session, or the clock. Two voices for the same
+  //    physical feeder in one walk get unrelated tokens on purpose — the log
+  //    must not reveal a repeat visit to the same feeder either.
+  //
+  // 2. No absolute time anchor anywhere in the export (no wall-clock start
+  //    time, no date, no timezone, no locale, no date-bearing filename).
+  //    Tram is the one layer correlated with a public real-time feed
+  //    (transport.opendata.ch) — an absolute timestamp on any event would let
+  //    that feed be queried for which tram was where at that instant, which
+  //    reconstructs listener position regardless of how the feeder itself is
+  //    identified. Every event carries only tMs: milliseconds since this
+  //    walk's "Start walk" press, which is meaningless without also knowing
+  //    the (unrecorded) wall-clock start.
+  //
+  // 3. replaySeed (also crypto-random, unrelated to the feeder or the timbre
+  //    seed) is what a future replay page must seed its RNG with — see the
+  //    `format` field in downloadLog(). Replaying a score reproduces the
+  //    structure of the walk (spawns, distances, density, event timing) but
+  //    NOT the original timbres, because the seed that produced them is
+  //    exactly the thing this file must not contain. A score is not a
+  //    recording; replaying it is a new performance of the same structure.
+  //
   const sessionLog = [];
-  let walkStartPerf = null;   // performance.now() at "Start walk" — t=0 for tRel
-  let walkStartedAt = null;   // ISO string, for the export header
+  let walkStartPerf = null;   // performance.now() at "Start walk" — t=0 for tMs. Never exported as wall time.
   let paramsAtWalkStart = null;
 
-  function logSession(event, seed, distance, source) {
+  function logSession(event, logToken, replaySeed, distance) {
     sessionLog.push({
-      tRel: walkStartPerf !== null ? +((performance.now() - walkStartPerf) / 1000).toFixed(2) : null,
-      seed: hex(seed),
-      distance: distance !== undefined && distance !== null ? +distance.toFixed(1) : null,
+      tMs: walkStartPerf !== null ? Math.round(performance.now() - walkStartPerf) : null,
+      logToken,
+      replaySeed,
       event,
-      source
+      distance: distance !== undefined && distance !== null ? +distance.toFixed(1) : null,
+      policy: $('capPolicy').value
     });
   }
 
@@ -759,9 +809,11 @@
   function downloadLog() {
     const eventCounts = sessionLog.reduce((acc, e) => { acc[e.event] = (acc[e.event] || 0) + 1; return acc; }, {});
     const payload = {
-      note: 'events[].seed is a one-way hash of feeder identity — no device or infrastructure coordinates recorded',
-      exportedAt: new Date().toISOString(),
-      walkStartedAt,
+      format: 'hiss-voice-score-v1 — replay must derive voice parameters from each event\'s replaySeed via ' +
+              'mulberry32(replaySeed); the feeder identity and timbre seed that produced the original sound ' +
+              'are not recorded, so a replay is a new performance of the same structure, not a re-creation',
+      note: 'no coordinates, timestamps, or feeder/timbre identity of any kind are recorded — see the comment ' +
+            'block above logSession() in this file for why',
       gpsRadiusMeters: num('gpsRadius'),
       paramsAtWalkStart: paramsAtWalkStart || getParamSnapshot(),
       counts: eventCounts,
@@ -771,7 +823,7 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'hiss-voice-log-' + new Date().toISOString().replace(/[:.]/g, '-') + '.json';
+    a.download = 'hiss-voice-log-' + randomLogToken().slice(0, 8) + '.json';
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -882,8 +934,7 @@
   function startWalk() {
     if (gpsWatchId !== null) return;
     if (!navigator.geolocation) { log('refuse', 'Geolocation not available'); return; }
-    walkStartPerf = performance.now();
-    walkStartedAt = new Date().toISOString();
+    walkStartPerf = performance.now(); // relative clock only — never exported as wall time
     paramsAtWalkStart = getParamSnapshot();
     sessionLog.length = 0; // one walk, one self-contained log
     gpsFixCount = 0;

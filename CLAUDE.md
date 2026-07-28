@@ -110,7 +110,7 @@ vite.config.js     # Port 8080, COEP/COOP headers, allowedHosts: true
 ## Known Limitations
 
 - VBZ does not publish substation locations publicly — tram electrical layer uses lk-tram-lk.geojson nodes as feeder proxies
-- Feeder attributes are minimal (only `objectid`, `einbaudatu`) — no substation_id or connectivity metadata
+- Feeder (tram node) attributes are minimal: `layer`, `infraType`, `geomType`, `source`, `_dedupKey`, `accuracyClass` — no `objectid`, no substation_id, no connectivity metadata. (`objectid`/`einbaudatu` described the retired `route-tram-feeders.geojson`; `lk-tram-lk.geojson` doesn't carry either.) `_dedupKey` is a coordinate hash assigned once at extraction (`scripts/extract-lk-geojson.js`) and is the only stable per-feeder identifier — ProximityEngine's own feeder `id` is an array index, not stable across re-extraction
 - Infrastructure geodata is static snapshots — only tram positions update in real-time
 - Water/sewage/electricity/telecom/Fernwärme layers use static infrastructure positions — no real-time flow/usage data available
 - Fernwärme coverage is sparse in District 1 — 30m radius means encounters will be infrequent (intentional — rare discovery moments)

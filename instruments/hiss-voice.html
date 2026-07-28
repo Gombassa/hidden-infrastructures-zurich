@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HISS VOICE — tram electrical</title>
+<style>
+  :root {
+    --paper:   #E9EBE6;
+    --paper-2: #F4F5F2;
+    --paper-3: #DFE2DB;
+    --ink:     #14171A;
+    --ink-2:   #5A6169;
+    --ink-3:   #8B9199;
+    --rule:    #C6CAC3;
+    --tram:    #A81D45;
+    --live:    #0F7A78;
+    --warn:    #B85C1E;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    --sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--sans); font-size: 13px; line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 22px 20px 60px; }
+
+  .masthead {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap;
+    border-bottom: 1.5px solid var(--ink); padding-bottom: 10px;
+  }
+  .title {
+    font-size: clamp(26px, 5vw, 42px); font-weight: 700; letter-spacing: -0.035em;
+    text-transform: uppercase; margin: 0; line-height: 0.95;
+  }
+  .title span { color: var(--tram); }
+  .masthead-meta {
+    font-family: var(--mono); font-size: 10.5px; color: var(--ink-2);
+    text-align: right; letter-spacing: 0.02em; white-space: nowrap;
+  }
+  .masthead-meta b { color: var(--ink); font-weight: 500; }
+
+  .strapline {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-2);
+    margin: 8px 0 20px; letter-spacing: 0.01em;
+  }
+  .strapline em { color: var(--tram); font-style: normal; }
+
+  .panel { background: var(--paper-2); border: 1px solid var(--rule); padding: 12px 13px 14px; }
+  .panel-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 10px; margin: 0 0 10px; border-bottom: 1px solid var(--rule); padding-bottom: 6px;
+  }
+  .panel-head h2 {
+    font-family: var(--mono); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; margin: 0;
+  }
+  .panel-head .note {
+    font-family: var(--mono); font-size: 9.5px; color: var(--ink-3);
+    letter-spacing: 0.03em; text-align: right;
+  }
+
+  .hero { margin: 0 0 14px; }
+  .scope-frame { position: relative; border: 1px solid var(--rule); background: var(--paper-2); }
+  canvas#scope { display: block; width: 100%; height: 190px; }
+  .scope-tag { position: absolute; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.06em; pointer-events: none; }
+  .scope-tag.ripple { color: var(--tram); }
+  .scope-tag.corner { left: 8px; top: 7px; color: var(--ink-3); }
+
+  .transport {
+    display: grid; grid-template-columns: auto minmax(240px, 1fr) auto auto;
+    gap: 10px; align-items: end; margin: 14px 0 18px;
+  }
+  @media (max-width: 900px) { .transport { grid-template-columns: 1fr 1fr; } }
+
+  button {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 9px 14px;
+    border: 1px solid var(--ink); background: var(--paper-2); color: var(--ink);
+    cursor: pointer; transition: background .12s, color .12s;
+  }
+  button:hover:not(:disabled) { background: var(--ink); color: var(--paper-2); }
+  button:disabled { opacity: .35; cursor: not-allowed; }
+  button:focus-visible { outline: 2px solid var(--live); outline-offset: 2px; }
+  button.primary { background: var(--tram); border-color: var(--tram); color: #fff; font-weight: 600; }
+  button.primary:hover:not(:disabled) { background: var(--ink); border-color: var(--ink); }
+  button.ghost { border-color: var(--rule); color: var(--ink-2); }
+  button.ghost:hover:not(:disabled) { background: var(--ink-2); color: var(--paper-2); border-color: var(--ink-2); }
+
+  .feeder-field { display: flex; flex-direction: column; gap: 4px; }
+  .feeder-field > .lab {
+    font-family: var(--mono); font-size: 9.5px; color: var(--ink-3);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    display: flex; justify-content: space-between; gap: 10px;
+  }
+  .feeder-field .derived { color: var(--tram); }
+  .feeder-row { display: flex; }
+  .feeder-row input {
+    font-family: var(--mono); font-size: 12px; padding: 8px 9px; flex: 1; min-width: 0;
+    border: 1px solid var(--rule); border-right: none; background: var(--paper-2);
+    color: var(--ink); letter-spacing: 0.08em;
+  }
+  .feeder-row input:focus-visible { outline: 2px solid var(--live); outline-offset: -2px; }
+
+  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); align-items: start; }
+  .row { display: grid; grid-template-columns: 92px 1fr; gap: 9px; align-items: center; margin-bottom: 7px; }
+  .row:last-child { margin-bottom: 0; }
+  .row > label { font-family: var(--mono); font-size: 10px; color: var(--ink-2); letter-spacing: 0.03em; line-height: 1.2; }
+  .rng { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .field { display: flex; align-items: center; gap: 5px; }
+  .field span { font-family: var(--mono); font-size: 8.5px; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; }
+  input[type=number] {
+    font-family: var(--mono); font-size: 11px; width: 100%; min-width: 0;
+    padding: 5px 6px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  }
+  input[type=number]:focus-visible { outline: 2px solid var(--live); outline-offset: -1px; }
+  input[type=range] { width: 100%; accent-color: var(--tram); }
+  select { font-family: var(--mono); font-size: 11px; padding: 5px 6px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); width: 100%; }
+  .val { font-family: var(--mono); font-size: 10.5px; color: var(--ink); min-width: 46px; text-align: right; }
+
+  .hint {
+    font-family: var(--mono); font-size: 9.5px; color: var(--ink-3); line-height: 1.5;
+    margin: 9px 0 0; padding-top: 8px; border-top: 1px dashed var(--rule);
+  }
+  .hint b { color: var(--tram); font-weight: 500; }
+  .dim { opacity: .35; pointer-events: none; }
+
+  .lower { display: grid; grid-template-columns: 1.85fr 1fr; gap: 10px; margin-top: 14px; align-items: start; }
+  @media (max-width: 900px) { .lower { grid-template-columns: 1fr; } }
+
+  table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 10.5px; }
+  th {
+    text-align: left; font-weight: 600; font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-3);
+    border-bottom: 1px solid var(--rule); padding: 0 8px 5px 0; white-space: nowrap;
+  }
+  td { padding: 5px 8px 5px 0; border-bottom: 1px solid var(--paper-3); white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.fid { color: var(--tram); font-weight: 600; }
+  td.act { text-align: right; padding-right: 0; }
+  td.act button { padding: 3px 8px; font-size: 9px; letter-spacing: 0.06em; }
+  .tablescroll { overflow-x: auto; }
+  .empty { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); padding: 14px 0 4px; }
+  .lfo-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--live); margin-right: 5px; vertical-align: middle; }
+
+  #log { font-family: var(--mono); font-size: 10px; line-height: 1.65; height: 208px; overflow-y: auto; }
+  #log div { border-bottom: 1px solid var(--paper-3); padding: 2px 0; }
+  #log .t { color: var(--ink-3); }
+  #log .ev-spawn  { color: var(--ink); }
+  #log .ev-steal  { color: var(--warn); }
+  #log .ev-refuse { color: var(--tram); }
+  #log .ev-rel    { color: var(--ink-3); }
+  #log .ev-upd    { color: var(--live); }
+
+  .status {
+    font-family: var(--mono); font-size: 10px; color: var(--ink-2);
+    margin-top: 16px; padding-top: 9px; border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  }
+  .status .ok { color: var(--live); }
+  .status .no { color: var(--warn); }
+
+  input:disabled { opacity: .4; }
+
+  .mode-toggle { display: flex; gap: 6px; margin: 14px 0 10px; }
+  .mode-toggle button.active { background: var(--ink); color: var(--paper-2); }
+  .mode-toggle button.active.gps { background: var(--live); border-color: var(--live); }
+
+  .gps-panel { display: none; margin: 0 0 18px; }
+  .gps-panel.on { display: block; }
+  .gps-transport { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+  .gps-transport button.big { padding: 16px 20px; font-size: 13px; min-width: 140px; }
+  .gps-radius { display: flex; align-items: center; gap: 8px; }
+  .gps-radius input { width: 70px; }
+  .gps-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 4px; }
+  .gps-stat { background: var(--paper); border: 1px solid var(--rule); padding: 8px 10px; }
+  .gps-stat .lab { font-family: var(--mono); font-size: 9px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; }
+  .gps-stat .v { font-family: var(--mono); font-size: 15px; color: var(--ink); margin-top: 2px; }
+  .gps-stat .v.ok { color: var(--live); }
+  .gps-stat .v.no { color: var(--warn); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="title">Hiss <span>Voice</span></h1>
+    <div class="masthead-meta">
+      TRAM ELECTRICAL · BEHAVIOUR 09/23<br>
+      <b>SEED DERIVED FROM FEEDER ID</b> · NO SLOT POOL<br>
+      HIDDEN INFRASTRUCTURES : ZÜRICH
+    </div>
+  </header>
+
+  <p class="strapline">
+    One voice per feeder in range, built on entry from a seed hashed off the feeder's <em>objectid</em> — so a given feeder
+    always sounds like itself. Two LFOs on separate rates modulate comb delay and filter cutoff. A <em>600 Hz</em> tone
+    sits under the noise: 50 Hz mains through 12-pulse rectification.
+  </p>
+
+  <section class="hero">
+    <div class="scope-frame">
+      <canvas id="scope" width="1160" height="190"></canvas>
+      <div class="scope-tag corner" id="scopeLabel">SPECTRUM — AUDIO NOT STARTED</div>
+      <div class="scope-tag ripple" id="rippleTag" style="display:none">600 Hz</div>
+    </div>
+  </section>
+
+  <div class="transport">
+    <button id="btnAudio" class="primary">Enable audio</button>
+
+    <div class="feeder-field">
+      <div class="lab">
+        <span>Feeder objectid</span>
+        <span class="derived" id="seedOut">seed —</span>
+      </div>
+      <div class="feeder-row">
+        <input id="feederIn" type="text" spellcheck="false" placeholder="4821093" aria-label="Feeder objectid">
+        <button id="btnRandom" class="ghost" title="Pick a random feeder id">Random</button>
+      </div>
+    </div>
+
+    <div style="min-width:180px">
+      <div class="row" style="grid-template-columns: 74px 1fr; margin:0">
+        <label for="dist">DIST m</label>
+        <div class="field">
+          <input id="dist" type="range" min="0" max="50" step="0.5" value="18">
+          <span class="val" id="distV">18.0</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px">
+      <button id="btnSpawn" disabled>Trigger ␣</button>
+      <button id="btnRelease" class="ghost" disabled>Release all</button>
+    </div>
+  </div>
+
+  <div class="mode-toggle">
+    <button id="modeManual" class="active" type="button">Manual</button>
+    <button id="modeGps" class="gps" type="button">GPS walk</button>
+  </div>
+
+  <section class="panel gps-panel" id="gpsPanel">
+    <div class="panel-head"><h2>GPS walk</h2><div class="note">live feeder entry/exit from device position</div></div>
+
+    <div class="gps-transport">
+      <button id="btnGpsStart" class="primary big" type="button">Start walk</button>
+      <button id="btnGpsStop" class="ghost big" type="button" disabled>Stop walk</button>
+      <div class="gps-radius">
+        <label for="gpsRadius" style="font-family:var(--mono); font-size:10px; color:var(--ink-2); letter-spacing:0.04em;">RADIUS m</label>
+        <input id="gpsRadius" type="number" value="50" min="5" max="200" step="1">
+      </div>
+      <button id="btnDownloadLog" class="ghost" type="button">Download log</button>
+    </div>
+
+    <div class="gps-stats">
+      <div class="gps-stat"><div class="lab">Fixes</div><div class="v" id="gpsFixCount">0</div></div>
+      <div class="gps-stat"><div class="lab">Accuracy</div><div class="v" id="gpsAccuracy">—</div></div>
+      <div class="gps-stat"><div class="lab">Speed</div><div class="v" id="gpsSpeed">—</div></div>
+      <div class="gps-stat"><div class="lab">Feeders in range</div><div class="v" id="gpsInRange">0</div></div>
+      <div class="gps-stat"><div class="lab">Feeder set</div><div class="v" id="gpsFeederSet">not loaded</div></div>
+      <div class="gps-stat"><div class="lab">Wake lock</div><div class="v" id="gpsWakeLock">—</div></div>
+    </div>
+
+    <p class="hint">
+      Feeder identity here is <b>_dedupKey</b> (a per-point coordinate hash baked in at extraction time, in
+      <code>lk-tram-lk.geojson</code>) — not the <i>objectid</i> the manual field above implies, since tram nodes don't
+      carry that property. <b>_dedupKey</b> stays stable across GeoShop re-extraction, unlike ProximityEngine's own
+      feeder id (an array index). It is used only to match live position against the feeder set and is <b>never written
+      to the downloaded log</b> — only the derived seed is, since the key itself encodes the feeder's coordinates.
+      Default radius is 50 m as specified; production's actual hiss-trigger radius
+      (<code>FEEDER_HISS_RADIUS</code> in <code>audio-layers.js</code>) is 25 m, so voices left at 50 m may spawn
+      near-silent until under ~25 m. Bearing-driven HRTF positioning is deliberately not wired in this pass — this
+      walk is for the voice model and allocation policy first; positioning is next.
+    </p>
+  </section>
+
+  <div class="grid">
+
+    <section class="panel">
+      <div class="panel-head"><h2>Comb</h2><div class="note">resonance 112–435 Hz</div></div>
+      <div class="row"><label>DELAY ms</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="combMin" value="2.3" step="0.1" min="0.2" max="40"></div>
+          <div class="field"><span>max</span><input type="number" id="combMax" value="8.9" step="0.1" min="0.2" max="40"></div>
+        </div>
+      </div>
+      <div class="row"><label>FEEDBACK</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="fbMin" value="0.35" step="0.01" min="0" max="0.95"></div>
+          <div class="field"><span>max</span><input type="number" id="fbMax" value="0.72" step="0.01" min="0" max="0.95"></div>
+        </div>
+      </div>
+      <div class="row"><label>NOISE LVL</label>
+        <div class="field"><input type="range" id="noiseLvl" min="0" max="1" step="0.01" value="0.85"><span class="val" id="noiseLvlV">0.85</span></div>
+      </div>
+      <p class="hint">Delay time sets the comb's resonant series. The old 6-slot table fixed six values; a hashed draw across the same range gives a continuum, one point of which belongs permanently to each feeder.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Filter</h2><div class="note">bandpass on noise path</div></div>
+      <div class="row"><label>CENTRE Hz</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="fcMin" value="900" step="10" min="80" max="16000"></div>
+          <div class="field"><span>max</span><input type="number" id="fcMax" value="3400" step="10" min="80" max="16000"></div>
+        </div>
+      </div>
+      <div class="row"><label>Q</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="qMin" value="0.8" step="0.1" min="0.1" max="20"></div>
+          <div class="field"><span>max</span><input type="number" id="qMax" value="4.0" step="0.1" min="0.1" max="20"></div>
+        </div>
+      </div>
+      <div class="row"><label>PAN SPREAD</label>
+        <div class="field"><input type="range" id="panSpread" min="0" max="1" step="0.01" value="0.7"><span class="val" id="panSpreadV">0.70</span></div>
+      </div>
+      <p class="hint">Pan is hashed per feeder here. In production this is replaced by the HRTF PannerNode fed from feeder bearing.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>LFO 1 → comb delay</h2><div class="note">pitch / resonance drift</div></div>
+      <div class="row"><label>RATE Hz</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="l1rMin" value="0.08" step="0.01" min="0.005" max="8"></div>
+          <div class="field"><span>max</span><input type="number" id="l1rMax" value="0.42" step="0.01" min="0.005" max="8"></div>
+        </div>
+      </div>
+      <div class="row"><label>DEPTH ms</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="l1dMin" value="0.15" step="0.01" min="0" max="6"></div>
+          <div class="field"><span>max</span><input type="number" id="l1dMax" value="0.9" step="0.01" min="0" max="6"></div>
+        </div>
+      </div>
+      <p class="hint">At walking pace a feeder inside 50 m lasts roughly 20–70 s, so anything below ~0.05 Hz never completes a cycle. <b>Phase is hashed per feeder</b>, so voices never move in lockstep.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>LFO 2 → filter cutoff</h2><div class="note">breathing / swell</div></div>
+      <div class="row"><label>RATE Hz</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="l2rMin" value="0.05" step="0.01" min="0.005" max="8"></div>
+          <div class="field"><span>max</span><input type="number" id="l2rMax" value="0.31" step="0.01" min="0.005" max="8"></div>
+        </div>
+      </div>
+      <div class="row"><label>DEPTH Hz</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="l2dMin" value="120" step="10" min="0" max="6000"></div>
+          <div class="field"><span>max</span><input type="number" id="l2dMax" value="1100" step="10" min="0" max="6000"></div>
+        </div>
+      </div>
+      <p class="hint">Separate rate draw from LFO 1, so the two modulations phase against each other within a single voice as well as across voices.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Rectifier tone</h2><div class="note">50 Hz × 12-pulse</div></div>
+      <div class="row"><label>BASE Hz</label>
+        <div class="field"><input type="number" id="toneHz" value="600" step="1" min="20" max="4000"></div>
+      </div>
+      <div class="row"><label>LEVEL</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="tlMin" value="0.02" step="0.005" min="0" max="0.6"></div>
+          <div class="field"><span>max</span><input type="number" id="tlMax" value="0.09" step="0.005" min="0" max="0.6"></div>
+        </div>
+      </div>
+      <div class="row"><label>DETUNE ±Hz</label>
+        <div class="field"><input type="range" id="toneDet" min="0" max="12" step="0.1" value="3.5"><span class="val" id="toneDetV">3.5</span></div>
+      </div>
+      <div class="row"><label>2ND HARM</label>
+        <div class="field"><input type="range" id="tone2" min="0" max="1" step="0.01" value="0.3"><span class="val" id="tone2V">0.30</span></div>
+      </div>
+      <p class="hint">Per-feeder detune means two voices beat rather than summing cleanly — different substations aren't phase-locked. Set detune to 0 to hear the difference.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Voice</h2><div class="note">envelope · cap · falloff</div></div>
+      <div class="row"><label>ATTACK s</label>
+        <div class="field"><input type="range" id="att" min="0.05" max="4" step="0.05" value="0.9"><span class="val" id="attV">0.90</span></div>
+      </div>
+      <div class="row"><label>RELEASE s</label>
+        <div class="field"><input type="range" id="rel" min="0.1" max="6" step="0.1" value="1.6"><span class="val" id="relV">1.60</span></div>
+      </div>
+      <div class="row"><label>FALLOFF exp</label>
+        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
+      </div>
+      <div class="row"><label>MAX VOICES</label>
+        <div class="field"><input type="number" id="cap" value="6" step="1" min="1" max="24"></div>
+      </div>
+      <div class="row"><label>AT CAP</label>
+        <div class="field">
+          <select id="capPolicy">
+            <option value="steal">Steal furthest</option>
+            <option value="margin" selected>Steal furthest + margin</option>
+            <option value="refuse">Refuse new</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" id="marginRow"><label>MARGIN %</label>
+        <div class="field"><input type="range" id="margin" min="0" max="50" step="1" value="20"><span class="val" id="marginV">20</span></div>
+      </div>
+      <div class="row"><label>MASTER</label>
+        <div class="field"><input type="range" id="master" min="0" max="1" step="0.01" value="0.6"><span class="val" id="masterV">0.60</span></div>
+      </div>
+      <p class="hint">Falloff <b>1.0</b> is linear — what the hiss uses today. <b>2.0</b> matches the feeder crackle's validated (1−t)² curve. Margin sets how much closer an incoming feeder must be before it displaces a sounding one.</p>
+    </section>
+
+  </div>
+
+  <div class="lower">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Sounding feeders</h2>
+        <div class="note" id="voiceCount">0 sounding</div>
+      </div>
+      <div id="voiceWrap"><p class="empty">No voices. Enable audio, then press Trigger or the space bar.</p></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Allocation log</h2>
+        <div class="note" id="logStats">—</div>
+      </div>
+      <div id="log"></div>
+    </section>
+  </div>
+
+  <div class="status">
+    <div id="midiStatus">MIDI — not requested</div>
+    <div id="ctxStatus">AudioContext — not created</div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  // ---------- feeder id → 32-bit seed (FNV-1a) ----------
+  function hashId(str) {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 0x01000193);
+    }
+    return h >>> 0;
+  }
+
+  // ---------- seeded RNG (mulberry32) ----------
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  const hex = n => (n >>> 0).toString(16).padStart(8, '0').toUpperCase();
+
+  const $ = id => document.getElementById(id);
+  const num = id => parseFloat($(id).value);
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  const bindReadout = (input, out, digits) => {
+    const sync = () => { out.textContent = parseFloat(input.value).toFixed(digits); };
+    input.addEventListener('input', sync); sync();
+  };
+  bindReadout($('dist'), $('distV'), 1);
+  bindReadout($('noiseLvl'), $('noiseLvlV'), 2);
+  bindReadout($('panSpread'), $('panSpreadV'), 2);
+  bindReadout($('toneDet'), $('toneDetV'), 1);
+  bindReadout($('tone2'), $('tone2V'), 2);
+  bindReadout($('att'), $('attV'), 2);
+  bindReadout($('rel'), $('relV'), 2);
+  bindReadout($('falloff'), $('falloffV'), 1);
+  bindReadout($('margin'), $('marginV'), 0);
+  bindReadout($('master'), $('masterV'), 2);
+
+  function syncMarginRow() {
+    $('marginRow').classList.toggle('dim', $('capPolicy').value !== 'margin');
+  }
+  $('capPolicy').addEventListener('change', syncMarginRow);
+  syncMarginRow();
+
+  // ---------- audio state ----------
+  let ctx = null, master = null, analyser = null, noiseBuf = null, freqData = null;
+  const voices = [];
+  const RADIUS = 50;
+  const counts = { spawn: 0, steal: 0, refuse: 0 };
+
+  function log(kind, text) {
+    const el = $('log');
+    const d = document.createElement('div');
+    const t = new Date();
+    const ts = String(t.getMinutes()).padStart(2, '0') + ':' +
+               String(t.getSeconds()).padStart(2, '0') + '.' +
+               String(Math.floor(t.getMilliseconds() / 100));
+    d.innerHTML = '<span class="t">' + ts + '</span> <span class="ev-' + kind + '">' + text + '</span>';
+    el.prepend(d);
+    while (el.children.length > 60) el.removeChild(el.lastChild);
+    $('logStats').textContent = counts.spawn + ' spawn · ' + counts.steal + ' steal · ' + counts.refuse + ' refuse';
+  }
+
+  function makeNoise(ac) {
+    const len = ac.sampleRate * 2;
+    const buf = ac.createBuffer(1, len, ac.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    return buf;
+  }
+
+  function phasedSine(ac, phase) {
+    const real = new Float32Array([0, Math.sin(phase)]);
+    const imag = new Float32Array([0, Math.cos(phase)]);
+    return ac.createPeriodicWave(real, imag, { disableNormalization: true });
+  }
+
+  function gainForDistance(d) {
+    const t = Math.min(1, Math.max(0, d / RADIUS));
+    return Math.pow(1 - t, num('falloff'));
+  }
+
+  // ---------- the instrument ----------
+  class HissVoice {
+    constructor(ac, dest, feederId, distance, source = 'manual') {
+      this.feederId = feederId;
+      this.source = source;
+      this.seed = hashId(feederId);
+      this.distance = distance;
+      const rnd = mulberry32(this.seed);
+
+      const p = this.params = {
+        combMs:  lerp(num('combMin'), num('combMax'), rnd()),
+        fb:      lerp(num('fbMin'),   num('fbMax'),   rnd()),
+        fc:      lerp(num('fcMin'),   num('fcMax'),   rnd()),
+        q:       lerp(num('qMin'),    num('qMax'),    rnd()),
+        l1rate:  lerp(num('l1rMin'),  num('l1rMax'),  rnd()),
+        l1depth: lerp(num('l1dMin'),  num('l1dMax'),  rnd()),
+        l1phase: rnd() * Math.PI * 2,
+        l2rate:  lerp(num('l2rMin'),  num('l2rMax'),  rnd()),
+        l2depth: lerp(num('l2dMin'),  num('l2dMax'),  rnd()),
+        l2phase: rnd() * Math.PI * 2,
+        toneLvl: lerp(num('tlMin'),   num('tlMax'),   rnd()),
+        toneOff: (rnd() * 2 - 1) * num('toneDet'),
+        pan:     (rnd() * 2 - 1) * num('panSpread')
+      };
+
+      const t = ac.currentTime;
+
+      this.env = ac.createGain();
+      this.env.gain.value = 0.0001;
+      this.panner = ac.createStereoPanner();
+      this.panner.pan.value = p.pan;
+      this.env.connect(this.panner).connect(dest);
+
+      this.src = ac.createBufferSource();
+      this.src.buffer = noiseBuf;
+      this.src.loop = true;
+
+      this.noiseGain = ac.createGain();
+      this.noiseGain.gain.value = num('noiseLvl') * 0.5;
+
+      this.delay = ac.createDelay(0.06);
+      this.delay.delayTime.value = p.combMs / 1000;
+      this.fb = ac.createGain();
+      this.fb.gain.value = p.fb;
+
+      this.bp = ac.createBiquadFilter();
+      this.bp.type = 'bandpass';
+      this.bp.frequency.value = p.fc;
+      this.bp.Q.value = p.q;
+
+      this.src.connect(this.noiseGain);
+      this.noiseGain.connect(this.bp);
+      this.noiseGain.connect(this.delay);
+      this.delay.connect(this.fb);
+      this.fb.connect(this.delay);
+      this.delay.connect(this.bp);
+      this.bp.connect(this.env);
+
+      const baseHz = num('toneHz');
+      this.tone = ac.createOscillator();
+      this.tone.type = 'sine';
+      this.tone.frequency.value = baseHz + p.toneOff;
+      this.toneGain = ac.createGain();
+      this.toneGain.gain.value = p.toneLvl;
+      this.tone.connect(this.toneGain).connect(this.env);
+
+      this.tone2 = ac.createOscillator();
+      this.tone2.type = 'sine';
+      this.tone2.frequency.value = (baseHz + p.toneOff) * 2;
+      this.tone2Gain = ac.createGain();
+      this.tone2Gain.gain.value = p.toneLvl * num('tone2');
+      this.tone2.connect(this.tone2Gain).connect(this.env);
+
+      this.lfo1 = ac.createOscillator();
+      this.lfo1.setPeriodicWave(phasedSine(ac, p.l1phase));
+      this.lfo1.frequency.value = p.l1rate;
+      this.lfo1Depth = ac.createGain();
+      this.lfo1Depth.gain.value = p.l1depth / 1000;
+      this.lfo1.connect(this.lfo1Depth).connect(this.delay.delayTime);
+
+      this.lfo2 = ac.createOscillator();
+      this.lfo2.setPeriodicWave(phasedSine(ac, p.l2phase));
+      this.lfo2.frequency.value = p.l2rate;
+      this.lfo2Depth = ac.createGain();
+      this.lfo2Depth.gain.value = p.l2depth;
+      this.lfo2.connect(this.lfo2Depth).connect(this.bp.frequency);
+
+      this.src.start(t); this.tone.start(t); this.tone2.start(t);
+      this.lfo1.start(t); this.lfo2.start(t);
+
+      this.target = gainForDistance(distance);
+      this.env.gain.setValueAtTime(0.0001, t);
+      this.env.gain.exponentialRampToValueAtTime(Math.max(0.0002, this.target), t + num('att'));
+
+      this.releasing = false;
+    }
+
+    setDistance(d) {
+      if (this.releasing) return;
+      this.distance = d;
+      this.target = gainForDistance(d);
+      this.env.gain.setTargetAtTime(Math.max(0.0002, this.target), ctx.currentTime, 0.25);
+    }
+
+    release(reason) {
+      if (this.releasing) return;
+      this.releasing = true;
+      log(reason === 'steal' ? 'steal' : 'rel',
+          (reason === 'steal' ? 'STEAL  ' : 'RELEASE') + ' ' + this.feederId + ' @ ' + this.distance.toFixed(1) + ' m');
+      logSession(reason === 'steal' ? 'steal' : 'release', this.seed, this.distance, this.source);
+      const t = ctx.currentTime, r = num('rel');
+      this.env.gain.cancelScheduledValues(t);
+      this.env.gain.setValueAtTime(Math.max(0.0002, this.env.gain.value), t);
+      this.env.gain.exponentialRampToValueAtTime(0.0001, t + r);
+      [this.src, this.tone, this.tone2, this.lfo1, this.lfo2].forEach(n => { try { n.stop(t + r + 0.05); } catch (e) {} });
+      setTimeout(() => this.teardown(), (r + 0.2) * 1000);
+    }
+
+    teardown() {
+      [this.src, this.tone, this.tone2, this.lfo1, this.lfo2,
+       this.noiseGain, this.delay, this.fb, this.bp,
+       this.toneGain, this.tone2Gain, this.lfo1Depth, this.lfo2Depth,
+       this.env, this.panner].forEach(n => { try { n.disconnect(); } catch (e) {} });
+      const i = voices.indexOf(this);
+      if (i >= 0) voices.splice(i, 1);
+      renderVoices();
+    }
+  }
+
+  // ---------- allocation ----------
+  function randomFeederId() {
+    return String(4000000 + Math.floor(Math.random() * 999999));
+  }
+
+  function trigger(feederId, distance, source = 'manual') {
+    if (!ctx) return null;
+    const id = String(feederId || '').trim() || randomFeederId();
+    const d = (distance === undefined) ? num('dist') : distance;
+
+    if (source === 'manual') {
+      $('feederIn').value = id;
+      $('seedOut').textContent = 'seed ' + hex(hashId(id));
+    }
+
+    // one voice per feeder — a re-entry for a sounding feeder updates distance
+    const existing = voices.find(v => v.feederId === id && !v.releasing);
+    if (existing) {
+      existing.setDistance(d);
+      log('upd', 'UPDATE ' + id + ' → ' + d.toFixed(1) + ' m');
+      logSession('update', existing.seed, d, source);
+      renderVoices();
+      return existing;
+    }
+
+    const cap = Math.max(1, Math.round(num('cap')));
+    const live = voices.filter(v => !v.releasing);
+    const policy = $('capPolicy').value;
+
+    if (live.length >= cap) {
+      let furthest = live[0];
+      for (const v of live) if (v.distance > furthest.distance) furthest = v;
+
+      if (policy === 'refuse') {
+        counts.refuse++; flash($('btnSpawn'));
+        log('refuse', 'REFUSE ' + id + ' @ ' + d.toFixed(1) + ' m — cap ' + cap);
+        logSession('refuse', hashId(id), d, source);
+        renderVoices(); return null;
+      }
+      if (policy === 'margin') {
+        const threshold = furthest.distance * (1 - num('margin') / 100);
+        if (d >= threshold) {
+          counts.refuse++; flash($('btnSpawn'));
+          log('refuse', 'HOLD   ' + id + ' @ ' + d.toFixed(1) + ' m — needs < ' +
+              threshold.toFixed(1) + ' m to take ' + furthest.feederId);
+          logSession('hold', hashId(id), d, source);
+          renderVoices(); return null;
+        }
+      }
+      counts.steal++;
+      furthest.release('steal');
+    }
+
+    counts.spawn++;
+    const v = new HissVoice(ctx, master, id, d, source);
+    voices.push(v);
+    log('spawn', 'SPAWN  ' + id + ' @ ' + d.toFixed(1) + ' m — seed ' + hex(v.seed));
+    logSession('spawn', v.seed, d, source);
+    renderVoices();
+    return v;
+  }
+
+  function flash(el) {
+    el.style.borderColor = 'var(--warn)';
+    el.style.color = 'var(--warn)';
+    setTimeout(() => { el.style.borderColor = ''; el.style.color = ''; }, 260);
+  }
+
+  function releaseAll() { voices.slice().forEach(v => v.release()); }
+
+  // ---------- session log (for DOWNLOAD LOG) ----------
+  // Deliberately stores the derived seed, never feederId — in GPS mode feederId
+  // is _dedupKey, which encodes the feeder's own coordinates. No positions of
+  // any kind (device or infrastructure) leave this page in the exported JSON.
+  const sessionLog = [];
+  let walkStartPerf = null;   // performance.now() at "Start walk" — t=0 for tRel
+  let walkStartedAt = null;   // ISO string, for the export header
+  let paramsAtWalkStart = null;
+
+  function logSession(event, seed, distance, source) {
+    sessionLog.push({
+      tRel: walkStartPerf !== null ? +((performance.now() - walkStartPerf) / 1000).toFixed(2) : null,
+      seed: hex(seed),
+      distance: distance !== undefined && distance !== null ? +distance.toFixed(1) : null,
+      event,
+      source
+    });
+  }
+
+  function getParamSnapshot() {
+    const ids = ['combMin', 'combMax', 'fbMin', 'fbMax', 'noiseLvl', 'fcMin', 'fcMax', 'qMin', 'qMax',
+      'panSpread', 'l1rMin', 'l1rMax', 'l1dMin', 'l1dMax', 'l2rMin', 'l2rMax', 'l2dMin', 'l2dMax',
+      'toneHz', 'tlMin', 'tlMax', 'toneDet', 'tone2', 'att', 'rel', 'falloff', 'cap', 'capPolicy',
+      'margin', 'master', 'gpsRadius'];
+    const snap = {};
+    for (const id of ids) {
+      const el = $(id);
+      if (!el) continue;
+      snap[id] = el.tagName === 'SELECT' ? el.value : parseFloat(el.value);
+    }
+    return snap;
+  }
+
+  function downloadLog() {
+    const eventCounts = sessionLog.reduce((acc, e) => { acc[e.event] = (acc[e.event] || 0) + 1; return acc; }, {});
+    const payload = {
+      note: 'events[].seed is a one-way hash of feeder identity — no device or infrastructure coordinates recorded',
+      exportedAt: new Date().toISOString(),
+      walkStartedAt,
+      gpsRadiusMeters: num('gpsRadius'),
+      paramsAtWalkStart: paramsAtWalkStart || getParamSnapshot(),
+      counts: eventCounts,
+      events: sessionLog
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'hiss-voice-log-' + new Date().toISOString().replace(/[:.]/g, '-') + '.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  // ---------- GPS mode ----------
+  // Feeder set is fetched directly from lk-tram-lk.geojson rather than through
+  // ProximityEngine — ProximityEngine.calculate() assigns feeder ids by array
+  // index (tram-node-N), which is not stable across GeoShop re-extraction.
+  // _dedupKey (a per-point coordinate hash, assigned once at extraction time
+  // in scripts/extract-lk-geojson.js) is stable, so it's used as feeder identity
+  // here instead. Listener distance is computed locally with the same flat-earth
+  // approximation audio-layers.js uses for the hiss pool (no listener distance
+  // is available from ProximityEngine's feeder output either way).
+  let gpsFeeders = null;
+  let gpsFeedersLoading = null;
+  let gpsWatchId = null;
+  let gpsFixCount = 0;
+  let wakeLock = null;
+
+  function distanceMeters(lat1, lng1, lat2, lng2) {
+    const dlat = (lat2 - lat1) * 111320;
+    const dlng = (lng2 - lng1) * 111320 * Math.cos(lat1 * Math.PI / 180);
+    return Math.sqrt(dlat * dlat + dlng * dlng);
+  }
+
+  function gpsRadiusValue() { return Math.max(1, num('gpsRadius')); }
+
+  function updateGpsStat(id, text, cls) {
+    const el = $(id);
+    el.textContent = text;
+    el.className = 'v' + (cls ? ' ' + cls : '');
+  }
+
+  function loadGpsFeeders() {
+    if (gpsFeeders) return Promise.resolve(gpsFeeders);
+    if (gpsFeedersLoading) return gpsFeedersLoading;
+    $('gpsFeederSet').textContent = 'loading…';
+    gpsFeedersLoading = fetch('/lk-tram-lk.geojson')
+      .then(r => r.json())
+      .then(json => {
+        gpsFeeders = json.features
+          .filter(f => f.properties.geomType === 'node' && f.geometry.type === 'Point')
+          .map(f => ({ id: f.properties._dedupKey, lng: f.geometry.coordinates[0], lat: f.geometry.coordinates[1] }));
+        $('gpsFeederSet').textContent = gpsFeeders.length + ' nodes';
+        return gpsFeeders;
+      })
+      .catch(err => {
+        $('gpsFeederSet').textContent = 'load failed';
+        log('refuse', 'FEEDER SET load failed: ' + err.message);
+        gpsFeedersLoading = null;
+        throw err;
+      });
+    return gpsFeedersLoading;
+  }
+
+  async function onGpsFix(pos) {
+    gpsFixCount++;
+    $('gpsFixCount').textContent = String(gpsFixCount);
+    const { latitude, longitude, accuracy, speed } = pos.coords;
+    updateGpsStat('gpsAccuracy', accuracy != null ? Math.round(accuracy) + ' m' : '—',
+      accuracy != null ? (accuracy <= 50 ? 'ok' : 'no') : '');
+    updateGpsStat('gpsSpeed', speed != null ? speed.toFixed(1) + ' m/s' : '—');
+
+    // Screen sleep / tab backgrounding suspends the AudioContext — resume on every fix.
+    if (ctx && ctx.state === 'suspended') { try { await ctx.resume(); } catch (e) {} }
+
+    const feeders = await loadGpsFeeders().catch(() => null);
+    if (!feeders) return;
+
+    const inRange = [];
+    for (const f of feeders) {
+      const d = distanceMeters(latitude, longitude, f.lat, f.lng);
+      if (d < gpsRadiusValue()) inRange.push({ id: f.id, dist: d });
+    }
+    const inRangeIds = new Set(inRange.map(r => r.id));
+
+    for (const { id, dist } of inRange) trigger(id, dist, 'gps');
+    for (const v of voices) {
+      if (v.source === 'gps' && !v.releasing && !inRangeIds.has(v.feederId)) v.release();
+    }
+    updateGpsStat('gpsInRange', String(inRange.length), inRange.length ? 'ok' : '');
+  }
+
+  function onGpsError(err) {
+    updateGpsStat('gpsAccuracy', 'error', 'no');
+    log('refuse', 'GPS error: ' + err.message);
+  }
+
+  async function requestWakeLock() {
+    if (!('wakeLock' in navigator)) { updateGpsStat('gpsWakeLock', 'unsupported'); return; }
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+      updateGpsStat('gpsWakeLock', 'active', 'ok');
+      wakeLock.addEventListener('release', () => updateGpsStat('gpsWakeLock', 'released'));
+    } catch (err) {
+      updateGpsStat('gpsWakeLock', 'denied', 'no');
+    }
+  }
+  function releaseWakeLock() {
+    if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && gpsWatchId !== null && !wakeLock) requestWakeLock();
+  });
+
+  function startWalk() {
+    if (gpsWatchId !== null) return;
+    if (!navigator.geolocation) { log('refuse', 'Geolocation not available'); return; }
+    walkStartPerf = performance.now();
+    walkStartedAt = new Date().toISOString();
+    paramsAtWalkStart = getParamSnapshot();
+    sessionLog.length = 0; // one walk, one self-contained log
+    gpsFixCount = 0;
+    loadGpsFeeders();
+    gpsWatchId = navigator.geolocation.watchPosition(onGpsFix, onGpsError,
+      { enableHighAccuracy: true, maximumAge: 5000 });
+    requestWakeLock();
+    $('btnGpsStart').disabled = true;
+    $('btnGpsStop').disabled = false;
+    log('upd', 'WALK START — radius ' + gpsRadiusValue() + ' m');
+  }
+
+  function stopWalk() {
+    if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
+    releaseWakeLock();
+    updateGpsStat('gpsWakeLock', '—');
+    voices.filter(v => v.source === 'gps' && !v.releasing).forEach(v => v.release());
+    $('btnGpsStart').disabled = false;
+    $('btnGpsStop').disabled = true;
+    log('upd', 'WALK STOP');
+  }
+
+  // ---------- mode toggle ----------
+  let mode = 'manual';
+  const manualControlIds = ['feederIn', 'btnRandom', 'dist', 'btnSpawn'];
+
+  function setMode(next) {
+    mode = next;
+    $('modeManual').classList.toggle('active', mode === 'manual');
+    $('modeGps').classList.toggle('active', mode === 'gps');
+    $('gpsPanel').classList.toggle('on', mode === 'gps');
+    manualControlIds.forEach(id => { $(id).disabled = (mode === 'gps') || !ctx; });
+    if (mode === 'manual') stopWalk();
+  }
+  $('modeManual').addEventListener('click', () => setMode('manual'));
+  $('modeGps').addEventListener('click', () => setMode('gps'));
+  $('btnGpsStart').addEventListener('click', startWalk);
+  $('btnGpsStop').addEventListener('click', stopWalk);
+  $('btnDownloadLog').addEventListener('click', downloadLog);
+
+  // ---------- table ----------
+  function renderVoices() {
+    const wrap = $('voiceWrap');
+    const live = voices.filter(v => !v.releasing);
+    $('voiceCount').textContent = live.length + ' sounding' +
+      (voices.length - live.length ? ' · ' + (voices.length - live.length) + ' releasing' : '');
+
+    if (!voices.length) {
+      wrap.innerHTML = '<p class="empty">No voices. Enable audio, then press Trigger or the space bar.</p>';
+      return;
+    }
+    const rows = voices.slice().sort((a, b) => a.distance - b.distance).map(v => {
+      const p = v.params;
+      return '<tr>' +
+        '<td class="fid">' + v.feederId + '</td>' +
+        '<td>' + hex(v.seed) + '</td>' +
+        '<td>' + v.distance.toFixed(1) + '</td>' +
+        '<td>' + p.combMs.toFixed(2) + '</td>' +
+        '<td>' + p.fb.toFixed(2) + '</td>' +
+        '<td>' + Math.round(p.fc) + '</td>' +
+        '<td><span class="lfo-dot" style="opacity:' + (v.releasing ? .25 : 1) + '"></span>' +
+            p.l1rate.toFixed(3) + ' / ' + p.l1depth.toFixed(2) + '</td>' +
+        '<td>' + p.l2rate.toFixed(3) + ' / ' + Math.round(p.l2depth) + '</td>' +
+        '<td>' + (p.toneOff >= 0 ? '+' : '') + p.toneOff.toFixed(1) + '</td>' +
+        '<td>' + (v.releasing ? '<span style="color:var(--warn)">rel</span>' : v.target.toFixed(3)) + '</td>' +
+        '<td class="act">' + (v.releasing ? '' :
+          '<button data-fid="' + v.feederId + '" class="ghost vrel">Release</button>') + '</td>' +
+      '</tr>';
+    }).join('');
+
+    wrap.innerHTML = '<div class="tablescroll"><table><thead><tr>' +
+      '<th>Feeder</th><th>Seed</th><th>Dist m</th><th>Comb ms</th><th>FB</th><th>Fc Hz</th>' +
+      '<th>LFO1 Hz / ms</th><th>LFO2 Hz / Hz</th><th>Det Hz</th><th>Gain</th><th></th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+
+    wrap.querySelectorAll('.vrel').forEach(b => {
+      b.addEventListener('click', () => {
+        const v = voices.find(x => x.feederId === b.dataset.fid && !x.releasing);
+        if (v) v.release();
+      });
+    });
+  }
+
+  // ---------- analyser ----------
+  const cv = $('scope'), c2 = cv.getContext('2d');
+  function resizeScope() {
+    const r = cv.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    cv.width = Math.round(r.width * dpr);
+    cv.height = Math.round(190 * dpr);
+    c2.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener('resize', resizeScope);
+  resizeScope();
+
+  const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+
+  function drawScope() {
+    requestAnimationFrame(drawScope);
+    const w = cv.clientWidth, h = 190;
+    c2.clearRect(0, 0, w, h);
+    c2.fillStyle = css('--paper-2');
+    c2.fillRect(0, 0, w, h);
+
+    const nyq = ctx ? ctx.sampleRate / 2 : 24000;
+    const fMin = 40, fMax = Math.min(16000, nyq);
+    const xOf = f => (Math.log10(f / fMin) / Math.log10(fMax / fMin)) * w;
+
+    c2.strokeStyle = css('--rule'); c2.lineWidth = 1;
+    c2.fillStyle = css('--ink-3');
+    c2.font = '9px ui-monospace, Menlo, monospace';
+    [50, 100, 200, 500, 1000, 2000, 5000, 10000].forEach(f => {
+      if (f < fMin || f > fMax) return;
+      const x = Math.round(xOf(f)) + 0.5;
+      c2.beginPath(); c2.moveTo(x, 0); c2.lineTo(x, h - 14); c2.stroke();
+      c2.fillText(f >= 1000 ? (f / 1000) + 'k' : String(f), x + 3, h - 4);
+    });
+
+    if (!ctx || !analyser) return;
+
+    analyser.getByteFrequencyData(freqData);
+    const bins = freqData.length;
+
+    c2.beginPath();
+    let started = false;
+    for (let x = 0; x <= w; x++) {
+      const f = fMin * Math.pow(fMax / fMin, x / w);
+      const bin = Math.min(bins - 1, Math.round((f / nyq) * bins));
+      const v = freqData[bin] / 255;
+      const y = h - 16 - v * (h - 30);
+      if (!started) { c2.moveTo(x, y); started = true; } else c2.lineTo(x, y);
+    }
+    c2.strokeStyle = css('--ink'); c2.lineWidth = 1.2; c2.stroke();
+    c2.lineTo(w, h - 16); c2.lineTo(0, h - 16); c2.closePath();
+    c2.fillStyle = 'rgba(20,23,26,0.08)'; c2.fill();
+
+    const tHz = num('toneHz');
+    if (tHz >= fMin && tHz <= fMax) {
+      const x = Math.round(xOf(tHz)) + 0.5;
+      c2.setLineDash([3, 3]);
+      c2.strokeStyle = css('--tram'); c2.lineWidth = 1;
+      c2.beginPath(); c2.moveTo(x, 8); c2.lineTo(x, h - 14); c2.stroke();
+      c2.setLineDash([]);
+      const tag = $('rippleTag');
+      tag.style.display = 'block';
+      tag.style.left = Math.min(w - 46, x + 4) + 'px';
+      tag.style.top = '6px';
+      tag.textContent = Math.round(tHz) + ' Hz';
+    }
+  }
+  drawScope();
+
+  // ---------- start ----------
+  async function enableAudio() {
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    await ctx.resume();
+    noiseBuf = makeNoise(ctx);
+    master = ctx.createGain();
+    master.gain.value = num('master');
+    analyser = ctx.createAnalyser();
+    analyser.fftSize = 4096;
+    analyser.smoothingTimeConstant = 0.75;
+    freqData = new Uint8Array(analyser.frequencyBinCount);
+    master.connect(analyser);
+    master.connect(ctx.destination);
+
+    $('btnAudio').textContent = 'Audio running';
+    $('btnAudio').disabled = true;
+    $('btnSpawn').disabled = false;
+    $('btnRelease').disabled = false;
+    $('scopeLabel').textContent = 'SPECTRUM — ' + Math.round(ctx.sampleRate / 1000) + ' kHz';
+    $('ctxStatus').innerHTML = 'AudioContext — <span class="ok">running @ ' + ctx.sampleRate + ' Hz</span>';
+    requestMidi();
+    setMode(mode); // reconcile manual-control disabled state now that ctx exists
+  }
+
+  $('master').addEventListener('input', () => {
+    if (master) master.gain.setTargetAtTime(num('master'), ctx.currentTime, 0.02);
+  });
+
+  $('btnAudio').addEventListener('click', enableAudio);
+  $('btnSpawn').addEventListener('click', () => trigger($('feederIn').value));
+  $('btnRelease').addEventListener('click', releaseAll);
+  $('btnRandom').addEventListener('click', () => {
+    const id = randomFeederId();
+    $('feederIn').value = id;
+    $('seedOut').textContent = 'seed ' + hex(hashId(id));
+  });
+  $('feederIn').addEventListener('input', () => {
+    const id = $('feederIn').value.trim();
+    $('seedOut').textContent = id ? 'seed ' + hex(hashId(id)) : 'seed —';
+  });
+  $('feederIn').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); trigger($('feederIn').value); }
+  });
+
+  $('dist').addEventListener('input', () => {
+    const live = voices.filter(v => !v.releasing);
+    if (live.length) live[live.length - 1].setDistance(num('dist'));
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.code !== 'Space') return;
+    if (/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)) return;
+    e.preventDefault();
+    if (!ctx) enableAudio(); else trigger(randomFeederId());
+  });
+
+  // ---------- Web MIDI ----------
+  const midiVoices = new Map();
+  async function requestMidi() {
+    if (!navigator.requestMIDIAccess) {
+      $('midiStatus').innerHTML = 'MIDI — <span class="no">unsupported in this browser</span>';
+      return;
+    }
+    try {
+      const access = await navigator.requestMIDIAccess();
+      const names = [];
+      access.inputs.forEach(inp => { names.push(inp.name); inp.onmidimessage = onMidi; });
+      $('midiStatus').innerHTML = names.length
+        ? 'MIDI — <span class="ok">' + names.join(', ') + '</span>'
+        : 'MIDI — <span class="no">no inputs found</span>';
+    } catch (err) {
+      $('midiStatus').innerHTML = 'MIDI — <span class="no">blocked in this context</span>';
+    }
+  }
+  function onMidi(ev) {
+    const [status, d1, d2] = ev.data;
+    const cmd = status & 0xF0;
+    if (cmd === 0x90 && d2 > 0) {
+      // note number stands in for feeder identity; velocity → distance
+      const id = 'MIDI-' + d1;
+      const d = (1 - d2 / 127) * RADIUS;
+      const v = trigger(id, d);
+      if (v) midiVoices.set(d1, v);
+    } else if (cmd === 0x80 || (cmd === 0x90 && d2 === 0)) {
+      const v = midiVoices.get(d1);
+      if (v) { v.release(); midiVoices.delete(d1); }
+    } else if (cmd === 0xB0) {
+      const map = { 70: 'combMin', 71: 'combMax', 72: 'fcMin', 73: 'fcMax',
+                    74: 'l1dMin', 75: 'l1dMax', 76: 'l2dMin', 77: 'l2dMax' };
+      const id = map[d1];
+      if (!id) return;
+      const el = $(id);
+      const lo = parseFloat(el.min), hi = parseFloat(el.max);
+      el.value = (lo + (hi - lo) * (d2 / 127)).toFixed(2);
+    }
+  }
+
+  $('feederIn').value = randomFeederId();
+  $('seedOut').textContent = 'seed ' + hex(hashId($('feederIn').value));
+  renderVoices();
+  setInterval(renderVoices, 700);
+})();
+</script>
+</body>
+</html>

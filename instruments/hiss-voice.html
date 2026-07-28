@@ -261,6 +261,13 @@
       <button id="btnDownloadLog" class="ghost" type="button">Download log</button>
     </div>
 
+    <p class="hint" style="margin-top:-4px">
+      <b>Field-testing artefact, not assessed for public export.</b> No feeder ids or timbre seeds are recorded,
+      but each event's (tMs, distance) pair still traces an approach/recede curve against one specific feeder
+      drawn from a public, known point set — matching that curve against the network is a solved map-matching
+      problem, not a hard one. A public score-archive format needs its own analysis, not this one's assumptions.
+    </p>
+
     <div class="gps-stats">
       <div class="gps-stat"><div class="lab">Fixes</div><div class="v" id="gpsFixCount">0</div></div>
       <div class="gps-stat"><div class="lab">Accuracy</div><div class="v" id="gpsAccuracy">—</div></div>
@@ -776,6 +783,20 @@
   //    NOT the original timbres, because the seed that produced them is
   //    exactly the thing this file must not contain. A score is not a
   //    recording; replaying it is a new performance of the same structure.
+  //
+  // 4. FIELD-TESTING ARTEFACT — NOT ASSESSED FOR PUBLIC EXPORT, even with (1)
+  //    and (2) in place. Removing the feeder identifier is not the same as
+  //    removing the information a feeder identifier would have given away.
+  //    Each logToken's sequence of (tMs, distance) events traces an approach-
+  //    and-recede curve against ONE specific physical feeder, drawn from a
+  //    public, known point set (~2,100 nodes in lk-tram-lk.geojson). Matching
+  //    that curve's shape against the public network to recover which feeder
+  //    it was, and from there the walker's path, is map-matching — a solved
+  //    problem, not a hard one. If a score-archive export format is ever
+  //    derived from this log, it needs its own privacy analysis; it must not
+  //    inherit this file's assumptions (which were about identifiers, not
+  //    about this kind of geometry-from-distance-sequence leakage) by
+  //    default.
   //
   const sessionLog = [];
   let walkStartPerf = null;   // performance.now() at "Start walk" — t=0 for tMs. Never exported as wall time.

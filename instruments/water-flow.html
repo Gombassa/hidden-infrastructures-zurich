@@ -172,6 +172,13 @@
       <button id="btnDownloadLog" class="ghost" type="button">Download log</button>
     </div>
 
+    <p class="hint" style="margin-top:-4px">
+      <b>Field-testing artefact, not assessed for public export.</b> No coordinates or pipe identities are
+      recorded, but per-slot frequencies, in-range count, and nearest distance at 1 Hz still describe the local
+      pipe geometry along the route — matching that against the public water network is a solved map-matching
+      problem, not a hard one. A public score-archive format needs its own analysis, not this one's assumptions.
+    </p>
+
     <div class="gps-stats">
       <div class="gps-stat"><div class="lab">Fixes</div><div class="v" id="gpsFixCount">0</div></div>
       <div class="gps-stat"><div class="lab">Accuracy</div><div class="v" id="gpsAccuracy">—</div></div>
@@ -824,6 +831,19 @@
   // pipe ids: this is a continuous bed with no per-voice identity to protect,
   // just the same score-archive prototype as the hiss instrument's log.
   // "elapsed" is milliseconds since Start walk, not wall-clock time.
+  //
+  // FIELD-TESTING ARTEFACT — NOT ASSESSED FOR PUBLIC EXPORT.
+  // No coordinates and no pipe identities does not mean no information about
+  // where the walk went. Six per-slot resonance frequencies, an in-range pipe
+  // count, and a nearest-pipe distance, sampled once per second across a
+  // walk, jointly describe the local pipe geometry at each point along the
+  // route. A walk is a trajectory, and matching a trajectory's local-geometry
+  // fingerprint against a public infrastructure network — lk-water.geojson is
+  // exactly that — is map-matching, a solved problem, not a hard one. If a
+  // score-archive export format is ever derived from this log, it needs its
+  // own privacy analysis; it must not inherit this file's assumptions (which
+  // were about identifiers, not about this kind of aggregate-geometry
+  // leakage) by default.
   function logTick() {
     const R = num('radius');
     const inRange = activePipes().filter(p => p.dist <= R);

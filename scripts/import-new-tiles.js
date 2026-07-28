@@ -3,6 +3,7 @@ import { readdirSync, readFileSync, writeFileSync, existsSync } from 'fs';
 import { execSync } from 'child_process';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import generateCounts from './generate-counts.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const GEOSHOP_DIR = join(__dirname, '../data/raw/GeoShop');
@@ -29,3 +30,9 @@ execSync('node scripts/extract-lk-geojson.js data/raw/GeoShop public', { stdio: 
 
 writeFileSync(MANIFEST_PATH, JSON.stringify([...processed, ...newOrders], null, 2));
 console.log(`\nManifest updated — ${newOrders.length} new order(s) recorded.`);
+
+// Belt-and-braces: extract-lk-geojson.js already regenerates counts at the
+// end of its own run above, but call it again here directly so this script
+// doesn't silently stop regenerating counts if that internal call is ever
+// removed or the extraction step changes shape.
+generateCounts.run();

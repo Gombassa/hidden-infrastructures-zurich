@@ -595,6 +595,13 @@ function main() {
     ];
     console.log(row.join('  '));
   }
+
+  // Regenerate doc counts from the files just written, rather than leaving
+  // them to drift until someone next updates them by hand.
+  console.log('\nRegenerating doc counts…');
+  require('./generate-counts.js').run();
 }
 
-main();
+if (require.main === module) {
+  main();
+}

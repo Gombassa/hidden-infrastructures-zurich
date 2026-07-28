@@ -127,16 +127,17 @@
     <h1 class="title">Water <span>Flow</span></h1>
     <div class="masthead-meta">
       WATER SUPPLY · CONTINUOUS · NEW BEHAVIOUR<br>
-      <b>RESONANCE FROM PIPE DIAMETER</b><br>
+      <b>RESONANCE: MAINS vs CONNECTIONS</b><br>
       HIDDEN INFRASTRUCTURES : ZÜRICH
     </div>
   </header>
 
   <p class="strapline">
     Mains are pressurised and permanently full, so flow reads as turbulence exciting the bore —
-    <em>pitched</em>, where sewage's gravity flow is not. Resonance is driven by each pipe's
-    <em>diameterClass</em> — confirmed present on all 10,568 real pipes, but the wide↔narrow ordering across
-    its 7 values is only independently confirmed for two of them; see the Pipes panel below.
+    <em>pitched</em>, where sewage's gravity flow is not. Resonance is driven by each pipe's <em>function</em> —
+    main or connection — not by a diameter measurement: WVZ has never published a diameter table, and the
+    two-condition split below is evidenced by segment-length distribution, not diameter. See the Pipes panel
+    for what's confirmed versus inferred.
   </p>
 
   <section class="hero">
@@ -184,7 +185,8 @@
       Nearest distance, pipes in range, and pipes actually assigned a resonator slot (capped at 6) are the
       existing <b>NEAREST m / IN RANGE / ACTIVE RES</b> fields in the Readout panel — they read whichever pipe
       source is active. Fetches <code>/lk-water.geojson</code> directly (not through ProximityEngine, which
-      parses pipes without carrying <code>diameterClass</code> or <code>_dedupKey</code> through) and computes
+      parses pipes without carrying <code>diameterClass</code> or <code>_dedupKey</code> through — see the Pipes
+      panel below for how <code>diameterClass</code> maps to the two-condition split used here) and computes
       nearest-point-on-segment distance locally, the same way <code>proximity-engine.js</code> does. No stealing
       or hysteresis on slot assignment — nearest 6 in range, reassigned fresh every fix; whether that
       reassignment is audible as churn is one of the things this walk is for.
@@ -223,14 +225,14 @@
           <select id="resMode">
             <option value="bank" selected>Bank — one per pipe</option>
             <option value="single">Single — nearest pipe</option>
-            <option value="fixed">Fixed — ignore diameter</option>
+            <option value="fixed">Fixed — ignore pipe condition</option>
           </select>
         </div>
       </div>
-      <div class="row"><label>DIA → Hz</label>
+      <div class="row"><label>COND → Hz</label>
         <div class="rng">
-          <div class="field"><span>widest</span><input type="number" id="resLo" value="185" step="5" min="40" max="4000"></div>
-          <div class="field"><span>narrowest</span><input type="number" id="resHi" value="880" step="5" min="40" max="4000"></div>
+          <div class="field"><span>mains</span><input type="number" id="resLo" value="185" step="5" min="40" max="4000"></div>
+          <div class="field"><span>connections</span><input type="number" id="resHi" value="880" step="5" min="40" max="4000"></div>
         </div>
       </div>
       <div class="row"><label>Q</label>
@@ -242,7 +244,7 @@
       <div class="row"><label>GLIDE s</label>
         <div class="field"><input type="range" id="glide" min="0.05" max="6" step="0.05" value="1.2"><span class="val" id="glideV">1.20</span></div>
       </div>
-      <p class="hint"><b>Bank</b> gives every pipe in range its own resonance, weighted by proximity — the local network geometry becomes a chord. <b>Single</b> tracks only the nearest and glides between pipes. <b>Fixed</b> parks everything at the widest frequency, for A/B against the diameter mapping.</p>
+      <p class="hint"><b>Bank</b> gives every pipe in range its own resonance, weighted by proximity — the local network geometry becomes a chord. <b>Single</b> tracks only the nearest and glides between pipes. <b>Fixed</b> parks everything at the mains frequency, for A/B against the condition mapping.</p>
     </section>
 
     <section class="panel">
@@ -299,23 +301,34 @@
   <section class="panel pipes" id="pipesPanel">
     <div class="panel-head">
       <h2>Simulated pipes</h2>
-      <div class="note">distance in metres · diameter 0 = widest main, 1 = narrowest connection</div>
+      <div class="note">distance in metres · condition: main or connection</div>
     </div>
     <div id="pipeWrap"></div>
     <p class="hint">
-      Diameter here is normalised for the simulated set above. For real pipes, <b>diameterClass</b> is populated
-      on all 10,568 LineString pipes in <b>lk-water.geojson</b> (never null — the 4,655 nulls in the file are all
-      fitting Points, correctly) with 7 distinct values: <b>0, 3, 4, 5, 7, 8, 9</b>. It is the trailing digit of
-      the pipe's DXF layer code (<code>LKZ131X</code>), not a literal diameter measurement. Only two values have a
-      confirmed size relationship — <code>docs/phase2-data-layer.md</code> identifies <b>4 = distribution pipes</b>
-      (wider) and <b>5 = connection pipes</b> (narrower, and by far the most common class, matching service
-      connections vastly outnumbering mains). The city's own LK legend PDF documents only a coarse
-      &lt;500mm/≥500mm cartographic split, not a code table, so it doesn't resolve the rest. The remaining five
-      values (<b>0, 3, 7, 8, 9</b>) are ranked here by <b>inverse feature count</b> — rarer class ⇒ assumed larger,
-      more specialised main, a heuristic chosen because it reproduces the one confirmed relationship (5 more common
-      than 4) without a special case. Full assumed order, widest → narrowest:
-      <b>8, 0, 3, 9, 7, 4, 5</b>. This is a stated guess, not verified data — revisit once the WVZ layer-code table
-      is available.
+      Real water pipes carry no <b>pipeType</b> property at all — that field is only ever derived for sewage
+      (gravity/pressure, from a different layer-code family); it was never added for water. The only categorical
+      signal water pipes carry is <b>diameterClass</b>, the trailing digit of the DXF layer code
+      (<code>LKZ131X</code>) — confirmed present on all 10,568 pipe LineStrings in <b>lk-water.geojson</b> (never
+      null; the 4,655 nulls in the file are all fitting Points), with 7 distinct values:
+      <b>0, 3, 4, 5, 7, 8, 9</b>. Checking the raw <code>layer</code> string confirms it carries no information
+      beyond that digit — every water pipe's layer is exactly <code>LKZ131X-MLU1</code>, a strict 1:1 match with
+      <b>diameterClass</b>, so there is nothing independent left to cross-tabulate against.
+      <br><br>
+      <code>docs/phase2-data-layer.md</code> names two values by function — <b>4 = distribution (main)</b>,
+      <b>5 = connection</b> — but not the rest, and the city's own LK legend PDF stops at a coarse
+      &lt;500mm/≥500mm cartographic split, no code table. The previous version of this instrument ranked the
+      remaining five values by <em>inverse feature count</em>, which is unsound: counts are per digitised
+      LineString <em>segment</em>, not per physical pipe, and a long main gets cut into many short segments while
+      a house connection is often one run — rarity by segment count can invert the thing it's meant to infer.
+      <br><br>
+      Replaced with <b>segment-length distribution</b>, which separates cleanly: classes <b>3, 4, 9</b> have mean
+      segment length 19.6–26.6&nbsp;m with 26–33% of segments over 20&nbsp;m; classes <b>0, 5, 7, 8</b> have mean
+      2.75–4.55&nbsp;m with under 4% over 20&nbsp;m — close to an order of magnitude apart, and the confirmed pair
+      falls cleanly either side (4 in the long group, 5 in the short group). <b>Mains = {3, 4, 9}</b>,
+      <b>connections = {0, 5, 7, 8}</b>. Only 4 and 5 are documented; 0, 3, 7, 8, 9 are inferred from length, not
+      from any named source — see <code>WATER_PIPE_CONDITION</code> in the script for the per-value comment.
+      This is pipe <em>function</em>, correlated with diameter but not verified against an actual diameter
+      table — WVZ has not published one.
     </p>
   </section>
 
@@ -352,31 +365,43 @@
   // ---------- simulated pipe set ----------
   const N_SLOTS = 6;
   const pipes = [
-    { id: 'W-114820', dia: 0.05, dist: 12 },
-    { id: 'W-114833', dia: 0.28, dist: 26 },
-    { id: 'W-118002', dia: 0.52, dist: 41 },
-    { id: 'W-118117', dia: 0.71, dist: 19 },
-    { id: 'W-121440', dia: 0.88, dist: 34 },
-    { id: 'W-121502', dia: 0.97, dist: 63 }
+    { id: 'W-114820', condition: 'connection', dist: 12 },
+    { id: 'W-114833', condition: 'connection', dist: 26 },
+    { id: 'W-118002', condition: 'main',       dist: 41 },
+    { id: 'W-118117', condition: 'connection', dist: 19 },
+    { id: 'W-121440', condition: 'main',       dist: 34 },
+    { id: 'W-121502', condition: 'connection', dist: 63 }
   ];
   pipes.forEach((p, i) => { p.phase = i * 1.7; p.rate = 0.05 + i * 0.017; });
 
-  function diaToHz(dia) {
-    const lo = num('resLo'), hi = num('resHi');   // widest → narrowest
-    return lo * Math.pow(hi / lo, clamp(dia, 0, 1));
+  function conditionToHz(condition) {
+    return condition === 'main' ? num('resLo') : num('resHi'); // mains lower, connections higher
   }
 
-  // ---------- diameterClass → normalised dia (0=widest..1=narrowest) ----------
-  // diameterClass is the trailing digit of a pipe's DXF layer code (LKZ131X), not a
-  // literal diameter measurement. Only two of its 7 values have a confirmed size
-  // relationship (docs/phase2-data-layer.md: 4=distribution/wider, 5=connection/
-  // narrower). The rest are ranked by inverse feature count as a stated, unverified
-  // guess — see the hint text in the Pipes panel. Revisit once the WVZ layer-code
-  // table is available; do not present this ordering as confirmed elsewhere.
-  const DIAMETER_CLASS_ORDER = [8, 0, 3, 9, 7, 4, 5]; // widest → narrowest
-  function diaClassToNormalized(diameterClass) {
-    const i = DIAMETER_CLASS_ORDER.indexOf(diameterClass);
-    return i === -1 ? 0.5 : i / (DIAMETER_CLASS_ORDER.length - 1);
+  // ---------- diameterClass → pipe condition (main | connection) ----------
+  // pipeType does not exist for water pipes at all (0 of 10,568 carry it — it's
+  // only ever derived for sewage). diameterClass, the trailing digit of the DXF
+  // layer code (LKZ131X), is the sole categorical signal available, and the raw
+  // `layer` string carries nothing beyond that digit (every water pipe's layer is
+  // exactly LKZ131X-MLU1 — a strict 1:1 match). Only two of its 7 values have a
+  // documented function: docs/phase2-data-layer.md names 4=distribution(main),
+  // 5=connection. The other five are assigned here by segment-length distribution
+  // (see the Pipes panel hint for the full figures) — a clean, near-order-of-
+  // magnitude split that correctly places both documented values on their
+  // expected side. Values marked "inferred" are a length-based guess, not a
+  // documented fact — do not treat this as a verified diameter table; WVZ hasn't
+  // published one.
+  const WATER_PIPE_CONDITION = {
+    0: 'connection', // inferred — mean segment length 4.2m, matches the short cluster
+    3: 'main',       // inferred — mean segment length 26.6m, matches the long cluster
+    4: 'main',       // confirmed — docs/phase2-data-layer.md: distribution pipe
+    5: 'connection', // confirmed — docs/phase2-data-layer.md: connection pipe
+    7: 'connection', // inferred — mean segment length 2.75m, matches the short cluster
+    8: 'connection', // inferred — mean segment length 2.77m, matches the short cluster
+    9: 'main',       // inferred — mean segment length 19.6m, matches the long cluster
+  };
+  function diameterClassToCondition(diameterClass) {
+    return WATER_PIPE_CONDITION[diameterClass] || 'connection'; // unrecognised class defaults to the majority condition
   }
 
   // ---------- geometry (ported from src/proximity-engine.js — not exported there) ----------
@@ -407,12 +432,15 @@
     const wrap = $('pipeWrap');
     if (!wrap.dataset.built) {
       wrap.innerHTML = '<table><thead><tr>' +
-        '<th>Pipe</th><th>Diameter</th><th class="slider">Distance m</th>' +
+        '<th>Pipe</th><th>Condition</th><th class="slider">Distance m</th>' +
         '<th>Dist</th><th>Res Hz</th><th>Weight</th></tr></thead><tbody>' +
         pipes.map((p, i) =>
           '<tr id="pr' + i + '">' +
             '<td class="pid">' + p.id + '</td>' +
-            '<td><input type="range" data-dia="' + i + '" min="0" max="1" step="0.01" value="' + p.dia + '" style="width:76px"> <span id="pd' + i + '">' + p.dia.toFixed(2) + '</span></td>' +
+            '<td><select data-cond="' + i + '" style="width:110px">' +
+              '<option value="main"' + (p.condition === 'main' ? ' selected' : '') + '>Main</option>' +
+              '<option value="connection"' + (p.condition === 'connection' ? ' selected' : '') + '>Connection</option>' +
+            '</select></td>' +
             '<td class="slider"><input type="range" data-dist="' + i + '" min="0" max="90" step="0.5" value="' + p.dist + '"></td>' +
             '<td id="pm' + i + '">' + p.dist.toFixed(1) + '</td>' +
             '<td id="ph' + i + '">—</td>' +
@@ -426,11 +454,9 @@
           if (walking) { walking = false; $('btnWalk').classList.remove('on'); $('modeStatus').textContent = 'Walk simulation — off'; }
         });
       });
-      wrap.querySelectorAll('[data-dia]').forEach(el => {
-        el.addEventListener('input', () => {
-          const i = +el.dataset.dia;
-          pipes[i].dia = parseFloat(el.value);
-          $('pd' + i).textContent = pipes[i].dia.toFixed(2);
+      wrap.querySelectorAll('[data-cond]').forEach(el => {
+        el.addEventListener('change', () => {
+          pipes[+el.dataset.cond].condition = el.value;
         });
       });
     }
@@ -539,7 +565,7 @@
       const row = $('pr' + i);
       if (row) row.classList.toggle('out', !inR);
       const m = $('pm' + i); if (m) m.textContent = p.dist.toFixed(1);
-      const h = $('ph' + i); if (h) h.textContent = Math.round(diaToHz(p.dia));
+      const h = $('ph' + i); if (h) h.textContent = Math.round(conditionToHz(p.condition));
       const b = $('pb' + i);
       if (b) {
         const w = inR ? Math.pow(1 - p.dist / R, num('falloff')) : 0;
@@ -579,7 +605,7 @@
 
     if (mode === 'single' || mode === 'fixed') {
       const hz = mode === 'fixed' ? num('resLo')
-                                  : (inRange.length ? diaToHz(inRange[0].dia) : num('resLo'));
+                                  : (inRange.length ? conditionToHz(inRange[0].condition) : num('resLo'));
       slots.forEach((s, i) => {
         s.bp.Q.setTargetAtTime(q, now, 0.2);
         if (i === 0) {
@@ -596,7 +622,7 @@
         s.bp.Q.setTargetAtTime(q, now, 0.2);
         if (p) {
           const w = Math.pow(1 - p.dist / R, num('falloff'));
-          s.bp.frequency.setTargetAtTime(diaToHz(p.dia), now, gl);
+          s.bp.frequency.setTargetAtTime(conditionToHz(p.condition), now, gl);
           // divide by slot count so a dense bank doesn't simply get louder
           s.gain.gain.setTargetAtTime(Math.max(0.0001, lvl * w / Math.max(1, Math.sqrt(inRange.length))), now, num('ramp'));
           active++;
@@ -653,7 +679,7 @@
       c2.setLineDash([2, 3]);
       c2.strokeStyle = css('--water');
       inRange.forEach(p => {
-        const f = diaToHz(p.dia);
+        const f = conditionToHz(p.condition);
         if (f < fMin || f > fMax) return;
         const x = Math.round(xOf(f)) + 0.5;
         c2.globalAlpha = 0.25 + 0.75 * Math.pow(1 - p.dist / R, 1);
@@ -691,9 +717,9 @@
   // the file ourselves (as the hiss instrument does for lk-tram-lk.geojson)
   // is the only way to get diameterClass at all.
   let mode = 'manual';
-  let gpsWaterFeatures = null;   // cached [{id, dia, coords}] — all real pipes, parsed once
+  let gpsWaterFeatures = null;   // cached [{id, condition, coords}] — all real pipes, parsed once
   let gpsWaterLoading = null;
-  let gpsPipes = [];             // live [{id, dia, dist}] — rebuilt every fix, read by activePipes()
+  let gpsPipes = [];             // live [{id, condition, dist}] — rebuilt every fix, read by activePipes()
   let gpsWatchId = null;
   let gpsFixCount = 0;
   let wakeLock = null;
@@ -714,7 +740,7 @@
           .filter(f => f.properties.geomType === 'pipe' && f.geometry.type === 'LineString')
           .map(f => ({
             id: f.properties._dedupKey,
-            dia: diaClassToNormalized(f.properties.diameterClass),
+            condition: diameterClassToCondition(f.properties.diameterClass),
             coords: f.geometry.coordinates,
           }));
         $('gpsPipeSet').textContent = gpsWaterFeatures.length + ' pipes';
@@ -768,7 +794,7 @@
     const nearby = features.filter(f => coordsInBounds(f.coords, b));
     gpsPipes = nearby.map(f => ({
       id: f.id,
-      dia: f.dia,
+      condition: f.condition,
       dist: nearestSegmentDist(longitude, latitude, f.coords),
     }));
   }
@@ -815,7 +841,7 @@
     const payload = {
       note: 'no coordinates or pipe identities recorded — aggregate proximity numbers only',
       radiusMeters: num('radius'),
-      diameterClassOrder: DIAMETER_CLASS_ORDER,
+      waterPipeCondition: WATER_PIPE_CONDITION,
       paramsAtWalkStart: {
         resMode: $('resMode').value, resLo: num('resLo'), resHi: num('resHi'), resQ: num('resQ'),
         resLvl: num('resLvl'), glide: num('glide'), flowLvl: num('flowLvl'), hp: num('hp'),

@@ -1,8 +1,8 @@
 # Hidden Infrastructures: Zürich
 
 Location-aware generative audio Progressive Web App that sonifies Zürich's
-urban infrastructure as users move through District 1. All audio procedurally
-generated via Web Audio API. No samples or pre-rendered assets.
+urban infrastructure as users move through the downtown District 1 area. All audio procedurally
+generated via Web Audio API. No samples or pre-rendered assets. 
 
 **Live:** https://hidden-infrastructures-50944718104.europe-west6.run.app/
 

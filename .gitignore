@@ -172,6 +172,9 @@ data/raw/WVZ pipeline register/
 *.swp
 *.swo
 
+# Personal scratch notes (not for repo)
+*.local.md
+
 # Build outputs
 dist/
 build/

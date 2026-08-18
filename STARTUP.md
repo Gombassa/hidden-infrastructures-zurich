@@ -33,7 +33,7 @@ Push to main branch — Cloud Run redeploys automatically.
 /deploy
 ```
 
-Cloud Run service URL: https://hidden-infrastructures-50944718104.europe-west6.run.app/
+Cloud Run service URL: https://hidden-infrastructures-zurich-50944718104.europe-west2.run.app/
 
 Open in Android Chrome for GPS field testing. Allow location permissions when prompted.
 

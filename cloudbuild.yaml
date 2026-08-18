@@ -1,3 +1,8 @@
+# NOTE: the values hardcoded below (service "hidden-infrastructures", region europe-west6)
+# are NOT what actually deploys. The wired-up Cloud Build trigger (Gombassa/hidden-infrastructures-zurich,
+# branch ^main$, trigger ID 8705f554-1fe5-439c-955f-...) overrides via console-side substitution
+# variables (_SERVICE_NAME, _DEPLOY_REGION, etc.) that this file does not reference. That trigger
+# config is the source of truth for the real deploy target, not this file.
 steps:
   # Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'

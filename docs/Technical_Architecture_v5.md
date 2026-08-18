@@ -143,7 +143,7 @@ This is a simplification of an already-working path, not a rescue or a reinventi
 
 ## Granularity: one instrument per sonic behaviour
 
-**Confirmed decision (held at 23; revisit only if Phase 3 Steps 2–3 show unmanageable duplication in practice — not pre-emptively).** Each sonic behaviour gets its own instrument module — not one instrument per infrastructure layer. Water, for example, yields four instruments (proximity pulse, fitting-cluster drip, pipe-crossing knock, alongside loop) rather than one "water instrument." This mirrors how `audio-layers.js` is already internally organised (distinct trigger/schedule functions per behaviour) and matches the Max for Live patch boundaries in `docs/archive/max/patch-inventory.md`.
+**Reopened (was: held at 23, revisit only on unmanageable duplication).** `instruments/crossing-family.html` — built to cover 8 of the inventory's crossing/alongside items in one page — reports exactly the duplication signal this decision was waiting for: one detection path, one voicing function, 8 parameter presets, not 8 instruments. See `docs/Implementation_Plan.md` Decision Point 4 for the live status; this section's table and count are corrected to 24 below but not yet consolidated. Absent a final call, each sonic behaviour still gets its own instrument module — not one instrument per infrastructure layer. Water, for example, yields four instruments (proximity pulse, fitting-cluster drip, pipe-crossing knock, alongside loop) rather than one "water instrument." This mirrors how `audio-layers.js` is already internally organised (distinct trigger/schedule functions per behaviour) and matches the Max for Live patch boundaries in `docs/archive/max/patch-inventory.md`.
 
 **Behaviour inventory** (derived from `src/audio-layers.js`, cross-checked against the 19 archived M4L patches):
 
@@ -155,15 +155,16 @@ This is a simplification of an already-working path, not a rescue or a reinventi
 | Electricity | oscillator pool (density gain folded in), cable crossing snap, alongside loop | 3 | 3 |
 | Telecom | burst pool (density modulation folded in), node chirp, node dwell handshake, cable crossing click, alongside loop | 5 | 5 |
 | Fernwärme | tone + tremolo + panner, pipe crossing burst, alongside loop | 3 | 1 (crossing/alongside have no patch) |
-| **Total** | | **23** | **19** |
+| Water (new) | continuous flow bed | 1 | 0 — no spec, invented during instrument-build, not present in `audio-layers.js` either |
+| **Total** | | **24** | **19** |
 
-Water's and Fernwärme's crossing/alongside behaviours were added to the JS after their Max patches were authored — those 4 instruments have no Max-era signal-chain spec to translate from and will be built directly from the current `audio-layers.js` implementation instead.
+Water's and Fernwärme's crossing/alongside behaviours were added to the JS after their Max patches were authored — those 4 instruments have no Max-era signal-chain spec to translate from and were built directly from the current `audio-layers.js` implementation instead (as `instruments/crossing-family.html` and `instruments/fernwaerme-thermal.html` respectively — see `docs/instrument-reference.html`).
 
 Density-gain and rate-modulation (electricity's node-count multiplier, telecom's cable-count LFO scaling) are treated as **parameters of the pool instrument**, not separate instruments — they modulate an existing sound rather than producing an independent one.
 
-The District 1 musical theme is now Phase 3 scope (`docs/Project_Plan_v3_5.md`) rather than deferred indefinitely — but it is deliberately **not** a 24th entry in the table above. It's a continuous ambient foundation the six layers perform atop, architecturally closer to the shared density reverb bus (a piece of infrastructure the layers all relate to) than to a per-behaviour instrument tied to proximity events from one layer's geodata. The 23-instrument count and the granularity decision above are unaffected by the theme's schedule move.
+The District 1 musical theme is now Phase 3 scope (`docs/Project_Plan_v3_5.md`) rather than deferred indefinitely — but it is deliberately **not** a 24th entry in the table above. It's a continuous ambient foundation the six layers perform atop, architecturally closer to the shared density reverb bus (a piece of infrastructure the layers all relate to) than to a per-behaviour instrument tied to proximity events from one layer's geodata. The 24-instrument count and the granularity decision above are unaffected by the theme's schedule move.
 
-**If this doesn't hold:** if 23 per-behaviour modules produce unmanageable duplication (most behaviours share the one-shot-with-cooldown or randomised-loop-with-jitter shape already documented in `docs/archive/max/patch-inventory.md`), consolidating toward per-layer instruments with behaviour *modes* is an acceptable later correction. The interface contract below is written so that change wouldn't require revisiting the surrounding application wiring — see Option B.
+**This has happened, not just "if":** the risk this section flagged as a later possibility — 23 (now 24) per-behaviour modules producing unmanageable duplication — is what `crossing-family.html` found in practice for the 8 crossing/alongside items (most behaviours do share the one-shot-with-cooldown or randomised-loop-with-jitter shape already documented in `docs/archive/max/patch-inventory.md`). Consolidating toward per-layer instruments with behaviour *modes* remains an acceptable correction and is now a live decision, not a hypothetical one — see `docs/Implementation_Plan.md` Decision Point 4. The interface contract below is written so that change wouldn't require revisiting the surrounding application wiring — see Option B.
 
 ## The interface contract — open decision
 
@@ -206,7 +207,7 @@ Each behaviour becomes its own small module (a factory function returning `{ upd
 
 ## Open questions — status
 
-- **Does the HTML control surface ship in the production build, or stay authoring-only?** **Resolved: authoring-only by default.** All 23 instruments still get a control surface as a dev tool for sound design and MIDI-driven auditioning. A specific control may later be promoted into the production UI, decided per-control once it exists and can be tried — only if there's schedule headroom to harden it for production use and the result is one worth giving end-users, not by default. See `docs/Implementation_Plan.md`, Decision Points, item 2.
+- **Does the HTML control surface ship in the production build, or stay authoring-only?** **Reopened.** Was decided as authoring-only by default: all 24 instruments still get a control surface as a dev tool for sound design and MIDI-driven auditioning, with any specific control promoted into the production UI only per-control, later, once it exists and can be tried, and only with schedule headroom to harden it for production use. In practice, `docs/instrument-reference.html` reports the built surfaces are reachable on the deployed URL and one is linked from `index.html` — i.e. this question is currently being answered by default rather than deliberately. See `docs/Implementation_Plan.md`, Decision Points, item 2, for the live status.
 - **Pool-exhaustion behaviour.** **Resolved to decide early, once** — as part of Phase 3 Step 1 (`docs/Implementation_Plan.md`), against the electricity pool proof instrument, as a single policy rather than three separate per-pool decisions made at whatever point each pool gets built. The policy itself (silent drop vs. nearest-wins swap) isn't chosen in this document — only that it gets decided in Step 1, not inherited by accident the way electricity's current silent-drop behaviour was.
 - **Mapping-curve audit.** Still open, and it's a task rather than a decision. Feeder crackle's (1−t)² falloff over 150m is validated and should be carried forward as-is. The other layers' proximity-to-gain curves (mostly linear) have not had the same scrutiny — flagged in `docs/archive/max/TECHNICAL_NOTES.md` and repeated here so it doesn't get lost in the pivot.
 
@@ -313,7 +314,7 @@ See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log. N
 
 # Deployment
 
-**Hosting:** Google Cloud Platform, Cloud Run. Current URL: https://hidden-infrastructures-50944718104.europe-west6.run.app/
+**Hosting:** Google Cloud Platform, Cloud Run. Current URL: https://hidden-infrastructures-zurich-50944718104.europe-west2.run.app/
 
 **Docker:** Multi-stage build — Node.js build stage (Vite) → Nginx serve stage. `nginx.conf` and `vite.config.js` both set `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: credentialless`. This pair enables cross-origin isolation, which is required for `SharedArrayBuffer` and high-resolution timers — **not** for AudioWorklet itself, which does not require cross-origin isolation. As of this writing, neither SharedArrayBuffer nor AudioWorklet is actually used anywhere in the codebase, so these headers are currently retained without an active requirement. Kept in case a future instrument needs off-main-thread processing via AudioWorklet combined with SharedArrayBuffer for shared memory between the audio thread and main thread — a legitimate forward-looking reason, but distinct from what was previously stated here.
 
@@ -327,7 +328,7 @@ See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log. N
 
 See `docs/Project_Plan_v3_5.md` for the phased timeline to public launch and `docs/Implementation_Plan.md` for the instrument build plan specifically. In brief, ahead of launch:
 
-- Instrument architecture: resolve the interface contract, build 23 instruments + HTML control surfaces
+- Instrument architecture: resolve the interface contract (still open), integrate the 10 surfaces already built (22 of 24 behaviours — see `docs/instrument-reference.html`) and build the 2 remaining
 - PWA: Service Worker, Web App Manifest, offline caching — not yet started
 - User testing across District 1
 - Documentation and launch materials
@@ -338,12 +339,13 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.2
-**Last Updated:** July 2026
+**Document Version:** 5.3
+**Last Updated:** August 2026
+**Changes from v5.2 (progress sync):** 10 of the 24-item instrument inventory (see below — corrected from 23) now exist as standalone HTML surfaces under `instruments/`, documented in the new companion doc `docs/instrument-reference.html`. Two decisions previously marked resolved in "Open questions — status" are reopened by what that build work found: control-surface production shipping (surfaces are reachable on the deployed URL already, not authoring-only as decided) and granularity (`crossing-family.html` shows 8 of the 24 items are one module with presets, not 8 separate instruments). Behaviour inventory table gains a Water Flow row (#24), a new continuous-bed behaviour with no prior spec. See `docs/Implementation_Plan.md` v1.2 for the full build-status detail this document summarises.
 **Changes from v5.1 (correction pass):** Corrected the COEP/COOP justification in Deployment — the correct reason is SharedArrayBuffer/high-resolution-timer cross-origin isolation, not AudioWorklet, and neither is currently used in the codebase, so the headers are retained without an active requirement today. Verified substations are still loaded and emitted (7 files, not 6) — no change needed, a prior assumption that they'd been removed did not hold. Added a note that the District 1 musical theme, now Phase 3 scope, is deliberately not a 24th instrument. Corrected the Data Layer table's feature counts and order count, both roughly 3× stale (26,936 → 83,751 total features; 30 orders/55297–55476 → 88 orders/55297–56642) — counted directly from the current `public/lk-*.geojson` files and `data/processed/.processed-orders.json`, not carried over from prior documents.
 **Changes from v5.0:** Resolved four of the five open items from the instrument-architecture section: control surfaces confirmed authoring-only by default (with a per-control promotion path); pool-exhaustion policy moved to be decided once in Phase 3 Step 1 rather than per-pool; granularity confirmed held at 23. Interface contract itself remains open but its decision criteria are now expanded in `docs/Implementation_Plan.md`.
 **Changes from v4.0:** Removed Max/MSP + RNBO as the production audio path; documented the pivot decision and rationale. Added Audio Instrument Architecture section: 23-behaviour inventory cross-checked against 19 archived M4L patches, three interface-contract candidates with trade-offs, open questions (control-surface shipping, pool-exhaustion behaviour, mapping-curve audit). Rebased "Future Development Work" off the stale May/June/August phase calendar to point at `Project_Plan_v3_5.md` and the new `Implementation_Plan.md`. Noted `docs/phase2-data-layer.md`'s feature-count staleness without altering that document.
 **Author:** Robin Pender
 **Contact:** robinpender23@gmail.com
 **Repository:** https://github.com/Gombassa/hiddeninfrastructures-zurich
-**Deployed:** https://hidden-infrastructures-50944718104.europe-west6.run.app/
+**Deployed:** https://hidden-infrastructures-zurich-50944718104.europe-west2.run.app/

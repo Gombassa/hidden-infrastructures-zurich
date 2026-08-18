@@ -2,9 +2,11 @@
 
 ## **Project Plan — 6 Infrastructure Layers, District 1**
 
-**Document version:** v3.5.2 — July 2026
+**Document version:** v3.5.3 — August 2026
 
-**Changes from v3.5.1 (this revision — correction pass):**
+**Changes from v3.5.2 (progress sync):** Phase 3 Step 1–2 work has actually begun, ahead of and outside the sequencing this document describes: 10 standalone HTML instrument surfaces exist under `instruments/` (see `docs/instrument-reference.html`), covering 22 of a corrected 24-item inventory (was 23 — a new Water Flow continuous-bed behaviour has no prior spec). The interface-contract decision (Step 1) has **not** been formally resolved despite this — see `docs/Implementation_Plan.md` v1.2 and `docs/Technical_Architecture_v5.md` v5.3 for the full detail. Two things this document stated as settled are reopened by that build work: control surfaces are reachable on the deployed URL already (not authoring-only by default, as Step 2 assumed), and the "hold at 23" granularity decision is challenged by `crossing-family.html`'s finding that 8 inventory items are one module with presets, not 8. Also fixes a pre-existing drift between this header (v3.5.2) and the document's own footer (which still read 3.5.1) — both now read v3.5.3.
+
+**Changes from v3.5.1 (correction pass):**
 - **District musical theme moves into Phase 3 scope**, as its own workstream (not a 24th instrument — inventory stays at 23). Added to Executive Summary, Phase 3 (new "Additional workstream" subsection), Success Criteria (restored), Risk Mitigation ("Sound Design Risks" — theme risk is now live, not deferred), Phase 1's "Dropped from Phase 1" note updated to say it was later un-deferred. Removed its CHF 1,500 budget line entirely (built as regular Phase 3 work instead, not commissioned) — Artistic Development CHF 5,500 → CHF 4,000, grand total CHF 12,200 → **CHF 10,700**; arithmetic shown in the Budget section rather than asserted.
 - **PWA groundwork given an actual Phase 3 step** (app-shell Service Worker/Manifest scaffolding), consistent with `Implementation_Plan.md`'s dependency note that this could start before instrument work finishes. Phase 4 Week 1 reframed as completion, not a start-from-scratch week.
 - **Old Phase 3 data-expansion carryover items accounted for explicitly** rather than silently dropped: spatial culling confirmed done (verified in `src/proximity-engine.js`); district-boundary coverage and full-scale culling performance folded into Phase 4 field testing as explicit checks (neither was previously verified, despite the old plan implying otherwise); dynamic infrastructure loading dropped as moot (the live map never renders the full dataset); the old Phase 4 UI item reconciled against "Walk Recording & Score Archive" (options page is post-launch, not Phase 3/4) with a light UX pass folded into Week 4 for what's left of it.
@@ -39,7 +41,7 @@ The app collects zero personal data. GPS coordinates are processed entirely on-d
   * Electricity grid (transformers, distribution, voltage)
   * Telecommunications (fiber, cellular, data)
   * District heating / Fernwärme (thermal distribution network)
-* Plus: District 1 musical theme (procedural electronic ambient) — Phase 3 scope (see below); not one of the 23 instruments, a distinct workstream
+* Plus: District 1 musical theme (procedural electronic ambient) — Phase 3 scope (see below); not one of the 24 instruments (was 23; see `docs/Implementation_Plan.md` v1.2), a distinct workstream
 * Real-time events: trams passing, water flowing, data transmitting
 * Download a recording of your walk or share your score to a public archive
 * Infrastructure becomes visceral and tangible
@@ -102,7 +104,7 @@ The 19 Max for Live patches authored before this pivot are archived at `docs/arc
 - Three.js dropped: not required for current synthesis architecture
 - `ListenerEngine` simulation mode stripped; live GPS via `navigator.geolocation.watchPosition()` is the only listener tracking mode
 - `pole-ping` sound layer dropped
-- District ambient theme: was deferred through Phase 1–2, now pulled into Phase 3 scope as its own workstream (see Phase 3 below) — not one of the 23 instruments
+- District ambient theme: was deferred through Phase 1–2, now pulled into Phase 3 scope as its own workstream (see Phase 3 below) — not one of the 24 instruments (was 23)
 - Vite used as the dev server; GeoJSON data files served via the `public/` directory
 - Cloudflare Tunnel provides HTTPS on Android Chrome during field testing
 
@@ -196,7 +198,9 @@ Phase 2 added the remaining five infrastructure types (water, sewage, electricit
 
 ### **Phase 3: Instrument Architecture (late July – early September 2026)**
 
-Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained instrument modules (one per sonic behaviour) plus HTML control surfaces, per `docs/Technical_Architecture_v5.md` and `docs/Implementation_Plan.md`. This is the direct successor to what was previously planned as "Max/MSP patch authoring + RNBO export" — same sonic goals, different toolchain. It also carries forward the district musical theme (pulled in from later-phase deferral, see below) and starts PWA groundwork.
+Phase 3 replaces the single `src/audio-layers.js` module with self-contained instrument modules (one per sonic behaviour, now 24 — see `docs/Implementation_Plan.md` v1.2) plus HTML control surfaces, per `docs/Technical_Architecture_v5.md` and `docs/Implementation_Plan.md`. This is the direct successor to what was previously planned as "Max/MSP patch authoring + RNBO export" — same sonic goals, different toolchain. It also carries forward the district musical theme (pulled in from later-phase deferral, see below) and starts PWA groundwork.
+
+**Progress note (August 2026):** 10 of the ~11 planned surfaces are built, covering 22 of 24 behaviours — see `docs/instrument-reference.html` for the authoritative status. This got ahead of the Step 1/2 sequencing below: building proceeded before the interface contract was formally decided. The checklists below are left as originally written (they're still the right process to formally close out) rather than retroactively checked off, since the actual work didn't follow them in order.
 
 **Carried over from the old Phase 3 data-expansion plan (v3.4 and earlier) — resolved here rather than left open indefinitely:**
 
@@ -225,7 +229,7 @@ Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained
 * [ ] Compose a procedural ambient foundation (sustained tones, slow harmonic drift) reflecting Altstadt/District 1 character
 * [ ] Iterate based on how the theme sits underneath the six infrastructure layers during a walk — the theme is a foundation the layers perform atop, not the other way around
 * **Deliverable:** District 1 musical theme running continuously, providing a coherent musical foundation without competing with the infrastructure layers for attention
-* **Not one of the 23 instruments** — it's a distinct workstream with its own deliverable; the instrument inventory in `docs/Implementation_Plan.md` stays at 23
+* **Not one of the 24 instruments** (was 23) — it's a distinct workstream with its own deliverable; see `docs/Implementation_Plan.md` for the current inventory and its build status
 
 **Additional workstream: PWA Groundwork** (parallel to Steps 1–3)
 
@@ -276,9 +280,11 @@ Phase 3 replaces the single `src/audio-layers.js` module with ~23 self-contained
 
 Today is 27 July 2026. The public launch target was September 2026. Between now and launch sits the Stadt Zürich Digitale Künste — Umsetzung und Präsentation funding application, due 1 September (out of scope for this document, but it will consume real working days in the first third of Phase 3).
 
-**Decision: accept a launch slip into October rather than cutting scope to force September.** At full scope — interface-contract decision, 23 instruments each with its own authoring-only HTML control surface, the district musical theme, PWA groundwork plus completion, a 15-person testing round, and documentation — this does not fit before the end of September for a solo developer. Rough accounting: 1 week for the interface-contract decision (now also covering the pool-exhaustion policy — see `docs/Implementation_Plan.md`), 4–5 weeks to build and control-surface the 21 remaining instruments (with reduced velocity around the 1 September deadline), **+1 week (estimate, not verified against any prior data point) for the district musical theme workstream, newly pulled into Phase 3 scope**, 1 week PWA completion (groundwork now front-loaded into Phase 3's parallel slack alongside the instrument weeks, so it isn't added as separate sequential time — treat this as risk reduction for Phase 4 Week 1, not a time saving), 2–3 weeks for testing (scheduling and running 15 walks takes real calendar time, not just working hours), 1 week documentation, plus launch week. That totals to roughly **11–13 weeks** from today — landing in **mid-to-late October**, roughly a week or two later than this document's previous estimate, because the theme and PWA-groundwork scope added by this revision aren't free.
+**Decision: accept a launch slip into October rather than cutting scope to force September.** At full scope — interface-contract decision, 24 instruments each with its own authoring-only HTML control surface, the district musical theme, PWA groundwork plus completion, a 15-person testing round, and documentation — this does not fit before the end of September for a solo developer. Rough accounting (**stale as of August 2026 — see below**): 1 week for the interface-contract decision (now also covering the pool-exhaustion policy — see `docs/Implementation_Plan.md`), 4–5 weeks to build and control-surface the 21 remaining instruments (with reduced velocity around the 1 September deadline), **+1 week (estimate, not verified against any prior data point) for the district musical theme workstream, newly pulled into Phase 3 scope**, 1 week PWA completion (groundwork now front-loaded into Phase 3's parallel slack alongside the instrument weeks, so it isn't added as separate sequential time — treat this as risk reduction for Phase 4 Week 1, not a time saving), 2–3 weeks for testing (scheduling and running 15 walks takes real calendar time, not just working hours), 1 week documentation, plus launch week. That totals to roughly **11–13 weeks** from today — landing in **mid-to-late October**, roughly a week or two later than this document's previous estimate, because the theme and PWA-groundwork scope added by this revision aren't free.
 
-This was weighed against cutting scope to hit September instead — reducing control-surface count, shrinking the pre-launch testing pool, or consolidating instrument granularity — and October was chosen over those cuts. Instrument granularity stays at 23 (see `docs/Implementation_Plan.md`, Decision Points) and control surfaces still get built for all 23 as an authoring tool (just not shipped to production by default, which removes production-hardening time from the estimate without removing the surfaces themselves). Pre-launch testing scope (15 vs. a smaller pilot) remains open and is the one lever still available if mid-to-late October slips further — see Phase 4, Week 2–3 below.
+**Not re-run here:** by August 2026, 10 surfaces covering 22/24 behaviours are actually built (`docs/instrument-reference.html`) — well past the "21 remaining instruments" this accounting assumed, even though the interface-contract decision itself is still open. This makes the accounting above stale in the optimistic direction (less build time left than stated) but it isn't re-computed here, consistent with this document's own convention of not inventing derived numbers without a real basis (see CLAUDE.md's standing instruction on derived claims) — do that at the "Next Review" point below, with the actual remaining scope (2 unbuilt behaviours, the reopened contract/granularity/shipping decisions, and integration — none of which has started).
+
+This was weighed against cutting scope to hit September instead — reducing control-surface count, shrinking the pre-launch testing pool, or consolidating instrument granularity — and October was chosen over those cuts. Instrument granularity was decided to stay at 24 but that decision is **now reopened** (see `docs/Implementation_Plan.md`, Decision Point 4 — `crossing-family.html`'s consolidation finding), and control surfaces were meant to be authoring-only by default but are **actually reachable in production already** (Decision Point 2, also reopened) — both assumptions this time estimate rests on are live questions again, not settled ones. Pre-launch testing scope (15 vs. a smaller pilot) remains open and is the one lever still available if mid-to-late October slips further — see Phase 4, Week 2–3 below.
 
 **Development continues regardless of funding outcome** — this was true before the pivot and remains true now; the toolchain narrowing described in this revision is not contingent on the pending application either.
 
@@ -355,7 +361,7 @@ Rather than storing audio, the archive captures the "score" of each walk — the
 
 **Phase 2 (April):** Geodata for all 6 layers extracted and filtered ✅. ProximityEngine integration complete ✅. Web Audio API synthesis for all 6 layers complete ✅. Line-crossing/alongside detection for all 5 LineString layers ✅. Shared density reverb bus ✅. Deployed to Cloud Run ✅. GeoShop tile ingestion has continued past Phase 2 via `scripts/import-new-tiles.js`; 91 orders processed to date (55297–56685) — see Data Layer above.
 
-**Phase 3 (late July – early September 2026):** Interface contract decided. 23 instruments + HTML control surfaces built, replacing `audio-layers.js`. District musical theme composed. PWA app-shell groundwork done. Feature parity with the current field-tested baseline confirmed.
+**Phase 3 (late July – early September 2026):** Interface contract decided [not yet — still open as of August 2026, see `docs/Implementation_Plan.md` Decision Point 1]. 24 instruments + HTML control surfaces built [in progress: 10 surfaces / 22 of 24 behaviours as of August 2026, ahead of the contract decision — see `docs/instrument-reference.html`], replacing `audio-layers.js` [not yet — none integrated]. District musical theme composed. PWA app-shell groundwork done. Feature parity with the current field-tested baseline confirmed.
 
 **Phase 4 (September–October 2026):** PWA (Service Worker, offline caching, Web App Manifest), user testing, documentation, public launch. See Timeline Reality Check above — launch is expected in October, accepted rather than compressed to hit September.
 
@@ -484,6 +490,6 @@ District 1 musical theme composition (CHF 1,500 in v3.5) is removed from the bud
 
 ---
 
-**Document Version:** 3.5.1
-**Last Updated:** July 2026
-**Next Review:** End of Phase 3, Step 1 (interface contract and pool-exhaustion policy decided) — the Timeline Reality Check above should be revisited then with an actual build-time data point.
+**Document Version:** 3.5.3
+**Last Updated:** August 2026
+**Next Review:** End of Phase 3, Step 1 (interface contract and pool-exhaustion policy formally decided — 10 surfaces already built does not itself close this; see the v3.5.3 changelog above) — the Timeline Reality Check above should be revisited then with an actual build-time data point.

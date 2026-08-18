@@ -1,7 +1,8 @@
 # Hidden Infrastructures: Zürich — Instrument Implementation Plan
 
-**Document version:** 1.1
-**Date:** July 2026
+**Document version:** 1.2
+**Date:** August 2026
+**Changes from 1.1 (progress sync):** Step 1–2 work has actually begun, ahead of and in parallel with this document's sequencing: 10 standalone HTML instrument surfaces exist under `instruments/` (see `docs/instrument-reference.html`, the authoritative status doc for this work), covering 22 of a now-24-item inventory. The Water layer gained a new "Water Flow" continuous-bed behaviour with no prior spec — the inventory below is corrected from 23 to 24 items to include it. Two behaviours remain unbuilt: sewage junction thud (#12) and telecom node-entry chirp (#17). The interface-contract decision (Step 1) has **not** been formally resolved despite this build progress — the surfaces converged organically on a shared allocator pattern (used unmodified between the hiss and electricity-hum surfaces) without a documented Option A/B/C ratification. A new finding bears directly on Decision Point 4 (granularity): the 8 crossing/alongside behaviours across water/sewage/electricity/telecom were built as a single surface (`crossing-family.html`) sharing one detection path and one voicing function — if adopted as one module, the inventory drops from 24 to ~17. See Decision Points below for both of these, updated rather than re-resolved.
 **Changes from 1.0 (correction pass):** Fixed two internal cross-reference errors (Fernwärme mislabelled "Step 9" in Step 3's text — Fernwärme is Step 7; the pool-paradigm checkpoint list said "Steps 4 and 8" — should be "Steps 4 and 6," Step 8 is reintegration, not a pool checkpoint). Added Step 9 — District Musical Theme, per its move into Phase 3 scope, deliberately outside the 23-instrument inventory. Re-ran the Timeline Reality Check reference to 11–13 weeks / mid-to-late October, matching the Project Plan's re-estimate.
 **Companion to:** `docs/Technical_Architecture_v5.md` (architecture, interface-contract candidates, open questions), `docs/Project_Plan_v3_5.md` (phase calendar, budget, timeline reality check)
 
@@ -11,35 +12,38 @@ This document is the build plan for Phase 3 of `Project_Plan_v3_5.md`: replacing
 
 ## Instrument Inventory
 
-23 instruments across 6 layers, one per sonic behaviour (see `docs/Technical_Architecture_v5.md` for the granularity decision and how this count was derived). The District 1 musical theme (Step 9 below) is deliberately not counted among these 23 — see that step for why. "Spec" = an archived Max for Live patch exists at `docs/archive/max/patch-inventory.md` documenting its signal chain; "no spec" = the behaviour was added to `audio-layers.js` after the Max patches were authored and has to be built directly from the current JS.
+**24 instruments across 6 layers** (corrected from 23 — see row 24), one per sonic behaviour (see `docs/Technical_Architecture_v5.md` for the granularity decision and how this count was derived, and the note below the table on why that decision needs revisiting). The District 1 musical theme (Step 9 below) is deliberately not counted among these — see that step for why. "Spec" = an archived Max for Live patch exists at `docs/archive/max/patch-inventory.md` documenting its signal chain; "no spec" = the behaviour was added to `audio-layers.js` (or, for #24, invented outright) after the Max patches were authored and has to be built directly from the current JS. "Surface" = the standalone HTML control surface under `instruments/` that currently implements it, per `docs/instrument-reference.html` — **none of these are integrated into `index.html`**.
 
-| # | Layer | Instrument | Spec? | Pool? |
-|---|---|---|---|---|
-| 1 | Water | Proximity pulse | Yes | No |
-| 2 | Water | Fitting-cluster drip | Yes | No |
-| 3 | Water | Pipe-crossing knock | No | No |
-| 4 | Water | Alongside loop | No | No |
-| 5 | Electricity | Oscillator pool (density gain folded in) | Yes | Yes — persistent claim/release |
-| 6 | Electricity | Cable-crossing snap | Yes | No |
-| 7 | Electricity | Alongside loop | Yes | No |
-| 8 | Tram | Feeder crackle | Yes | No |
-| 9 | Tram | Hiss pool | Yes | Yes — stateless nearest-N reassignment |
-| 10 | Tram | Drone | Yes | No |
-| 11 | Sewage | Continuous rumble | Yes | No |
-| 12 | Sewage | Junction thud | Yes | No |
-| 13 | Sewage | Pipe crossing | Yes | No |
-| 14 | Sewage | Rhythmic gurgle | Yes | No (uses `circleoffifths.js`, reusable as-is) |
-| 15 | Sewage | Alongside loop | Yes | No |
-| 16 | Telecom | Burst pool (density modulation folded in) | Yes | Yes — always-on, collective gating, no per-feature claim |
-| 17 | Telecom | Node-entry chirp | Yes | No |
-| 18 | Telecom | Node dwell handshake | Yes | No |
-| 19 | Telecom | Cable-crossing click | Yes | No |
-| 20 | Telecom | Alongside loop | Yes | No |
-| 21 | Fernwärme | Tone + tremolo + bearing panner | Yes | No |
-| 22 | Fernwärme | Pipe-crossing burst | No | No |
-| 23 | Fernwärme | Alongside loop | No | No |
+| # | Layer | Instrument | Spec? | Pool? | Surface |
+|---|---|---|---|---|---|
+| 1 | Water | Proximity pulse | Yes | No | `water-pulse-drip.html` |
+| 2 | Water | Fitting-cluster drip | Yes | No | `water-pulse-drip.html` |
+| 3 | Water | Pipe-crossing knock | No | No | `crossing-family.html` |
+| 4 | Water | Alongside loop | No | No | `crossing-family.html` |
+| 5 | Electricity | Oscillator pool (density gain folded in) | Yes | Yes — persistent claim/release | `electricity-hum.html` |
+| 6 | Electricity | Cable-crossing snap | Yes | No | `crossing-family.html` |
+| 7 | Electricity | Alongside loop | Yes | No | `crossing-family.html` |
+| 8 | Tram | Feeder crackle | Yes | No | `feeder-crackle.html` |
+| 9 | Tram | Hiss pool | Yes | Yes — stateless nearest-N reassignment | `hiss-voice.html` (redesigned as persistent one-voice-per-feeder with steal/margin/refuse cap policy — no longer stateless nearest-N; see instrument's own notes) |
+| 10 | Tram | Drone | Yes | No | `powerline-drone.html` |
+| 11 | Sewage | Continuous rumble | Yes | No | `sewage-rumble.html` |
+| 12 | Sewage | Junction thud | Yes | No | **not built** |
+| 13 | Sewage | Pipe crossing | Yes | No | `crossing-family.html` |
+| 14 | Sewage | Rhythmic gurgle | Yes | No (uses `circleoffifths.js`, reusable as-is) | `sewage-rumble.html` |
+| 15 | Sewage | Alongside loop | Yes | No | `crossing-family.html` |
+| 16 | Telecom | Burst pool (density modulation folded in) | Yes | Yes — always-on, collective gating, no per-feature claim | `telecom-burst.html` |
+| 17 | Telecom | Node-entry chirp | Yes | No | **not built** — flagged as structurally identical to the water proximity pulse |
+| 18 | Telecom | Node dwell handshake | Yes | No | `telecom-burst.html` |
+| 19 | Telecom | Cable-crossing click | Yes | No | `crossing-family.html` |
+| 20 | Telecom | Alongside loop | Yes | No | `crossing-family.html` |
+| 21 | Fernwärme | Tone + tremolo + bearing panner | Yes | No | `fernwaerme-thermal.html` |
+| 22 | Fernwärme | Pipe-crossing burst | No | No | `fernwaerme-thermal.html` |
+| 23 | Fernwärme | Alongside loop | No | No | `fernwaerme-thermal.html` |
+| 24 | Water | Water Flow (continuous bed) | No | No | `water-flow.html` — **new behaviour, not in the original 23**; adds a 6th send to the shared density reverb bus, whose wet curve is calibrated for 5 |
 
-19 have a spec, 4 don't (#3, #4, #22, #23 — water's and Fernwärme's crossing/alongside pair). All parameter values (frequencies, radii, cooldowns, jitter ranges) for every instrument are already documented in `docs/Technical_Architecture_v5.md`'s per-layer sections and should be sourced from there or from `src/audio-layers.js` directly — not from `docs/phase2-data-layer.md`, which has stale figures for unrelated reasons (feature counts, not audio parameters, but avoid it as a source out of caution).
+19 of the original 23 have a spec, 4 don't (#3, #4, #22, #23 — water's and Fernwärme's crossing/alongside pair); #24 has no spec by definition, being new. All parameter values (frequencies, radii, cooldowns, jitter ranges) for every instrument are already documented in `docs/Technical_Architecture_v5.md`'s per-layer sections and should be sourced from there or from `src/audio-layers.js` directly — not from `docs/phase2-data-layer.md`, which has stale figures for unrelated reasons (feature counts, not audio parameters, but avoid it as a source out of caution). **New instruments (#24 onward) obviously have no such source — their values are proposed in the instrument itself and flagged as such in its panel hints, per `docs/instrument-reference.html` §01.**
+
+**Consolidation finding, not yet decided:** `crossing-family.html` implements #3, #4, #6, #7, #13, #15, #19, #20 — 8 rows above — as one surface sharing a single detection path and a single voicing function, with only per-layer frequency/Q/decay/sweep values differing. Its own build note treats this as evidence they're one module with 8 presets, not 8 instruments; if adopted, the inventory above drops from 24 to ~17. See Decision Point 4 below — this is exactly the "unmanageable duplication" signal that decision was left open pending.
 
 ---
 
@@ -103,7 +107,7 @@ Build exactly two instruments, each under whichever of the three candidate contr
 10. Tone + tremolo + bearing panner (#21) — spec'd, and unusually well-specified: `max/fernwaerme/fernwaerme-spec.md` includes a full MIDI CC mapping (MPK Mini Mk4, CC 70–77) that can likely be adapted close to verbatim for this instrument's control surface rather than designed from scratch.
 11. Pipe-crossing burst (#22), alongside loop (#23) — **no spec**, same situation as water's crossing/alongside (Step 3), and deliberately last: by this point the pattern for building a spec-less instrument from `audio-layers.js` directly has already been established once (water), so this is confirmation, not discovery.
 
-**Done means:** Fernwärme layer fully on the new architecture — StereoPanner bearing-driven positioning confirmed (Fernwärme uses StereoPanner rather than HRTF because HRTF localises poorly below ~200Hz; this constraint carries forward unchanged), field-validated. All 23 instruments complete; `src/audio-layers.js` retired.
+**Done means:** Fernwärme layer fully on the new architecture — StereoPanner bearing-driven positioning confirmed (Fernwärme uses StereoPanner rather than HRTF because HRTF localises poorly below ~200Hz; this constraint carries forward unchanged), field-validated. All 24 instruments complete; `src/audio-layers.js` retired.
 
 ### Step 8 — Reintegration and parity check
 
@@ -115,7 +119,7 @@ Wire the instrument set into the existing GPS/TramEngine/ProximityEngine data fl
 
 ### Step 9 — District Musical Theme
 
-Not one of the 23 instruments (see Architecture doc, "Granularity") — a separate, parallel workstream pulled into Phase 3 scope from indefinite deferral (`docs/Project_Plan_v3_5.md`). Compose a procedural ambient foundation (sustained tones, slow harmonic drift) and iterate against how it sits underneath the six infrastructure layers during an actual walk — the theme supports the layers, not the reverse. Architecturally closer to the shared density reverb bus (something all layers relate to) than to a per-behaviour instrument driven by one layer's proximity data, which is why it isn't in the Instrument Inventory table.
+Not one of the 24 instruments (was 23; see Architecture doc, "Granularity") — a separate, parallel workstream pulled into Phase 3 scope from indefinite deferral (`docs/Project_Plan_v3_5.md`). Compose a procedural ambient foundation (sustained tones, slow harmonic drift) and iterate against how it sits underneath the six infrastructure layers during an actual walk — the theme supports the layers, not the reverse. Architecturally closer to the shared density reverb bus (something all layers relate to) than to a per-behaviour instrument driven by one layer's proximity data, which is why it isn't in the Instrument Inventory table.
 
 No dependency on Steps 1–8 — it doesn't touch the interface contract, any pool, or `audio-layers.js`, and could in principle be built in parallel with them. Sequenced last here only because it has no risk-sequencing reason to go earlier, not because it's blocked.
 
@@ -129,19 +133,19 @@ No dependency on Steps 1–8 — it doesn't touch the interface contract, any po
 - Steps 2–7 (per-layer) have no dependencies on each other — the order above is a reasoning-based recommendation for risk sequencing, not a technical requirement. They could be reordered or parallelised if more than one person were building, but as a solo effort the sequencing matters for catching contract problems early rather than late.
 - Step 8 depends on all of Steps 2–7 being complete.
 - Step 9 (district theme) has no dependency on Steps 1–8 and none of them depend on it — it can run in parallel with any of them.
-- PWA work (`Project_Plan_v3_5.md` Phase 4, Week 1) no longer has an open dependency on the control-surface shipping question — that's resolved (authoring-only by default, see Decision Points below), so Service Worker caching scope is just the app shell (HTML/JS/GeoJSON) plus any individual control that's later promoted to production. Core app-shell caching could reasonably start before Step 8 finishes; add a promoted control to the cache list only once it's actually promoted.
+- PWA work (`Project_Plan_v3_5.md` Phase 4, Week 1) was written assuming the control-surface shipping question stayed resolved (authoring-only by default) — see Decision Points item 2, now reopened, since the surfaces are actually reachable in production already. Service Worker caching scope (app shell vs. app shell + surfaces) depends on how that reopened decision lands; don't assume "just the app shell" until it's re-resolved.
 - User testing (`Project_Plan_v3_5.md` Phase 4, Week 2–3) hard-depends on Step 8 — testing an incomplete rebuild would produce feedback about bugs that are already known and about to be fixed, not useful signal.
 
 ---
 
 ## Decision Points
 
-Status as of this revision — five of six resolved, one (interface contract itself) sharpened but deliberately left open until the Step 1 prototypes exist.
+Status as of this revision — three of six still cleanly resolved; two (control-surface production shipping, granularity) have been reopened by what was actually built; one (interface contract) remains open as before, now with more evidence bearing on it than originally planned.
 
-1. **Interface contract** (Step 1) — **open, expanded above.** Which of the three candidates in `docs/Technical_Architecture_v5.md`, decided against explicit comparison criteria (code volume, pool-fit, control-surface reusability, score-archive logging, mapping-curve-audit fit) after the water pulse and electricity pool are built — not just a gut read of which felt nicer to write.
-2. **HTML control surfaces: ship in production or authoring-only?** **Resolved: authoring-only by default.** Build one per instrument as a dev tool for sound design and MIDI-driven auditioning (all 23 still get built — this doesn't reduce Step 1–7 scope). Whether any *specific* control gets promoted into the production UI is decided per-control, later, once it exists and can actually be tried — promote only if there's schedule headroom to harden it for production (mobile-responsive, accessible, no dev-only affordances left in) and the result is one you want end-users to have, not by default. Treat every surface as authoring-only until a specific one earns promotion.
+1. **Interface contract** (Step 1) — **still open**, and not resolved by the fact that 10 surfaces now exist. They converged organically on a shared allocator (cap/policy/hysteresis/feature→voice map) reused unmodified between `hiss-voice.html` and `electricity-hum.html` — real evidence toward Option A (class-per-instrument with pool wrapper) — but no document has formally chosen a contract against the comparison criteria below, and the 10 surfaces are standalone pages, not yet built against any shared module. Decide against explicit comparison criteria (code volume, pool-fit, control-surface reusability, score-archive logging, mapping-curve-audit fit) — not just a gut read of which felt nicer to write.
+2. **HTML control surfaces: ship in production or authoring-only?** **Reopened.** Previously resolved as authoring-only by default, but `docs/instrument-reference.html` reports the surfaces are reachable on the deployed URL and one is linked from `index.html` — i.e. the "ship or not" question is currently being answered *by default*, not by the deliberate per-control promotion process this decision specified. Needs an explicit choice: either harden that default into a real decision, or pull the surfaces back to authoring-only until a control is individually promoted, per the original reasoning.
 3. **Pool-exhaustion behaviour.** **Resolved: decide early, once, in Step 1** (moved into that step above) rather than per-pool as each pool instrument gets built later — see Step 1 for the full reasoning.
-4. **Granularity: 23 per-behaviour modules vs. consolidating toward per-layer instruments.** **Resolved: hold at 23.** No consolidation. The Instrument Inventory table above and the build order both assume this; revisit only if Step 2–3 (the first two real layers) show unmanageable duplication in practice, not pre-emptively.
+4. **Granularity: 23 (now 24) per-behaviour modules vs. consolidating toward per-layer instruments.** **Reopened.** Previously resolved to hold at 23, revisit only on unmanageable duplication. `crossing-family.html` is that signal: 8 of the 24 inventory items turned out to be one detection path + one voicing function with 8 parameter presets, not 8 separate instruments. Consolidating just that family would take the inventory to ~17. Needs a decision, not an assumption either way — see the Instrument Inventory table's consolidation note above.
 5. **Timeline trade-off.** **Resolved: accept a slip into October rather than cutting scope to force September.** `docs/Project_Plan_v3_5.md`'s Timeline Reality Check is updated accordingly — the September-specific cut list there is now historical framing, not a live option being weighed. Re-run since that resolution to account for the district theme (Step 9) and PWA groundwork being added to Phase 3 scope: current estimate is **11–13 weeks from 27 July, landing mid-to-late October** (was 10–12 weeks / early-to-mid October before those additions) — see the Project Plan for the accounting.
 6. **`max/fernwaerme/fernwaerme-spec.md`, `max/sewage/sewage-spec.md`, `max/README.md`.** **Resolved: superseded-header treatment applied to the fernwärme and sewage specs**, same pattern as `patch-inventory.md`/`TECHNICAL_NOTES.md` — including their Max-era MIDI control-mapping tables (MPK Mini Mk4 CC assignments), which are now historical but remain a useful reference point when designing the new instruments' own MIDI mapping. `circleoffifths.js` is unaffected — it's plain JS, not a Max artifact, and stays live.
 
@@ -150,7 +154,7 @@ Status as of this revision — five of six resolved, one (interface contract its
 ## Risks
 
 - **Contract doesn't generalise past Step 1's single pool paradigm.** Mitigated by design: Step 4 (tram) and Step 6 (telecom) are explicit checkpoints against the other two pool shapes, placed early enough in the sequence that a bad fit is caught with 2–3 layers built, not 5.
-- **HTML control surface scope balloons.** 23 surfaces is a lot of bespoke UI even if each is small — this risk doesn't go away just because they're authoring-only (decision #2); it still takes real time to build 23 of anything. It's mitigated, not eliminated, by not needing production hardening (accessibility, mobile-responsive, no dev-only affordances) on any surface unless and until it's individually promoted — most of them never will be, so most of the 23 stay at "good enough to drive with MIDI" quality, not shipped-product quality.
+- **HTML control surface scope balloons.** 24 behaviours is a lot of bespoke UI even if each is small — this risk doesn't go away just because they were meant to be authoring-only (decision #2, now reopened); it still takes real time to build that many. 10 surfaces exist, several consolidating multiple behaviours onto one page (`crossing-family.html` alone covers 8) — that consolidation is itself a partial mitigation of this exact risk, not something planned in advance.
 - **Regression during the rebuild.** Mitigated by not deleting `src/audio-layers.js` until Step 8's parity check passes (see above).
 - **Stale data pulled into an instrument's parameters.** `docs/phase2-data-layer.md` has feature counts from an earlier 12-order snapshot; if a radius or count gets copied from there instead of from `docs/Technical_Architecture_v5.md` or live code, it'll be wrong. Source parameters from the architecture doc's tables or the current `src/audio-layers.js`/`src/proximity-engine.js`, not from the data-layer iteration log.
 - **District theme undermines rather than supports the layers.** Composing generative ambient music that stays a foundation rather than competing for attention is genuinely hard — see `docs/Project_Plan_v3_5.md`, Risk Mitigation, "Sound Design Risks" for the fuller treatment (start simple, iterate against the layers, a static ambient bed is an acceptable fallback if generative composition underdelivers).

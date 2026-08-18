@@ -4,7 +4,7 @@ Location-aware generative audio Progressive Web App that sonifies Zürich's
 urban infrastructure as users move through District 1. All audio procedurally
 generated via Web Audio API. No samples or pre-rendered assets.
 
-**Live:** https://hidden-infrastructures-50944718104.europe-west6.run.app/
+**Live:** https://hidden-infrastructures-zurich-50944718104.europe-west2.run.app/
 
 ## Current Status
 
@@ -25,7 +25,7 @@ Phase 2 complete. All 6 infrastructure layers working with event-driven audio an
 
 ## Audio architecture
 
-All synthesis is direct Web Audio API code in `src/audio-layers.js` — no Max/MSP, no RNBO, no compiled WASM patches. This is the confirmed production path, not a placeholder pending a native-audio toolchain. Each of the 23 sonic behaviours across the six layers (proximity pulses, crossing transients, alongside loops, oscillator/burst pools, continuous drones), plus the District 1 musical theme as a separate workstream, will be rebuilt as a self-contained instrument module with a paired HTML control surface for hands-on sound design and MIDI-driven auditioning — Phase 3, not yet started. See `docs/Technical_Architecture_v5.md` for the interface contract under consideration and `docs/Implementation_Plan.md` for the build plan. `max/` holds archived Max for Live specifications retained as sonic reference — not part of the current toolchain.
+All synthesis *shipped in production* is direct Web Audio API code in `src/audio-layers.js` — no Max/MSP, no RNBO, no compiled WASM patches. This is the confirmed production path, not a placeholder pending a native-audio toolchain. Each of the 24 sonic behaviours across the six layers (proximity pulses, crossing transients, alongside loops, oscillator/burst pools, continuous drones), plus the District 1 musical theme as a separate workstream, is being rebuilt as a self-contained instrument module with a paired HTML control surface for hands-on sound design and MIDI-driven auditioning — Phase 3 is **underway**: 10 standalone surfaces exist under `instruments/`, covering 22 of 24 behaviours (see `docs/instrument-reference.html`), though none are yet integrated into `index.html` and the interface-contract decision itself is still open. See `docs/Technical_Architecture_v5.md` for the interface contract under consideration and `docs/Implementation_Plan.md` for the build plan. `max/` holds archived Max for Live specifications retained as sonic reference — not part of the current toolchain.
 
 ## Running locally
 

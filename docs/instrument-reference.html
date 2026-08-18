@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instrument Reference — Hidden Infrastructures: Zürich</title>
+<style>
+  :root{
+    --paper:#E9EBE6; --paper-2:#F4F5F2; --paper-3:#DFE2DB;
+    --ink:#14171A; --ink-2:#4E555C; --ink-3:#868C93; --rule:#C6CAC3;
+    --sys:#46596B;
+    --tram:#A81D45; --water:#1A6E9E; --sew:#5A6B2E; --elec:#A06A00; --tel:#6E3FA3; --fern:#C4451F;
+    --live:#0F7A78; --warn:#B85C1E;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+       font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:26px 22px 90px}
+
+  /* ---------- masthead ---------- */
+  .masthead{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:6px}
+  .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+          color:var(--ink-3);margin-bottom:10px}
+  h1{font-size:clamp(30px,6vw,58px);font-weight:700;letter-spacing:-0.038em;line-height:0.94;
+     text-transform:uppercase;margin:0}
+  h1 span{color:var(--sys)}
+  .sub{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:12px 0 0;
+       display:flex;gap:22px;flex-wrap:wrap}
+  .sub b{color:var(--ink);font-weight:500}
+
+  .lede{font-size:16px;line-height:1.65;max-width:74ch;margin:26px 0 34px;color:var(--ink-2)}
+  .lede strong{color:var(--ink);font-weight:600}
+
+  /* ---------- nav ---------- */
+  nav{border:1px solid var(--rule);background:var(--paper-2);padding:14px 16px;margin-bottom:38px}
+  nav h2{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+         margin:0 0 10px;color:var(--ink-3);font-weight:600}
+  nav ol{margin:0;padding:0;list-style:none;
+         display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2px 20px}
+  nav li{font-family:var(--mono);font-size:11px;padding:2px 0}
+  nav a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid transparent}
+  nav a:hover{color:var(--ink);border-bottom-color:var(--rule)}
+  nav .n{color:var(--ink-3);margin-right:8px}
+
+  /* ---------- sections ---------- */
+  section{margin:0 0 52px;scroll-margin-top:20px}
+  h2.sec{font-size:clamp(20px,3vw,28px);font-weight:700;letter-spacing:-0.025em;
+         text-transform:uppercase;margin:0 0 4px;padding-bottom:8px;border-bottom:1.5px solid var(--ink)}
+  h2.sec .num{font-family:var(--mono);font-size:12px;color:var(--ink-3);
+              letter-spacing:.1em;display:block;font-weight:500;margin-bottom:4px;text-transform:none}
+  h3{font-size:15px;font-weight:600;letter-spacing:-0.01em;margin:30px 0 8px}
+  p{max-width:78ch}
+
+  .instr{border:1px solid var(--rule);background:var(--paper-2);padding:0;margin:0 0 18px}
+  .instr-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+              flex-wrap:wrap;padding:13px 16px;border-bottom:1px solid var(--rule)}
+  .instr-head h3{margin:0;font-size:17px;font-weight:700;letter-spacing:-0.02em;text-transform:uppercase}
+  .instr-head .file{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+  .instr-body{padding:14px 16px 16px}
+  .instr-body p{margin:0 0 10px;font-size:13.5px}
+  .instr-body p:last-child{margin-bottom:0}
+
+  .tram .instr-head{border-bottom-color:var(--tram)} .tram h3{color:var(--tram)}
+  .water .instr-head{border-bottom-color:var(--water)} .water h3{color:var(--water)}
+  .sew .instr-head{border-bottom-color:var(--sew)} .sew h3{color:var(--sew)}
+  .elec .instr-head{border-bottom-color:var(--elec)} .elec h3{color:var(--elec)}
+  .tel .instr-head{border-bottom-color:var(--tel)} .tel h3{color:var(--tel)}
+  .fern .instr-head{border-bottom-color:var(--fern)} .fern h3{color:var(--fern)}
+  .allsys .instr-head{border-bottom-color:var(--sys)} .allsys h3{color:var(--sys)}
+
+  .tag{font-family:var(--mono);font-size:9px;letter-spacing:.09em;text-transform:uppercase;
+       padding:3px 7px;border:1px solid var(--rule);color:var(--ink-2);white-space:nowrap}
+  .tag.gps{border-color:var(--live);color:var(--live)}
+  .tag.sim{border-color:var(--rule);color:var(--ink-3)}
+  .tag.new{border-color:var(--warn);color:var(--warn)}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin:12px 0 4px}
+  th{text-align:left;font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;
+     color:var(--ink-3);border-bottom:1px solid var(--rule);padding:0 12px 6px 0;font-weight:600;
+     vertical-align:bottom}
+  td{padding:7px 12px 7px 0;border-bottom:1px solid var(--paper-3);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.p{font-family:var(--mono);font-size:11.5px;white-space:nowrap;color:var(--ink)}
+  td.v{font-family:var(--mono);font-size:11.5px;white-space:nowrap;color:var(--ink-2)}
+  td.why{color:var(--ink-2);line-height:1.5}
+  code{font-family:var(--mono);font-size:0.92em;background:var(--paper-3);padding:1px 4px;color:var(--ink)}
+
+  .note{border-left:2px solid var(--sys);background:var(--paper-2);padding:11px 14px;margin:16px 0;
+        font-size:13px;color:var(--ink-2);max-width:78ch}
+  .note b{color:var(--ink);font-weight:600}
+  .note.warn{border-left-color:var(--warn)}
+  .note.dec{border-left-color:var(--live)}
+  .note .lab{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+             color:var(--ink-3);display:block;margin-bottom:5px}
+
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:16px 0;max-width:78ch}
+  ol.steps>li{counter-increment:s;position:relative;padding:0 0 16px 40px;margin:0}
+  ol.steps>li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:1px;
+       font-family:var(--mono);font-size:11px;color:var(--sys);font-weight:600;
+       border:1px solid var(--rule);width:26px;height:22px;display:flex;align-items:center;justify-content:center}
+  ol.steps>li strong{display:block;font-size:14px;margin-bottom:3px}
+  ol.steps>li p{margin:0;font-size:13px;color:var(--ink-2)}
+
+  ul.plain{padding-left:18px;max-width:78ch}
+  ul.plain li{margin-bottom:7px;color:var(--ink-2);font-size:13.5px}
+  ul.plain li b{color:var(--ink)}
+
+  .statusgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0}
+  .stat{border:1px solid var(--rule);background:var(--paper-2);padding:11px 13px}
+  .stat .n{font-family:var(--mono);font-size:25px;letter-spacing:-0.02em;line-height:1.1}
+  .stat .l{font-family:var(--mono);font-size:9px;letter-spacing:.11em;text-transform:uppercase;
+           color:var(--ink-3);margin-top:4px}
+
+  footer{border-top:1px solid var(--rule);margin-top:50px;padding-top:14px;
+         font-family:var(--mono);font-size:10px;color:var(--ink-3);
+         display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+  @media (max-width:640px){
+    table{font-size:11.5px}
+    td.p,td.v{white-space:normal}
+  }
+  @media print{
+    body{background:#fff}
+    nav{page-break-after:always}
+    section{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kicker">Hidden Infrastructures : Zürich — Phase 3 sound design</div>
+    <h1>Instrument <span>Reference</span></h1>
+    <div class="sub">
+      <span><b>10</b> control surfaces</span>
+      <span><b>22</b> of 24 behaviours</span>
+      <span><b>2</b> GPS-wired</span>
+      <span>Browser-native Web Audio</span>
+    </div>
+  </header>
+
+  <p class="lede">
+    Ten HTML control surfaces, each hosting one or more of the project's sonic behaviours as playable
+    Web Audio instruments. They exist to settle by ear what cannot be settled by argument — allocation
+    policy, mapping curves, whether two layers stay distinguishable. <strong>Every parameter that carries
+    a decision is exposed</strong>, and the defaults are the current build's values wherever those are
+    known, so any change you make is a change you can hear against what already exists.
+  </p>
+
+  <nav>
+    <h2>Contents</h2>
+    <ol>
+      <li><span class="n">01</span><a href="#using">Using the surfaces</a></li>
+      <li><span class="n">02</span><a href="#tram">Tram electrical — 3 surfaces</a></li>
+      <li><span class="n">03</span><a href="#water">Water supply — 2 surfaces</a></li>
+      <li><span class="n">04</span><a href="#sewage">Sewage — 1 surface</a></li>
+      <li><span class="n">05</span><a href="#elec">Electricity — 1 surface</a></li>
+      <li><span class="n">06</span><a href="#tel">Telecom — 1 surface</a></li>
+      <li><span class="n">07</span><a href="#fern">Fernwärme — 1 surface</a></li>
+      <li><span class="n">08</span><a href="#cross">Crossing &amp; alongside — 1 surface</a></li>
+      <li><span class="n">09</span><a href="#tech">Shared techniques</a></li>
+      <li><span class="n">10</span><a href="#derivation">What is derived, what is chosen</a></li>
+      <li><span class="n">11</span><a href="#decisions">Open decisions</a></li>
+      <li><span class="n">12</span><a href="#forward">How to move forward</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ 01 ============ -->
+  <section id="using">
+    <h2 class="sec"><span class="num">01</span>Using the surfaces</h2>
+
+    <p>All ten share the same conventions. Audio never starts without a gesture, so the first click is
+    always <b>Enable audio</b>. Space bar triggers the surface's main action — spawn, walk, or fire.
+    Nothing persists: reloading returns every control to its default, which is deliberate, because the
+    defaults are the reference point.</p>
+
+    <h3>Reading the defaults</h3>
+    <p>Where the current build has a documented value, that value is the default. Where a parameter is new,
+    the default is a proposal and is flagged as such in the panel hint beneath it. Panel hints carry the
+    reasoning; they are not decoration and are the fastest way to know why a control exists.</p>
+
+    <h3>Simulation vs GPS</h3>
+    <p>Two surfaces read real position. The remaining eight simulate it — distance sliders, a walk
+    animation, or a draggable plan. Simulation is not a lesser mode: it lets you hold one variable
+    still, which street testing cannot. The two are complementary and the GPS-wired pair should be
+    walked, not desk-tested.</p>
+
+    <div class="note warn">
+      <span class="lab">Field caution</span>
+      Two surfaces fetch GeoJSON directly rather than through <code>ProximityEngine</code>, because that
+      parser discards <code>_dedupKey</code> and the semantic properties. On mobile data those files are
+      large and growing. Time the first load standing still before setting off.
+    </div>
+  </section>
+
+  <!-- ============ 02 TRAM ============ -->
+  <section id="tram">
+    <h2 class="sec"><span class="num">02</span>Tram electrical</h2>
+    <p>The layer with the most behaviours and the only one already field-validated. All three of its
+    sonic behaviours now exist as surfaces, so the layer can be judged as a whole rather than in parts.</p>
+
+    <div class="instr tram">
+      <div class="instr-head">
+        <h3>Hiss Voice</h3>
+        <div><span class="tag gps">GPS-wired</span> <span class="file">hiss-voice.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>One voice per feeder in range, built on entry and destroyed on exit. Replaces the fixed 6-slot
+        pool. The seed is hashed from the feeder's <code>_dedupKey</code>, so a given feeder always sounds
+        like itself — Rennweg is recognisable on a second walk.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Comb delay</td><td class="v">2.3–8.9 ms</td><td class="why">Sets the resonant series, 112–435 Hz. The old table fixed six values; a hashed draw across the same range gives a continuum, one point of which belongs permanently to each feeder.</td></tr>
+            <tr><td class="p">LFO 1 → delay</td><td class="v">0.08–0.42 Hz</td><td class="why">Pitch and resonance drift. Rates are scaled to voice lifetime: a feeder inside 50 m lasts 20–70 s at walking pace, so anything below 0.05 Hz never completes a cycle.</td></tr>
+            <tr><td class="p">LFO 2 → cutoff</td><td class="v">0.05–0.31 Hz</td><td class="why">Breathing. Drawn separately from LFO 1 so the two phase against each other within a voice as well as across voices.</td></tr>
+            <tr><td class="p">Rectifier tone</td><td class="v">600 Hz</td><td class="why">50 Hz mains through 12-pulse rectification. Per-voice detune means two voices beat rather than summing — set detune to 0 to hear the difference.</td></tr>
+            <tr><td class="p">Falloff exp</td><td class="v">1.0</td><td class="why">Linear, matching the current build. 2.0 is the crackle's validated curve. This control <b>is</b> the mapping-curve audit.</td></tr>
+            <tr><td class="p">At cap</td><td class="v">margin 20%</td><td class="why">Steal-furthest reproduces today's continuous slot reassignment. Margin adds hysteresis so GPS jitter doesn't churn voices. Refuse leaves sounding voices untouched.</td></tr>
+          </tbody>
+        </table>
+        <div class="note dec"><span class="lab">Waiting on</span>
+        Whether allocation churns audibly at the production 25 m radius. Needs street GPS — a slider cannot answer it.</div>
+      </div>
+    </div>
+
+    <div class="instr tram">
+      <div class="instr-head">
+        <h3>Feeder Crackle</h3>
+        <div><span class="tag sim">Simulation</span> <span class="file">feeder-crackle.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>The only behaviour triggered by an external live feed rather than by your own position. A tram
+        passes a feeder; you hear it at whatever gain your own distance gives. The route strip and falloff
+        plot show both at once.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Radius / exponent</td><td class="v">150 m / 2.0</td><td class="why">The validated <code>(1−t)²</code> curve. The draw effect comes from removing the listener gate entirely, so distant events stay faintly audible instead of hard-cutting.</td></tr>
+            <tr><td class="p">Grain count</td><td class="v">5–14</td><td class="why">Contact arcing is a burst of micro-impulses, not one transient. Set count to 1 and window to 8 ms for the single-burst version.</td></tr>
+            <tr><td class="p">Clump</td><td class="v">1.8</td><td class="why">Above 1 front-loads grains so the event has attack and tail rather than an even scatter.</td></tr>
+            <tr><td class="p">Ring / surge</td><td class="v">430 Hz / 72 Hz</td><td class="why">Cable resonance and current draw. Both to zero gives a dry contact crackle — worth hearing at 100 m to check the event still carries without body.</td></tr>
+            <tr><td class="p">Mode</td><td class="v">On foot</td><td class="why">On tram, every feeder fires at zero distance and the draw disappears. Production detects this from GPS speed at about 3 m/s.</td></tr>
+          </tbody>
+        </table>
+        <div class="note"><span class="lab">Note</span>
+        The only surface that creates nodes per <b>event</b> rather than per voice — three per grain. The
+        readout tracks peak count; at real District 1 feeder density this rate will be far higher than the
+        corridor simulates.</div>
+      </div>
+    </div>
+
+    <div class="instr tram">
+      <div class="instr-head">
+        <h3>Powerline Drone</h3>
+        <div><span class="tag sim">Simulation</span> <span class="file">powerline-drone.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>Gated on proximity to the trasse line rather than to points, in a 15 m window, and modulated by
+        the slowest LFOs in the project. The instrument exists to expose a mismatch between those two facts.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Fundamental</td><td class="v">110 Hz</td><td class="why">A2 exactly — the one pitch in the project chosen musically rather than derived. That makes this drone a tonal centre by default.</td></tr>
+            <tr><td class="p">LFO 1 / 2</td><td class="v">0.017 / 0.023 Hz</td><td class="why">59 s and 43 s periods, one per oscillator so the beat rate itself drifts. Deliberately incommensurate — they never realign.</td></tr>
+            <tr><td class="p">Gate</td><td class="v">20 m → 5 m</td><td class="why">Silent beyond outer, full at inner. The tightest gate in the project.</td></tr>
+            <tr><td class="p">Cycles heard</td><td class="v">readout</td><td class="why">Encounter duration ÷ LFO period. Below about 0.25 the sweep is not modulation — it is a random static offset, different every pass.</td></tr>
+            <tr><td class="p">Private reverb</td><td class="v">2.0 s / 3%</td><td class="why">The only layer with a reverb of its own on top of the shared density bus. Both exposed so you can judge whether that exception earns itself.</td></tr>
+          </tbody>
+        </table>
+        <div class="note dec"><span class="lab">Waiting on</span>
+        Walk along versus walk across. Same parameters, completely different results — along Bahnhofstrasse
+        holds the gate open for minutes, crossing the tracks opens it for seconds.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 WATER ============ -->
+  <section id="water">
+    <h2 class="sec"><span class="num">03</span>Water supply</h2>
+    <p>The densest layer, and the one where a new behaviour was added. Mains are pressurised and
+    permanently full, which is the property that separates water from sewage: pitched bore resonance
+    against unpitched gravity flow.</p>
+
+    <div class="instr water">
+      <div class="instr-head">
+        <h3>Water Flow</h3>
+        <div><span class="tag gps">GPS-wired</span> <span class="tag new">New behaviour</span> <span class="file">water-flow.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>A continuous bed that did not previously exist — water was the only entirely discrete layer.
+        Adding it takes the inventory to 24 and puts water on the shared density reverb bus, which
+        currently has five sends and a wet curve calibrated against that count.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Resonance mode</td><td class="v">Bank</td><td class="why">Bank gives every pipe in range its own resonance weighted by proximity — the local network becomes a chord. Single tracks the nearest and glides. Fixed ignores pipe function entirely and is the A/B control.</td></tr>
+            <tr><td class="p">Main / conn Hz</td><td class="v">185 / 640 Hz</td><td class="why">Two conditions, classified from <code>pipeType</code> rather than the seven <code>diameterClass</code> values. Correlates with bore but has <b>not</b> been verified against a diameter table — WVZ has not published one.</td></tr>
+            <tr><td class="p">Cutoff far/near</td><td class="v">420 / 2600 Hz</td><td class="why">Opens as you approach — distant pipes heard through more ground.</td></tr>
+            <tr><td class="p">Wander</td><td class="v">0.07 Hz</td><td class="why">Modulates cutoff, not amplitude, so it doesn't read as tremolo. Fernwärme owns tremolo.</td></tr>
+            <tr><td class="p">Pressure sub</td><td class="v">0.05</td><td class="why">A ceiling, not a starting point — the one control that collides with sewage outright. Set to 0 and check water still reads as pressurised.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="instr water">
+      <div class="instr-head">
+        <h3>Pulse &amp; Drip</h3>
+        <div><span class="tag sim">Simulation</span> <span class="file">water-pulse-drip.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>A pulse is water hammer — the bore struck rather than flowing. A drip is one entrained bubble,
+        Minnaert again but an order of magnitude smaller than sewage's.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Pulse main / conn</td><td class="v">800 / 1200 Hz</td><td class="why">The documented values. They sit well above the flow instrument's 185/640 Hz, so pulse and drone currently read as different objects. Dropping them onto those figures makes them the same pipe.</td></tr>
+            <tr><td class="p">Hysteresis</td><td class="v">12%</td><td class="why">Widens the exit radius so a feature hovering at the boundary under GPS jitter doesn't re-arm and fire on every wobble. Probably wants to be higher given 10–15 m urban error.</td></tr>
+            <tr><td class="p">Cooldown</td><td class="v">30 s</td><td class="why">Per feature. The Armed readout counts features whose cooldown has expired — if that number is large the layer chatters as soon as you move.</td></tr>
+            <tr><td class="p">Drip size</td><td class="v">1.6–4.2 mm</td><td class="why">Minnaert <code>f ≈ 3.28/r</code> gives roughly 4100–1560 Hz. The documented 2800 Hz corresponds to a 2.3 mm bubble, so the figure is physically consistent.</td></tr>
+            <tr><td class="p">Rate curve</td><td class="v">1.6</td><td class="why">Above 1 holds the rate low until a cluster is genuinely dense, so ordinary streets stay sparse and a junction arrives as an event rather than a gradient.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 SEWAGE ============ -->
+  <section id="sewage">
+    <h2 class="sec"><span class="num">04</span>Sewage</h2>
+
+    <div class="instr sew">
+      <div class="instr-head">
+        <h3>Rumble &amp; Gurgle</h3>
+        <div><span class="tag sim">Simulation</span> <span class="file">sewage-rumble.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>Two behaviours on one surface because the gurgle is proximity-gated on the same bed — judging
+        one without the other tells you little. The widest radius of any layer at 80 m, so in District 1
+        this is almost always present.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Slope</td><td class="v">24 dB</td><td class="why">Steeper reads as further underground and is what keeps this clear of water's lowest resonance at 185 Hz.</td></tr>
+            <tr><td class="p">Surge</td><td class="v">3.4 s, random walk</td><td class="why">Deliberately not an LFO. Fernwärme owns periodic tremolo at 0.3 Hz; anything regular here would read as the same gesture on a different layer.</td></tr>
+            <tr><td class="p">Chamber</td><td class="v">74 Hz, Q 9</td><td class="why">A single low resonance suggests a void rather than a pipe. Keep Q modest — high Q makes it a pitch, and pitch belongs to water.</td></tr>
+            <tr><td class="p">Bubble size</td><td class="v">6–46 mm</td><td class="why">Roughly 1100–140 Hz. Ten times water's drip size, so the two should never be confused. Rise is the pitch climb as a bubble pinches off — set to 0 for a flat blip.</td></tr>
+            <tr><td class="p">Water reference</td><td class="v">off</td><td class="why">A stripped stand-in for the flow instrument so the collision can be heard on one page. Monitoring aid, not the real instrument.</td></tr>
+          </tbody>
+        </table>
+        <div class="note dec"><span class="lab">Waiting on</span>
+        Run the water reference, then mute it. If sewage was only distinguishable by contrast, the fix is
+        more likely steepening this slope than moving water — sewage has the whole bass to itself if it
+        stays there.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 ELEC ============ -->
+  <section id="elec">
+    <h2 class="sec"><span class="num">05</span>Electricity</h2>
+
+    <div class="instr elec">
+      <div class="instr-head">
+        <h3>Transformer Hum</h3>
+        <div><span class="tag sim">Simulation</span> <span class="file">electricity-hum.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>The contract test. This is the first instrument that gates on one geometry — nodes — while being
+        lifted by another — cables. The allocator from the hiss voice transferred to it unmodified, which is
+        the strongest evidence so far that it is a reusable component rather than a per-instrument detail.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Fundamental</td><td class="v">100 Hz</td><td class="why">Twice mains — magnetostriction, the physical sound a transformer makes.</td></tr>
+            <tr><td class="p">Emphasis k</td><td class="v">6–15</td><td class="why">Which harmonic carries most energy. k=15 lands on 1500 Hz, the current build's scream, but now as a harmonic of the real grid. k=2–3 is the boxy hum beside a transformer. Low frequencies couple badly out of a buried enclosure, which is why street level hears the upper series.</td></tr>
+            <tr><td class="p">Even bias</td><td class="v">0.45</td><td class="why">Favours 200/400/600 Hz, which is what magnetostriction actually produces most of. The odd harmonics are the licence.</td></tr>
+            <tr><td class="p">Beat</td><td class="v">1.4 Hz</td><td class="why">Two oscillators per voice. Real transformers are phase-locked to one grid, so this is licence — set to 0 for the strict version.</td></tr>
+            <tr><td class="p">At cap → refuse</td><td class="v">margin</td><td class="why"><b>Refuse new</b> reproduces the current build exactly: first free slot wins, nothing on full. That was never chosen — it is what an 8-slot pool does by default.</td></tr>
+            <tr><td class="p">Voltage mode</td><td class="v">Hashed</td><td class="why">Off by default. <code>voltageClass</code> has never been read out of the GeoJSON, so voltage-driven emphasis is a hypothesis with a switch, not a mapping.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 TEL ============ -->
+  <section id="tel">
+    <h2 class="sec"><span class="num">06</span>Telecom</h2>
+
+    <div class="instr tel">
+      <div class="instr-head">
+        <h3>Telecom Burst</h3>
+        <div><span class="tag sim">Simulation</span> <span class="file">telecom-burst.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>The one pool that needs no allocator — four fixed slots, nothing claimed per feature, the layer
+        gated by nearest-cable proximity. Also the layer with no acoustic original: fibre makes no sound,
+        so this is where the piece stops sonifying and starts representing.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Gate rate</td><td class="v">22–78 Hz</td><td class="why">Below pitch and above rhythm, where amplitude modulation reads as roughness rather than pulse. Density scales these 0.5–2.0×.</td></tr>
+            <tr><td class="p">Shape</td><td class="v">7</td><td class="why">1 is a sine — smooth tremolo. Higher approaches a pulse, throwing sidebands either side of each slot's band, which is what makes this sound electronic rather than like a cooling fan.</td></tr>
+            <tr><td class="p">Duty</td><td class="v">0.38</td><td class="why">How much of each cycle stays open. Needs a custom <code>PeriodicWave</code>: the built-in square is fixed at 50%.</td></tr>
+            <tr><td class="p">Packets</td><td class="v">On</td><td class="why">Continuous gating is a steady buzz. Framing into bursts with gaps reads as transmission. Each slot frames independently so they interleave. Off reproduces the current build.</td></tr>
+            <tr><td class="p">Dwell threshold</td><td class="v">5 s</td><td class="why">The only time-based trigger in the project. Fires only if you stop near a node and stay stopped.</td></tr>
+            <tr><td class="p">Sweep jitter</td><td class="v">±500 Hz</td><td class="why">Each endpoint offset independently per firing, so the span varies as well as the register and no two handshakes are identical.</td></tr>
+          </tbody>
+        </table>
+        <div class="note"><span class="lab">Open question</span>
+        Nothing else in the piece rewards standing still. Whether the handshake is a good secret or simply
+        undiscoverable is a design decision, not a parameter — and it may need a shorter threshold to be
+        findable at all.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 07 FERN ============ -->
+  <section id="fern">
+    <h2 class="sec"><span class="num">07</span>Fernwärme</h2>
+
+    <div class="instr fern">
+      <div class="instr-head">
+        <h3>Thermal Drone</h3>
+        <div><span class="tag sim">Simulation</span> <span class="file">fernwaerme-thermal.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>The only directional behaviour, and the prototype for the HRTF positioning every instrument will
+        eventually need. Uses a draggable plan rather than distance sliders because direction and crossing
+        cannot be judged parametrically.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Pan mode</td><td class="v">sin(rel)</td><td class="why">The documented behaviour. Folds front and back onto the same value — a pipe ahead and one behind both pan centre. Turn on the spot to hear the ambiguity. Linear removes the fold but sweeps unnaturally.</td></tr>
+            <tr><td class="p">Tremolo target</td><td class="v">Carrier</td><td class="why">Multiplicative on the carrier, not the master. Set to <b>master</b> and walk beyond 30 m to reproduce the bleed this routing was introduced to prevent.</td></tr>
+            <tr><td class="p">Partials</td><td class="v">0.22 / 0.10</td><td class="why">A pure 60 Hz sine is close to inaudible on the bone-conduction headphones recommended for street safety. Set both to 0 for the documented version and judge whether it carries.</td></tr>
+            <tr><td class="p">GPS noise</td><td class="v">0 m</td><td class="why">Adds a random-walk offset at 1 Hz fix rate. At 10–15 m — realistic for urban canyons — the crossing test fires on movement you never made. Those are logged as <code>CROSS?</code> with both distances.</td></tr>
+            <tr><td class="p">Detection ×4</td><td class="v">0.5 m / 20 m / 35° / 3 s</td><td class="why">Min move, alongside radius, acute angle, crossing cooldown. These govern <b>every</b> LineString layer, not just this one.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 08 CROSS ============ -->
+  <section id="cross">
+    <h2 class="sec"><span class="num">08</span>Crossing &amp; alongside</h2>
+
+    <div class="instr allsys">
+      <div class="instr-head">
+        <h3>Shared Event Family</h3>
+        <div><span class="tag sim">Simulation</span> <span class="file">crossing-family.html</span></div>
+      </div>
+      <div class="instr-body">
+        <p>Eight behaviours on one surface — four crossing transients and four alongside loops. They share
+        one detection path and one voicing function; only frequency, Q, decay, sweep and noise balance
+        differ. The question is not whether each works but whether four transients stay legible when they
+        fire together.</p>
+        <table>
+          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Water knock</td><td class="v">380 Hz, Q 18</td><td class="why">Resonant, short — a struck pipe, lower than the entry pulse.</td></tr>
+            <tr><td class="p">Sewage thud</td><td class="v">200 Hz, Q 6</td><td class="why">Duller and more damped. Low Q is what makes it read as unpitched.</td></tr>
+            <tr><td class="p">Electricity snap</td><td class="v">2200 Hz, 0.06 s</td><td class="why">Sharp, fully noise-based, almost no decay.</td></tr>
+            <tr><td class="p">Telecom click</td><td class="v">3500 Hz × 1.71</td><td class="why">The sweep multiplier gives the documented 3500→6000 Hz. Sweep is what makes it a click rather than a knock.</td></tr>
+            <tr><td class="p">Collisions</td><td class="v">150 ms window</td><td class="why">Two transients inside the window count as one collision. Turns amber past 25% — at that point they are arriving as composites and individual tuning will not fix it.</td></tr>
+            <tr><td class="p">Stagger</td><td class="v">0 ms</td><td class="why">Delays colliding events so they arrive in sequence rather than as a chord. A small lie about simultaneity in exchange for legibility.</td></tr>
+          </tbody>
+        </table>
+        <div class="note dec"><span class="lab">Architectural finding</span>
+        This family is one instrument with four presets, not eight instruments. Treating it as a single
+        module would take the inventory from 24 to about 17. The detection block here is
+        <b>identical</b> to the Fernwärme surface — check the two agree before either set of values is
+        treated as settled.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 09 TECH ============ -->
+  <section id="tech">
+    <h2 class="sec"><span class="num">09</span>Shared techniques</h2>
+    <p>Patterns that recur and should become shared utilities rather than being reimplemented per instrument.</p>
+
+    <table>
+      <thead><tr><th>Technique</th><th>Used in</th><th>Why it exists</th></tr></thead>
+      <tbody>
+        <tr><td class="p">FNV-1a → mulberry32</td><td class="v">hiss, hum</td><td class="why">Feature ID hashed to a 32-bit seed, seeding a deterministic RNG. Gives stable per-feature timbre and makes replay possible without storing parameters.</td></tr>
+        <tr><td class="p">Phase-randomised LFO</td><td class="v">hiss, hum</td><td class="why"><code>OscillatorNode</code> has no phase parameter. A <code>PeriodicWave</code> with phase-encoded coefficients gives arbitrary starting phase, so voices never move in lockstep.</td></tr>
+        <tr><td class="p">Harmonic stack as one wave</td><td class="v">hum</td><td class="why">A 20-harmonic spectrum costs one oscillator instead of twenty. Rebuild and <code>setPeriodicWave</code> when the spectrum changes.</td></tr>
+        <tr><td class="p">Variable-duty pulse</td><td class="v">telecom</td><td class="why">Fourier series of a pulse train as a <code>PeriodicWave</code>. The built-in square wave is fixed at 50% duty.</td></tr>
+        <tr><td class="p">Allocator</td><td class="v">hiss, hum</td><td class="why">Cap, policy, hysteresis margin, feature→voice map. Transferred between two structurally different instruments unmodified.</td></tr>
+        <tr><td class="p">Minnaert bubble</td><td class="v">sewage, water drip</td><td class="why"><code>f ≈ 3.28/r</code>. One formula, two scales — centimetres for gurgle, millimetres for drips.</td></tr>
+        <tr><td class="p">Random-walk modulation</td><td class="v">sewage, water flow</td><td class="why">Irregular amplitude drift where an LFO would read as tremolo. Keeps periodic modulation reserved for Fernwärme.</td></tr>
+        <tr><td class="p">Jittered recursion</td><td class="v">sewage, fern, crossing</td><td class="why"><code>setTimeout</code> rescheduling itself with a jittered interval. The documented pattern for alongside loops and gurgle.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note warn">
+      <span class="lab">Blocks integration</span>
+      <code>parseLineFeatures()</code> and <code>parsePointFeatures()</code> discard <code>_dedupKey</code>
+      and the semantic properties, and assign a synthetic array-index id that is unstable across
+      re-extraction. Two surfaces already work around this by fetching GeoJSON directly. That is fine for
+      authoring and impossible in production, where instruments consume ProximityEngine output.
+    </div>
+  </section>
+
+  <!-- ============ 10 DERIVATION ============ -->
+  <section id="derivation">
+    <h2 class="sec"><span class="num">10</span>What is derived, what is chosen</h2>
+    <p>The project's claim is that sound comes from data. That holds in most places and not in others.
+    Knowing which is which matters for the funding text, where a reviewer could reasonably ask.</p>
+
+    <table>
+      <thead><tr><th>Value</th><th>Basis</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="p">600 Hz — hiss tone</td><td class="why">50 Hz mains × 12-pulse rectification</td><td class="v">Standard traction arrangement; VBZ's actual configuration <b>unverified</b></td></tr>
+        <tr><td class="p">100 Hz — transformer</td><td class="why">Magnetostriction at twice mains</td><td class="v">Physically correct</td></tr>
+        <tr><td class="p">Bubble frequencies</td><td class="why">Minnaert resonance, f ≈ 3.28/r</td><td class="v">Physically correct; sizes are chosen</td></tr>
+        <tr><td class="p">Water resonance</td><td class="why">Bore, via <code>pipeType</code> mains/connections</td><td class="v">Correlates with diameter; <b>no diameter table published</b></td></tr>
+        <tr><td class="p">Electricity emphasis</td><td class="why">Enclosure coupling; optionally <code>voltageClass</code></td><td class="v">Voltage mapping is a <b>hypothesis</b>, off by default</td></tr>
+        <tr><td class="p">110 Hz — powerline drone</td><td class="why">A2</td><td class="v"><b>Chosen musically</b>, not derived</td></tr>
+        <tr><td class="p">Telecom gate rates</td><td class="why">None — fibre is silent</td><td class="v"><b>Representation</b>, stated as such</td></tr>
+        <tr><td class="p">Crossing transient pitches</td><td class="why">Layer separation by register</td><td class="v"><b>Compositional</b></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ 11 DECISIONS ============ -->
+  <section id="decisions">
+    <h2 class="sec"><span class="num">11</span>Open decisions</h2>
+    <p>Each of these is answerable by using a surface. None is answerable by argument.</p>
+
+    <ul class="plain">
+      <li><b>Allocation policy</b> — steal-furthest, margin, or refuse. Hiss and hum both expose all three. Needs street GPS at 25 m, not a slider.</li>
+      <li><b>Falloff exponent per layer</b> — <code>(1−t)²</code> is validated on crackle only. Every other layer defaults to linear. The exponent control on each surface is the audit.</li>
+      <li><b>Water resonance mode</b> — if Bank does not beat Fixed, the pipe-function mapping is not earning its complexity and should go.</li>
+      <li><b>Water pulse frequency</b> — 800/1200 Hz as documented, or dropped onto 185/640 Hz so the pipe rings at the pitch it hums at.</li>
+      <li><b>Telecom packets</b> — framed or continuous. If framing does not earn itself, the layer simplifies considerably.</li>
+      <li><b>Detection constants</b> — one set governs all five line layers. Fernwärme and the crossing family must agree.</li>
+      <li><b>Stagger</b> — whether to displace simultaneous transients for legibility, and by how much.</li>
+      <li><b>Dwell discoverability</b> — whether the handshake is findable at a 5 s threshold, or at all.</li>
+      <li><b>Private reverb</b> — whether the powerline drone's own reverb does something the shared bus cannot.</li>
+      <li><b>Density bus recalibration</b> — the wet curve assumes five continuous sends. Water flow makes six.</li>
+      <li><b>Tonal centre</b> — A2 is already established by the drone. The district theme either accepts it or works against it deliberately.</li>
+      <li><b>Control surfaces in production</b> — still open, and currently being answered by default: the surfaces are reachable on the deployed URL and one is linked from <code>index.html</code>.</li>
+    </ul>
+  </section>
+
+  <!-- ============ 12 FORWARD ============ -->
+  <section id="forward">
+    <h2 class="sec"><span class="num">12</span>How to move forward</h2>
+
+    <div class="statusgrid">
+      <div class="stat"><div class="n">22/24</div><div class="l">Behaviours built</div></div>
+      <div class="stat"><div class="n">2/10</div><div class="l">GPS-wired</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">Integrated</div></div>
+      <div class="stat"><div class="n">2</div><div class="l">Behaviours remaining</div></div>
+    </div>
+
+    <p>Still unbuilt: the <b>sewage junction thud</b> and the <b>telecom node-entry chirp</b>. The chirp is
+    structurally identical to the water entry pulse. The thud is the only behaviour driven by a computed
+    rather than a given feature — junctions are derived by clustering pipe endpoints at 8 m — which makes
+    it worth building rather than assuming.</p>
+
+    <ol class="steps">
+      <li>
+        <strong>Walk the two GPS-wired surfaces</strong>
+        <p>Hiss at 25 m first — that is production truth, and the allocation question needs street
+        conditions. Then 50 m as the deliberate experiment. Water flow: Bank against Fixed, through the
+        headphones you will actually use. Bring the log downloads back.</p>
+      </li>
+      <li>
+        <strong>Record the tuned values</strong>
+        <p>The parameter sets are the deliverable from this phase. Ten surfaces' worth is more than anyone
+        reconstructs afterwards — screenshots of the panels are sufficient.</p>
+      </li>
+      <li>
+        <strong>Fix the ProximityEngine parser</strong>
+        <p>Carrying <code>_dedupKey</code> and the semantic property whitelist through the parse is a
+        prerequisite for integration, not a nicety. Two instruments have already hit it independently.</p>
+      </li>
+      <li>
+        <strong>Regenerate the counts</strong>
+        <p>Three findings now show every documented figure is stale — tram at roughly 11,148 against 2,899,
+        water at 10,568 against 3,339. The generator belongs inside the extraction pipeline, rewriting a
+        marked region so it cannot drift again.</p>
+      </li>
+      <li>
+        <strong>Split into modules</strong>
+        <p><code>src/instruments/*.js</code> for the audio cores plus the shared allocator;
+        <code>instruments/*.html</code> importing them as control surfaces. One implementation, so tuning
+        stays honest. Tuned values become the exported defaults.</p>
+      </li>
+      <li>
+        <strong>Integrate one layer behind a flag</strong>
+        <p>Tram first — its three behaviours are built and it is the field-validated layer. Keep the old
+        pool code gated rather than deleted so both can be A/B'd on the same walk.</p>
+      </li>
+      <li>
+        <strong>Update the documents</strong>
+        <p>Inventory 24 not 23; the crossing family as one module; the allocator as a real component rather
+        than a thin wrapper; the density bus at six sends; and the derivation table above, which the
+        September application should be consistent with.</p>
+      </li>
+    </ol>
+
+    <div class="note">
+      <span class="lab">Sequencing note</span>
+      The structurally novel work is done. Every remaining mechanism has been proven at least once, so
+      what is left is voicing, integration and field validation. That is a different kind of work and it
+      benefits from being done a layer at a time, with the existing build audible alongside as a reference.
+    </div>
+  </section>
+
+  <footer>
+    <span>Hidden Infrastructures : Zürich — instrument reference</span>
+    <span>Phase 3 · browser-native Web Audio · no samples</span>
+  </footer>
+
+</div>
+</body>
+</html>

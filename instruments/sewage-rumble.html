@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEWAGE RUMBLE — gravity flow</title>
+<style>
+  :root{
+    --paper:#E9EBE6; --paper-2:#F4F5F2; --paper-3:#DFE2DB;
+    --ink:#14171A; --ink-2:#5A6169; --ink-3:#8B9199; --rule:#C6CAC3;
+    --sew:#5A6B2E; --water:#1A6E9E; --live:#0F7A78; --warn:#B85C1E;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+       font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+
+  .masthead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+            flex-wrap:wrap;border-bottom:1.5px solid var(--ink);padding-bottom:10px}
+  .title{font-size:clamp(26px,5vw,42px);font-weight:700;letter-spacing:-0.035em;
+         text-transform:uppercase;margin:0;line-height:0.95}
+  .title span{color:var(--sew)}
+  .masthead-meta{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+                 text-align:right;letter-spacing:0.02em;white-space:nowrap}
+  .masthead-meta b{color:var(--ink);font-weight:500}
+  .strapline{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:8px 0 20px}
+  .strapline em{color:var(--sew);font-style:normal}
+  .strapline i{color:var(--water);font-style:normal}
+
+  .panel{background:var(--paper-2);border:1px solid var(--rule);padding:12px 13px 14px}
+  .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+              margin:0 0 10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+  .panel-head h2{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.14em;
+                 text-transform:uppercase;margin:0}
+  .panel-head .note{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);text-align:right}
+
+  .hero{margin:0 0 14px}
+  .scope-frame{position:relative;border:1px solid var(--rule);background:var(--paper-2)}
+  canvas#scope{display:block;width:100%;height:198px}
+  .scope-tag{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:0.06em;pointer-events:none}
+  .scope-tag.corner{left:8px;top:7px;color:var(--ink-3)}
+
+  .transport{display:flex;gap:10px;align-items:center;margin:14px 0 18px;flex-wrap:wrap}
+  button{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+         padding:9px 14px;border:1px solid var(--ink);background:var(--paper-2);color:var(--ink);
+         cursor:pointer;transition:background .12s,color .12s}
+  button:hover:not(:disabled){background:var(--ink);color:var(--paper-2)}
+  button:disabled{opacity:.35;cursor:not-allowed}
+  button:focus-visible{outline:2px solid var(--live);outline-offset:2px}
+  button.primary{background:var(--sew);border-color:var(--sew);color:#fff;font-weight:600}
+  button.primary:hover:not(:disabled){background:var(--ink);border-color:var(--ink)}
+  button.ghost{border-color:var(--rule);color:var(--ink-2)}
+  button.ghost:hover:not(:disabled){background:var(--ink-2);color:var(--paper-2);border-color:var(--ink-2)}
+  button.on{background:var(--live);border-color:var(--live);color:#fff}
+  button.wateron{background:var(--water);border-color:var(--water);color:#fff}
+
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));align-items:start}
+  .row{display:grid;grid-template-columns:98px 1fr;gap:9px;align-items:center;margin-bottom:7px}
+  .row:last-child{margin-bottom:0}
+  .row>label{font-family:var(--mono);font-size:10px;color:var(--ink-2);line-height:1.2}
+  .rng{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .field{display:flex;align-items:center;gap:5px}
+  .field span{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);
+              letter-spacing:0.06em;text-transform:uppercase}
+  input[type=number]{font-family:var(--mono);font-size:11px;width:100%;min-width:0;padding:5px 6px;
+                     border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+  input[type=number]:focus-visible{outline:2px solid var(--live);outline-offset:-1px}
+  input[type=range]{width:100%;accent-color:var(--sew)}
+  select{font-family:var(--mono);font-size:11px;padding:5px 6px;border:1px solid var(--rule);
+         background:var(--paper);color:var(--ink);width:100%}
+  .val{font-family:var(--mono);font-size:10.5px;color:var(--ink);min-width:46px;text-align:right}
+  .hint{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);line-height:1.5;
+        margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--rule)}
+  .hint b{color:var(--sew);font-weight:500}
+  .hint i{color:var(--water);font-style:normal}
+  .panel.ref{border-color:var(--water)}
+  .panel.ref .panel-head h2{color:var(--water)}
+
+  .pipes{margin-top:14px}
+  table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:10.5px}
+  th{text-align:left;font-weight:600;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;
+     color:var(--ink-3);border-bottom:1px solid var(--rule);padding:0 8px 5px 0;white-space:nowrap}
+  td{padding:6px 8px 6px 0;border-bottom:1px solid var(--paper-3);white-space:nowrap;vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  td.pid{color:var(--sew);font-weight:600}
+  td.slider{width:38%;min-width:140px}
+  td.slider input{width:100%}
+  tr.out td{opacity:.38}
+  .barwrap{display:inline-block;width:60px;height:7px;background:var(--paper-3);vertical-align:middle}
+  .bar{display:inline-block;height:7px;background:var(--sew);vertical-align:middle}
+
+  .status{font-family:var(--mono);font-size:10px;color:var(--ink-2);margin-top:16px;
+          padding-top:9px;border-top:1px solid var(--rule);
+          display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .status .ok{color:var(--live)}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="title">Sewage <span>Rumble</span></h1>
+    <div class="masthead-meta">
+      SEWAGE · BEHAVIOUR 15+16/23<br>
+      <b>80 M — THE WIDEST RADIUS</b><br>
+      HIDDEN INFRASTRUCTURES : ZÜRICH
+    </div>
+  </header>
+
+  <p class="strapline">
+    Gravity-fed and part-full, so there is air above the flow — <em>unpitched</em> turbulence and bubbles,
+    against <i>water</i>'s pressurised bore resonance. Gurgle pitch comes from Minnaert: a bubble's
+    frequency is 3.28 ⁄ radius, so size alone sets it.
+  </p>
+
+  <section class="hero">
+    <div class="scope-frame">
+      <canvas id="scope" width="1160" height="198"></canvas>
+      <div class="scope-tag corner" id="scopeLabel">SPECTRUM — AUDIO NOT STARTED</div>
+    </div>
+  </section>
+
+  <div class="transport">
+    <button id="btnAudio" class="primary">Enable audio</button>
+    <button id="btnWalk" class="ghost" disabled>Simulate walk</button>
+    <button id="btnWater" class="ghost" disabled>Water reference</button>
+    <button id="btnPanic" class="ghost" disabled>Silence</button>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">MASTER</span>
+      <input type="range" id="master" min="0" max="1" step="0.01" value="0.6" style="width:130px">
+      <span class="val" id="masterV">0.60</span>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <section class="panel">
+      <div class="panel-head"><h2>Rumble</h2><div class="note">flow turbulence</div></div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="rumLvl" min="0" max="1" step="0.01" value="0.55"><span class="val" id="rumLvlV">0.55</span></div>
+      </div>
+      <div class="row"><label>CUTOFF Hz</label>
+        <div class="rng">
+          <div class="field"><span>far</span><input type="number" id="lpFar" value="90" step="5" min="30" max="1200"></div>
+          <div class="field"><span>near</span><input type="number" id="lpNear" value="240" step="5" min="30" max="1200"></div>
+        </div>
+      </div>
+      <div class="row"><label>SLOPE</label>
+        <div class="field">
+          <select id="slope">
+            <option value="1">12 dB — open</option>
+            <option value="2" selected>24 dB — closed</option>
+            <option value="3">36 dB — buried</option>
+          </select>
+        </div>
+      </div>
+      <div class="row"><label>HP Hz</label>
+        <div class="field"><input type="number" id="hp" value="28" step="2" min="10" max="200"></div>
+      </div>
+      <p class="hint">Documented as 180 Hz lowpass. Lower and steeper reads as further underground; the steeper slopes are what keep this clear of <i>water</i>'s 185 Hz lowest resonance.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Surge</h2><div class="note">irregular, not an LFO</div></div>
+      <div class="row"><label>RATE s</label>
+        <div class="field"><input type="range" id="surgeRate" min="0.4" max="12" step="0.1" value="3.4"><span class="val" id="surgeRateV">3.4</span></div>
+      </div>
+      <div class="row"><label>DEPTH</label>
+        <div class="field"><input type="range" id="surgeDep" min="0" max="0.9" step="0.01" value="0.34"><span class="val" id="surgeDepV">0.34</span></div>
+      </div>
+      <div class="row"><label>CUTOFF MOD</label>
+        <div class="field"><input type="range" id="surgeCut" min="0" max="120" step="2" value="38"><span class="val" id="surgeCutV">38</span></div>
+      </div>
+      <p class="hint">A random walk, not a sine. Fernwärme already owns periodic tremolo at 0.3 Hz — anything regular here would read as the same gesture. Flow surges are irregular by nature.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Chamber</h2><div class="note">culvert resonance</div></div>
+      <div class="row"><label>FREQ Hz</label>
+        <div class="field"><input type="number" id="chHz" value="74" step="1" min="30" max="400"></div>
+      </div>
+      <div class="row"><label>Q</label>
+        <div class="field"><input type="range" id="chQ" min="1" max="30" step="0.5" value="9"><span class="val" id="chQV">9.0</span></div>
+      </div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="chLvl" min="0" max="0.8" step="0.01" value="0.22"><span class="val" id="chLvlV">0.22</span></div>
+      </div>
+      <p class="hint">A single low resonance gives the sense of a void rather than a pipe. Keep Q modest — high Q makes it a pitch, which is the property that is supposed to belong to <i>water</i>.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Gurgle</h2><div class="note">Minnaert bubbles</div></div>
+      <div class="row"><label>GATE m</label>
+        <div class="field"><input type="number" id="gurgGate" value="20" step="1" min="3" max="80"></div>
+      </div>
+      <div class="row"><label>INTERVAL s</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="intMin" value="1.25" step="0.05" min="0.15" max="20"></div>
+          <div class="field"><span>max</span><input type="number" id="intMax" value="5" step="0.05" min="0.2" max="30"></div>
+        </div>
+      </div>
+      <div class="row"><label>BUBBLES</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="bubMin" value="1" step="1" min="1" max="12"></div>
+          <div class="field"><span>max</span><input type="number" id="bubMax" value="5" step="1" min="1" max="12"></div>
+        </div>
+      </div>
+      <div class="row"><label>SIZE mm</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="szMin" value="6" step="1" min="2" max="120"></div>
+          <div class="field"><span>max</span><input type="number" id="szMax" value="46" step="1" min="2" max="120"></div>
+        </div>
+      </div>
+      <div class="row"><label>RISE</label>
+        <div class="field"><input type="range" id="bubRise" min="0" max="1.2" step="0.01" value="0.42"><span class="val" id="bubRiseV">0.42</span></div>
+      </div>
+      <div class="row"><label>DECAY s</label>
+        <div class="field"><input type="range" id="bubDec" min="0.02" max="0.5" step="0.01" value="0.11"><span class="val" id="bubDecV">0.11</span></div>
+      </div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="bubLvl" min="0" max="1" step="0.01" value="0.4"><span class="val" id="bubLvlV">0.40</span></div>
+      </div>
+      <p class="hint">6–46 mm gives roughly 1100 Hz down to 140 Hz. <b>Rise</b> is the pitch climb as a bubble pinches off — set it to 0 for a flat blip and hear how much of "bubble" is that gesture rather than the tone.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Proximity</h2><div class="note">80 m pipe radius</div></div>
+      <div class="row"><label>RADIUS m</label>
+        <div class="field"><input type="number" id="radius" value="80" step="1" min="10" max="250"></div>
+      </div>
+      <div class="row"><label>FALLOFF exp</label>
+        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
+      </div>
+      <div class="row"><label>RAMP s</label>
+        <div class="field"><input type="range" id="ramp" min="0.1" max="6" step="0.1" value="1.5"><span class="val" id="rampV">1.50</span></div>
+      </div>
+      <div class="row"><label>DENSITY ×</label>
+        <div class="rng">
+          <div class="field"><span>1</span><input type="number" id="dg1" value="1.0" step="0.05" min="0.2" max="3"></div>
+          <div class="field"><span>6+</span><input type="number" id="dg6" value="1.35" step="0.05" min="0.2" max="3"></div>
+        </div>
+      </div>
+      <p class="hint">80 m is the widest radius of any layer, so in District 1 this is almost always present — the bed everything else sits on. The 1.5 s ramp is the documented time constant.</p>
+    </section>
+
+    <section class="panel ref">
+      <div class="panel-head"><h2>Water reference</h2><div class="note">monitoring aid only</div></div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="wLvl" min="0" max="1" step="0.01" value="0.5"><span class="val" id="wLvlV">0.50</span></div>
+      </div>
+      <div class="row"><label>MAIN Hz</label>
+        <div class="field"><input type="number" id="wLo" value="185" step="5" min="60" max="2000"></div>
+      </div>
+      <div class="row"><label>CONN Hz</label>
+        <div class="field"><input type="number" id="wHi" value="640" step="5" min="60" max="4000"></div>
+      </div>
+      <div class="row"><label>RES Q</label>
+        <div class="field"><input type="range" id="wQ" min="2" max="30" step="0.5" value="14"><span class="val" id="wQV">14.0</span></div>
+      </div>
+      <p class="hint">A stripped stand-in for the water flow instrument, <i>not</i> that instrument. It exists so the collision can be heard on one page: run both, then mute this and check whether sewage still reads as its own thing.</p>
+    </section>
+
+  </div>
+
+  <section class="panel pipes">
+    <div class="panel-head">
+      <h2>Simulated pipes</h2>
+      <div class="note" id="pipeStats">—</div>
+    </div>
+    <div id="pipeWrap"></div>
+  </section>
+
+  <div class="status">
+    <div id="modeStatus">Walk simulation — off · water reference off</div>
+    <div id="ctxStatus">AudioContext — not created</div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const num=id=>parseFloat($(id).value);
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const lerp=(a,b,t)=>a+(b-a)*t;
+  const rand=(a,b)=>a+Math.random()*(b-a);
+
+  const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
+  bind($('rumLvl'),$('rumLvlV'),2); bind($('surgeRate'),$('surgeRateV'),1);
+  bind($('surgeDep'),$('surgeDepV'),2); bind($('surgeCut'),$('surgeCutV'),0);
+  bind($('chQ'),$('chQV'),1); bind($('chLvl'),$('chLvlV'),2);
+  bind($('bubRise'),$('bubRiseV'),2); bind($('bubDec'),$('bubDecV'),2); bind($('bubLvl'),$('bubLvlV'),2);
+  bind($('falloff'),$('falloffV'),1); bind($('ramp'),$('rampV'),2);
+  bind($('wLvl'),$('wLvlV'),2); bind($('wQ'),$('wQV'),1);
+  bind($('master'),$('masterV'),2);
+
+  // ---------- simulated pipes ----------
+  const pipes=[
+    {id:'S-30114', dist:22},{id:'S-30138', dist:48},{id:'S-30402', dist:9},
+    {id:'S-30455', dist:63},{id:'S-31007', dist:35},{id:'S-31120', dist:77},
+    {id:'S-31488', dist:54},{id:'S-31502', dist:16}
+  ];
+  pipes.forEach((p,i)=>{p.phase=i*1.44;p.rate=0.04+i*0.013;});
+
+  // ---------- audio ----------
+  let ctx=null,master=null,analyser=null,freqData=null,noiseBuf=null;
+  let layerGain,rumGain,lp1,lp2,lp3,hpF,surgeGain,chBP,chGain,bubBus;
+  let wRefGain=null,wRefA=null,wRefB=null,wRefSrc=null,wRefOn=false;
+  let gurgleTimer=null,surgeTimer=null;
+
+  function makeNoise(ac){
+    const len=ac.sampleRate*4;
+    const b=ac.createBuffer(1,len,ac.sampleRate);
+    const d=b.getChannelData(0);
+    let last=0;
+    for(let i=0;i<len;i++){
+      const w=Math.random()*2-1;
+      last=(last+0.012*w)/1.012;        // heavier brown tilt than the water bed
+      d[i]=last*5.2;
+    }
+    return b;
+  }
+
+  function build(ac){
+    layerGain=ac.createGain(); layerGain.gain.value=0.0001; layerGain.connect(master);
+
+    const src=ac.createBufferSource(); src.buffer=noiseBuf; src.loop=true;
+
+    hpF=ac.createBiquadFilter(); hpF.type='highpass'; hpF.frequency.value=num('hp');
+    lp1=ac.createBiquadFilter(); lp1.type='lowpass'; lp1.Q.value=0.7;
+    lp2=ac.createBiquadFilter(); lp2.type='lowpass'; lp2.Q.value=0.7;
+    lp3=ac.createBiquadFilter(); lp3.type='lowpass'; lp3.Q.value=0.7;
+    surgeGain=ac.createGain(); surgeGain.gain.value=1;
+    rumGain=ac.createGain(); rumGain.gain.value=num('rumLvl');
+
+    src.connect(hpF).connect(lp1).connect(lp2).connect(lp3)
+       .connect(surgeGain).connect(rumGain).connect(layerGain);
+
+    // chamber resonance, tapped off the same bed
+    chBP=ac.createBiquadFilter(); chBP.type='bandpass';
+    chBP.frequency.value=num('chHz'); chBP.Q.value=num('chQ');
+    chGain=ac.createGain(); chGain.gain.value=num('chLvl');
+    hpF.connect(chBP).connect(chGain).connect(layerGain);
+
+    bubBus=ac.createGain(); bubBus.gain.value=1; bubBus.connect(layerGain);
+
+    src.start(ac.currentTime);
+    scheduleSurge(); scheduleGurgle();
+  }
+
+  // irregular amplitude + cutoff drift — a random walk, deliberately not periodic
+  function scheduleSurge(){
+    if(!ctx) return;
+    const now=ctx.currentTime;
+    const dep=num('surgeDep');
+    const target=1-dep*Math.random();
+    surgeGain.gain.setTargetAtTime(target,now,num('surgeRate')*0.4);
+    surgeOffset=(Math.random()*2-1)*num('surgeCut');
+    surgeTimer=setTimeout(scheduleSurge, rand(0.55,1.6)*num('surgeRate')*1000);
+  }
+  let surgeOffset=0;
+
+  // Minnaert: f ≈ 3.28 / r  (r in metres) — bubble size alone sets pitch
+  function bubbleHz(diameterMm){
+    const r=(diameterMm/1000)/2;
+    return clamp(3.28/r, 40, 6000);
+  }
+
+  function fireBubble(t0, gain){
+    const d=rand(num('szMin'),num('szMax'));
+    const f0=bubbleHz(d);
+    const rise=num('bubRise'), dec=num('bubDec');
+    const o=ctx.createOscillator(); o.type='sine';
+    o.frequency.setValueAtTime(f0,t0);
+    if(rise>0.001) o.frequency.exponentialRampToValueAtTime(f0*(1+rise), t0+dec*0.85);
+    const g=ctx.createGain();
+    g.gain.setValueAtTime(0.0001,t0);
+    g.gain.linearRampToValueAtTime(gain,t0+0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001,t0+dec);
+    o.connect(g).connect(bubBus);
+    o.start(t0); o.stop(t0+dec+0.03);
+  }
+
+  function scheduleGurgle(){
+    if(!ctx) return;
+    const nearest=nearestDist();
+    if(nearest<=num('gurgGate')){
+      const prox=1-clamp(nearest/num('gurgGate'),0,1);
+      const n=Math.round(rand(num('bubMin'),num('bubMax')));
+      const t0=ctx.currentTime+0.01;
+      for(let i=0;i<n;i++){
+        fireBubble(t0+Math.pow(Math.random(),1.4)*0.22, num('bubLvl')*(0.35+0.65*prox)*0.5);
+      }
+    }
+    const iMin=num('intMin'), iMax=Math.max(num('intMin')+0.05,num('intMax'));
+    gurgleTimer=setTimeout(scheduleGurgle, rand(iMin,iMax)*1000);
+  }
+
+  function nearestDist(){
+    let n=Infinity;
+    for(const p of pipes) n=Math.min(n,p.dist);
+    return n;
+  }
+
+  // ---------- water reference ----------
+  function buildWaterRef(ac){
+    wRefSrc=ac.createBufferSource(); wRefSrc.buffer=noiseBuf; wRefSrc.loop=true;
+    const hp=ac.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=120;
+    wRefA=ac.createBiquadFilter(); wRefA.type='bandpass';
+    wRefA.frequency.value=num('wLo'); wRefA.Q.value=num('wQ');
+    wRefB=ac.createBiquadFilter(); wRefB.type='bandpass';
+    wRefB.frequency.value=num('wHi'); wRefB.Q.value=num('wQ');
+    wRefGain=ac.createGain(); wRefGain.gain.value=0.0001;
+    wRefSrc.connect(hp);
+    hp.connect(wRefA).connect(wRefGain);
+    hp.connect(wRefB).connect(wRefGain);
+    wRefGain.connect(master);
+    wRefSrc.start(ac.currentTime);
+  }
+
+  // ---------- tick ----------
+  let walking=false, walkT=0;
+  function tick(){
+    requestAnimationFrame(tick);
+    if(walking){
+      walkT+=1/60;
+      pipes.forEach((p,i)=>{
+        p.dist=clamp(46+44*Math.sin(walkT*p.rate*2*Math.PI+p.phase),0.5,120);
+        const el=document.querySelector('[data-dist="'+i+'"]');
+        if(el) el.value=p.dist;
+      });
+    }
+    if(ctx) update();
+    paintPipes();
+  }
+
+  function update(){
+    const now=ctx.currentTime, R=num('radius');
+    const inRange=pipes.filter(p=>p.dist<=R);
+    const nearest=inRange.length?Math.min(...inRange.map(p=>p.dist)):Infinity;
+    const prox=inRange.length?Math.pow(1-nearest/R,num('falloff')):0;
+    const dNorm=clamp((inRange.length-1)/5,0,1);
+    const dMul=num('dg1')+(num('dg6')-num('dg1'))*dNorm;
+
+    layerGain.gain.setTargetAtTime(Math.max(0.0001,prox*dMul),now,num('ramp'));
+
+    const cut=num('lpFar')+(num('lpNear')-num('lpFar'))*prox+surgeOffset;
+    const s=parseInt($('slope').value,10);
+    lp1.frequency.setTargetAtTime(cut,now,0.4);
+    lp2.frequency.setTargetAtTime(s>=2?cut:18000,now,0.4);
+    lp3.frequency.setTargetAtTime(s>=3?cut:18000,now,0.4);
+    hpF.frequency.setTargetAtTime(num('hp'),now,0.3);
+    rumGain.gain.setTargetAtTime(num('rumLvl'),now,0.2);
+    chBP.frequency.setTargetAtTime(num('chHz'),now,0.3);
+    chBP.Q.setTargetAtTime(num('chQ'),now,0.3);
+    chGain.gain.setTargetAtTime(num('chLvl'),now,0.3);
+
+    if(wRefGain){
+      wRefA.frequency.setTargetAtTime(num('wLo'),now,0.3);
+      wRefB.frequency.setTargetAtTime(num('wHi'),now,0.3);
+      wRefA.Q.setTargetAtTime(num('wQ'),now,0.3);
+      wRefB.Q.setTargetAtTime(num('wQ'),now,0.3);
+      wRefGain.gain.setTargetAtTime(wRefOn?Math.max(0.0001,num('wLvl')*prox*0.5):0.0001,now,0.4);
+    }
+
+    $('pipeStats').textContent=inRange.length+' in range · nearest '+
+      (isFinite(nearest)?nearest.toFixed(1)+' m':'—')+' · gain '+(prox*dMul).toFixed(3)+
+      (nearest<=num('gurgGate')?' · gurgling':'');
+  }
+
+  // ---------- pipe table ----------
+  function buildPipes(){
+    $('pipeWrap').innerHTML='<table><thead><tr><th>Pipe</th><th class="slider">Distance m</th>'+
+      '<th>Dist</th><th>Level</th></tr></thead><tbody>'+
+      pipes.map((p,i)=>'<tr id="pr'+i+'"><td class="pid">'+p.id+'</td>'+
+        '<td class="slider"><input type="range" data-dist="'+i+'" min="0" max="120" step="0.5" value="'+p.dist+'"></td>'+
+        '<td id="pm'+i+'">'+p.dist.toFixed(1)+'</td>'+
+        '<td><span class="barwrap"><span class="bar" id="pb'+i+'" style="width:0"></span></span></td></tr>').join('')+
+      '</tbody></table>';
+    document.querySelectorAll('[data-dist]').forEach(el=>{
+      el.addEventListener('input',()=>{
+        pipes[+el.dataset.dist].dist=parseFloat(el.value);
+        if(walking){walking=false;$('btnWalk').classList.remove('on');status();}
+      });
+    });
+  }
+  buildPipes();
+
+  function paintPipes(){
+    const R=num('radius');
+    pipes.forEach((p,i)=>{
+      const row=$('pr'+i); if(!row) return;
+      row.classList.toggle('out',p.dist>R);
+      const m=$('pm'+i); if(m) m.textContent=p.dist.toFixed(1);
+      const b=$('pb'+i);
+      if(b){ const w=p.dist<=R?Math.pow(1-p.dist/R,num('falloff')):0; b.style.width=Math.round(w*60)+'px'; }
+    });
+  }
+
+  // ---------- scope ----------
+  const cv=$('scope'),c2=cv.getContext('2d');
+  function resizeScope(){
+    const r=cv.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
+    cv.width=Math.round(r.width*dpr); cv.height=Math.round(198*dpr);
+    c2.setTransform(dpr,0,0,dpr,0,0);
+  }
+  window.addEventListener('resize',resizeScope); resizeScope();
+  const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+
+  function drawScope(){
+    requestAnimationFrame(drawScope);
+    const w=cv.clientWidth,h=198;
+    c2.clearRect(0,0,w,h); c2.fillStyle=css('--paper-2'); c2.fillRect(0,0,w,h);
+
+    const nyq=ctx?ctx.sampleRate/2:24000;
+    const fMin=25,fMax=Math.min(8000,nyq);
+    const xOf=f=>(Math.log10(f/fMin)/Math.log10(fMax/fMin))*w;
+
+    // water band shading — where the collision would happen
+    const wa=xOf(clamp(num('wLo'),fMin,fMax)), wb=xOf(clamp(num('wHi'),fMin,fMax));
+    c2.fillStyle='rgba(26,110,158,0.09)';
+    c2.fillRect(wa,0,wb-wa,h-14);
+    c2.fillStyle=css('--water'); c2.font='9px ui-monospace, Menlo, monospace';
+    c2.fillText('WATER RESONANCE BAND',wa+4,12);
+
+    c2.strokeStyle=css('--rule'); c2.lineWidth=1; c2.fillStyle=css('--ink-3');
+    [30,50,100,200,500,1000,2000,5000].forEach(f=>{
+      if(f<fMin||f>fMax) return;
+      const x=Math.round(xOf(f))+0.5;
+      c2.beginPath(); c2.moveTo(x,0); c2.lineTo(x,h-14); c2.stroke();
+      c2.fillText(f>=1000?(f/1000)+'k':String(f),x+3,h-4);
+    });
+
+    if(ctx){
+      // bubble size range markers
+      const b1=bubbleHz(num('szMax')), b2=bubbleHz(num('szMin'));
+      c2.setLineDash([2,3]); c2.strokeStyle=css('--sew'); c2.globalAlpha=0.6;
+      [b1,b2].forEach(f=>{
+        if(f<fMin||f>fMax) return;
+        const x=Math.round(xOf(f))+0.5;
+        c2.beginPath(); c2.moveTo(x,16); c2.lineTo(x,h-14); c2.stroke();
+      });
+      c2.globalAlpha=1; c2.setLineDash([]);
+    }
+
+    if(!ctx||!analyser) return;
+    analyser.getByteFrequencyData(freqData);
+    const bins=freqData.length;
+    c2.beginPath(); let started=false;
+    for(let x=0;x<=w;x++){
+      const f=fMin*Math.pow(fMax/fMin,x/w);
+      const bin=Math.min(bins-1,Math.round((f/nyq)*bins));
+      const v=freqData[bin]/255;
+      const y=h-16-v*(h-32);
+      if(!started){c2.moveTo(x,y);started=true}else c2.lineTo(x,y);
+    }
+    c2.strokeStyle=css('--ink'); c2.lineWidth=1.2; c2.stroke();
+    c2.lineTo(w,h-16); c2.lineTo(0,h-16); c2.closePath();
+    c2.fillStyle='rgba(20,23,26,0.08)'; c2.fill();
+  }
+  drawScope(); tick();
+
+  // ---------- controls ----------
+  async function enableAudio(){
+    if(ctx) return;
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    await ctx.resume();
+    noiseBuf=makeNoise(ctx);
+    master=ctx.createGain(); master.gain.value=num('master');
+    analyser=ctx.createAnalyser(); analyser.fftSize=4096; analyser.smoothingTimeConstant=0.8;
+    freqData=new Uint8Array(analyser.frequencyBinCount);
+    master.connect(analyser); master.connect(ctx.destination);
+    build(ctx); buildWaterRef(ctx);
+    $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
+    $('btnWalk').disabled=false; $('btnWater').disabled=false; $('btnPanic').disabled=false;
+    $('scopeLabel').textContent='SPECTRUM — '+Math.round(ctx.sampleRate/1000)+' kHz · dashed = bubble size range';
+    $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+  }
+  function status(){
+    $('modeStatus').textContent='Walk simulation — '+(walking?'running':'off')+
+      ' · water reference '+(wRefOn?'on':'off');
+  }
+
+  $('btnAudio').addEventListener('click',enableAudio);
+  $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
+  $('btnWalk').addEventListener('click',()=>{ walking=!walking; $('btnWalk').classList.toggle('on',walking); status(); });
+  $('btnWater').addEventListener('click',()=>{ wRefOn=!wRefOn; $('btnWater').classList.toggle('wateron',wRefOn); status(); });
+  $('btnPanic').addEventListener('click',()=>{
+    pipes.forEach((p,i)=>{p.dist=120;const el=document.querySelector('[data-dist="'+i+'"]');if(el)el.value=120;});
+    walking=false; $('btnWalk').classList.remove('on'); status();
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.code==='Space'&&!/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
+      e.preventDefault(); if(!ctx) enableAudio(); else $('btnWalk').click();
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THERMAL DRONE — Fernwärme</title>
+<style>
+  :root{
+    --paper:#E9EBE6; --paper-2:#F4F5F2; --paper-3:#DFE2DB;
+    --ink:#14171A; --ink-2:#5A6169; --ink-3:#8B9199; --rule:#C6CAC3;
+    --fern:#C4451F; --live:#0F7A78; --warn:#B85C1E; --ghost:#8B9199;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+       font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+
+  .masthead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+            flex-wrap:wrap;border-bottom:1.5px solid var(--ink);padding-bottom:10px}
+  .title{font-size:clamp(26px,5vw,42px);font-weight:700;letter-spacing:-0.035em;
+         text-transform:uppercase;margin:0;line-height:0.95}
+  .title span{color:var(--fern)}
+  .masthead-meta{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+                 text-align:right;letter-spacing:0.02em;white-space:nowrap}
+  .masthead-meta b{color:var(--ink);font-weight:500}
+  .strapline{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:8px 0 20px}
+  .strapline em{color:var(--fern);font-style:normal}
+
+  .panel{background:var(--paper-2);border:1px solid var(--rule);padding:12px 13px 14px}
+  .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+              margin:0 0 10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+  .panel-head h2{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.14em;
+                 text-transform:uppercase;margin:0}
+  .panel-head .note{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);text-align:right}
+
+  .hero{margin:0 0 14px;border:1px solid var(--rule);background:var(--paper-2);position:relative}
+  canvas#map{display:block;width:100%;height:400px;cursor:crosshair;touch-action:none}
+  .maptag{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
+          color:var(--ink-3);pointer-events:none}
+  .maptag.tl{left:9px;top:8px}
+  .maptag.tr{right:9px;top:8px;text-align:right;line-height:1.7}
+  .maptag.tr b{color:var(--fern);font-weight:500}
+
+  .transport{display:flex;gap:10px;align-items:center;margin:14px 0 18px;flex-wrap:wrap}
+  button{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+         padding:9px 14px;border:1px solid var(--ink);background:var(--paper-2);color:var(--ink);
+         cursor:pointer;transition:background .12s,color .12s}
+  button:hover:not(:disabled){background:var(--ink);color:var(--paper-2)}
+  button:disabled{opacity:.35;cursor:not-allowed}
+  button:focus-visible{outline:2px solid var(--live);outline-offset:2px}
+  button.primary{background:var(--fern);border-color:var(--fern);color:#fff;font-weight:600}
+  button.primary:hover:not(:disabled){background:var(--ink);border-color:var(--ink)}
+  button.ghost{border-color:var(--rule);color:var(--ink-2)}
+  button.ghost:hover:not(:disabled){background:var(--ink-2);color:var(--paper-2);border-color:var(--ink-2)}
+  button.on{background:var(--live);border-color:var(--live);color:#fff}
+
+  .headwrap{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;
+            color:var(--ink-3);letter-spacing:.06em}
+
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));align-items:start}
+  .row{display:grid;grid-template-columns:100px 1fr;gap:9px;align-items:center;margin-bottom:7px}
+  .row:last-child{margin-bottom:0}
+  .row>label{font-family:var(--mono);font-size:10px;color:var(--ink-2);line-height:1.2}
+  .rng{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .field{display:flex;align-items:center;gap:5px}
+  .field span{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);
+              letter-spacing:0.06em;text-transform:uppercase}
+  input[type=number]{font-family:var(--mono);font-size:11px;width:100%;min-width:0;padding:5px 6px;
+                     border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+  input[type=number]:focus-visible{outline:2px solid var(--live);outline-offset:-1px}
+  input[type=range]{width:100%;accent-color:var(--fern)}
+  select{font-family:var(--mono);font-size:11px;padding:5px 6px;border:1px solid var(--rule);
+         background:var(--paper);color:var(--ink);width:100%}
+  .val{font-family:var(--mono);font-size:10.5px;color:var(--ink);min-width:46px;text-align:right}
+  .hint{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);line-height:1.5;
+        margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--rule)}
+  .hint b{color:var(--fern);font-weight:500}
+
+  #log{font-family:var(--mono);font-size:10px;line-height:1.65;height:180px;overflow-y:auto;margin-top:14px}
+  #log div{border-bottom:1px solid var(--paper-3);padding:2px 0}
+  #log .t{color:var(--ink-3)}
+  #log .ev-cross{color:var(--fern)}
+  #log .ev-along{color:var(--live)}
+  #log .ev-end{color:var(--ink-3)}
+  #log .ev-false{color:var(--warn)}
+
+  .status{font-family:var(--mono);font-size:10px;color:var(--ink-2);margin-top:16px;
+          padding-top:9px;border-top:1px solid var(--rule);
+          display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .status .ok{color:var(--live)}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="title">Thermal <span>Drone</span></h1>
+    <div class="masthead-meta">
+      FERNWÄRME · BEHAVIOUR 22–24/23<br>
+      <b>BEARING PANNING + CROSSING GEOMETRY</b><br>
+      HIDDEN INFRASTRUCTURES : ZÜRICH
+    </div>
+  </header>
+
+  <p class="strapline">
+    Drag the listener. Panning follows <em>sin(bearing − heading)</em> to the nearest point on the nearest pipe.
+    Crossing and alongside run the real tests — cross-product sign, acute angle, minimum move —
+    so the <em>GPS noise</em> control shows how they fail on the street.
+  </p>
+
+  <section class="hero">
+    <canvas id="map" width="1160" height="400"></canvas>
+    <div class="maptag tl">PLAN — 1 px ≈ <span id="scaleTag">0.10</span> m · drag to move</div>
+    <div class="maptag tr" id="mapRead">—</div>
+  </section>
+
+  <div class="transport">
+    <button id="btnAudio" class="primary">Enable audio</button>
+    <button id="btnWalk" class="ghost" disabled>Auto walk</button>
+    <div class="headwrap">
+      <span>HEADING</span>
+      <input type="range" id="heading" min="0" max="359" step="1" value="0" style="width:120px">
+      <span class="val" id="headingV">0°</span>
+    </div>
+    <div class="headwrap">
+      <span>GPS NOISE ±m</span>
+      <input type="range" id="gpsNoise" min="0" max="25" step="0.5" value="0" style="width:110px">
+      <span class="val" id="gpsNoiseV">0.0</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">MASTER</span>
+      <input type="range" id="master" min="0" max="1" step="0.01" value="0.6" style="width:120px">
+      <span class="val" id="masterV">0.60</span>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <section class="panel">
+      <div class="panel-head"><h2>Tone</h2><div class="note">60 Hz + partials</div></div>
+      <div class="row"><label>FUND Hz</label>
+        <div class="field"><input type="number" id="fund" value="60" step="1" min="25" max="400"></div>
+      </div>
+      <div class="row"><label>2ND</label>
+        <div class="field"><input type="range" id="p2" min="0" max="1" step="0.01" value="0.22"><span class="val" id="p2V">0.22</span></div>
+      </div>
+      <div class="row"><label>3RD</label>
+        <div class="field"><input type="range" id="p3" min="0" max="1" step="0.01" value="0.1"><span class="val" id="p3V">0.10</span></div>
+      </div>
+      <div class="row"><label>FLOW NOISE</label>
+        <div class="field"><input type="range" id="flowLvl" min="0" max="0.5" step="0.005" value="0.06"><span class="val" id="flowLvlV">0.060</span></div>
+      </div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="toneLvl" min="0" max="1" step="0.01" value="0.6"><span class="val" id="toneLvlV">0.60</span></div>
+      </div>
+      <p class="hint">A pure 60 Hz sine is close to inaudible on the bone-conduction headphones the project recommends for street safety. The partials exist so the layer survives that hardware — set both to 0 to hear the documented version and judge whether it carries.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Tremolo</h2><div class="note">0.3 Hz</div></div>
+      <div class="row"><label>RATE Hz</label>
+        <div class="field"><input type="range" id="trRate" min="0.05" max="3" step="0.01" value="0.3"><span class="val" id="trRateV">0.30</span></div>
+      </div>
+      <div class="row"><label>DEPTH</label>
+        <div class="field"><input type="range" id="trDep" min="0" max="1" step="0.01" value="0.4"><span class="val" id="trDepV">0.40</span></div>
+      </div>
+      <div class="row"><label>TARGET</label>
+        <div class="field">
+          <select id="trTarget">
+            <option value="carrier" selected>Carrier gain — correct</option>
+            <option value="master">Master gain — bleeds</option>
+          </select>
+        </div>
+      </div>
+      <p class="hint">Multiplicative on the carrier, not the master. On <b>master</b> the LFO keeps writing to a gain that should be silent, so the tone bleeds through when the layer is out of range — walk beyond 30 m in that mode to hear the fault this detail was added to prevent.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Panning</h2><div class="note">nearest segment bearing</div></div>
+      <div class="row"><label>MODE</label>
+        <div class="field">
+          <select id="panMode">
+            <option value="sin" selected>sin(rel) — documented</option>
+            <option value="lin">Linear rel — no rear fold</option>
+            <option value="off">Off — centred</option>
+          </select>
+        </div>
+      </div>
+      <div class="row"><label>WIDTH</label>
+        <div class="field"><input type="range" id="panW" min="0" max="1" step="0.01" value="1"><span class="val" id="panWV">1.00</span></div>
+      </div>
+      <div class="row"><label>SMOOTH s</label>
+        <div class="field"><input type="range" id="panTC" min="0.02" max="3" step="0.02" value="1"><span class="val" id="panTCV">1.00</span></div>
+      </div>
+      <p class="hint"><b>sin(rel)</b> folds front and back onto the same pan value — a pipe ahead and a pipe behind both read as centre. HRTF would resolve it. Linear mode removes the fold but sweeps unnaturally as you turn; worth hearing both before the spatial system is decided.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Proximity</h2><div class="note">30 m, tightened from 60</div></div>
+      <div class="row"><label>RADIUS m</label>
+        <div class="field"><input type="number" id="radius" value="30" step="1" min="5" max="120"></div>
+      </div>
+      <div class="row"><label>FALLOFF exp</label>
+        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
+      </div>
+      <div class="row"><label>RAMP s</label>
+        <div class="field"><input type="range" id="ramp" min="0.05" max="3" step="0.05" value="0.4"><span class="val" id="rampV">0.40</span></div>
+      </div>
+      <p class="hint">198 pipes across District 1 makes this the sparsest layer by far — encounters are meant to be rare and sudden, which is why the radius was tightened and the ramp is fast.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Detection</h2><div class="note">shared by all 5 line layers</div></div>
+      <div class="row"><label>MIN MOVE m</label>
+        <div class="field"><input type="range" id="minMove" min="0.1" max="8" step="0.1" value="0.5"><span class="val" id="minMoveV">0.5</span></div>
+      </div>
+      <div class="row"><label>ALONG m</label>
+        <div class="field"><input type="range" id="alongR" min="2" max="60" step="1" value="20"><span class="val" id="alongRV">20</span></div>
+      </div>
+      <div class="row"><label>ANGLE °</label>
+        <div class="field"><input type="range" id="alongA" min="5" max="80" step="1" value="35"><span class="val" id="alongAV">35</span></div>
+      </div>
+      <div class="row"><label>CROSS CD s</label>
+        <div class="field"><input type="range" id="crossCD" min="0.5" max="15" step="0.5" value="3"><span class="val" id="crossCDV">3.0</span></div>
+      </div>
+      <p class="hint">These four constants govern crossing and alongside on <b>every</b> LineString layer, not just this one. Min move exists to stop GPS jitter registering as travel — raise the noise control and watch the false-positive count climb.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Events</h2><div class="note">crossing + alongside</div></div>
+      <div class="row"><label>BURST LVL</label>
+        <div class="field"><input type="range" id="burstLvl" min="0" max="0.6" step="0.01" value="0.15"><span class="val" id="burstLvlV">0.15</span></div>
+      </div>
+      <div class="row"><label>BURST s</label>
+        <div class="field"><input type="range" id="burstDur" min="0.05" max="2" step="0.05" value="0.5"><span class="val" id="burstDurV">0.50</span></div>
+      </div>
+      <div class="row"><label>ALONG s</label>
+        <div class="field"><input type="range" id="alongInt" min="1" max="20" step="0.5" value="6"><span class="val" id="alongIntV">6.0</span></div>
+      </div>
+      <div class="row"><label>JITTER %</label>
+        <div class="field"><input type="range" id="alongJit" min="0" max="90" step="5" value="40"><span class="val" id="alongJitV">40</span></div>
+      </div>
+      <div class="row"><label>WALK SPD</label>
+        <div class="field"><input type="range" id="walkSpd" min="0.3" max="3" step="0.1" value="1.4"><span class="val" id="walkSpdV">1.4</span></div>
+      </div>
+      <p class="hint">The crossing burst routes through the same panner as the drone, so it localises in the pipe's direction rather than arriving centred. Alongside repeats it at roughly 6 s with ±40 % jitter while you track a pipe.</p>
+    </section>
+
+  </div>
+
+  <section class="panel" style="margin-top:14px">
+    <div class="panel-head"><h2>Detection log</h2><div class="note" id="logStats">—</div></div>
+    <div id="log"></div>
+  </section>
+
+  <div class="status">
+    <div id="modeStatus">Auto walk — off</div>
+    <div id="ctxStatus">AudioContext — not created</div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const num=id=>parseFloat($(id).value);
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const rand=(a,b)=>a+Math.random()*(b-a);
+  const D2R=Math.PI/180, R2D=180/Math.PI;
+
+  const bind=(i,o,d,suf)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)+(suf||'')};i.addEventListener('input',s);s();};
+  bind($('heading'),$('headingV'),0,'°'); bind($('gpsNoise'),$('gpsNoiseV'),1);
+  bind($('p2'),$('p2V'),2); bind($('p3'),$('p3V'),2); bind($('flowLvl'),$('flowLvlV'),3);
+  bind($('toneLvl'),$('toneLvlV'),2);
+  bind($('trRate'),$('trRateV'),2); bind($('trDep'),$('trDepV'),2);
+  bind($('panW'),$('panWV'),2); bind($('panTC'),$('panTCV'),2);
+  bind($('falloff'),$('falloffV'),1); bind($('ramp'),$('rampV'),2);
+  bind($('minMove'),$('minMoveV'),1); bind($('alongR'),$('alongRV'),0);
+  bind($('alongA'),$('alongAV'),0); bind($('crossCD'),$('crossCDV'),1);
+  bind($('burstLvl'),$('burstLvlV'),2); bind($('burstDur'),$('burstDurV'),2);
+  bind($('alongInt'),$('alongIntV'),1); bind($('alongJit'),$('alongJitV'),0);
+  bind($('walkSpd'),$('walkSpdV'),1); bind($('master'),$('masterV'),2);
+
+  // ---------- world (metres) ----------
+  const WORLD={w:116,h:40};
+  const pipes=[
+    {id:'FW-0412', a:{x:8,y:31},  b:{x:47,y:24}},
+    {id:'FW-0418', a:{x:47,y:24}, b:{x:72,y:33}},
+    {id:'FW-0503', a:{x:26,y:6},  b:{x:31,y:36}},
+    {id:'FW-0661', a:{x:78,y:9},  b:{x:108,y:16}},
+    {id:'FW-0662', a:{x:78,y:9},  b:{x:70,y:34}}
+  ];
+
+  let lis={x:16,y:14};          // true position
+  let fix={x:16,y:14};          // noisy reported position
+  let prevFix=null;
+  let heading=0;
+  let walking=false, walkT=0;
+  const counts={cross:0,along:0,false:0};
+  let lastCross=new Map();      // pipe id -> ms
+  let alongState=new Map();     // pipe id -> {timer}
+  let flashes=[];               // {x,y,t}
+
+  function log(kind,text){
+    const el=$('log'); const d=document.createElement('div');
+    const t=new Date();
+    const ts=String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0')+
+             '.'+String(Math.floor(t.getMilliseconds()/100));
+    d.innerHTML='<span class="t">'+ts+'</span> <span class="ev-'+kind+'">'+text+'</span>';
+    el.prepend(d);
+    while(el.children.length>60) el.removeChild(el.lastChild);
+    $('logStats').textContent=counts.cross+' cross · '+counts.along+' along · '+counts.false+' suspect';
+  }
+
+  // ---------- geometry, mirroring proximity-engine ----------
+  function nearestOnSeg(p,a,b){
+    const dx=b.x-a.x, dy=b.y-a.y, l2=dx*dx+dy*dy;
+    if(l2===0) return {x:a.x,y:a.y,d:Math.hypot(p.x-a.x,p.y-a.y)};
+    let t=((p.x-a.x)*dx+(p.y-a.y)*dy)/l2;
+    t=clamp(t,0,1);
+    const qx=a.x+t*dx, qy=a.y+t*dy;
+    return {x:qx,y:qy,d:Math.hypot(p.x-qx,p.y-qy)};
+  }
+  function ccw(a,b,c){ return (c.y-a.y)*(b.x-a.x) > (b.y-a.y)*(c.x-a.x); }
+  function segsCross(p1,p2,p3,p4){
+    return ccw(p1,p3,p4)!==ccw(p2,p3,p4) && ccw(p1,p2,p3)!==ccw(p1,p2,p4);
+  }
+  // bearing 0-360 from north (screen -y is north)
+  function bearingTo(from,to){
+    const dx=to.x-from.x, dy=-(to.y-from.y);
+    let b=Math.atan2(dx,dy)*R2D;
+    return (b+360)%360;
+  }
+
+  function nearestPipe(p){
+    let best=null;
+    for(const pipe of pipes){
+      const n=nearestOnSeg(p,pipe.a,pipe.b);
+      if(!best||n.d<best.n.d) best={pipe,n};
+    }
+    return best;
+  }
+
+  // ---------- audio ----------
+  let ctx=null,master=null,noiseBuf=null;
+  let carrier=null,osc2=null,osc3=null,g2=null,g3=null,carrierGain=null,
+      layerGain=null,panner=null,trLfo=null,trDepth=null,flowSrc=null,flowGain=null,flowBP=null;
+
+  function makeNoise(ac){
+    const len=ac.sampleRate*2;
+    const b=ac.createBuffer(1,len,ac.sampleRate);
+    const d=b.getChannelData(0);
+    let last=0;
+    for(let i=0;i<len;i++){ const w=Math.random()*2-1; last=(last+0.03*w)/1.03; d[i]=last*3.2; }
+    return b;
+  }
+
+  function build(ac){
+    panner=ac.createStereoPanner(); panner.pan.value=0;
+    layerGain=ac.createGain(); layerGain.gain.value=0.0001;
+    layerGain.connect(panner).connect(master);
+
+    carrierGain=ac.createGain(); carrierGain.gain.value=1;
+    carrierGain.connect(layerGain);
+
+    const f=num('fund');
+    carrier=ac.createOscillator(); carrier.type='sine'; carrier.frequency.value=f;
+    carrier.connect(carrierGain);
+    osc2=ac.createOscillator(); osc2.type='sine'; osc2.frequency.value=f*2;
+    g2=ac.createGain(); g2.gain.value=num('p2'); osc2.connect(g2).connect(carrierGain);
+    osc3=ac.createOscillator(); osc3.type='sine'; osc3.frequency.value=f*3;
+    g3=ac.createGain(); g3.gain.value=num('p3'); osc3.connect(g3).connect(carrierGain);
+
+    flowSrc=ac.createBufferSource(); flowSrc.buffer=noiseBuf; flowSrc.loop=true;
+    flowBP=ac.createBiquadFilter(); flowBP.type='bandpass';
+    flowBP.frequency.value=f*4; flowBP.Q.value=2.5;
+    flowGain=ac.createGain(); flowGain.gain.value=num('flowLvl');
+    flowSrc.connect(flowBP).connect(flowGain).connect(carrierGain);
+
+    // tremolo — multiplicative on the carrier, so it cannot write through a silent layer
+    trLfo=ac.createOscillator(); trLfo.type='sine'; trLfo.frequency.value=num('trRate');
+    trDepth=ac.createGain(); trDepth.gain.value=num('trDep')*0.5;
+    trLfo.connect(trDepth).connect(carrierGain.gain);
+
+    const t=ac.currentTime;
+    carrier.start(t); osc2.start(t); osc3.start(t); flowSrc.start(t); trLfo.start(t);
+  }
+
+  function retargetTremolo(){
+    if(!ctx) return;
+    try{ trDepth.disconnect(); }catch(e){}
+    if($('trTarget').value==='master'){
+      trDepth.connect(layerGain.gain);
+      carrierGain.gain.setTargetAtTime(1,ctx.currentTime,0.05);
+    } else {
+      trDepth.connect(carrierGain.gain);
+    }
+  }
+  $('trTarget').addEventListener('change',retargetTremolo);
+
+  function thermalBurst(gain){
+    if(!ctx) return;
+    const now=ctx.currentTime, dur=num('burstDur'), f=num('fund');
+    const o=ctx.createOscillator(); o.type='sine';
+    o.frequency.setValueAtTime(f*1.5,now);
+    o.frequency.exponentialRampToValueAtTime(f,now+dur*0.6);
+    const g=ctx.createGain();
+    g.gain.setValueAtTime(0.0001,now);
+    g.gain.linearRampToValueAtTime(gain,now+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,now+dur);
+    o.connect(g).connect(panner);       // through the panner, so it localises
+    o.start(now); o.stop(now+dur+0.05);
+  }
+
+  function startAlong(pipe){
+    if(alongState.has(pipe.id)) return;
+    counts.along++;
+    log('along','ALONG  '+pipe.id);
+    const st={timer:null};
+    const loop=()=>{
+      if(!alongState.has(pipe.id)) return;
+      thermalBurst(num('burstLvl')*0.8);
+      const j=num('alongJit')/100;
+      st.timer=setTimeout(loop, num('alongInt')*1000*rand(1-j,1+j));
+    };
+    st.timer=setTimeout(loop, num('alongInt')*1000*0.4);
+    alongState.set(pipe.id,st);
+  }
+  function stopAlong(id){
+    const st=alongState.get(id);
+    if(st){ clearTimeout(st.timer); alongState.delete(id); log('end','END    '+id); }
+  }
+
+  // ---------- per-frame ----------
+  let lastT=performance.now(), fixAccum=0;
+  let noiseOff={x:0,y:0};
+
+  function tick(){
+    requestAnimationFrame(tick);
+    const nowMs=performance.now(), dt=Math.min(0.1,(nowMs-lastT)/1000); lastT=nowMs;
+
+    if(walking){
+      walkT+=dt*num('walkSpd');
+      // a loop that deliberately crosses and then tracks pipes
+      const p=walkT*0.055;
+      lis.x=clamp(58+46*Math.sin(p),2,WORLD.w-2);
+      lis.y=clamp(20+15*Math.sin(p*1.7+0.8),2,WORLD.h-2);
+      if($('panMode').value!=='off'){
+        // heading follows movement when auto-walking
+        const nx=58+46*Math.sin(p+0.02), ny=20+15*Math.sin((p+0.02)*1.7+0.8);
+        heading=bearingTo({x:lis.x,y:lis.y},{x:nx,y:ny});
+        $('heading').value=Math.round(heading); $('headingV').textContent=Math.round(heading)+'°';
+      }
+    }
+
+    // GPS fixes at ~1 Hz with a random-walk offset
+    fixAccum+=dt;
+    if(fixAccum>=1){
+      fixAccum=0;
+      const n=num('gpsNoise');
+      noiseOff.x=clamp(noiseOff.x*0.55+rand(-n,n)*0.75,-n,n);
+      noiseOff.y=clamp(noiseOff.y*0.55+rand(-n,n)*0.75,-n,n);
+      const newFix={x:lis.x+noiseOff.x, y:lis.y+noiseOff.y};
+      evaluate(newFix, nowMs);
+      fix=newFix;
+    }
+
+    if(ctx) updateAudio();
+    flashes=flashes.filter(f=>nowMs-f.t<900);
+    draw();
+  }
+
+  // runs once per fix — this is where the real detection lives
+  function evaluate(newFix, nowMs){
+    if(prevFix){
+      const moved=Math.hypot(newFix.x-prevFix.x,newFix.y-prevFix.y);
+      if(moved>=num('minMove')){
+        const mvAng=Math.atan2(newFix.y-prevFix.y,newFix.x-prevFix.x);
+        for(const pipe of pipes){
+          // crossing — cross-product sign test on the two segments
+          if(segsCross(prevFix,newFix,pipe.a,pipe.b)){
+            const cd=num('crossCD')*1000;
+            if(nowMs-(lastCross.get(pipe.id)||-1e9)>cd){
+              lastCross.set(pipe.id,nowMs);
+              counts.cross++;
+              const trueMoved=Math.hypot(lis.x-(prevFix.x-noiseOff.x),lis.y-(prevFix.y-noiseOff.y));
+              const suspect=num('gpsNoise')>0 && moved>trueMoved*2.2;
+              if(suspect){ counts.false++; log('false','CROSS? '+pipe.id+' — fix moved '+moved.toFixed(1)+
+                            ' m, you moved '+trueMoved.toFixed(1)+' m'); }
+              else log('cross','CROSS  '+pipe.id+' — '+moved.toFixed(1)+' m step');
+              thermalBurst(num('burstLvl'));
+              const n=nearestOnSeg(newFix,pipe.a,pipe.b);
+              flashes.push({x:n.x,y:n.y,t:nowMs});
+            }
+          }
+          // alongside — within radius and acute to the segment
+          const n=nearestOnSeg(newFix,pipe.a,pipe.b);
+          const segAng=Math.atan2(pipe.b.y-pipe.a.y,pipe.b.x-pipe.a.x);
+          let diff=Math.abs(((mvAng-segAng)*R2D+180)%360-180);
+          if(diff>90) diff=180-diff;
+          const along = n.d<=num('alongR') && diff<=num('alongA');
+          if(along) startAlong(pipe); else stopAlong(pipe.id);
+        }
+      }
+    }
+    prevFix=newFix;
+  }
+
+  function updateAudio(){
+    const now=ctx.currentTime, R=num('radius');
+    const best=nearestPipe(fix);
+    const d=best?best.n.d:Infinity;
+    const prox=d<=R?Math.pow(1-d/R,num('falloff')):0;
+    layerGain.gain.setTargetAtTime(Math.max(0.0001,prox*num('toneLvl')),now,num('ramp'));
+
+    const f=num('fund');
+    carrier.frequency.setTargetAtTime(f,now,0.2);
+    osc2.frequency.setTargetAtTime(f*2,now,0.2);
+    osc3.frequency.setTargetAtTime(f*3,now,0.2);
+    g2.gain.setTargetAtTime(num('p2'),now,0.2);
+    g3.gain.setTargetAtTime(num('p3'),now,0.2);
+    flowBP.frequency.setTargetAtTime(f*4,now,0.2);
+    flowGain.gain.setTargetAtTime(num('flowLvl'),now,0.2);
+    trLfo.frequency.setTargetAtTime(num('trRate'),now,0.2);
+    trDepth.gain.setTargetAtTime(num('trDep')*0.5,now,0.2);
+
+    let pan=0;
+    if(best && $('panMode').value!=='off'){
+      const b=bearingTo(fix,{x:best.n.x,y:best.n.y});
+      const rel=((b-heading)+540)%360-180;
+      pan = $('panMode').value==='sin'
+            ? Math.sin(rel*D2R)
+            : clamp(rel/90,-1,1);
+      pan*=num('panW');
+    }
+    panner.pan.setTargetAtTime(clamp(pan,-1,1),now,num('panTC'));
+
+    $('mapRead').innerHTML =
+      (best?'<b>'+best.pipe.id+'</b> · '+d.toFixed(1)+' m':'no pipe in range')+'<br>'+
+      'bearing '+(best?Math.round(bearingTo(fix,{x:best.n.x,y:best.n.y})):0)+'° · rel '+
+      (best?Math.round(((bearingTo(fix,{x:best.n.x,y:best.n.y})-heading)+540)%360-180):0)+'°<br>'+
+      'pan '+pan.toFixed(2)+' · gain '+(prox*num('toneLvl')).toFixed(3);
+  }
+
+  // ---------- draw ----------
+  const cv=$('map'), c2=cv.getContext('2d');
+  let SC=10;
+  function resize(){
+    const r=cv.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+    cv.width=Math.round(r.width*dpr); cv.height=Math.round(400*dpr);
+    c2.setTransform(dpr,0,0,dpr,0,0);
+    SC=Math.min(r.width/WORLD.w, 400/WORLD.h);
+    $('scaleTag').textContent=(1/SC).toFixed(2);
+  }
+  window.addEventListener('resize',resize); resize();
+  const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+  const X=x=>x*SC, Y=y=>y*SC;
+
+  function draw(){
+    const w=cv.clientWidth,h=400;
+    c2.clearRect(0,0,w,h); c2.fillStyle=css('--paper-2'); c2.fillRect(0,0,w,h);
+
+    // 10 m grid
+    c2.strokeStyle=css('--rule'); c2.lineWidth=1;
+    for(let g=0;g<=WORLD.w;g+=10){
+      const x=Math.round(X(g))+0.5;
+      c2.beginPath(); c2.moveTo(x,0); c2.lineTo(x,h); c2.stroke();
+    }
+    for(let g=0;g<=WORLD.h;g+=10){
+      const y=Math.round(Y(g))+0.5;
+      c2.beginPath(); c2.moveTo(0,y); c2.lineTo(w,y); c2.stroke();
+    }
+
+    // radius + alongside rings on the reported fix
+    c2.beginPath(); c2.arc(X(fix.x),Y(fix.y),num('radius')*SC,0,Math.PI*2);
+    c2.fillStyle='rgba(196,69,31,0.06)'; c2.fill();
+    c2.strokeStyle='rgba(196,69,31,0.35)'; c2.setLineDash([3,4]); c2.stroke();
+    c2.beginPath(); c2.arc(X(fix.x),Y(fix.y),num('alongR')*SC,0,Math.PI*2);
+    c2.strokeStyle='rgba(15,122,120,0.4)'; c2.stroke(); c2.setLineDash([]);
+
+    // pipes
+    const best=nearestPipe(fix);
+    pipes.forEach(p=>{
+      const isBest=best&&best.pipe.id===p.id;
+      const isAlong=alongState.has(p.id);
+      c2.strokeStyle=isAlong?css('--live'):css('--fern');
+      c2.globalAlpha=isBest||isAlong?1:0.45;
+      c2.lineWidth=isBest?3:2;
+      c2.beginPath(); c2.moveTo(X(p.a.x),Y(p.a.y)); c2.lineTo(X(p.b.x),Y(p.b.y)); c2.stroke();
+      c2.globalAlpha=1;
+      c2.fillStyle=css('--ink-3'); c2.font='9px ui-monospace, Menlo, monospace';
+      c2.fillText(p.id, X((p.a.x+p.b.x)/2)+4, Y((p.a.y+p.b.y)/2)-4);
+    });
+
+    // bearing line to nearest point
+    if(best){
+      c2.strokeStyle=css('--fern'); c2.setLineDash([2,3]); c2.lineWidth=1;
+      c2.beginPath(); c2.moveTo(X(fix.x),Y(fix.y)); c2.lineTo(X(best.n.x),Y(best.n.y)); c2.stroke();
+      c2.setLineDash([]);
+      c2.fillStyle=css('--fern');
+      c2.beginPath(); c2.arc(X(best.n.x),Y(best.n.y),3.5,0,Math.PI*2); c2.fill();
+    }
+
+    // crossing flashes
+    const nowMs=performance.now();
+    flashes.forEach(f=>{
+      const a=1-(nowMs-f.t)/900;
+      c2.globalAlpha=a; c2.strokeStyle=css('--fern'); c2.lineWidth=2;
+      c2.beginPath(); c2.arc(X(f.x),Y(f.y),4+22*(1-a),0,Math.PI*2); c2.stroke();
+      c2.globalAlpha=1;
+    });
+
+    // true position vs reported fix
+    if(num('gpsNoise')>0){
+      c2.strokeStyle=css('--ghost'); c2.setLineDash([2,2]); c2.lineWidth=1;
+      c2.beginPath(); c2.moveTo(X(lis.x),Y(lis.y)); c2.lineTo(X(fix.x),Y(fix.y)); c2.stroke();
+      c2.setLineDash([]);
+      c2.fillStyle=css('--ghost');
+      c2.beginPath(); c2.arc(X(lis.x),Y(lis.y),4,0,Math.PI*2); c2.fill();
+      c2.font='9px ui-monospace, Menlo, monospace';
+      c2.fillText('true',X(lis.x)+7,Y(lis.y)-6);
+    }
+
+    // listener + heading
+    c2.fillStyle=css('--ink');
+    c2.beginPath(); c2.arc(X(fix.x),Y(fix.y),6,0,Math.PI*2); c2.fill();
+    const hr=heading*D2R;
+    c2.strokeStyle=css('--ink'); c2.lineWidth=2;
+    c2.beginPath(); c2.moveTo(X(fix.x),Y(fix.y));
+    c2.lineTo(X(fix.x)+Math.sin(hr)*22, Y(fix.y)-Math.cos(hr)*22); c2.stroke();
+    c2.beginPath();
+    c2.arc(X(fix.x)+Math.sin(hr)*22, Y(fix.y)-Math.cos(hr)*22,3,0,Math.PI*2); c2.fill();
+  }
+
+  // ---------- interaction ----------
+  function toWorld(ev){
+    const r=cv.getBoundingClientRect();
+    const cx=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left;
+    const cy=(ev.touches?ev.touches[0].clientY:ev.clientY)-r.top;
+    return {x:clamp(cx/SC,0,WORLD.w), y:clamp(cy/SC,0,WORLD.h)};
+  }
+  let dragging=false;
+  const onDown=e=>{ dragging=true; walking=false; $('btnWalk').classList.remove('on'); status();
+                    lis=toWorld(e); e.preventDefault(); };
+  const onMove=e=>{ if(dragging){ lis=toWorld(e); e.preventDefault(); } };
+  const onUp=()=>{ dragging=false; };
+  cv.addEventListener('mousedown',onDown); cv.addEventListener('mousemove',onMove);
+  window.addEventListener('mouseup',onUp);
+  cv.addEventListener('touchstart',onDown,{passive:false});
+  cv.addEventListener('touchmove',onMove,{passive:false});
+  window.addEventListener('touchend',onUp);
+
+  $('heading').addEventListener('input',()=>{ heading=num('heading'); });
+
+  // ---------- controls ----------
+  async function enableAudio(){
+    if(ctx) return;
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    await ctx.resume();
+    noiseBuf=makeNoise(ctx);
+    master=ctx.createGain(); master.gain.value=num('master');
+    master.connect(ctx.destination);
+    build(ctx); retargetTremolo();
+    $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
+    $('btnWalk').disabled=false;
+    $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+  }
+  function status(){ $('modeStatus').textContent='Auto walk — '+(walking?'running':'off'); }
+
+  $('btnAudio').addEventListener('click',enableAudio);
+  $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
+  $('btnWalk').addEventListener('click',()=>{ walking=!walking; $('btnWalk').classList.toggle('on',walking); status(); });
+
+  document.addEventListener('keydown',e=>{
+    if(e.code==='Space'&&!/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
+      e.preventDefault(); if(!ctx) enableAudio(); else $('btnWalk').click();
+    }
+  });
+
+  tick();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PULSE &amp; DRIP — water supply</title>
+<style>
+  :root{
+    --paper:#E9EBE6; --paper-2:#F4F5F2; --paper-3:#DFE2DB;
+    --ink:#14171A; --ink-2:#5A6169; --ink-3:#8B9199; --rule:#C6CAC3;
+    --water:#1A6E9E; --fit:#0F7A78; --live:#0F7A78; --warn:#B85C1E;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+       font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+
+  .masthead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+            flex-wrap:wrap;border-bottom:1.5px solid var(--ink);padding-bottom:10px}
+  .title{font-size:clamp(26px,5vw,42px);font-weight:700;letter-spacing:-0.035em;
+         text-transform:uppercase;margin:0;line-height:0.95}
+  .title span{color:var(--water)}
+  .masthead-meta{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+                 text-align:right;letter-spacing:0.02em;white-space:nowrap}
+  .masthead-meta b{color:var(--ink);font-weight:500}
+  .strapline{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:8px 0 20px}
+  .strapline em{color:var(--water);font-style:normal}
+  .strapline i{color:var(--fit);font-style:normal}
+
+  .panel{background:var(--paper-2);border:1px solid var(--rule);padding:12px 13px 14px}
+  .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+              margin:0 0 10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+  .panel-head h2{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.14em;
+                 text-transform:uppercase;margin:0}
+  .panel-head .note{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);text-align:right}
+
+  .hero{margin:0 0 14px;border:1px solid var(--rule);background:var(--paper-2);position:relative}
+  canvas.viz{display:block;width:100%}
+  canvas#scope{height:150px;border-bottom:1px solid var(--rule)}
+  canvas#raster{height:118px}
+  .maptag{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
+          color:var(--ink-3);pointer-events:none;left:9px;top:8px}
+
+  .transport{display:flex;gap:10px;align-items:center;margin:14px 0 18px;flex-wrap:wrap}
+  button{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+         padding:9px 14px;border:1px solid var(--ink);background:var(--paper-2);color:var(--ink);
+         cursor:pointer;transition:background .12s,color .12s}
+  button:hover:not(:disabled){background:var(--ink);color:var(--paper-2)}
+  button:disabled{opacity:.35;cursor:not-allowed}
+  button:focus-visible{outline:2px solid var(--live);outline-offset:2px}
+  button.primary{background:var(--water);border-color:var(--water);color:#fff;font-weight:600}
+  button.primary:hover:not(:disabled){background:var(--ink);border-color:var(--ink)}
+  button.ghost{border-color:var(--rule);color:var(--ink-2)}
+  button.ghost:hover:not(:disabled){background:var(--ink-2);color:var(--paper-2);border-color:var(--ink-2)}
+  button.on{background:var(--live);border-color:var(--live);color:#fff}
+
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));align-items:start}
+  .row{display:grid;grid-template-columns:100px 1fr;gap:9px;align-items:center;margin-bottom:7px}
+  .row:last-child{margin-bottom:0}
+  .row>label{font-family:var(--mono);font-size:10px;color:var(--ink-2);line-height:1.2}
+  .rng{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .field{display:flex;align-items:center;gap:5px}
+  .field span{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);
+              letter-spacing:0.06em;text-transform:uppercase}
+  input[type=number]{font-family:var(--mono);font-size:11px;width:100%;min-width:0;padding:5px 6px;
+                     border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+  input[type=number]:focus-visible{outline:2px solid var(--live);outline-offset:-1px}
+  input[type=range]{width:100%;accent-color:var(--water)}
+  select{font-family:var(--mono);font-size:11px;padding:5px 6px;border:1px solid var(--rule);
+         background:var(--paper);color:var(--ink);width:100%}
+  .val{font-family:var(--mono);font-size:10.5px;color:var(--ink);min-width:46px;text-align:right}
+  .hint{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);line-height:1.5;
+        margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--rule)}
+  .hint b{color:var(--water);font-weight:500}
+  .hint i{color:var(--fit);font-style:normal}
+
+  .lower{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;margin-top:14px;align-items:start}
+  @media(max-width:900px){.lower{grid-template-columns:1fr}}
+
+  table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:10.5px}
+  th{text-align:left;font-weight:600;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;
+     color:var(--ink-3);border-bottom:1px solid var(--rule);padding:0 8px 5px 0;white-space:nowrap}
+  td{padding:6px 8px 6px 0;border-bottom:1px solid var(--paper-3);white-space:nowrap;vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  td.wid{color:var(--water);font-weight:600}
+  td.wid.f{color:var(--fit)}
+  td.slider{width:36%;min-width:120px}
+  td.slider input{width:100%}
+  tr.out td{opacity:.36}
+  tr.armed td{background:rgba(26,110,158,0.05)}
+
+  #log{font-family:var(--mono);font-size:10px;line-height:1.65;height:210px;overflow-y:auto}
+  #log div{border-bottom:1px solid var(--paper-3);padding:2px 0}
+  #log .t{color:var(--ink-3)}
+  #log .ev-pulse{color:var(--water)}
+  #log .ev-drip{color:var(--fit)}
+  #log .ev-hold{color:var(--ink-3)}
+
+  .status{font-family:var(--mono);font-size:10px;color:var(--ink-2);margin-top:16px;
+          padding-top:9px;border-top:1px solid var(--rule);
+          display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .status .ok{color:var(--live)}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="title">Pulse <span>&amp; Drip</span></h1>
+    <div class="masthead-meta">
+      WATER SUPPLY · BEHAVIOUR 04+05/23<br>
+      <b>ENTRY EVENT + CLUSTER RHYTHM</b><br>
+      HIDDEN INFRASTRUCTURES : ZÜRICH
+    </div>
+  </header>
+
+  <p class="strapline">
+    A pulse is water hammer — the bore struck rather than flowing, so it rings at the <em>same frequency</em>
+    the continuous layer resonates at. A <i>drip</i> is one entrained bubble: Minnaert again, but 2.3 mm
+    rather than sewage's centimetres, which is why it lands near 2800 Hz.
+  </p>
+
+  <section class="hero">
+    <canvas id="scope" class="viz" width="1160" height="150"></canvas>
+    <canvas id="raster" class="viz" width="1160" height="118"></canvas>
+    <div class="maptag">SPECTRUM · EVENT RASTER — LAST 20 s</div>
+  </section>
+
+  <div class="transport">
+    <button id="btnAudio" class="primary">Enable audio</button>
+    <button id="btnWalk" class="ghost" disabled>Simulate walk</button>
+    <button id="btnPulse" class="ghost" disabled>Fire pulse ␣</button>
+    <button id="btnReset" class="ghost" disabled>Reset cooldowns</button>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">MASTER</span>
+      <input type="range" id="master" min="0" max="1" step="0.01" value="0.6" style="width:120px">
+      <span class="val" id="masterV">0.60</span>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <section class="panel">
+      <div class="panel-head"><h2>Pulse tone</h2><div class="note">bore struck</div></div>
+      <div class="row"><label>MAIN Hz</label>
+        <div class="field"><input type="number" id="pMain" value="800" step="10" min="80" max="4000"></div>
+      </div>
+      <div class="row"><label>CONN Hz</label>
+        <div class="field"><input type="number" id="pConn" value="1200" step="10" min="80" max="6000"></div>
+      </div>
+      <div class="row"><label>RING Q</label>
+        <div class="field"><input type="range" id="pQ" min="2" max="60" step="1" value="22"><span class="val" id="pQV">22</span></div>
+      </div>
+      <div class="row"><label>RING s</label>
+        <div class="field"><input type="range" id="pRing" min="0.05" max="1.6" step="0.01" value="0.34"><span class="val" id="pRingV">0.34</span></div>
+      </div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="pLvl" min="0" max="1" step="0.01" value="0.4"><span class="val" id="pLvlV">0.40</span></div>
+      </div>
+      <p class="hint">800 / 1200 Hz are the documented values and they sit well above the flow instrument's 185 / 640 Hz bore resonances. Dropping them onto those two figures makes pulse and drone the same object — worth hearing before deciding which reading is right.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Pulse attack</h2><div class="note">the hammer itself</div></div>
+      <div class="row"><label>CLICK LVL</label>
+        <div class="field"><input type="range" id="pClick" min="0" max="1" step="0.01" value="0.35"><span class="val" id="pClickV">0.35</span></div>
+      </div>
+      <div class="row"><label>CLICK Hz</label>
+        <div class="field"><input type="range" id="pClickHz" min="400" max="9000" step="50" value="2600"><span class="val" id="pClickHzV">2600</span></div>
+      </div>
+      <div class="row"><label>CLICK ms</label>
+        <div class="field"><input type="range" id="pClickMs" min="1" max="40" step="1" value="7"><span class="val" id="pClickMsV">7</span></div>
+      </div>
+      <div class="row"><label>SUB LVL</label>
+        <div class="field"><input type="range" id="pSub" min="0" max="0.5" step="0.01" value="0.12"><span class="val" id="pSubV">0.12</span></div>
+      </div>
+      <p class="hint">The click is the transient arriving; the ring is the pipe answering. Set click to 0 and the pulse becomes a tone with no impact — useful for judging how much of "pipe" is the attack.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Pulse trigger</h2><div class="note">entry, then cooldown</div></div>
+      <div class="row"><label>RADIUS m</label>
+        <div class="field"><input type="number" id="pRad" value="30" step="1" min="3" max="120"></div>
+      </div>
+      <div class="row"><label>COOLDOWN s</label>
+        <div class="field"><input type="range" id="pCool" min="1" max="120" step="1" value="30"><span class="val" id="pCoolV">30</span></div>
+      </div>
+      <div class="row"><label>FALLOFF exp</label>
+        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
+      </div>
+      <div class="row"><label>HYSTERESIS</label>
+        <div class="field"><input type="range" id="pHyst" min="0" max="40" step="1" value="12"><span class="val" id="pHystV">12</span></div>
+      </div>
+      <p class="hint">Entry fires once, then that feature is silent for the cooldown. <b>Hysteresis</b> widens the exit radius by this percentage — without it, a feature hovering at the boundary under GPS jitter re-arms and fires on every wobble.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Drip</h2><div class="note">2.3 mm bubble ≈ 2800 Hz</div></div>
+      <div class="row"><label>SIZE mm</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="dSzMin" value="1.6" step="0.1" min="0.4" max="20"></div>
+          <div class="field"><span>max</span><input type="number" id="dSzMax" value="4.2" step="0.1" min="0.5" max="30"></div>
+        </div>
+      </div>
+      <div class="row"><label>RISE</label>
+        <div class="field"><input type="range" id="dRise" min="0" max="1.4" step="0.01" value="0.55"><span class="val" id="dRiseV">0.55</span></div>
+      </div>
+      <div class="row"><label>DECAY s</label>
+        <div class="field"><input type="range" id="dDec" min="0.02" max="0.6" step="0.01" value="0.14"><span class="val" id="dDecV">0.14</span></div>
+      </div>
+      <div class="row"><label>TICK LVL</label>
+        <div class="field"><input type="range" id="dTick" min="0" max="1" step="0.01" value="0.3"><span class="val" id="dTickV">0.30</span></div>
+      </div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="dLvl" min="0" max="1" step="0.01" value="0.34"><span class="val" id="dLvlV">0.34</span></div>
+      </div>
+      <p class="hint">1.6–4.2 mm gives roughly 4100 down to 1560 Hz. The <b>rise</b> is the bubble contracting after entrainment — the plink. Sewage uses the same physics at ten times the size, so the two should never be confused.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Cluster rhythm</h2><div class="note">fittings drive the rate</div></div>
+      <div class="row"><label>CLUSTER m</label>
+        <div class="field"><input type="number" id="cRad" value="25" step="1" min="3" max="90"></div>
+      </div>
+      <div class="row"><label>RATE Hz</label>
+        <div class="rng">
+          <div class="field"><span>1 fit</span><input type="number" id="rate1" value="0.25" step="0.05" min="0.02" max="8"></div>
+          <div class="field"><span>8+ fit</span><input type="number" id="rate8" value="3" step="0.1" min="0.05" max="12"></div>
+        </div>
+      </div>
+      <div class="row"><label>CURVE</label>
+        <div class="field"><input type="range" id="rateCurve" min="0.4" max="3" step="0.1" value="1.6"><span class="val" id="rateCurveV">1.6</span></div>
+      </div>
+      <div class="row"><label>JITTER %</label>
+        <div class="field"><input type="range" id="dJit" min="0" max="90" step="5" value="55"><span class="val" id="dJitV">55</span></div>
+      </div>
+      <p class="hint">Documented as up to 3 Hz at dense fitting clusters. <b>Curve</b> above 1 holds the rate low until the cluster is genuinely dense, so ordinary streets stay sparse and a junction reads as a distinct event rather than a gradual increase.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Readout</h2><div class="note">live state</div></div>
+      <div class="row"><label>PIPES IN</label><div class="field"><span class="val" id="roPipes" style="min-width:0">—</span></div></div>
+      <div class="row"><label>FITTINGS</label><div class="field"><span class="val" id="roFits" style="min-width:0">—</span></div></div>
+      <div class="row"><label>DRIP RATE</label><div class="field"><span class="val" id="roRate" style="min-width:0">—</span></div></div>
+      <div class="row"><label>ARMED</label><div class="field"><span class="val" id="roArmed" style="min-width:0">—</span></div></div>
+      <div class="row"><label>PULSES/MIN</label><div class="field"><span class="val" id="roPpm" style="min-width:0">—</span></div></div>
+      <p class="hint">Armed counts features inside the radius whose cooldown has expired — those will fire the moment you re-enter. If that number is large the layer will chatter as soon as you move.</p>
+    </section>
+
+  </div>
+
+  <div class="lower">
+    <section class="panel">
+      <div class="panel-head"><h2>Simulated features</h2><div class="note">pipes + fittings</div></div>
+      <div id="featWrap"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2>Event log</h2><div class="note" id="logStats">—</div></div>
+      <div id="log"></div>
+    </section>
+  </div>
+
+  <div class="status">
+    <div id="modeStatus">Walk simulation — off</div>
+    <div id="ctxStatus">AudioContext — not created</div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const num=id=>parseFloat($(id).value);
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const lerp=(a,b,t)=>a+(b-a)*t;
+  const rand=(a,b)=>a+Math.random()*(b-a);
+
+  const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
+  bind($('pQ'),$('pQV'),0); bind($('pRing'),$('pRingV'),2); bind($('pLvl'),$('pLvlV'),2);
+  bind($('pClick'),$('pClickV'),2); bind($('pClickHz'),$('pClickHzV'),0); bind($('pClickMs'),$('pClickMsV'),0);
+  bind($('pSub'),$('pSubV'),2); bind($('pCool'),$('pCoolV'),0); bind($('falloff'),$('falloffV'),1);
+  bind($('pHyst'),$('pHystV'),0);
+  bind($('dRise'),$('dRiseV'),2); bind($('dDec'),$('dDecV'),2); bind($('dTick'),$('dTickV'),2);
+  bind($('dLvl'),$('dLvlV'),2); bind($('rateCurve'),$('rateCurveV'),1); bind($('dJit'),$('dJitV'),0);
+  bind($('master'),$('masterV'),2);
+
+  // ---------- simulated features ----------
+  // kind: 'main' | 'conn' (pipes)  ·  'fit' (fittings, drive drip rate)
+  const feats=[
+    {id:'W-114820', kind:'main', dist:18},
+    {id:'W-118002', kind:'main', dist:44},
+    {id:'W-121440', kind:'conn', dist:11},
+    {id:'W-121502', kind:'conn', dist:31},
+    {id:'W-118117', kind:'conn', dist:58},
+    {id:'F-90114',  kind:'fit',  dist:14},
+    {id:'F-90118',  kind:'fit',  dist:16},
+    {id:'F-90205',  kind:'fit',  dist:22},
+    {id:'F-90211',  kind:'fit',  dist:27},
+    {id:'F-90340',  kind:'fit',  dist:39},
+    {id:'F-90355',  kind:'fit',  dist:52}
+  ];
+  feats.forEach((f,i)=>{ f.phase=i*1.19; f.rate=0.04+i*0.009; f.last=-1e9; f.inside=false; });
+
+  // ---------- audio ----------
+  let ctx=null,master=null,noiseBuf=null;
+  let dripTimer=null;
+  const events=[];               // {t, lane, gain}
+  const pulseTimes=[];
+  const counts={pulse:0,drip:0,hold:0};
+
+  function log(kind,text){
+    const el=$('log'); const d=document.createElement('div');
+    const t=new Date();
+    const ts=String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0')+
+             '.'+String(Math.floor(t.getMilliseconds()/100));
+    d.innerHTML='<span class="t">'+ts+'</span> <span class="ev-'+kind+'">'+text+'</span>';
+    el.prepend(d);
+    while(el.children.length>50) el.removeChild(el.lastChild);
+    $('logStats').textContent=counts.pulse+' pulse · '+counts.drip+' drip · '+counts.hold+' held';
+  }
+
+  function makeNoise(ac){
+    const len=ac.sampleRate;
+    const b=ac.createBuffer(1,len,ac.sampleRate);
+    const d=b.getChannelData(0);
+    for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
+    return b;
+  }
+
+  // Minnaert — f ≈ 3.28 / r, r in metres
+  const bubbleHz=mm=>clamp(3.28/((mm/1000)/2),60,12000);
+
+  function firePulse(f, gain){
+    if(!ctx) return;
+    const now=ctx.currentTime;
+    const hz = f.kind==='conn' ? num('pConn') : num('pMain');
+    const out=ctx.createGain(); out.gain.value=gain; out.connect(master);
+
+    // resonant ring — noise impulse through a high-Q bandpass
+    const ringDur=num('pRing');
+    const src=ctx.createBufferSource(); src.buffer=noiseBuf;
+    const bp=ctx.createBiquadFilter(); bp.type='bandpass';
+    bp.frequency.value=hz; bp.Q.value=num('pQ');
+    const rg=ctx.createGain();
+    rg.gain.setValueAtTime(0.0001,now);
+    rg.gain.linearRampToValueAtTime(num('pLvl'),now+0.003);
+    rg.gain.exponentialRampToValueAtTime(0.0001,now+ringDur);
+    src.connect(bp).connect(rg).connect(out);
+    src.start(now,Math.random()*0.5); src.stop(now+ringDur+0.05);
+
+    // attack click
+    const cl=num('pClick');
+    if(cl>0.005){
+      const cs=ctx.createBufferSource(); cs.buffer=noiseBuf;
+      const hp=ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=num('pClickHz');
+      const cg=ctx.createGain();
+      const cd=num('pClickMs')/1000;
+      cg.gain.setValueAtTime(cl,now);
+      cg.gain.exponentialRampToValueAtTime(0.0001,now+cd);
+      cs.connect(hp).connect(cg).connect(out);
+      cs.start(now,Math.random()*0.5); cs.stop(now+cd+0.02);
+    }
+    // pressure sub
+    const sl=num('pSub');
+    if(sl>0.005){
+      const o=ctx.createOscillator(); o.type='sine';
+      o.frequency.setValueAtTime(hz*0.14,now);
+      o.frequency.exponentialRampToValueAtTime(hz*0.09,now+0.18);
+      const g=ctx.createGain();
+      g.gain.setValueAtTime(0.0001,now);
+      g.gain.linearRampToValueAtTime(sl,now+0.008);
+      g.gain.exponentialRampToValueAtTime(0.0001,now+0.24);
+      o.connect(g).connect(out); o.start(now); o.stop(now+0.3);
+    }
+
+    counts.pulse++;
+    pulseTimes.push(performance.now());
+    while(pulseTimes.length && performance.now()-pulseTimes[0]>60000) pulseTimes.shift();
+    events.push({t:performance.now(),lane:0,gain});
+    log('pulse','PULSE  '+f.id+' ('+f.kind+') @ '+f.dist.toFixed(1)+' m · '+Math.round(hz)+' Hz · g '+gain.toFixed(3));
+  }
+
+  function fireDrip(gain){
+    if(!ctx) return;
+    const now=ctx.currentTime;
+    const mm=rand(num('dSzMin'),num('dSzMax'));
+    const f0=bubbleHz(mm), dec=num('dDec'), rise=num('dRise');
+
+    const o=ctx.createOscillator(); o.type='sine';
+    o.frequency.setValueAtTime(f0,now);
+    if(rise>0.001) o.frequency.exponentialRampToValueAtTime(f0*(1+rise),now+dec*0.8);
+    const g=ctx.createGain();
+    g.gain.setValueAtTime(0.0001,now);
+    g.gain.linearRampToValueAtTime(gain,now+0.003);
+    g.gain.exponentialRampToValueAtTime(0.0001,now+dec);
+    o.connect(g).connect(master);
+    o.start(now); o.stop(now+dec+0.03);
+
+    // impact tick before the bubble
+    const tl=num('dTick');
+    if(tl>0.005){
+      const cs=ctx.createBufferSource(); cs.buffer=noiseBuf;
+      const hp=ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=f0*1.4;
+      const cg=ctx.createGain();
+      cg.gain.setValueAtTime(gain*tl,now);
+      cg.gain.exponentialRampToValueAtTime(0.0001,now+0.006);
+      cs.connect(hp).connect(cg).connect(master);
+      cs.start(now,Math.random()*0.4); cs.stop(now+0.02);
+    }
+
+    counts.drip++;
+    events.push({t:performance.now(),lane:1,gain});
+  }
+
+  function dripRate(){
+    const n=feats.filter(f=>f.kind==='fit'&&f.dist<=num('cRad')).length;
+    if(n===0) return 0;
+    const t=clamp((n-1)/7,0,1);
+    return lerp(num('rate1'),num('rate8'),Math.pow(t,num('rateCurve')));
+  }
+
+  function scheduleDrip(){
+    if(!ctx) return;
+    const r=dripRate();
+    if(r>0.001){
+      const nearest=Math.min(...feats.filter(f=>f.kind==='fit').map(f=>f.dist));
+      const prox=nearest<=num('cRad')?Math.pow(1-nearest/num('cRad'),num('falloff')):0;
+      if(prox>0.01) fireDrip(num('dLvl')*prox);
+      const j=num('dJit')/100;
+      dripTimer=setTimeout(scheduleDrip,(1000/r)*rand(1-j,1+j));
+    } else {
+      dripTimer=setTimeout(scheduleDrip,400);
+    }
+  }
+
+  // ---------- entry detection ----------
+  function evaluate(nowMs){
+    const R=num('pRad'), hyst=1+num('pHyst')/100;
+    let armed=0;
+    for(const f of feats){
+      if(f.kind==='fit') continue;
+      const wasInside=f.inside;
+      // asymmetric radii: enter at R, leave at R * hysteresis
+      f.inside = wasInside ? (f.dist<=R*hyst) : (f.dist<=R);
+      if(f.inside && f.dist<=R && (nowMs-f.last)>num('pCool')*1000) armed++;
+      if(!wasInside && f.inside){
+        if(nowMs-f.last>num('pCool')*1000){
+          f.last=nowMs;
+          const g=Math.pow(1-clamp(f.dist/R,0,1),num('falloff'));
+          firePulse(f,g);
+        } else {
+          counts.hold++;
+          if(counts.hold%8===1)
+            log('hold','HELD   '+f.id+' — '+((num('pCool')*1000-(nowMs-f.last))/1000).toFixed(1)+' s left');
+        }
+      }
+    }
+    $('roArmed').textContent=String(armed);
+  }
+
+  // ---------- tick ----------
+  let walking=false, walkT=0, lastT=performance.now();
+  function tick(){
+    requestAnimationFrame(tick);
+    const nowMs=performance.now(), dt=Math.min(0.1,(nowMs-lastT)/1000); lastT=nowMs;
+
+    if(walking){
+      walkT+=dt;
+      feats.forEach((f,i)=>{
+        f.dist=clamp(34+30*Math.sin(walkT*f.rate*2*Math.PI+f.phase),0.5,80);
+        const el=document.querySelector('[data-d="'+i+'"]'); if(el) el.value=f.dist;
+      });
+    }
+
+    evaluate(nowMs);
+
+    const R=num('pRad');
+    $('roPipes').textContent=String(feats.filter(f=>f.kind!=='fit'&&f.dist<=R).length);
+    $('roFits').textContent=String(feats.filter(f=>f.kind==='fit'&&f.dist<=num('cRad')).length);
+    $('roRate').textContent=dripRate().toFixed(2)+' Hz';
+    $('roPpm').textContent=String(pulseTimes.length);
+
+    while(events.length && nowMs-events[0].t>20000) events.shift();
+    paint(); draw();
+  }
+
+  // ---------- table ----------
+  function buildTable(){
+    $('featWrap').innerHTML='<table><thead><tr><th>Feature</th><th>Type</th>'+
+      '<th class="slider">Distance m</th><th>Dist</th><th>CD</th></tr></thead><tbody>'+
+      feats.map((f,i)=>'<tr id="fr'+i+'">'+
+        '<td class="wid'+(f.kind==='fit'?' f':'')+'">'+f.id+'</td>'+
+        '<td>'+f.kind+'</td>'+
+        '<td class="slider"><input type="range" data-d="'+i+'" min="0" max="80" step="0.5" value="'+f.dist+'"></td>'+
+        '<td id="fm'+i+'">'+f.dist.toFixed(1)+'</td>'+
+        '<td id="fc'+i+'">—</td></tr>').join('')+'</tbody></table>';
+    document.querySelectorAll('[data-d]').forEach(el=>{
+      el.addEventListener('input',()=>{
+        feats[+el.dataset.d].dist=parseFloat(el.value);
+        if(walking){walking=false;$('btnWalk').classList.remove('on');status();}
+      });
+    });
+  }
+  buildTable();
+
+  function paint(){
+    const R=num('pRad'), CR=num('cRad'), nowMs=performance.now();
+    feats.forEach((f,i)=>{
+      const row=$('fr'+i); if(!row) return;
+      const lim=f.kind==='fit'?CR:R;
+      row.classList.toggle('out',f.dist>lim);
+      row.classList.toggle('armed', f.kind!=='fit' && f.dist<=R && (nowMs-f.last)>num('pCool')*1000);
+      const m=$('fm'+i); if(m) m.textContent=f.dist.toFixed(1);
+      const c=$('fc'+i);
+      if(c){
+        if(f.kind==='fit'){ c.textContent='—'; }
+        else{
+          const left=num('pCool')*1000-(nowMs-f.last);
+          c.textContent = left>0 ? (left/1000).toFixed(0)+' s' : 'ready';
+        }
+      }
+    });
+  }
+
+  // ---------- draw ----------
+  const sc=$('scope'), s2=sc.getContext('2d');
+  const rc=$('raster'), r2=rc.getContext('2d');
+  let analyser=null, freqData=null;
+  function resize(){
+    const dpr=window.devicePixelRatio||1;
+    [[sc,s2,150],[rc,r2,118]].forEach(([cv,cx,h])=>{
+      const r=cv.getBoundingClientRect();
+      cv.width=Math.round(r.width*dpr); cv.height=Math.round(h*dpr);
+      cx.setTransform(dpr,0,0,dpr,0,0);
+    });
+  }
+  window.addEventListener('resize',resize); resize();
+  const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+
+  function draw(){
+    // spectrum
+    const w=sc.clientWidth,h=150;
+    s2.clearRect(0,0,w,h); s2.fillStyle=css('--paper-2'); s2.fillRect(0,0,w,h);
+    const nyq=ctx?ctx.sampleRate/2:24000;
+    const fMin=100,fMax=Math.min(12000,nyq);
+    const xOf=f=>(Math.log10(f/fMin)/Math.log10(fMax/fMin))*w;
+    s2.strokeStyle=css('--rule'); s2.lineWidth=1; s2.fillStyle=css('--ink-3');
+    s2.font='9px ui-monospace, Menlo, monospace';
+    [200,500,1000,2000,5000,10000].forEach(f=>{
+      if(f<fMin||f>fMax) return;
+      const x=Math.round(xOf(f))+0.5;
+      s2.beginPath(); s2.moveTo(x,0); s2.lineTo(x,h-14); s2.stroke();
+      s2.fillText(f>=1000?(f/1000)+'k':String(f),x+3,h-4);
+    });
+    // markers: pulse tones + drip range
+    s2.setLineDash([2,3]);
+    [[num('pMain'),css('--water')],[num('pConn'),css('--water')],
+     [bubbleHz(num('dSzMax')),css('--fit')],[bubbleHz(num('dSzMin')),css('--fit')]].forEach(([f,col])=>{
+      if(f<fMin||f>fMax) return;
+      s2.strokeStyle=col; s2.globalAlpha=0.6;
+      const x=Math.round(xOf(f))+0.5;
+      s2.beginPath(); s2.moveTo(x,8); s2.lineTo(x,h-14); s2.stroke();
+    });
+    s2.globalAlpha=1; s2.setLineDash([]);
+
+    if(ctx&&analyser){
+      analyser.getByteFrequencyData(freqData);
+      const bins=freqData.length;
+      s2.beginPath(); let st=false;
+      for(let x=0;x<=w;x++){
+        const f=fMin*Math.pow(fMax/fMin,x/w);
+        const bin=Math.min(bins-1,Math.round((f/nyq)*bins));
+        const v=freqData[bin]/255;
+        const y=h-16-v*(h-30);
+        if(!st){s2.moveTo(x,y);st=true}else s2.lineTo(x,y);
+      }
+      s2.strokeStyle=css('--ink'); s2.lineWidth=1.2; s2.stroke();
+      s2.lineTo(w,h-16); s2.lineTo(0,h-16); s2.closePath();
+      s2.fillStyle='rgba(20,23,26,0.08)'; s2.fill();
+    }
+
+    // raster
+    const w2=rc.clientWidth,h2=118, nowMs=performance.now();
+    r2.clearRect(0,0,w2,h2); r2.fillStyle=css('--paper-2'); r2.fillRect(0,0,w2,h2);
+    r2.fillStyle=css('--ink-3'); r2.font='9px ui-monospace, Menlo, monospace';
+    const laneY=[42,84];
+    r2.fillText('PULSE',8,laneY[0]-16);
+    r2.fillText('DRIP',8,laneY[1]-16);
+    r2.strokeStyle=css('--rule'); r2.lineWidth=1;
+    laneY.forEach(y=>{ r2.beginPath(); r2.moveTo(8,y+0.5); r2.lineTo(w2-8,y+0.5); r2.stroke(); });
+    for(let s=0;s<=20;s+=5){
+      const x=8+((20-s)/20)*(w2-16);
+      r2.fillStyle=css('--ink-3'); r2.fillText('-'+s+'s',x+2,h2-4);
+    }
+    events.forEach(e=>{
+      const age=(nowMs-e.t)/20000;
+      const x=8+(1-age)*(w2-16);
+      const y=laneY[e.lane];
+      const hgt=6+22*clamp(e.gain,0,1);
+      r2.strokeStyle=e.lane===0?css('--water'):css('--fit');
+      r2.globalAlpha=0.35+0.65*(1-age);
+      r2.lineWidth=e.lane===0?2:1.4;
+      r2.beginPath(); r2.moveTo(x,y); r2.lineTo(x,y-hgt); r2.stroke();
+      r2.globalAlpha=1;
+    });
+  }
+
+  // ---------- controls ----------
+  async function enableAudio(){
+    if(ctx) return;
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    await ctx.resume();
+    noiseBuf=makeNoise(ctx);
+    master=ctx.createGain(); master.gain.value=num('master');
+    analyser=ctx.createAnalyser(); analyser.fftSize=4096; analyser.smoothingTimeConstant=0.6;
+    freqData=new Uint8Array(analyser.frequencyBinCount);
+    master.connect(analyser); master.connect(ctx.destination);
+    scheduleDrip();
+    $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
+    $('btnWalk').disabled=false; $('btnPulse').disabled=false; $('btnReset').disabled=false;
+    $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+  }
+  function status(){ $('modeStatus').textContent='Walk simulation — '+(walking?'running':'off'); }
+
+  $('btnAudio').addEventListener('click',enableAudio);
+  $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
+  $('btnWalk').addEventListener('click',()=>{ walking=!walking; $('btnWalk').classList.toggle('on',walking); status(); });
+  $('btnPulse').addEventListener('click',()=>{
+    const inR=feats.filter(f=>f.kind!=='fit').sort((a,b)=>a.dist-b.dist)[0];
+    if(inR) firePulse(inR, Math.pow(1-clamp(inR.dist/num('pRad'),0,1),num('falloff')));
+  });
+  $('btnReset').addEventListener('click',()=>{ feats.forEach(f=>f.last=-1e9); log('hold','COOLDOWNS RESET'); });
+
+  document.addEventListener('keydown',e=>{
+    if(e.code==='Space'&&!/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
+      e.preventDefault(); if(!ctx) enableAudio(); else $('btnPulse').click();
+    }
+  });
+
+  tick();
+})();
+</script>
+</body>
+</html>

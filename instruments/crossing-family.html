@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CROSSING &amp; ALONGSIDE — shared event family</title>
+<style>
+  :root{
+    --paper:#E9EBE6; --paper-2:#F4F5F2; --paper-3:#DFE2DB;
+    --ink:#14171A; --ink-2:#5A6169; --ink-3:#8B9199; --rule:#C6CAC3;
+    --sys:#46596B;
+    --water:#1A6E9E; --sew:#5A6B2E; --elec:#A06A00; --tel:#6E3FA3;
+    --live:#0F7A78; --warn:#B85C1E; --ghost:#8B9199;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+       font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+
+  .masthead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+            flex-wrap:wrap;border-bottom:1.5px solid var(--ink);padding-bottom:10px}
+  .title{font-size:clamp(24px,4.6vw,40px);font-weight:700;letter-spacing:-0.035em;
+         text-transform:uppercase;margin:0;line-height:0.95}
+  .title span{color:var(--sys)}
+  .masthead-meta{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+                 text-align:right;letter-spacing:0.02em;white-space:nowrap}
+  .masthead-meta b{color:var(--ink);font-weight:500}
+  .strapline{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:8px 0 20px}
+  .strapline em{color:var(--sys);font-style:normal}
+
+  .panel{background:var(--paper-2);border:1px solid var(--rule);padding:12px 13px 14px}
+  .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+              margin:0 0 10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+  .panel-head h2{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.14em;
+                 text-transform:uppercase;margin:0}
+  .panel-head .note{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);text-align:right}
+  .panel.lw .panel-head h2{color:var(--water)} .panel.lw{border-color:var(--water)}
+  .panel.ls .panel-head h2{color:var(--sew)}   .panel.ls{border-color:var(--sew)}
+  .panel.le .panel-head h2{color:var(--elec)}  .panel.le{border-color:var(--elec)}
+  .panel.lt .panel-head h2{color:var(--tel)}   .panel.lt{border-color:var(--tel)}
+
+  .hero{margin:0 0 14px;border:1px solid var(--rule);background:var(--paper-2);position:relative}
+  canvas.viz{display:block;width:100%}
+  canvas#map{height:330px;cursor:crosshair;touch-action:none;border-bottom:1px solid var(--rule)}
+  canvas#raster{height:150px}
+  .maptag{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
+          color:var(--ink-3);pointer-events:none;left:9px;top:8px}
+  .maptag.tr{left:auto;right:9px;text-align:right;line-height:1.7}
+
+  .transport{display:flex;gap:10px;align-items:center;margin:14px 0 18px;flex-wrap:wrap}
+  button{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+         padding:9px 14px;border:1px solid var(--ink);background:var(--paper-2);color:var(--ink);
+         cursor:pointer;transition:background .12s,color .12s}
+  button:hover:not(:disabled){background:var(--ink);color:var(--paper-2)}
+  button:disabled{opacity:.35;cursor:not-allowed}
+  button:focus-visible{outline:2px solid var(--live);outline-offset:2px}
+  button.primary{background:var(--sys);border-color:var(--sys);color:#fff;font-weight:600}
+  button.primary:hover:not(:disabled){background:var(--ink);border-color:var(--ink)}
+  button.ghost{border-color:var(--rule);color:var(--ink-2)}
+  button.ghost:hover:not(:disabled){background:var(--ink-2);color:var(--paper-2);border-color:var(--ink-2)}
+  button.on{background:var(--live);border-color:var(--live);color:#fff}
+
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));align-items:start}
+  .row{display:grid;grid-template-columns:92px 1fr;gap:9px;align-items:center;margin-bottom:6px}
+  .row:last-child{margin-bottom:0}
+  .row>label{font-family:var(--mono);font-size:10px;color:var(--ink-2);line-height:1.2}
+  .rng{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .field{display:flex;align-items:center;gap:5px}
+  .field span{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);
+              letter-spacing:0.06em;text-transform:uppercase}
+  input[type=number]{font-family:var(--mono);font-size:11px;width:100%;min-width:0;padding:5px 6px;
+                     border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+  input[type=number]:focus-visible{outline:2px solid var(--live);outline-offset:-1px}
+  input[type=range]{width:100%;accent-color:var(--sys)}
+  select{font-family:var(--mono);font-size:11px;padding:5px 6px;border:1px solid var(--rule);
+         background:var(--paper);color:var(--ink);width:100%}
+  .val{font-family:var(--mono);font-size:10.5px;color:var(--ink);min-width:44px;text-align:right}
+  .hint{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);line-height:1.5;
+        margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--rule)}
+  .hint b{color:var(--sys);font-weight:500}
+
+  .big{font-family:var(--mono);font-size:21px;letter-spacing:-0.02em}
+  .big.warn{color:var(--warn)}
+  .biglab{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+
+  #log{font-family:var(--mono);font-size:10px;line-height:1.65;height:190px;overflow-y:auto;margin-top:14px}
+  #log div{border-bottom:1px solid var(--paper-3);padding:2px 0}
+  #log .t{color:var(--ink-3)}
+  #log .lw{color:var(--water)} #log .ls{color:var(--sew)}
+  #log .le{color:var(--elec)}  #log .lt{color:var(--tel)}
+  #log .col{color:var(--warn)} #log .end{color:var(--ink-3)}
+
+  .status{font-family:var(--mono);font-size:10px;color:var(--ink-2);margin-top:16px;
+          padding-top:9px;border-top:1px solid var(--rule);
+          display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .status .ok{color:var(--live)}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="title">Crossing <span>&amp; Alongside</span></h1>
+    <div class="masthead-meta">
+      ALL LINE LAYERS · 8 BEHAVIOURS, ONE MECHANISM<br>
+      <b>DISTINGUISHABILITY TEST</b><br>
+      HIDDEN INFRASTRUCTURES : ZÜRICH
+    </div>
+  </header>
+
+  <p class="strapline">
+    One detection path serves every LineString layer — the differences are timbre, not logic.
+    The question this asks is whether four transients stay <em>legible</em> when they fire together,
+    and the raster counts how often they collide.
+  </p>
+
+  <section class="hero">
+    <canvas id="map" class="viz" width="1160" height="330"></canvas>
+    <canvas id="raster" class="viz" width="1160" height="150"></canvas>
+    <div class="maptag">PLAN — drag to move</div>
+    <div class="maptag tr" id="mapRead">—</div>
+  </section>
+
+  <div class="transport">
+    <button id="btnAudio" class="primary">Enable audio</button>
+    <button id="btnWalk" class="ghost" disabled>Auto walk</button>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">GPS NOISE ±m</span>
+      <input type="range" id="gpsNoise" min="0" max="25" step="0.5" value="0" style="width:100px">
+      <span class="val" id="gpsNoiseV">0.0</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">SPEED</span>
+      <input type="range" id="walkSpd" min="0.3" max="3" step="0.1" value="1.4" style="width:90px">
+      <span class="val" id="walkSpdV">1.4</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">MASTER</span>
+      <input type="range" id="master" min="0" max="1" step="0.01" value="0.6" style="width:110px">
+      <span class="val" id="masterV">0.60</span>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <section class="panel lw">
+      <div class="panel-head"><h2>Water — knock</h2><div class="note">380 Hz</div></div>
+      <div class="row"><label>FREQ Hz</label><div class="field"><input type="number" id="w_hz" value="380" step="5" min="40" max="12000"></div></div>
+      <div class="row"><label>Q</label><div class="field"><input type="range" id="w_q" min="1" max="50" step="1" value="18"><span class="val" id="w_qV">18</span></div></div>
+      <div class="row"><label>DECAY s</label><div class="field"><input type="range" id="w_dec" min="0.02" max="1.2" step="0.01" value="0.24"><span class="val" id="w_decV">0.24</span></div></div>
+      <div class="row"><label>SWEEP ×</label><div class="field"><input type="range" id="w_swp" min="0.4" max="3" step="0.05" value="1"><span class="val" id="w_swpV">1.00</span></div></div>
+      <div class="row"><label>NOISE</label><div class="field"><input type="range" id="w_noi" min="0" max="1" step="0.01" value="0.75"><span class="val" id="w_noiV">0.75</span></div></div>
+      <div class="row"><label>LEVEL</label><div class="field"><input type="range" id="w_lvl" min="0" max="1" step="0.01" value="0.4"><span class="val" id="w_lvlV">0.40</span></div></div>
+      <div class="row"><label>ALONG s</label><div class="field"><input type="range" id="w_int" min="1" max="20" step="0.5" value="4"><span class="val" id="w_intV">4.0</span></div></div>
+    </section>
+
+    <section class="panel ls">
+      <div class="panel-head"><h2>Sewage — thud</h2><div class="note">200 Hz</div></div>
+      <div class="row"><label>FREQ Hz</label><div class="field"><input type="number" id="s_hz" value="200" step="5" min="40" max="12000"></div></div>
+      <div class="row"><label>Q</label><div class="field"><input type="range" id="s_q" min="1" max="50" step="1" value="6"><span class="val" id="s_qV">6</span></div></div>
+      <div class="row"><label>DECAY s</label><div class="field"><input type="range" id="s_dec" min="0.02" max="1.2" step="0.01" value="0.38"><span class="val" id="s_decV">0.38</span></div></div>
+      <div class="row"><label>SWEEP ×</label><div class="field"><input type="range" id="s_swp" min="0.4" max="3" step="0.05" value="0.7"><span class="val" id="s_swpV">0.70</span></div></div>
+      <div class="row"><label>NOISE</label><div class="field"><input type="range" id="s_noi" min="0" max="1" step="0.01" value="0.9"><span class="val" id="s_noiV">0.90</span></div></div>
+      <div class="row"><label>LEVEL</label><div class="field"><input type="range" id="s_lvl" min="0" max="1" step="0.01" value="0.42"><span class="val" id="s_lvlV">0.42</span></div></div>
+      <div class="row"><label>ALONG s</label><div class="field"><input type="range" id="s_int" min="1" max="20" step="0.5" value="4"><span class="val" id="s_intV">4.0</span></div></div>
+    </section>
+
+    <section class="panel le">
+      <div class="panel-head"><h2>Electricity — snap</h2><div class="note">2200 Hz</div></div>
+      <div class="row"><label>FREQ Hz</label><div class="field"><input type="number" id="e_hz" value="2200" step="25" min="40" max="14000"></div></div>
+      <div class="row"><label>Q</label><div class="field"><input type="range" id="e_q" min="1" max="50" step="1" value="9"><span class="val" id="e_qV">9</span></div></div>
+      <div class="row"><label>DECAY s</label><div class="field"><input type="range" id="e_dec" min="0.01" max="1.2" step="0.01" value="0.06"><span class="val" id="e_decV">0.06</span></div></div>
+      <div class="row"><label>SWEEP ×</label><div class="field"><input type="range" id="e_swp" min="0.4" max="3" step="0.05" value="1"><span class="val" id="e_swpV">1.00</span></div></div>
+      <div class="row"><label>NOISE</label><div class="field"><input type="range" id="e_noi" min="0" max="1" step="0.01" value="1"><span class="val" id="e_noiV">1.00</span></div></div>
+      <div class="row"><label>LEVEL</label><div class="field"><input type="range" id="e_lvl" min="0" max="1" step="0.01" value="0.3"><span class="val" id="e_lvlV">0.30</span></div></div>
+      <div class="row"><label>ALONG s</label><div class="field"><input type="range" id="e_int" min="1" max="20" step="0.5" value="5"><span class="val" id="e_intV">5.0</span></div></div>
+    </section>
+
+    <section class="panel lt">
+      <div class="panel-head"><h2>Telecom — click</h2><div class="note">3500 → 6000 Hz</div></div>
+      <div class="row"><label>FREQ Hz</label><div class="field"><input type="number" id="t_hz" value="3500" step="50" min="40" max="16000"></div></div>
+      <div class="row"><label>Q</label><div class="field"><input type="range" id="t_q" min="1" max="50" step="1" value="14"><span class="val" id="t_qV">14</span></div></div>
+      <div class="row"><label>DECAY s</label><div class="field"><input type="range" id="t_dec" min="0.01" max="1.2" step="0.01" value="0.06"><span class="val" id="t_decV">0.06</span></div></div>
+      <div class="row"><label>SWEEP ×</label><div class="field"><input type="range" id="t_swp" min="0.4" max="3" step="0.05" value="1.71"><span class="val" id="t_swpV">1.71</span></div></div>
+      <div class="row"><label>NOISE</label><div class="field"><input type="range" id="t_noi" min="0" max="1" step="0.01" value="0.15"><span class="val" id="t_noiV">0.15</span></div></div>
+      <div class="row"><label>LEVEL</label><div class="field"><input type="range" id="t_lvl" min="0" max="1" step="0.01" value="0.26"><span class="val" id="t_lvlV">0.26</span></div></div>
+      <div class="row"><label>ALONG s</label><div class="field"><input type="range" id="t_int" min="1" max="20" step="0.5" value="4"><span class="val" id="t_intV">4.0</span></div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Detection</h2><div class="note">one path, all layers</div></div>
+      <div class="row"><label>MIN MOVE m</label><div class="field"><input type="range" id="minMove" min="0.1" max="8" step="0.1" value="0.5"><span class="val" id="minMoveV">0.5</span></div></div>
+      <div class="row"><label>ALONG m</label><div class="field"><input type="range" id="alongR" min="2" max="60" step="1" value="20"><span class="val" id="alongRV">20</span></div></div>
+      <div class="row"><label>ANGLE °</label><div class="field"><input type="range" id="alongA" min="5" max="80" step="1" value="35"><span class="val" id="alongAV">35</span></div></div>
+      <div class="row"><label>CROSS CD s</label><div class="field"><input type="range" id="crossCD" min="0.5" max="15" step="0.5" value="3"><span class="val" id="crossCDV">3.0</span></div></div>
+      <div class="row"><label>JITTER %</label><div class="field"><input type="range" id="alongJit" min="0" max="90" step="5" value="42"><span class="val" id="alongJitV">42</span></div></div>
+      <p class="hint">Identical to the Fernwärme surface — deliberately, since this is one code path in production. Tuning these here tunes every line layer at once, which is the argument for treating the family as a single module.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Legibility</h2><div class="note">the actual question</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px">
+        <div><div class="biglab">Collisions</div><div class="big" id="colN">0</div></div>
+        <div><div class="biglab">of events</div><div class="big" id="evN">0</div></div>
+      </div>
+      <div class="row"><label>WINDOW ms</label><div class="field"><input type="range" id="colMs" min="20" max="600" step="10" value="150"><span class="val" id="colMsV">150</span></div></div>
+      <div class="row"><label>STAGGER ms</label><div class="field"><input type="range" id="stagger" min="0" max="400" step="10" value="0"><span class="val" id="staggerV">0</span></div></div>
+      <div class="row"><label>ALONG MAX</label><div class="field"><input type="number" id="alongMax" value="4" step="1" min="1" max="8"></div></div>
+      <p class="hint">Two transients inside the window count as a collision. <b>Stagger</b> delays simultaneous events by up to this much so they arrive in sequence instead of as one composite — the cheapest fix if the count is high and the sounds blur.</p>
+    </section>
+
+  </div>
+
+  <section class="panel" style="margin-top:14px">
+    <div class="panel-head"><h2>Event log</h2><div class="note" id="logStats">—</div></div>
+    <div id="log"></div>
+  </section>
+
+  <div class="status">
+    <div id="modeStatus">Auto walk — off</div>
+    <div id="ctxStatus">AudioContext — not created</div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const num=id=>parseFloat($(id).value);
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const rand=(a,b)=>a+Math.random()*(b-a);
+  const R2D=180/Math.PI;
+
+  const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
+  ['w','s','e','t'].forEach(k=>{
+    bind($(k+'_q'),$(k+'_qV'),0); bind($(k+'_dec'),$(k+'_decV'),2);
+    bind($(k+'_swp'),$(k+'_swpV'),2); bind($(k+'_noi'),$(k+'_noiV'),2);
+    bind($(k+'_lvl'),$(k+'_lvlV'),2); bind($(k+'_int'),$(k+'_intV'),1);
+  });
+  bind($('minMove'),$('minMoveV'),1); bind($('alongR'),$('alongRV'),0);
+  bind($('alongA'),$('alongAV'),0); bind($('crossCD'),$('crossCDV'),1);
+  bind($('alongJit'),$('alongJitV'),0); bind($('colMs'),$('colMsV'),0);
+  bind($('stagger'),$('staggerV'),0); bind($('gpsNoise'),$('gpsNoiseV'),1);
+  bind($('walkSpd'),$('walkSpdV'),1); bind($('master'),$('masterV'),2);
+
+  // ---------- world ----------
+  const WORLD={w:126,h:36};
+  const LAYERS={w:{name:'water',col:'--water'},s:{name:'sewage',col:'--sew'},
+                e:{name:'electricity',col:'--elec'},t:{name:'telecom',col:'--tel'}};
+  const lines=[
+    {id:'W-1140', L:'w', a:{x:4,y:26},  b:{x:52,y:19}},
+    {id:'W-1180', L:'w', a:{x:52,y:19}, b:{x:104,y:27}},
+    {id:'S-3011', L:'s', a:{x:10,y:8},  b:{x:60,y:13}},
+    {id:'S-3055', L:'s', a:{x:60,y:13}, b:{x:118,y:7}},
+    {id:'E-2204', L:'e', a:{x:22,y:2},  b:{x:30,y:34}},
+    {id:'E-2211', L:'e', a:{x:74,y:3},  b:{x:83,y:33}},
+    {id:'T-8830', L:'t', a:{x:2,y:16},  b:{x:122,y:22}},
+    {id:'T-8942', L:'t', a:{x:48,y:34}, b:{x:96,y:5}}
+  ];
+
+  let lis={x:12,y:30}, fix={x:12,y:30}, prevFix=null;
+  let walking=false, walkT=0;
+  const lastCross=new Map(), alongState=new Map();
+  let flashes=[], events=[];
+  const counts={ev:0,col:0};
+  let lastEventTime=0;
+
+  function log(cls,text){
+    const el=$('log'); const d=document.createElement('div');
+    const t=new Date();
+    const ts=String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0')+
+             '.'+String(Math.floor(t.getMilliseconds()/100));
+    d.innerHTML='<span class="t">'+ts+'</span> <span class="'+cls+'">'+text+'</span>';
+    el.prepend(d);
+    while(el.children.length>60) el.removeChild(el.lastChild);
+    $('logStats').textContent=counts.ev+' events · '+counts.col+' collisions';
+  }
+
+  // ---------- geometry (identical to the Fernwärme surface) ----------
+  function nearestOnSeg(p,a,b){
+    const dx=b.x-a.x, dy=b.y-a.y, l2=dx*dx+dy*dy;
+    if(l2===0) return {x:a.x,y:a.y,d:Math.hypot(p.x-a.x,p.y-a.y)};
+    let t=clamp(((p.x-a.x)*dx+(p.y-a.y)*dy)/l2,0,1);
+    const qx=a.x+t*dx, qy=a.y+t*dy;
+    return {x:qx,y:qy,d:Math.hypot(p.x-qx,p.y-qy)};
+  }
+  function ccw(a,b,c){ return (c.y-a.y)*(b.x-a.x) > (b.y-a.y)*(c.x-a.x); }
+  function segsCross(p1,p2,p3,p4){
+    return ccw(p1,p3,p4)!==ccw(p2,p3,p4) && ccw(p1,p2,p3)!==ccw(p1,p2,p4);
+  }
+
+  // ---------- audio ----------
+  let ctx=null,master=null,noiseBuf=null,analyser=null;
+
+  function makeNoise(ac){
+    const len=ac.sampleRate;
+    const b=ac.createBuffer(1,len,ac.sampleRate);
+    const d=b.getChannelData(0);
+    for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
+    return b;
+  }
+
+  // one voicing function for all four layers — only the parameters differ
+  function transient(L, gain, pan, delayMs){
+    if(!ctx) return;
+    const now=ctx.currentTime+(delayMs||0)/1000;
+    const hz=num(L+'_hz'), q=num(L+'_q'), dec=num(L+'_dec');
+    const swp=num(L+'_swp'), noi=num(L+'_noi'), lvl=num(L+'_lvl');
+
+    const out=ctx.createGain(); out.gain.value=gain*lvl;
+    const pn=ctx.createStereoPanner(); pn.pan.value=clamp(pan,-1,1);
+    out.connect(pn).connect(master);
+
+    if(noi>0.005){
+      const src=ctx.createBufferSource(); src.buffer=noiseBuf;
+      const bp=ctx.createBiquadFilter(); bp.type='bandpass';
+      bp.frequency.setValueAtTime(hz,now);
+      if(Math.abs(swp-1)>0.01) bp.frequency.exponentialRampToValueAtTime(clamp(hz*swp,30,18000),now+dec*0.8);
+      bp.Q.value=q;
+      const g=ctx.createGain();
+      g.gain.setValueAtTime(0.0001,now);
+      g.gain.linearRampToValueAtTime(noi,now+0.002);
+      g.gain.exponentialRampToValueAtTime(0.0001,now+dec);
+      src.connect(bp).connect(g).connect(out);
+      src.start(now,Math.random()*0.5); src.stop(now+dec+0.05);
+    }
+    if(noi<0.995){
+      const o=ctx.createOscillator(); o.type='sine';
+      o.frequency.setValueAtTime(hz,now);
+      if(Math.abs(swp-1)>0.01) o.frequency.exponentialRampToValueAtTime(clamp(hz*swp,30,18000),now+dec*0.8);
+      const g=ctx.createGain();
+      g.gain.setValueAtTime(0.0001,now);
+      g.gain.linearRampToValueAtTime(1-noi,now+0.002);
+      g.gain.exponentialRampToValueAtTime(0.0001,now+dec);
+      o.connect(g).connect(out);
+      o.start(now); o.stop(now+dec+0.05);
+    }
+  }
+
+  function fire(line, gain, pan, kind){
+    const nowMs=performance.now();
+    let delay=0;
+    if(nowMs-lastEventTime < num('colMs')){
+      counts.col++;
+      delay=rand(0,num('stagger'));
+      log('col','COLLIDE '+line.id+' — '+(nowMs-lastEventTime).toFixed(0)+' ms after previous');
+    }
+    lastEventTime=nowMs;
+    counts.ev++;
+    transient(line.L, gain, pan, delay);
+    events.push({t:nowMs,L:line.L,gain,kind});
+    $('colN').textContent=String(counts.col);
+    $('evN').textContent=String(counts.ev);
+    $('colN').classList.toggle('warn', counts.ev>8 && counts.col/counts.ev>0.25);
+  }
+
+  function startAlong(line){
+    if(alongState.has(line.id)) return;
+    if([...alongState.keys()].length>=num('alongMax')) return;
+    log('l'+line.L,'ALONG   '+line.id+' ('+LAYERS[line.L].name+')');
+    const st={timer:null};
+    const loop=()=>{
+      if(!alongState.has(line.id)) return;
+      const n=nearestOnSeg(fix,line.a,line.b);
+      const g=clamp(1-n.d/num('alongR'),0,1)*0.7;
+      fire(line,g,(n.x-fix.x)/25,'along');
+      const j=num('alongJit')/100;
+      st.timer=setTimeout(loop, num(line.L+'_int')*1000*rand(1-j,1+j));
+    };
+    st.timer=setTimeout(loop, num(line.L+'_int')*1000*0.35);
+    alongState.set(line.id,st);
+  }
+  function stopAlong(id){
+    const st=alongState.get(id);
+    if(st){ clearTimeout(st.timer); alongState.delete(id); log('end','END     '+id); }
+  }
+
+  // ---------- detection, once per fix ----------
+  function evaluate(newFix, nowMs){
+    if(prevFix){
+      const moved=Math.hypot(newFix.x-prevFix.x,newFix.y-prevFix.y);
+      if(moved>=num('minMove')){
+        const mvAng=Math.atan2(newFix.y-prevFix.y,newFix.x-prevFix.x);
+        for(const line of lines){
+          if(segsCross(prevFix,newFix,line.a,line.b)){
+            const cd=num('crossCD')*1000;
+            if(nowMs-(lastCross.get(line.id)||-1e9)>cd){
+              lastCross.set(line.id,nowMs);
+              const n=nearestOnSeg(newFix,line.a,line.b);
+              fire(line,1,(n.x-newFix.x)/25,'cross');
+              log('l'+line.L,'CROSS   '+line.id+' ('+LAYERS[line.L].name+')');
+              flashes.push({x:n.x,y:n.y,t:nowMs,L:line.L});
+            }
+          }
+          const n=nearestOnSeg(newFix,line.a,line.b);
+          const segAng=Math.atan2(line.b.y-line.a.y,line.b.x-line.a.x);
+          let diff=Math.abs(((mvAng-segAng)*R2D+180)%360-180);
+          if(diff>90) diff=180-diff;
+          if(n.d<=num('alongR') && diff<=num('alongA')) startAlong(line);
+          else stopAlong(line.id);
+        }
+      }
+    }
+    prevFix=newFix;
+  }
+
+  // ---------- tick ----------
+  let lastT=performance.now(), fixAccum=0, noiseOff={x:0,y:0};
+  function tick(){
+    requestAnimationFrame(tick);
+    const nowMs=performance.now(), dt=Math.min(0.1,(nowMs-lastT)/1000); lastT=nowMs;
+
+    if(walking){
+      walkT+=dt*num('walkSpd');
+      const p=walkT*0.05;
+      lis.x=clamp(63+56*Math.sin(p),1,WORLD.w-1);
+      lis.y=clamp(18+14*Math.sin(p*1.63+0.6),1,WORLD.h-1);
+    }
+
+    fixAccum+=dt;
+    if(fixAccum>=1){
+      fixAccum=0;
+      const n=num('gpsNoise');
+      noiseOff.x=clamp(noiseOff.x*0.55+rand(-n,n)*0.75,-n,n);
+      noiseOff.y=clamp(noiseOff.y*0.55+rand(-n,n)*0.75,-n,n);
+      const nf={x:lis.x+noiseOff.x,y:lis.y+noiseOff.y};
+      evaluate(nf,nowMs);
+      fix=nf;
+    }
+
+    flashes=flashes.filter(f=>nowMs-f.t<900);
+    while(events.length && nowMs-events[0].t>20000) events.shift();
+
+    const act=[...alongState.keys()];
+    $('mapRead').innerHTML='alongside: '+(act.length?act.join(', '):'none')+'<br>'+
+      'fix drift '+Math.hypot(fix.x-lis.x,fix.y-lis.y).toFixed(1)+' m';
+
+    draw();
+  }
+
+  // ---------- draw ----------
+  const mc=$('map'), m2=mc.getContext('2d');
+  const rc=$('raster'), r2=rc.getContext('2d');
+  let SC=9;
+  function resize(){
+    const dpr=window.devicePixelRatio||1;
+    [[mc,m2,330],[rc,r2,150]].forEach(([cv,cx,h])=>{
+      const r=cv.getBoundingClientRect();
+      cv.width=Math.round(r.width*dpr); cv.height=Math.round(h*dpr);
+      cx.setTransform(dpr,0,0,dpr,0,0);
+    });
+    SC=Math.min(mc.clientWidth/WORLD.w, 330/WORLD.h);
+  }
+  window.addEventListener('resize',resize); resize();
+  const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+  const X=x=>x*SC, Y=y=>y*SC;
+
+  function draw(){
+    const w=mc.clientWidth,h=330;
+    m2.clearRect(0,0,w,h); m2.fillStyle=css('--paper-2'); m2.fillRect(0,0,w,h);
+    m2.strokeStyle=css('--rule'); m2.lineWidth=1;
+    for(let g=0;g<=WORLD.w;g+=10){ const x=Math.round(X(g))+0.5;
+      m2.beginPath(); m2.moveTo(x,0); m2.lineTo(x,h); m2.stroke(); }
+    for(let g=0;g<=WORLD.h;g+=10){ const y=Math.round(Y(g))+0.5;
+      m2.beginPath(); m2.moveTo(0,y); m2.lineTo(w,y); m2.stroke(); }
+
+    m2.beginPath(); m2.arc(X(fix.x),Y(fix.y),num('alongR')*SC,0,Math.PI*2);
+    m2.fillStyle='rgba(70,89,107,0.06)'; m2.fill();
+    m2.strokeStyle='rgba(70,89,107,0.35)'; m2.setLineDash([3,4]); m2.stroke(); m2.setLineDash([]);
+
+    lines.forEach(l=>{
+      const on=alongState.has(l.id);
+      m2.strokeStyle=css(LAYERS[l.L].col);
+      m2.globalAlpha=on?1:0.55; m2.lineWidth=on?3.4:2;
+      m2.beginPath(); m2.moveTo(X(l.a.x),Y(l.a.y)); m2.lineTo(X(l.b.x),Y(l.b.y)); m2.stroke();
+      m2.globalAlpha=1;
+      m2.fillStyle=css('--ink-3'); m2.font='9px ui-monospace, Menlo, monospace';
+      m2.fillText(l.id, X((l.a.x+l.b.x)/2)+4, Y((l.a.y+l.b.y)/2)-4);
+    });
+
+    const nowMs=performance.now();
+    flashes.forEach(f=>{
+      const a=1-(nowMs-f.t)/900;
+      m2.globalAlpha=a; m2.strokeStyle=css(LAYERS[f.L].col); m2.lineWidth=2;
+      m2.beginPath(); m2.arc(X(f.x),Y(f.y),4+26*(1-a),0,Math.PI*2); m2.stroke();
+      m2.globalAlpha=1;
+    });
+
+    if(num('gpsNoise')>0){
+      m2.strokeStyle=css('--ghost'); m2.setLineDash([2,2]); m2.lineWidth=1;
+      m2.beginPath(); m2.moveTo(X(lis.x),Y(lis.y)); m2.lineTo(X(fix.x),Y(fix.y)); m2.stroke();
+      m2.setLineDash([]);
+      m2.fillStyle=css('--ghost');
+      m2.beginPath(); m2.arc(X(lis.x),Y(lis.y),4,0,Math.PI*2); m2.fill();
+    }
+    m2.fillStyle=css('--ink');
+    m2.beginPath(); m2.arc(X(fix.x),Y(fix.y),6,0,Math.PI*2); m2.fill();
+
+    // raster — four lanes
+    const w2=rc.clientWidth,h2=150;
+    r2.clearRect(0,0,w2,h2); r2.fillStyle=css('--paper-2'); r2.fillRect(0,0,w2,h2);
+    r2.font='9px ui-monospace, Menlo, monospace';
+    const keys=['w','s','e','t'];
+    keys.forEach((k,i)=>{
+      const y=34+i*28;
+      r2.strokeStyle=css('--rule'); r2.lineWidth=1;
+      r2.beginPath(); r2.moveTo(58,y+0.5); r2.lineTo(w2-8,y+0.5); r2.stroke();
+      r2.fillStyle=css(LAYERS[k].col);
+      r2.fillText(LAYERS[k].name.toUpperCase(),8,y+3);
+    });
+    r2.fillStyle=css('--ink-3');
+    r2.fillText('EVENT RASTER — LAST 20 s · TALL = CROSSING, SHORT = ALONGSIDE',58,14);
+    for(let s=0;s<=20;s+=5){
+      const x=58+((20-s)/20)*(w2-66);
+      r2.fillText('-'+s+'s',x+2,h2-4);
+    }
+    events.forEach(e=>{
+      const age=(nowMs-e.t)/20000;
+      const x=58+(1-age)*(w2-66);
+      const i=keys.indexOf(e.L); if(i<0) return;
+      const y=34+i*28;
+      const hgt=e.kind==='cross'?22:11;
+      r2.strokeStyle=css(LAYERS[e.L].col);
+      r2.globalAlpha=0.3+0.7*(1-age);
+      r2.lineWidth=e.kind==='cross'?2.4:1.4;
+      r2.beginPath(); r2.moveTo(x,y); r2.lineTo(x,y-hgt); r2.stroke();
+      r2.globalAlpha=1;
+    });
+  }
+
+  // ---------- interaction ----------
+  function toWorld(ev){
+    const r=mc.getBoundingClientRect();
+    const cx=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left;
+    const cy=(ev.touches?ev.touches[0].clientY:ev.clientY)-r.top;
+    return {x:clamp(cx/SC,0,WORLD.w), y:clamp(cy/SC,0,WORLD.h)};
+  }
+  let dragging=false;
+  const onDown=e=>{ dragging=true; walking=false; $('btnWalk').classList.remove('on'); status();
+                    lis=toWorld(e); e.preventDefault(); };
+  const onMove=e=>{ if(dragging){ lis=toWorld(e); e.preventDefault(); } };
+  const onUp=()=>{ dragging=false; };
+  mc.addEventListener('mousedown',onDown); mc.addEventListener('mousemove',onMove);
+  window.addEventListener('mouseup',onUp);
+  mc.addEventListener('touchstart',onDown,{passive:false});
+  mc.addEventListener('touchmove',onMove,{passive:false});
+  window.addEventListener('touchend',onUp);
+
+  // ---------- controls ----------
+  async function enableAudio(){
+    if(ctx) return;
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    await ctx.resume();
+    noiseBuf=makeNoise(ctx);
+    master=ctx.createGain(); master.gain.value=num('master');
+    master.connect(ctx.destination);
+    $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
+    $('btnWalk').disabled=false;
+    $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+  }
+  function status(){ $('modeStatus').textContent='Auto walk — '+(walking?'running':'off'); }
+
+  $('btnAudio').addEventListener('click',enableAudio);
+  $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
+  $('btnWalk').addEventListener('click',()=>{ walking=!walking; $('btnWalk').classList.toggle('on',walking); status(); });
+
+  document.addEventListener('keydown',e=>{
+    if(e.code==='Space'&&!/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
+      e.preventDefault(); if(!ctx) enableAudio(); else $('btnWalk').click();
+    }
+  });
+
+  tick();
+})();
+</script>
+</body>
+</html>

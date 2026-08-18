@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POWERLINE DRONE — tram trasse</title>
+<style>
+  :root{
+    --paper:#E9EBE6; --paper-2:#F4F5F2; --paper-3:#DFE2DB;
+    --ink:#14171A; --ink-2:#5A6169; --ink-3:#8B9199; --rule:#C6CAC3;
+    --tram:#A81D45; --live:#0F7A78; --warn:#B85C1E;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+       font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+
+  .masthead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+            flex-wrap:wrap;border-bottom:1.5px solid var(--ink);padding-bottom:10px}
+  .title{font-size:clamp(26px,5vw,42px);font-weight:700;letter-spacing:-0.035em;
+         text-transform:uppercase;margin:0;line-height:0.95}
+  .title span{color:var(--tram)}
+  .masthead-meta{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+                 text-align:right;letter-spacing:0.02em;white-space:nowrap}
+  .masthead-meta b{color:var(--ink);font-weight:500}
+  .strapline{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:8px 0 20px}
+  .strapline em{color:var(--tram);font-style:normal}
+
+  .panel{background:var(--paper-2);border:1px solid var(--rule);padding:12px 13px 14px}
+  .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+              margin:0 0 10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+  .panel-head h2{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.14em;
+                 text-transform:uppercase;margin:0}
+  .panel-head .note{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);text-align:right}
+
+  .hero{margin:0 0 14px;border:1px solid var(--rule);background:var(--paper-2);position:relative}
+  canvas.viz{display:block;width:100%}
+  canvas#track{height:132px;border-bottom:1px solid var(--rule);cursor:crosshair;touch-action:none}
+  canvas#lfo{height:126px}
+  .maptag{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;
+          color:var(--ink-3);pointer-events:none;left:9px;top:8px}
+
+  .transport{display:flex;gap:10px;align-items:center;margin:14px 0 18px;flex-wrap:wrap}
+  button{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+         padding:9px 14px;border:1px solid var(--ink);background:var(--paper-2);color:var(--ink);
+         cursor:pointer;transition:background .12s,color .12s}
+  button:hover:not(:disabled){background:var(--ink);color:var(--paper-2)}
+  button:disabled{opacity:.35;cursor:not-allowed}
+  button:focus-visible{outline:2px solid var(--live);outline-offset:2px}
+  button.primary{background:var(--tram);border-color:var(--tram);color:#fff;font-weight:600}
+  button.primary:hover:not(:disabled){background:var(--ink);border-color:var(--ink)}
+  button.ghost{border-color:var(--rule);color:var(--ink-2)}
+  button.ghost:hover:not(:disabled){background:var(--ink-2);color:var(--paper-2);border-color:var(--ink-2)}
+  button.on{background:var(--live);border-color:var(--live);color:#fff}
+
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));align-items:start}
+  .row{display:grid;grid-template-columns:100px 1fr;gap:9px;align-items:center;margin-bottom:7px}
+  .row:last-child{margin-bottom:0}
+  .row>label{font-family:var(--mono);font-size:10px;color:var(--ink-2);line-height:1.2}
+  .rng{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .field{display:flex;align-items:center;gap:5px}
+  .field span{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);
+              letter-spacing:0.06em;text-transform:uppercase}
+  input[type=number]{font-family:var(--mono);font-size:11px;width:100%;min-width:0;padding:5px 6px;
+                     border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+  input[type=number]:focus-visible{outline:2px solid var(--live);outline-offset:-1px}
+  input[type=range]{width:100%;accent-color:var(--tram)}
+  select{font-family:var(--mono);font-size:11px;padding:5px 6px;border:1px solid var(--rule);
+         background:var(--paper);color:var(--ink);width:100%}
+  .val{font-family:var(--mono);font-size:10.5px;color:var(--ink);min-width:46px;text-align:right}
+  .hint{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);line-height:1.5;
+        margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--rule)}
+  .hint b{color:var(--tram);font-weight:500}
+
+  .big{font-family:var(--mono);font-size:22px;letter-spacing:-0.02em;color:var(--ink)}
+  .big.warn{color:var(--warn)}
+  .biglab{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+
+  .status{font-family:var(--mono);font-size:10px;color:var(--ink-2);margin-top:16px;
+          padding-top:9px;border-top:1px solid var(--rule);
+          display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .status .ok{color:var(--live)}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="title">Powerline <span>Drone</span></h1>
+    <div class="masthead-meta">
+      TRAM ELECTRICAL · BEHAVIOUR 11/23<br>
+      <b>LINE-GATED · 20 M → 5 M</b><br>
+      HIDDEN INFRASTRUCTURES : ZÜRICH
+    </div>
+  </header>
+
+  <p class="strapline">
+    The tightest gate in the project, modulated by the slowest LFOs — <em>0.017 Hz</em> is a 59-second cycle.
+    Cross the tracks and you are inside the gate for seconds; walk along them and it runs for minutes.
+    The lower panel shows how much of the cycle each encounter actually contains.
+  </p>
+
+  <section class="hero">
+    <canvas id="track" class="viz" width="1160" height="132"></canvas>
+    <canvas id="lfo" class="viz" width="1160" height="126"></canvas>
+    <div class="maptag">PLAN — drag to move · trasse runs east–west</div>
+  </section>
+
+  <div class="transport">
+    <button id="btnAudio" class="primary">Enable audio</button>
+    <button id="btnAlong" class="ghost" disabled>Walk along</button>
+    <button id="btnAcross" class="ghost" disabled>Walk across</button>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">SPEED</span>
+      <input type="range" id="walkSpd" min="0.3" max="3" step="0.1" value="1.4" style="width:100px">
+      <span class="val" id="walkSpdV">1.4</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">MASTER</span>
+      <input type="range" id="master" min="0" max="1" step="0.01" value="0.6" style="width:120px">
+      <span class="val" id="masterV">0.60</span>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <section class="panel">
+      <div class="panel-head"><h2>Tone</h2><div class="note">110 Hz = A2</div></div>
+      <div class="row"><label>FUND Hz</label>
+        <div class="field"><input type="number" id="fund" value="110" step="0.5" min="40" max="400"></div>
+      </div>
+      <div class="row"><label>BEAT Hz</label>
+        <div class="field"><input type="range" id="beat" min="0" max="12" step="0.1" value="2"><span class="val" id="beatV">2.0</span></div>
+      </div>
+      <div class="row"><label>2ND</label>
+        <div class="field"><input type="range" id="p2" min="0" max="1" step="0.01" value="0.18"><span class="val" id="p2V">0.18</span></div>
+      </div>
+      <div class="row"><label>3RD</label>
+        <div class="field"><input type="range" id="p3" min="0" max="1" step="0.01" value="0.09"><span class="val" id="p3V">0.09</span></div>
+      </div>
+      <div class="row"><label>LEVEL</label>
+        <div class="field"><input type="range" id="toneLvl" min="0" max="1" step="0.01" value="0.55"><span class="val" id="toneLvlV">0.55</span></div>
+      </div>
+      <p class="hint">110 Hz is A2 exactly — the one place in the piece where a pitch is chosen musically rather than derived from the infrastructure. That makes this drone a tonal centre by default, which the <b>district theme</b> in Phase 3 will either have to accept or deliberately work against.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Sweep</h2><div class="note">0.017 / 0.023 Hz</div></div>
+      <div class="row"><label>LFO 1 Hz</label>
+        <div class="field"><input type="number" id="l1" value="0.017" step="0.001" min="0.002" max="1"></div>
+      </div>
+      <div class="row"><label>LFO 2 Hz</label>
+        <div class="field"><input type="number" id="l2" value="0.023" step="0.001" min="0.002" max="1"></div>
+      </div>
+      <div class="row"><label>DEPTH ±Hz</label>
+        <div class="field"><input type="range" id="lDep" min="0" max="30" step="0.5" value="8"><span class="val" id="lDepV">8.0</span></div>
+      </div>
+      <div class="row"><label>PERIOD 1</label><div class="field"><span class="val" id="per1" style="min-width:0">—</span></div></div>
+      <div class="row"><label>PERIOD 2</label><div class="field"><span class="val" id="per2" style="min-width:0">—</span></div></div>
+      <p class="hint">Each LFO drives one oscillator, so the beat rate itself wanders rather than staying fixed at the interval set above. The two rates are deliberately incommensurate — they never realign, so the drone never repeats exactly.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Gate</h2><div class="note">trasse proximity</div></div>
+      <div class="row"><label>OUTER m</label>
+        <div class="field"><input type="number" id="outer" value="20" step="1" min="2" max="120"></div>
+      </div>
+      <div class="row"><label>INNER m</label>
+        <div class="field"><input type="number" id="inner" value="5" step="1" min="0" max="60"></div>
+      </div>
+      <div class="row"><label>FALLOFF exp</label>
+        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
+      </div>
+      <div class="row"><label>RAMP s</label>
+        <div class="field"><input type="range" id="ramp" min="0.05" max="4" step="0.05" value="0.8"><span class="val" id="rampV">0.80</span></div>
+      </div>
+      <p class="hint">Silent beyond <b>outer</b>, full at <b>inner</b> — a 15 m window rather than a long fade. In District 1 the trasse runs the length of Bahnhofstrasse, so walking the street holds this open continuously while crossing it opens and shuts in seconds.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Private reverb</h2><div class="note">not the shared bus</div></div>
+      <div class="row"><label>LENGTH s</label>
+        <div class="field"><input type="range" id="irLen" min="0.3" max="6" step="0.1" value="2"><span class="val" id="irLenV">2.0</span></div>
+      </div>
+      <div class="row"><label>WET</label>
+        <div class="field"><input type="range" id="wet" min="0" max="0.4" step="0.005" value="0.03"><span class="val" id="wetV">0.030</span></div>
+      </div>
+      <div class="row"><label>DAMPING</label>
+        <div class="field"><input type="range" id="damp" min="200" max="8000" step="50" value="1800"><span class="val" id="dampV">1800</span></div>
+      </div>
+      <div class="row"><label>BUS SEND</label>
+        <div class="field"><input type="range" id="busSend" min="0" max="1" step="0.01" value="0.35"><span class="val" id="busSendV">0.35</span></div>
+      </div>
+      <p class="hint">This is the only layer with a reverb of its own, on top of its send to the shared density bus. Worth deciding whether that is a considered exception or an inherited one — every other continuous layer gets depth only from the shared bus.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Encounter</h2><div class="note">the question this asks</div></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px">
+        <div>
+          <div class="biglab">In gate</div>
+          <div class="big" id="encT">0.0 s</div>
+        </div>
+        <div>
+          <div class="biglab">Cycles heard</div>
+          <div class="big" id="encC">0.00</div>
+        </div>
+      </div>
+      <div class="row"><label>DISTANCE m</label><div class="field"><span class="val" id="roDist" style="min-width:0">—</span></div></div>
+      <div class="row"><label>GATE GAIN</label><div class="field"><span class="val" id="roGain" style="min-width:0">—</span></div></div>
+      <div class="row"><label>LAST PASS</label><div class="field"><span class="val" id="roLast" style="min-width:0">—</span></div></div>
+      <p class="hint">Cycles heard is encounter duration ÷ LFO 1 period. Below about <b>0.25</b> the sweep is not modulation any more — it is a random static offset, different on every pass. That is the finding this instrument exists to produce.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Trasse</h2><div class="note">simulation</div></div>
+      <div class="row"><label>MODE</label>
+        <div class="field">
+          <select id="mode">
+            <option value="manual" selected>Manual — drag</option>
+            <option value="along">Along the tracks</option>
+            <option value="across">Across the tracks</option>
+          </select>
+        </div>
+      </div>
+      <div class="row"><label>OFFSET m</label>
+        <div class="field"><input type="range" id="offset" min="0" max="40" step="0.5" value="9"><span class="val" id="offsetV">9.0</span></div>
+      </div>
+      <p class="hint">Offset is the perpendicular distance held while walking along. Set it inside <b>inner</b> and the drone sits at full gain for the whole pass — which is the Bahnhofstrasse case, and the only one where the slow sweep is genuinely audible.</p>
+    </section>
+
+  </div>
+
+  <div class="status">
+    <div id="modeStatus">Manual</div>
+    <div id="ctxStatus">AudioContext — not created</div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const num=id=>parseFloat($(id).value);
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+
+  const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
+  bind($('beat'),$('beatV'),1); bind($('p2'),$('p2V'),2); bind($('p3'),$('p3V'),2);
+  bind($('toneLvl'),$('toneLvlV'),2); bind($('lDep'),$('lDepV'),1);
+  bind($('falloff'),$('falloffV'),1); bind($('ramp'),$('rampV'),2);
+  bind($('irLen'),$('irLenV'),1); bind($('wet'),$('wetV'),3); bind($('damp'),$('dampV'),0);
+  bind($('busSend'),$('busSendV'),2); bind($('offset'),$('offsetV'),1);
+  bind($('walkSpd'),$('walkSpdV'),1); bind($('master'),$('masterV'),2);
+
+  function syncPeriods(){
+    $('per1').textContent=(1/num('l1')).toFixed(0)+' s';
+    $('per2').textContent=(1/num('l2')).toFixed(0)+' s';
+  }
+  $('l1').addEventListener('input',syncPeriods); $('l2').addEventListener('input',syncPeriods);
+  syncPeriods();
+
+  // ---------- world ----------
+  const WORLD={w:120,h:44};
+  const TRASSE_Y=22;                 // trasse runs east-west at y=22
+  let lis={x:24,y:34};
+  let walkT=0;
+
+  // ---------- audio ----------
+  let ctx=null,master=null,busBbus=null;
+  let oscA=null,oscB=null,o2=null,o3=null,gA=null,gB=null,g2=null,g3=null;
+  let carrier=null,layerGain=null,convolver=null,wetGain=null,dampF=null,busGain=null;
+  let lfo1=null,lfo2=null,d1=null,d2=null;
+  let t0=null;
+
+  function makeIR(ac,seconds){
+    const len=Math.max(1,Math.floor(ac.sampleRate*seconds));
+    const buf=ac.createBuffer(2,len,ac.sampleRate);
+    for(let c=0;c<2;c++){
+      const d=buf.getChannelData(c);
+      for(let i=0;i<len;i++){
+        d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6);
+      }
+    }
+    return buf;
+  }
+
+  function build(ac){
+    layerGain=ac.createGain(); layerGain.gain.value=0.0001;
+    carrier=ac.createGain(); carrier.gain.value=1;
+    carrier.connect(layerGain);
+    layerGain.connect(master);
+
+    const f=num('fund'), b=num('beat');
+    oscA=ac.createOscillator(); oscA.type='sine'; oscA.frequency.value=f;
+    gA=ac.createGain(); gA.gain.value=0.5; oscA.connect(gA).connect(carrier);
+    oscB=ac.createOscillator(); oscB.type='sine'; oscB.frequency.value=f+b;
+    gB=ac.createGain(); gB.gain.value=0.5; oscB.connect(gB).connect(carrier);
+
+    o2=ac.createOscillator(); o2.type='sine'; o2.frequency.value=f*2;
+    g2=ac.createGain(); g2.gain.value=num('p2'); o2.connect(g2).connect(carrier);
+    o3=ac.createOscillator(); o3.type='sine'; o3.frequency.value=f*3;
+    g3=ac.createGain(); g3.gain.value=num('p3'); o3.connect(g3).connect(carrier);
+
+    // one slow LFO per oscillator, so the beat rate itself drifts
+    lfo1=ac.createOscillator(); lfo1.type='sine'; lfo1.frequency.value=num('l1');
+    d1=ac.createGain(); d1.gain.value=num('lDep');
+    lfo1.connect(d1).connect(oscA.frequency);
+    lfo2=ac.createOscillator(); lfo2.type='sine'; lfo2.frequency.value=num('l2');
+    d2=ac.createGain(); d2.gain.value=num('lDep');
+    lfo2.connect(d2).connect(oscB.frequency);
+
+    // private reverb
+    convolver=ac.createConvolver(); convolver.buffer=makeIR(ac,num('irLen'));
+    dampF=ac.createBiquadFilter(); dampF.type='lowpass'; dampF.frequency.value=num('damp');
+    wetGain=ac.createGain(); wetGain.gain.value=num('wet');
+    layerGain.connect(dampF).connect(convolver).connect(wetGain).connect(master);
+
+    // stand-in for the shared density bus send
+    busGain=ac.createGain(); busGain.gain.value=num('busSend')*0.0001;
+    layerGain.connect(busGain).connect(master);
+
+    const t=ac.currentTime;
+    oscA.start(t); oscB.start(t); o2.start(t); o3.start(t); lfo1.start(t); lfo2.start(t);
+    t0=t;
+  }
+
+  $('irLen').addEventListener('change',()=>{ if(ctx) convolver.buffer=makeIR(ctx,num('irLen')); });
+
+  // ---------- geometry ----------
+  function distToTrasse(p){ return Math.abs(p.y-TRASSE_Y); }
+  function gateGain(d){
+    const outer=num('outer'), inner=num('inner');
+    if(d>=outer) return 0;
+    if(d<=inner) return 1;
+    const t=(d-inner)/Math.max(0.001,outer-inner);
+    return Math.pow(1-t,num('falloff'));
+  }
+
+  // ---------- encounter tracking ----------
+  let inGate=false, encStart=0, encDur=0, lastPass='—';
+
+  // ---------- tick ----------
+  let lastT=performance.now();
+  const lfoHist=[];   // {t, v1, v2, g}
+
+  function tick(){
+    requestAnimationFrame(tick);
+    const nowMs=performance.now(), dt=Math.min(0.1,(nowMs-lastT)/1000); lastT=nowMs;
+    const mode=$('mode').value;
+
+    if(mode==='along'){
+      walkT+=dt*num('walkSpd');
+      lis.x=((walkT*1.0)%(WORLD.w+20))-10;
+      lis.y=TRASSE_Y+num('offset');
+    } else if(mode==='across'){
+      walkT+=dt*num('walkSpd');
+      const span=WORLD.h;
+      const p=(walkT*1.0)%(span*2);
+      lis.y=p<span?p:(span*2-p);
+      lis.x=WORLD.w*0.5;
+    }
+
+    const d=distToTrasse(lis);
+    const g=gateGain(d);
+
+    // encounter timing
+    if(g>0.001 && !inGate){ inGate=true; encStart=nowMs; }
+    if(g<=0.001 && inGate){
+      inGate=false;
+      const dur=(nowMs-encStart)/1000;
+      lastPass=dur.toFixed(1)+' s · '+(dur*num('l1')).toFixed(2)+' cyc';
+      encDur=0;
+    }
+    if(inGate) encDur=(nowMs-encStart)/1000;
+
+    const cycles=encDur*num('l1');
+    $('encT').textContent=encDur.toFixed(1)+' s';
+    $('encC').textContent=cycles.toFixed(2);
+    $('encC').classList.toggle('warn', inGate && cycles<0.25);
+    $('roDist').textContent=d.toFixed(1)+' m';
+    $('roGain').textContent=g.toFixed(3);
+    $('roLast').textContent=lastPass;
+
+    if(ctx){
+      updateAudio(g);
+      const t=ctx.currentTime-t0;
+      lfoHist.push({t, v1:Math.sin(2*Math.PI*num('l1')*t), v2:Math.sin(2*Math.PI*num('l2')*t), g});
+      while(lfoHist.length && t-lfoHist[0].t>120) lfoHist.shift();
+    }
+    draw();
+  }
+
+  function updateAudio(g){
+    const now=ctx.currentTime, f=num('fund'), b=num('beat');
+    layerGain.gain.setTargetAtTime(Math.max(0.0001,g*num('toneLvl')),now,num('ramp'));
+    oscA.frequency.setTargetAtTime(f,now,0.4);
+    oscB.frequency.setTargetAtTime(f+b,now,0.4);
+    o2.frequency.setTargetAtTime(f*2,now,0.4);
+    o3.frequency.setTargetAtTime(f*3,now,0.4);
+    g2.gain.setTargetAtTime(num('p2'),now,0.2);
+    g3.gain.setTargetAtTime(num('p3'),now,0.2);
+    lfo1.frequency.setTargetAtTime(num('l1'),now,0.5);
+    lfo2.frequency.setTargetAtTime(num('l2'),now,0.5);
+    d1.gain.setTargetAtTime(num('lDep'),now,0.3);
+    d2.gain.setTargetAtTime(num('lDep'),now,0.3);
+    wetGain.gain.setTargetAtTime(num('wet'),now,0.3);
+    dampF.frequency.setTargetAtTime(num('damp'),now,0.3);
+    busGain.gain.setTargetAtTime(num('busSend')*0.08,now,0.3);
+  }
+
+  // ---------- draw ----------
+  const tc=$('track'), t2=tc.getContext('2d');
+  const lc=$('lfo'), l2c=lc.getContext('2d');
+  let SC=10;
+  function resize(){
+    const dpr=window.devicePixelRatio||1;
+    [[tc,t2,132],[lc,l2c,126]].forEach(([cv,cx,h])=>{
+      const r=cv.getBoundingClientRect();
+      cv.width=Math.round(r.width*dpr); cv.height=Math.round(h*dpr);
+      cx.setTransform(dpr,0,0,dpr,0,0);
+    });
+    SC=Math.min(tc.clientWidth/WORLD.w, 132/WORLD.h);
+  }
+  window.addEventListener('resize',resize); resize();
+  const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+  const X=x=>x*SC, Y=y=>y*SC;
+
+  function draw(){
+    // --- plan
+    const w=tc.clientWidth,h=132;
+    t2.clearRect(0,0,w,h); t2.fillStyle=css('--paper-2'); t2.fillRect(0,0,w,h);
+
+    const outer=num('outer'), inner=num('inner');
+    t2.fillStyle='rgba(168,29,69,0.07)';
+    t2.fillRect(0,Y(TRASSE_Y-outer),w,Y(outer*2));
+    t2.fillStyle='rgba(168,29,69,0.13)';
+    t2.fillRect(0,Y(TRASSE_Y-inner),w,Y(inner*2));
+
+    t2.strokeStyle=css('--rule'); t2.lineWidth=1;
+    for(let g=0;g<=WORLD.w;g+=10){
+      const x=Math.round(X(g))+0.5;
+      t2.beginPath(); t2.moveTo(x,0); t2.lineTo(x,h); t2.stroke();
+    }
+
+    // trasse — twin rails
+    t2.strokeStyle=css('--tram'); t2.lineWidth=2;
+    [-0.7,0.7].forEach(o=>{
+      const y=Math.round(Y(TRASSE_Y+o))+0.5;
+      t2.beginPath(); t2.moveTo(0,y); t2.lineTo(w,y); t2.stroke();
+    });
+    t2.fillStyle=css('--ink-3'); t2.font='9px ui-monospace, Menlo, monospace';
+    t2.fillText('TRASSE',8,Y(TRASSE_Y)-7);
+    t2.fillText(inner+' m',w-52,Y(TRASSE_Y-inner)-3);
+    t2.fillText(outer+' m',w-52,Y(TRASSE_Y-outer)-3);
+
+    // listener
+    const lx=X(clamp(lis.x,0,WORLD.w)), ly=Y(clamp(lis.y,0,WORLD.h));
+    t2.strokeStyle=css('--ink'); t2.setLineDash([2,3]); t2.lineWidth=1;
+    t2.beginPath(); t2.moveTo(lx,ly); t2.lineTo(lx,Y(TRASSE_Y)); t2.stroke();
+    t2.setLineDash([]);
+    t2.fillStyle=css('--ink');
+    t2.beginPath(); t2.arc(lx,ly,6,0,Math.PI*2); t2.fill();
+
+    // --- lfo timeline
+    const w2=lc.clientWidth,h2=126;
+    l2c.clearRect(0,0,w2,h2); l2c.fillStyle=css('--paper-2'); l2c.fillRect(0,0,w2,h2);
+    l2c.fillStyle=css('--ink-3'); l2c.font='9px ui-monospace, Menlo, monospace';
+    l2c.fillText('LFO SWEEP — LAST 120 s · SHADED = INSIDE GATE',8,13);
+
+    if(lfoHist.length>1){
+      const tEnd=lfoHist[lfoHist.length-1].t, tStart=tEnd-120;
+      const xOf=t=>((t-tStart)/120)*(w2-16)+8;
+      const mid=h2*0.58, amp=h2*0.28;
+
+      // gate shading
+      l2c.fillStyle='rgba(168,29,69,0.12)';
+      let runStart=null;
+      lfoHist.forEach((p,i)=>{
+        const on=p.g>0.001;
+        if(on&&runStart===null) runStart=p.t;
+        if((!on||i===lfoHist.length-1)&&runStart!==null){
+          l2c.fillRect(xOf(runStart),20,Math.max(1,xOf(p.t)-xOf(runStart)),h2-30);
+          runStart=null;
+        }
+      });
+
+      l2c.strokeStyle=css('--rule'); l2c.lineWidth=1;
+      l2c.beginPath(); l2c.moveTo(8,mid+0.5); l2c.lineTo(w2-8,mid+0.5); l2c.stroke();
+
+      [['v1',css('--tram'),1.6],['v2',css('--ink-2'),1.1]].forEach(([k,col,lw])=>{
+        l2c.strokeStyle=col; l2c.lineWidth=lw;
+        l2c.beginPath();
+        lfoHist.forEach((p,i)=>{
+          const x=xOf(p.t), y=mid-p[k]*amp;
+          i===0?l2c.moveTo(x,y):l2c.lineTo(x,y);
+        });
+        l2c.stroke();
+      });
+
+      l2c.fillStyle=css('--tram'); l2c.fillText('LFO 1',w2-56,mid-amp-4);
+      l2c.fillStyle=css('--ink-2'); l2c.fillText('LFO 2',w2-56,mid-amp+8);
+    }
+  }
+
+  // ---------- interaction ----------
+  function toWorld(ev){
+    const r=tc.getBoundingClientRect();
+    const cx=(ev.touches?ev.touches[0].clientX:ev.clientX)-r.left;
+    const cy=(ev.touches?ev.touches[0].clientY:ev.clientY)-r.top;
+    return {x:clamp(cx/SC,0,WORLD.w), y:clamp(cy/SC,0,WORLD.h)};
+  }
+  let dragging=false;
+  const onDown=e=>{ dragging=true; $('mode').value='manual'; statusLine(); lis=toWorld(e); e.preventDefault(); };
+  const onMove=e=>{ if(dragging){ lis=toWorld(e); e.preventDefault(); } };
+  const onUp=()=>{ dragging=false; };
+  tc.addEventListener('mousedown',onDown); tc.addEventListener('mousemove',onMove);
+  window.addEventListener('mouseup',onUp);
+  tc.addEventListener('touchstart',onDown,{passive:false});
+  tc.addEventListener('touchmove',onMove,{passive:false});
+  window.addEventListener('touchend',onUp);
+
+  // ---------- controls ----------
+  async function enableAudio(){
+    if(ctx) return;
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    await ctx.resume();
+    master=ctx.createGain(); master.gain.value=num('master');
+    master.connect(ctx.destination);
+    build(ctx);
+    $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
+    $('btnAlong').disabled=false; $('btnAcross').disabled=false;
+    $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+  }
+  function statusLine(){
+    const m=$('mode').value;
+    $('modeStatus').textContent = m==='manual'?'Manual — drag the plan':
+      (m==='along'?'Walking along the tracks':'Walking across the tracks');
+    $('btnAlong').classList.toggle('on',m==='along');
+    $('btnAcross').classList.toggle('on',m==='across');
+  }
+
+  $('btnAudio').addEventListener('click',enableAudio);
+  $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
+  $('btnAlong').addEventListener('click',()=>{ $('mode').value=$('mode').value==='along'?'manual':'along'; statusLine(); });
+  $('btnAcross').addEventListener('click',()=>{ $('mode').value=$('mode').value==='across'?'manual':'across'; statusLine(); });
+  $('mode').addEventListener('change',statusLine);
+  statusLine();
+
+  document.addEventListener('keydown',e=>{
+    if(e.code==='Space'&&!/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
+      e.preventDefault(); if(!ctx) enableAudio(); else $('btnAlong').click();
+    }
+  });
+
+  tick();
+})();
+</script>
+</body>
+</html>

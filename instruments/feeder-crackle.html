@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FEEDER CRACKLE — tram electrical</title>
+<style>
+  :root{
+    --paper:#E9EBE6; --paper-2:#F4F5F2; --paper-3:#DFE2DB;
+    --ink:#14171A; --ink-2:#5A6169; --ink-3:#8B9199; --rule:#C6CAC3;
+    --tram:#A81D45; --live:#0F7A78; --warn:#B85C1E;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --sans:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+       font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+
+  .masthead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+            flex-wrap:wrap;border-bottom:1.5px solid var(--ink);padding-bottom:10px}
+  .title{font-size:clamp(26px,5vw,42px);font-weight:700;letter-spacing:-0.035em;
+         text-transform:uppercase;margin:0;line-height:0.95}
+  .title span{color:var(--tram)}
+  .masthead-meta{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);
+                 text-align:right;letter-spacing:0.02em;white-space:nowrap}
+  .masthead-meta b{color:var(--ink);font-weight:500}
+  .strapline{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:8px 0 20px}
+  .strapline em{color:var(--tram);font-style:normal}
+
+  .panel{background:var(--paper-2);border:1px solid var(--rule);padding:12px 13px 14px}
+  .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+              margin:0 0 10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+  .panel-head h2{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.14em;
+                 text-transform:uppercase;margin:0}
+  .panel-head .note{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);text-align:right}
+
+  .hero{margin:0 0 14px;border:1px solid var(--rule);background:var(--paper-2)}
+  canvas.viz{display:block;width:100%}
+  canvas#route{height:94px;border-bottom:1px solid var(--rule)}
+  canvas#curve{height:186px}
+
+  .transport{display:flex;gap:10px;align-items:center;margin:14px 0 18px;flex-wrap:wrap}
+  button{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+         padding:9px 14px;border:1px solid var(--ink);background:var(--paper-2);color:var(--ink);
+         cursor:pointer;transition:background .12s,color .12s}
+  button:hover:not(:disabled){background:var(--ink);color:var(--paper-2)}
+  button:disabled{opacity:.35;cursor:not-allowed}
+  button:focus-visible{outline:2px solid var(--live);outline-offset:2px}
+  button.primary{background:var(--tram);border-color:var(--tram);color:#fff;font-weight:600}
+  button.primary:hover:not(:disabled){background:var(--ink);border-color:var(--ink)}
+  button.ghost{border-color:var(--rule);color:var(--ink-2)}
+  button.ghost:hover:not(:disabled){background:var(--ink-2);color:var(--paper-2);border-color:var(--ink-2)}
+  button.on{background:var(--live);border-color:var(--live);color:#fff}
+
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));align-items:start}
+  .row{display:grid;grid-template-columns:96px 1fr;gap:9px;align-items:center;margin-bottom:7px}
+  .row:last-child{margin-bottom:0}
+  .row>label{font-family:var(--mono);font-size:10px;color:var(--ink-2);line-height:1.2}
+  .rng{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .field{display:flex;align-items:center;gap:5px}
+  .field span{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);
+              letter-spacing:0.06em;text-transform:uppercase}
+  input[type=number]{font-family:var(--mono);font-size:11px;width:100%;min-width:0;padding:5px 6px;
+                     border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+  input[type=number]:focus-visible{outline:2px solid var(--live);outline-offset:-1px}
+  input[type=range]{width:100%;accent-color:var(--tram)}
+  select{font-family:var(--mono);font-size:11px;padding:5px 6px;border:1px solid var(--rule);
+         background:var(--paper);color:var(--ink);width:100%}
+  .val{font-family:var(--mono);font-size:10.5px;color:var(--ink);min-width:46px;text-align:right}
+  .hint{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);line-height:1.5;
+        margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--rule)}
+  .hint b{color:var(--tram);font-weight:500}
+  .dim{opacity:.35;pointer-events:none}
+
+  .lower{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;align-items:start}
+  @media(max-width:900px){.lower{grid-template-columns:1fr}}
+
+  #log{font-family:var(--mono);font-size:10px;line-height:1.65;height:196px;overflow-y:auto}
+  #log div{border-bottom:1px solid var(--paper-3);padding:2px 0}
+  #log .t{color:var(--ink-3)}
+  #log .ev-fire{color:var(--ink)}
+  #log .ev-faint{color:var(--ink-3)}
+  #log .ev-block{color:var(--warn)}
+
+  .status{font-family:var(--mono);font-size:10px;color:var(--ink-2);margin-top:16px;
+          padding-top:9px;border-top:1px solid var(--rule);
+          display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .status .ok{color:var(--live)}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1 class="title">Feeder <span>Crackle</span></h1>
+    <div class="masthead-meta">
+      TRAM ELECTRICAL · BEHAVIOUR 10/23<br>
+      <b>FIRST DISCRETE-EVENT INSTRUMENT</b><br>
+      HIDDEN INFRASTRUCTURES : ZÜRICH
+    </div>
+  </header>
+
+  <p class="strapline">
+    Triggered by the <em>tram</em>, not by you — the only behaviour driven by an external live feed.
+    Gain follows <em>(1−t)²</em> on your own distance across 150 m, with no hard gate: distant feeders
+    stay faintly audible and draw you toward them.
+  </p>
+
+  <section class="hero">
+    <canvas id="route" class="viz" width="1160" height="94"></canvas>
+    <canvas id="curve" class="viz" width="1160" height="186"></canvas>
+  </section>
+
+  <div class="transport">
+    <button id="btnAudio" class="primary">Enable audio</button>
+    <button id="btnTram" class="ghost" disabled>Run tram</button>
+    <button id="btnWalk" class="ghost" disabled>Walk listener</button>
+    <button id="btnFire" class="ghost" disabled>Fire nearest ␣</button>
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--ink-3);letter-spacing:.08em">MASTER</span>
+      <input type="range" id="master" min="0" max="1" step="0.01" value="0.6" style="width:130px">
+      <span class="val" id="masterV">0.60</span>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <section class="panel">
+      <div class="panel-head"><h2>Falloff</h2><div class="note">the validated curve</div></div>
+      <div class="row"><label>RADIUS m</label>
+        <div class="field"><input type="number" id="radius" value="150" step="5" min="20" max="400"></div>
+      </div>
+      <div class="row"><label>EXPONENT</label>
+        <div class="field"><input type="range" id="expo" min="0.5" max="4" step="0.1" value="2"><span class="val" id="expoV">2.0</span></div>
+      </div>
+      <div class="row"><label>FLOOR</label>
+        <div class="field"><input type="range" id="floor" min="0" max="0.2" step="0.005" value="0"><span class="val" id="floorV">0.000</span></div>
+      </div>
+      <p class="hint">Exponent <b>2.0</b> is the production curve — the draw effect comes from removing the listener gate entirely, so events never hard-cut. Floor above 0 keeps very distant events just present; at 0 they vanish at the radius.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Grains</h2><div class="note">arcing, not one click</div></div>
+      <div class="row"><label>COUNT</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="gMin" value="5" step="1" min="1" max="24"></div>
+          <div class="field"><span>max</span><input type="number" id="gMax" value="14" step="1" min="1" max="24"></div>
+        </div>
+      </div>
+      <div class="row"><label>WINDOW ms</label>
+        <div class="field"><input type="range" id="gWin" min="8" max="400" step="2" value="90"><span class="val" id="gWinV">90</span></div>
+      </div>
+      <div class="row"><label>CLUMP</label>
+        <div class="field"><input type="range" id="gShape" min="0.4" max="4" step="0.1" value="1.8"><span class="val" id="gShapeV">1.8</span></div>
+      </div>
+      <div class="row"><label>DECAY ms</label>
+        <div class="field"><input type="range" id="gDec" min="2" max="90" step="1" value="16"><span class="val" id="gDecV">16</span></div>
+      </div>
+      <p class="hint">Contact arcing is a burst of micro-impulses, not a single transient. <b>Clump</b> above 1 front-loads them so the event has an attack and a tail rather than an even scatter.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Grain tone</h2><div class="note">per-grain bandpass</div></div>
+      <div class="row"><label>FREQ Hz</label>
+        <div class="rng">
+          <div class="field"><span>min</span><input type="number" id="fMin" value="1400" step="50" min="200" max="16000"></div>
+          <div class="field"><span>max</span><input type="number" id="fMax" value="7200" step="50" min="200" max="16000"></div>
+        </div>
+      </div>
+      <div class="row"><label>Q</label>
+        <div class="field"><input type="range" id="gQ" min="0.5" max="24" step="0.5" value="6"><span class="val" id="gQV">6.0</span></div>
+      </div>
+      <div class="row"><label>SPREAD</label>
+        <div class="field"><input type="range" id="gSpread" min="0" max="1" step="0.01" value="0.8"><span class="val" id="gSpreadV">0.80</span></div>
+      </div>
+      <p class="hint">Each grain takes its own frequency from this range. Narrow the range and the crackle becomes a tone; widen it and it becomes static. Sits above the hiss pool's comb band so the two read as one layer without masking.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Body</h2><div class="note">cable ring + current surge</div></div>
+      <div class="row"><label>RING Hz</label>
+        <div class="field"><input type="number" id="ringHz" value="430" step="5" min="60" max="3000"></div>
+      </div>
+      <div class="row"><label>RING LVL</label>
+        <div class="field"><input type="range" id="ringLvl" min="0" max="1" step="0.01" value="0.28"><span class="val" id="ringLvlV">0.28</span></div>
+      </div>
+      <div class="row"><label>RING DEC s</label>
+        <div class="field"><input type="range" id="ringDec" min="0.02" max="1.2" step="0.01" value="0.22"><span class="val" id="ringDecV">0.22</span></div>
+      </div>
+      <div class="row"><label>SURGE Hz</label>
+        <div class="field"><input type="number" id="subHz" value="72" step="1" min="30" max="300"></div>
+      </div>
+      <div class="row"><label>SURGE LVL</label>
+        <div class="field"><input type="range" id="subLvl" min="0" max="1" step="0.01" value="0.18"><span class="val" id="subLvlV">0.18</span></div>
+      </div>
+      <p class="hint">Ring is the feeder cable itself; surge is the current draw. Both optional — set to 0 for a dry contact crackle and hear whether the event still carries at 100 m.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Trigger</h2><div class="note">tram → feeder</div></div>
+      <div class="row"><label>TRAM RAD m</label>
+        <div class="field"><input type="number" id="tramRad" value="30" step="1" min="5" max="120"></div>
+      </div>
+      <div class="row"><label>DEBOUNCE s</label>
+        <div class="field"><input type="range" id="debounce" min="0.5" max="20" step="0.5" value="4"><span class="val" id="debounceV">4.0</span></div>
+      </div>
+      <div class="row"><label>MODE</label>
+        <div class="field">
+          <select id="speedMode">
+            <option value="foot" selected>On foot — listener free</option>
+            <option value="tram">On tram — listener rides</option>
+          </select>
+        </div>
+      </div>
+      <div class="row"><label>TRAM SPD</label>
+        <div class="field"><input type="range" id="tramSpd" min="1" max="14" step="0.1" value="4.2"><span class="val" id="tramSpdV">4.2</span></div>
+      </div>
+      <p class="hint">Production detects on-tram travel from the GPS <b>speed</b> property at about 3 m/s. Riding the tram means feeders pass you continuously and every event is close — a different piece entirely. 4.2 m/s is the documented 15 km/h average.</p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Route</h2><div class="note">simulation only</div></div>
+      <div class="row"><label>LENGTH m</label>
+        <div class="field"><input type="number" id="routeLen" value="620" step="20" min="200" max="2000"></div>
+      </div>
+      <div class="row"><label>SPACING m</label>
+        <div class="field"><input type="range" id="spacing" min="15" max="120" step="5" value="42"><span class="val" id="spacingV">42</span></div>
+      </div>
+      <div class="row"><label>JITTER m</label>
+        <div class="field"><input type="range" id="jitter" min="0" max="30" step="1" value="9"><span class="val" id="jitterV">9</span></div>
+      </div>
+      <div class="row"><label>LISTENER m</label>
+        <div class="field"><input type="range" id="lisPos" min="0" max="620" step="1" value="280"><span class="val" id="lisPosV">280</span></div>
+      </div>
+      <div class="row"><label>WALK SPD</label>
+        <div class="field"><input type="range" id="walkSpd" min="0.3" max="2.5" step="0.1" value="1.4"><span class="val" id="walkSpdV">1.4</span></div>
+      </div>
+      <div class="row"><label>FEEDERS</label><div class="field"><span class="val" id="roFeeders" style="min-width:0">—</span></div></div>
+      <p class="hint">A straight corridor with feeders at roughly even spacing — District 1's actual density on Bahnhofstrasse is far higher. Rebuild the route by changing spacing or jitter.</p>
+    </section>
+
+  </div>
+
+  <div class="lower">
+    <section class="panel">
+      <div class="panel-head"><h2>Event log</h2><div class="note" id="logStats">—</div></div>
+      <div id="log"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h2>Readout</h2><div class="note">live state</div></div>
+      <div class="row"><label>TRAM AT m</label><div class="field"><span class="val" id="roTram" style="min-width:0">—</span></div></div>
+      <div class="row"><label>LISTENER m</label><div class="field"><span class="val" id="roLis" style="min-width:0">—</span></div></div>
+      <div class="row"><label>NEAREST m</label><div class="field"><span class="val" id="roNear" style="min-width:0">—</span></div></div>
+      <div class="row"><label>EVENTS/MIN</label><div class="field"><span class="val" id="roRate" style="min-width:0">—</span></div></div>
+      <div class="row"><label>LAST GAIN</label><div class="field"><span class="val" id="roGain" style="min-width:0">—</span></div></div>
+      <div class="row"><label>GRAIN NODES</label><div class="field"><span class="val" id="roNodes" style="min-width:0">—</span></div></div>
+      <p class="hint">Grain nodes is the peak count created by a single event — three per grain, all torn down inside the decay window. Watch it if the crackle rate gets high; this is the one instrument that creates nodes per event rather than per voice.</p>
+    </section>
+  </div>
+
+  <div class="status">
+    <div id="simStatus">Simulation — idle</div>
+    <div id="ctxStatus">AudioContext — not created</div>
+  </div>
+
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const num = id => parseFloat($(id).value);
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const lerp=(a,b,t)=>a+(b-a)*t;
+
+  function hashId(s){ let h=0x811c9dc5; for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193);} return h>>>0; }
+  function mulberry32(a){ return function(){ a|=0;a=(a+0x6D2B79F5)|0;
+    let t=Math.imul(a^(a>>>15),1|a); t=(t+Math.imul(t^(t>>>7),61|t))^t;
+    return ((t^(t>>>14))>>>0)/4294967296; }; }
+
+  const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
+  bind($('expo'),$('expoV'),1); bind($('floor'),$('floorV'),3);
+  bind($('gWin'),$('gWinV'),0); bind($('gShape'),$('gShapeV'),1); bind($('gDec'),$('gDecV'),0);
+  bind($('gQ'),$('gQV'),1); bind($('gSpread'),$('gSpreadV'),2);
+  bind($('ringLvl'),$('ringLvlV'),2); bind($('ringDec'),$('ringDecV'),2); bind($('subLvl'),$('subLvlV'),2);
+  bind($('debounce'),$('debounceV'),1); bind($('tramSpd'),$('tramSpdV'),1);
+  bind($('spacing'),$('spacingV'),0); bind($('jitter'),$('jitterV'),0);
+  bind($('lisPos'),$('lisPosV'),0); bind($('walkSpd'),$('walkSpdV'),1);
+  bind($('master'),$('masterV'),2);
+
+  // ---------- route ----------
+  let feeders = [];
+  function buildRoute(){
+    const L=num('routeLen'), sp=num('spacing'), jit=num('jitter');
+    feeders=[];
+    let i=0;
+    for(let p=sp*0.5; p<L; p+=sp){
+      const rnd=mulberry32(hashId('F'+i));
+      const pos=clamp(p + (rnd()*2-1)*jit, 0, L);
+      feeders.push({ id:'F-'+(4820000+i*137), pos, last:-1e9, flash:0 });
+      i++;
+    }
+    $('lisPos').max = L;
+    $('roFeeders').textContent = String(feeders.length);
+  }
+  ['routeLen','spacing','jitter'].forEach(id=>$(id).addEventListener('input',buildRoute));
+  buildRoute();
+
+  // ---------- audio ----------
+  let ctx=null, master=null, noiseBuf=null;
+  let tramPos=0, lisPos=280, running=false, walking=false;
+  const recent=[];              // {dist, gain, t}
+  const fireTimes=[];
+  let peakNodes=0;
+
+  function log(kind,text){
+    const el=$('log'); const d=document.createElement('div');
+    const t=new Date();
+    const ts=String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0')+
+             '.'+String(Math.floor(t.getMilliseconds()/100));
+    d.innerHTML='<span class="t">'+ts+'</span> <span class="ev-'+kind+'">'+text+'</span>';
+    el.prepend(d);
+    while(el.children.length>50) el.removeChild(el.lastChild);
+  }
+
+  function makeNoise(ac){
+    const len=ac.sampleRate*1.5;
+    const b=ac.createBuffer(1,len,ac.sampleRate);
+    const d=b.getChannelData(0);
+    for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
+    return b;
+  }
+
+  // the validated mapping: (1 - d/R)^exp, no gate
+  function falloff(d){
+    const R=num('radius');
+    const t=clamp(d/R,0,1);
+    return num('floor') + (1-num('floor'))*Math.pow(1-t,num('expo'));
+  }
+
+  function fire(f, listenerDist){
+    if(!ctx) return;
+    const now=ctx.currentTime;
+    const g=falloff(listenerDist);
+    if(g<=0.0005){ return; }
+
+    const rnd=mulberry32((hashId(f.id)+Math.floor(now*1000))>>>0);
+    const evt=ctx.createGain();
+    evt.gain.value=g;
+    const pan=ctx.createStereoPanner();
+    // 1-D route: feeder ahead or behind maps to left/right
+    pan.pan.value=clamp((f.pos-lisPos)/Math.max(20,num('radius')*0.6),-1,1);
+    evt.connect(pan).connect(master);
+
+    const nG=Math.round(lerp(num('gMin'),num('gMax'),rnd()));
+    const win=num('gWin')/1000, dec=num('gDec')/1000;
+    const fLo=num('fMin'), fHi=num('fMax'), spread=num('gSpread');
+    let nodes=0;
+
+    for(let i=0;i<nG;i++){
+      const t0=now+Math.pow(rnd(),num('gShape'))*win;
+      const src=ctx.createBufferSource(); src.buffer=noiseBuf;
+      const bp=ctx.createBiquadFilter(); bp.type='bandpass';
+      const centre=lerp(fLo,fHi,rnd());
+      bp.frequency.value=lerp((fLo+fHi)/2, centre, spread);
+      bp.Q.value=num('gQ');
+      const ga=ctx.createGain();
+      const amp=0.25+0.75*rnd();
+      ga.gain.setValueAtTime(0.0001,t0);
+      ga.gain.linearRampToValueAtTime(amp,t0+0.0006);
+      ga.gain.exponentialRampToValueAtTime(0.0001,t0+dec);
+      src.connect(bp).connect(ga).connect(evt);
+      src.start(t0, rnd()*1.0);
+      src.stop(t0+dec+0.02);
+      nodes+=3;
+    }
+
+    // cable ring
+    const rl=num('ringLvl');
+    if(rl>0.001){
+      const o=ctx.createOscillator(); o.type='triangle';
+      o.frequency.value=num('ringHz')*(0.96+rnd()*0.08);
+      const og=ctx.createGain();
+      og.gain.setValueAtTime(0.0001,now);
+      og.gain.linearRampToValueAtTime(rl*0.5,now+0.003);
+      og.gain.exponentialRampToValueAtTime(0.0001,now+num('ringDec'));
+      o.connect(og).connect(evt); o.start(now); o.stop(now+num('ringDec')+0.05);
+      nodes+=2;
+    }
+    // current surge
+    const sl=num('subLvl');
+    if(sl>0.001){
+      const o=ctx.createOscillator(); o.type='sine';
+      o.frequency.setValueAtTime(num('subHz')*1.6,now);
+      o.frequency.exponentialRampToValueAtTime(num('subHz'),now+0.09);
+      const og=ctx.createGain();
+      og.gain.setValueAtTime(0.0001,now);
+      og.gain.linearRampToValueAtTime(sl*0.5,now+0.006);
+      og.gain.exponentialRampToValueAtTime(0.0001,now+0.28);
+      o.connect(og).connect(evt); o.start(now); o.stop(now+0.33);
+      nodes+=2;
+    }
+
+    peakNodes=Math.max(peakNodes,nodes);
+    $('roNodes').textContent=String(peakNodes);
+    $('roGain').textContent=g.toFixed(3);
+
+    recent.push({dist:listenerDist,gain:g,t:performance.now()});
+    while(recent.length>90) recent.shift();
+    fireTimes.push(performance.now());
+    while(fireTimes.length && performance.now()-fireTimes[0]>60000) fireTimes.shift();
+
+    f.flash=1;
+    log(g>0.25?'fire':'faint',
+        (g>0.25?'FIRE ':'faint')+' '+f.id+' — you '+listenerDist.toFixed(0)+' m, gain '+g.toFixed(3));
+  }
+
+  // ---------- simulation tick ----------
+  let last=performance.now();
+  function tick(){
+    requestAnimationFrame(tick);
+    const now=performance.now(), dt=Math.min(0.1,(now-last)/1000); last=now;
+    const L=num('routeLen');
+
+    if(running){
+      tramPos+=num('tramSpd')*dt;
+      if(tramPos>L+40) tramPos=-40;
+    }
+    if($('speedMode').value==='tram'){
+      lisPos=clamp(tramPos,0,L);
+      $('lisPos').value=lisPos; $('lisPosV').textContent=lisPos.toFixed(0);
+    } else if(walking){
+      lisPos+=num('walkSpd')*dt;
+      if(lisPos>L) lisPos=0;
+      $('lisPos').value=lisPos; $('lisPosV').textContent=lisPos.toFixed(0);
+    } else {
+      lisPos=num('lisPos');
+    }
+
+    // trigger check
+    if(ctx && running){
+      const tr=num('tramRad'), db=num('debounce')*1000;
+      for(const f of feeders){
+        if(Math.abs(f.pos-tramPos)<=tr && now-f.last>db){
+          f.last=now;
+          fire(f, Math.abs(f.pos-lisPos));
+        }
+      }
+    }
+    for(const f of feeders) f.flash=Math.max(0,f.flash-dt*2.2);
+
+    // readouts
+    $('roTram').textContent = running? tramPos.toFixed(0) : '—';
+    $('roLis').textContent  = lisPos.toFixed(0);
+    let nearest=Infinity;
+    for(const f of feeders) nearest=Math.min(nearest,Math.abs(f.pos-lisPos));
+    $('roNear').textContent = isFinite(nearest)? nearest.toFixed(0) : '—';
+    $('roRate').textContent = String(fireTimes.length);
+
+    drawRoute(); drawCurve();
+  }
+
+  // ---------- route strip ----------
+  const rc=$('route'), r2=rc.getContext('2d');
+  const cc=$('curve'), c2=cc.getContext('2d');
+  function resize(){
+    const dpr=window.devicePixelRatio||1;
+    [[rc,r2,94],[cc,c2,186]].forEach(([cv,cx,h])=>{
+      const r=cv.getBoundingClientRect();
+      cv.width=Math.round(r.width*dpr); cv.height=Math.round(h*dpr);
+      cx.setTransform(dpr,0,0,dpr,0,0);
+    });
+  }
+  window.addEventListener('resize',resize); resize();
+  const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+
+  function drawRoute(){
+    const w=rc.clientWidth,h=94,L=num('routeLen');
+    r2.clearRect(0,0,w,h); r2.fillStyle=css('--paper-2'); r2.fillRect(0,0,w,h);
+    const xOf=p=>18+(p/L)*(w-36);
+    const y=54;
+
+    r2.strokeStyle=css('--rule'); r2.lineWidth=1;
+    r2.beginPath(); r2.moveTo(18,y+0.5); r2.lineTo(w-18,y+0.5); r2.stroke();
+
+    r2.font='9px ui-monospace, Menlo, monospace';
+    r2.fillStyle=css('--ink-3');
+    r2.fillText('0 m',18,h-8);
+    r2.fillText(Math.round(L)+' m',w-52,h-8);
+    r2.fillText('FEEDERS',18,16);
+
+    // radius shading around the listener
+    const R=num('radius');
+    r2.fillStyle='rgba(168,29,69,0.07)';
+    r2.fillRect(xOf(clamp(lisPos-R,0,L)),y-20,
+                xOf(clamp(lisPos+R,0,L))-xOf(clamp(lisPos-R,0,L)),40);
+
+    feeders.forEach(f=>{
+      const x=xOf(f.pos);
+      const d=Math.abs(f.pos-lisPos);
+      const g=falloff(d);
+      r2.strokeStyle=css('--tram');
+      r2.globalAlpha=0.2+0.8*g;
+      r2.lineWidth=f.flash>0?2.4:1;
+      r2.beginPath(); r2.moveTo(x+0.5,y-11); r2.lineTo(x+0.5,y+11); r2.stroke();
+      if(f.flash>0){
+        r2.globalAlpha=f.flash;
+        r2.beginPath(); r2.arc(x,y,5+6*(1-f.flash),0,Math.PI*2); r2.stroke();
+      }
+      r2.globalAlpha=1;
+    });
+
+    // listener
+    const lx=xOf(clamp(lisPos,0,L));
+    r2.fillStyle=css('--ink');
+    r2.beginPath(); r2.moveTo(lx,y-20); r2.lineTo(lx-5,y-29); r2.lineTo(lx+5,y-29); r2.closePath(); r2.fill();
+    r2.font='9px ui-monospace, Menlo, monospace';
+    r2.fillText('YOU',lx-10,y-33);
+
+    // tram
+    if(running){
+      const tx=xOf(clamp(tramPos,0,L));
+      r2.fillStyle=css('--live');
+      r2.fillRect(tx-9,y+14,18,8);
+      r2.fillText('TRAM',tx-12,y+34);
+    }
+  }
+
+  function drawCurve(){
+    const w=cc.clientWidth,h=186,R=num('radius');
+    c2.clearRect(0,0,w,h); c2.fillStyle=css('--paper-2'); c2.fillRect(0,0,w,h);
+    const padL=34,padR=16,padT=14,padB=24;
+    const xOf=d=>padL+(d/R)*(w-padL-padR);
+    const yOf=g=>h-padB-g*(h-padT-padB);
+
+    c2.strokeStyle=css('--rule'); c2.lineWidth=1;
+    c2.font='9px ui-monospace, Menlo, monospace'; c2.fillStyle=css('--ink-3');
+    [0,0.25,0.5,0.75,1].forEach(g=>{
+      const y=Math.round(yOf(g))+0.5;
+      c2.beginPath(); c2.moveTo(padL,y); c2.lineTo(w-padR,y); c2.stroke();
+      c2.fillText(g.toFixed(2),4,y+3);
+    });
+    for(let d=0; d<=R; d+=R/6){
+      const x=Math.round(xOf(d))+0.5;
+      c2.beginPath(); c2.moveTo(x,padT); c2.lineTo(x,h-padB); c2.stroke();
+      c2.fillText(Math.round(d)+'m',x+3,h-9);
+    }
+    c2.fillText('GAIN  ×  DISTANCE   —   (1−t)^'+num('expo').toFixed(1),padL,10);
+
+    // reference linear curve
+    c2.strokeStyle=css('--ink-3'); c2.setLineDash([2,3]); c2.lineWidth=1;
+    c2.beginPath();
+    for(let x=0;x<=w-padL-padR;x++){
+      const d=(x/(w-padL-padR))*R;
+      const g=1-clamp(d/R,0,1);
+      const px=padL+x, py=yOf(g);
+      x===0?c2.moveTo(px,py):c2.lineTo(px,py);
+    }
+    c2.stroke(); c2.setLineDash([]);
+
+    // active curve
+    c2.strokeStyle=css('--tram'); c2.lineWidth=1.8;
+    c2.beginPath();
+    for(let x=0;x<=w-padL-padR;x++){
+      const d=(x/(w-padL-padR))*R;
+      const g=falloff(d);
+      const px=padL+x, py=yOf(g);
+      x===0?c2.moveTo(px,py):c2.lineTo(px,py);
+    }
+    c2.stroke();
+
+    // recent events
+    const now=performance.now();
+    recent.forEach(e=>{
+      const age=(now-e.t)/6000;
+      if(age>1) return;
+      c2.globalAlpha=(1-age)*0.85;
+      c2.fillStyle=css('--tram');
+      c2.beginPath(); c2.arc(xOf(Math.min(e.dist,R)),yOf(e.gain),3.2,0,Math.PI*2); c2.fill();
+    });
+    c2.globalAlpha=1;
+  }
+
+  // ---------- controls ----------
+  async function enableAudio(){
+    if(ctx) return;
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    await ctx.resume();
+    noiseBuf=makeNoise(ctx);
+    master=ctx.createGain(); master.gain.value=num('master');
+    master.connect(ctx.destination);
+    $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
+    $('btnTram').disabled=false; $('btnWalk').disabled=false; $('btnFire').disabled=false;
+    $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+  }
+  function status(){
+    $('simStatus').textContent='Simulation — '+
+      (running?'tram running':'tram idle')+(walking?', listener walking':'');
+  }
+
+  $('btnAudio').addEventListener('click',enableAudio);
+  $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
+  $('btnTram').addEventListener('click',()=>{ running=!running; $('btnTram').classList.toggle('on',running); if(running&&tramPos>num('routeLen')) tramPos=-40; status(); });
+  $('btnWalk').addEventListener('click',()=>{ walking=!walking; $('btnWalk').classList.toggle('on',walking); status(); });
+  $('btnFire').addEventListener('click',()=>{
+    let best=null,bd=Infinity;
+    for(const f of feeders){ const d=Math.abs(f.pos-lisPos); if(d<bd){bd=d;best=f;} }
+    if(best) fire(best,bd);
+  });
+  $('lisPos').addEventListener('input',()=>{ if($('speedMode').value!=='tram'){ walking=false; $('btnWalk').classList.remove('on'); lisPos=num('lisPos'); status(); } });
+  $('speedMode').addEventListener('change',status);
+
+  document.addEventListener('keydown',e=>{
+    if(e.code!=='Space') return;
+    if(/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)) return;
+    e.preventDefault();
+    if(!ctx) enableAudio(); else $('btnFire').click();
+  });
+
+  tick();
+})();
+</script>
+</body>
+</html>

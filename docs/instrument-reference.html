@@ -478,6 +478,64 @@
         module would take the inventory from 24 to about 17. The detection block here is
         <b>identical</b> to the Fernwärme surface — check the two agree before either set of values is
         treated as settled.</div>
+
+        <h3>Field-tuned values — session 1 (2026-08-18)</h3>
+        <p>Console dump of every control's live value after a hand-tuning pass on <code>crossing-family.html</code>.
+        Recorded as a walked data point, not a new default — one session isn't enough to promote these into the
+        panel's own defaults, consistent with this document's "answerable by using a surface, not by argument"
+        stance (§11). Δ is blank where the session left a control at its shipped default.</p>
+        <table>
+          <thead><tr><th>Group</th><th>Parameter</th><th>Default</th><th>Tuned</th><th>Δ</th></tr></thead>
+          <tbody>
+            <tr><td class="p">Water knock</td><td class="v">FREQ Hz</td><td class="v">380</td><td class="v">415</td><td class="v">+35</td></tr>
+            <tr><td class="p"></td><td class="v">Q</td><td class="v">18</td><td class="v">18</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">DECAY s</td><td class="v">0.24</td><td class="v">0.75</td><td class="v">+0.51</td></tr>
+            <tr><td class="p"></td><td class="v">SWEEP ×</td><td class="v">1.00</td><td class="v">1.00</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">NOISE</td><td class="v">0.75</td><td class="v">0.75</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">LEVEL</td><td class="v">0.40</td><td class="v">0.80</td><td class="v">+0.40</td></tr>
+            <tr><td class="p"></td><td class="v">ALONG s</td><td class="v">4.0</td><td class="v">3.0</td><td class="v">−1.0</td></tr>
+            <tr><td class="p">Sewage thud</td><td class="v">FREQ Hz</td><td class="v">200</td><td class="v">220</td><td class="v">+20</td></tr>
+            <tr><td class="p"></td><td class="v">Q</td><td class="v">6</td><td class="v">5</td><td class="v">−1</td></tr>
+            <tr><td class="p"></td><td class="v">DECAY s</td><td class="v">0.38</td><td class="v">0.55</td><td class="v">+0.17</td></tr>
+            <tr><td class="p"></td><td class="v">SWEEP ×</td><td class="v">0.70</td><td class="v">0.90</td><td class="v">+0.20</td></tr>
+            <tr><td class="p"></td><td class="v">NOISE</td><td class="v">0.90</td><td class="v">0.90</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">LEVEL</td><td class="v">0.42</td><td class="v">0.83</td><td class="v">+0.41</td></tr>
+            <tr><td class="p"></td><td class="v">ALONG s</td><td class="v">4.0</td><td class="v">3.0</td><td class="v">−1.0</td></tr>
+            <tr><td class="p">Electricity snap</td><td class="v">FREQ Hz</td><td class="v">2200</td><td class="v">2200</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">Q</td><td class="v">9</td><td class="v">9</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">DECAY s</td><td class="v">0.06</td><td class="v">0.06</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">SWEEP ×</td><td class="v">1.00</td><td class="v">1.00</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">NOISE</td><td class="v">1.00</td><td class="v">1.00</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">LEVEL</td><td class="v">0.30</td><td class="v">0.89</td><td class="v">+0.59</td></tr>
+            <tr><td class="p"></td><td class="v">ALONG s</td><td class="v">5.0</td><td class="v">3.5</td><td class="v">−1.5</td></tr>
+            <tr><td class="p">Telecom click</td><td class="v">FREQ Hz</td><td class="v">3500</td><td class="v">3240</td><td class="v">−260</td></tr>
+            <tr><td class="p"></td><td class="v">Q</td><td class="v">14</td><td class="v">6</td><td class="v">−8</td></tr>
+            <tr><td class="p"></td><td class="v">DECAY s</td><td class="v">0.06</td><td class="v">0.06</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">SWEEP ×</td><td class="v">1.71</td><td class="v">1.70</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">NOISE</td><td class="v">0.15</td><td class="v">0.31</td><td class="v">+0.16</td></tr>
+            <tr><td class="p"></td><td class="v">LEVEL</td><td class="v">0.26</td><td class="v">1.00</td><td class="v">+0.74</td></tr>
+            <tr><td class="p"></td><td class="v">ALONG s</td><td class="v">4.0</td><td class="v">2.0</td><td class="v">−2.0</td></tr>
+            <tr><td class="p">Detection (shared, all 4 layers)</td><td class="v">MIN MOVE m</td><td class="v">0.5</td><td class="v">0.6</td><td class="v">+0.1</td></tr>
+            <tr><td class="p"></td><td class="v">ALONG m</td><td class="v">20</td><td class="v">20</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">ANGLE °</td><td class="v">35</td><td class="v">35</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">CROSS CD s</td><td class="v">3.0</td><td class="v">3.0</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">JITTER %</td><td class="v">42</td><td class="v">45</td><td class="v">+3</td></tr>
+            <tr><td class="p">Legibility</td><td class="v">WINDOW ms</td><td class="v">150</td><td class="v">300</td><td class="v">+150</td></tr>
+            <tr><td class="p"></td><td class="v">STAGGER ms</td><td class="v">0</td><td class="v">110</td><td class="v">+110</td></tr>
+            <tr><td class="p"></td><td class="v">ALONG MAX</td><td class="v">4</td><td class="v">4</td><td class="v">—</td></tr>
+            <tr><td class="p">Session (test conditions, not a sonic parameter)</td><td class="v">GPS NOISE ±m</td><td class="v">0</td><td class="v">0</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">WALK SPEED</td><td class="v">1.4</td><td class="v">1.4</td><td class="v">—</td></tr>
+            <tr><td class="p"></td><td class="v">MASTER</td><td class="v">0.60</td><td class="v">1.00</td><td class="v">+0.40</td></tr>
+          </tbody>
+        </table>
+        <div class="note"><span class="lab">Reading this session</span>
+        Every layer's LEVEL went up (+0.40 to +0.59), and MASTER was raised to its ceiling too — the
+        strongest signal here is that the shipped defaults read as too quiet once actually walked, not any
+        single layer's balance. Telecom moved the most in character: Q dropped 14→6 (duller, less piercing)
+        while NOISE rose 0.15→0.31 and LEVEL nearly quadrupled — a shift from a thin bright click toward a
+        broader, audible one. STAGGER went from 0 to 110 ms and the collision WINDOW doubled (150→300 ms) —
+        direct evidence that simultaneous multi-layer transients were actually colliding on this walk, and
+        that the stagger fix this instrument's own hint proposed was the one reached for.</div>
       </div>
     </div>
   </section>

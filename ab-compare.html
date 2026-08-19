@@ -59,10 +59,11 @@
     </div>
     <div class="col b">
       <h2>Path B — right ear</h2>
-      <p>New Option A instrument classes: <code>WaterProximityPulse</code> +
+      <p>New Option A instrument classes: <code>WaterProximityPulse</code> + <code>WaterFittingDrip</code> +
       <code>ElectricityOscillatorPool</code> (steal-furthest + margin policy) + <code>LineCrossingVoice</code>
-      (electricity + water presets, crossing snap/knock + alongside loop for both), fed the same proximity data,
-      panned hard right. Compare by listening for what's <i>only</i> in the right channel against the centred mix.</p>
+      (electricity + water presets, crossing snap/knock + alongside loop for both), fed the same proximity
+      data, panned hard right. Compare by listening for what's <i>only</i> in the right channel against the
+      centred mix.</p>
     </div>
   </div>
 
@@ -87,6 +88,7 @@ import TramEngine from './src/tram-engine.js';
 import ProximityEngine from './src/proximity-engine.js';
 import AudioLayers from './src/audio-layers.js';
 import WaterProximityPulse from './src/instruments/water-proximity-pulse.js';
+import WaterFittingDrip from './src/instruments/water-fitting-drip.js';
 import ElectricityOscillatorPool from './src/instruments/electricity-oscillator-pool.js';
 import LineCrossingVoice from './src/instruments/line-crossing-voice.js';
 import { ELECTRICITY_CROSSING, WATER_CROSSING } from './src/instruments/line-crossing-presets.js';
@@ -105,7 +107,7 @@ function log(text, cls){
 
 let ctx = null;
 let realLat = null, realLng = null, realHeading = null, realSpeed = null;
-let waterPulseB = null, elecPoolB = null, elecCrossingB = null, waterCrossingB = null;
+let waterPulseB = null, waterDripB = null, elecPoolB = null, elecCrossingB = null, waterCrossingB = null;
 let gpsWatchId = null;
 
 async function enableAudio(){
@@ -165,6 +167,9 @@ function startEngines(){
   pannerB.pan.value = 1;
   pannerB.connect(ctx.destination);
   waterPulseB = new WaterProximityPulse(ctx, pannerB);
+  waterDripB = new WaterFittingDrip(ctx, pannerB, {
+    onFire: () => log('[B] DRIP   water fitting cluster')
+  });
   waterCrossingB = new LineCrossingVoice(ctx, pannerB, WATER_CROSSING, {
     onFire: (kind, detail) => {
       if (kind === 'crossing') log('[B] CROSS  '+detail.id+' (water)');
@@ -210,6 +215,11 @@ function startEngines(){
       (pipes.length ? pipes.reduce((a,b)=>a.dist<b.dist?a:b).dist.toFixed(1)+'m' : '—') + ' / ' +
       (fittings.length ? fittings.reduce((a,b)=>a.dist<b.dist?a:b).dist.toFixed(1)+'m' : '—');
 
+    // Fitting-cluster drip rate — reuses the triggered-filtered `fittings`
+    // above; safe since the 15m cluster radius sits inside the 25m trigger
+    // radius, so no discrepancy versus production's unfiltered computation.
+    waterDripB.setRate(Math.min(fittings.filter(f => f.dist <= 15).length * 0.5, 3.0));
+
     // Water pipe crossing + alongside — mirrors audio-layers.js's exact
     // call-site logic. Deliberately a SEPARATE, unfiltered pipes reference
     // (not the `.filter(triggered)` `pipes` above) — production iterates the
@@ -242,6 +252,7 @@ function stopEngines(){
   TramEngine.stop();
   AudioLayers.stop();
   if (waterPulseB) waterPulseB.destroy();
+  if (waterDripB) waterDripB.destroy();
   if (waterCrossingB) waterCrossingB.destroy();
   if (elecPoolB) elecPoolB.destroy();
   if (elecCrossingB) elecCrossingB.destroy();

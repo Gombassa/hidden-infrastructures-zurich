@@ -162,49 +162,23 @@
     </section>
 
     <section class="panel">
-      <div class="panel-head"><h2>Drip</h2><div class="note">2.3 mm bubble ≈ 2800 Hz</div></div>
-      <div class="row"><label>SIZE mm</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="dSzMin" value="1.6" step="0.1" min="0.4" max="20"></div>
-          <div class="field"><span>max</span><input type="number" id="dSzMax" value="4.2" step="0.1" min="0.5" max="30"></div>
-        </div>
+      <div class="panel-head"><h2>Drip (ported)</h2><div class="note">src/instruments/water-fitting-drip.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Voiced by the real <b>WaterFittingDrip</b> class now, not this page's old sine-bubble Minnaert model —
+        parameters fixed to production's values: <b>2800 Hz · Q 4 · 40ms · gain 0.08</b>, no panning, no reverb send.
+      </p>
+      <div class="row"><label>RATE</label>
+        <div class="field"><span class="val" id="roDripRate" style="min-width:0">— Hz</span></div>
       </div>
-      <div class="row"><label>RISE</label>
-        <div class="field"><input type="range" id="dRise" min="0" max="1.4" step="0.01" value="0.55"><span class="val" id="dRiseV">0.55</span></div>
-      </div>
-      <div class="row"><label>DECAY s</label>
-        <div class="field"><input type="range" id="dDec" min="0.02" max="0.6" step="0.01" value="0.14"><span class="val" id="dDecV">0.14</span></div>
-      </div>
-      <div class="row"><label>TICK LVL</label>
-        <div class="field"><input type="range" id="dTick" min="0" max="1" step="0.01" value="0.3"><span class="val" id="dTickV">0.30</span></div>
-      </div>
-      <div class="row"><label>LEVEL</label>
-        <div class="field"><input type="range" id="dLvl" min="0" max="1" step="0.01" value="0.34"><span class="val" id="dLvlV">0.34</span></div>
-      </div>
-      <p class="hint">1.6–4.2 mm gives roughly 4100 down to 1560 Hz. The <b>rise</b> is the bubble contracting after entrainment — the plink. Sewage uses the same physics at ten times the size, so the two should never be confused.</p>
     </section>
 
     <section class="panel">
       <div class="panel-head"><h2>Cluster rhythm</h2><div class="note">fittings drive the rate</div></div>
-      <div class="row"><label>CLUSTER m</label>
-        <div class="field"><input type="number" id="cRad" value="25" step="1" min="3" max="90"></div>
-      </div>
-      <div class="row"><label>RATE Hz</label>
-        <div class="rng">
-          <div class="field"><span>1 fit</span><input type="number" id="rate1" value="0.25" step="0.05" min="0.02" max="8"></div>
-          <div class="field"><span>8+ fit</span><input type="number" id="rate8" value="3" step="0.1" min="0.05" max="12"></div>
-        </div>
-      </div>
-      <div class="row"><label>CURVE</label>
-        <div class="field"><input type="range" id="rateCurve" min="0.4" max="3" step="0.1" value="1.6"><span class="val" id="rateCurveV">1.6</span></div>
-      </div>
-      <div class="row"><label>JITTER %</label>
-        <div class="field"><input type="range" id="dJit" min="0" max="90" step="5" value="55"><span class="val" id="dJitV">55</span></div>
-      </div>
-      <div class="row"><label>FALLOFF exp</label>
-        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
-      </div>
-      <p class="hint">FALLOFF shapes the nearest fitting's proximity-to-gain curve for drip, not pulse — pulse's gain-by-distance curve is fixed inside <code>WaterProximityPulse</code> now. Documented as up to 3 Hz at dense fitting clusters. <b>Curve</b> above 1 holds the rate low until the cluster is genuinely dense, so ordinary streets stay sparse and a junction reads as a distinct event rather than a gradual increase.</p>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Production's rate formula is fixed, not curve-shaped: <b>rate = min(fittings ≤15m × 0.5, 3.0) Hz</b>,
+        ±25% jitter — both the 15m cluster radius and the jitter are hardcoded inside the class now, not
+        adjustable from here. Documented as up to 3 Hz at dense fitting clusters.
+      </p>
     </section>
 
     <section class="panel">
@@ -240,20 +214,17 @@
 
 <script type="module">
 import WaterProximityPulse from '../src/instruments/water-proximity-pulse.js';
+import WaterFittingDrip from '../src/instruments/water-fitting-drip.js';
 
 (() => {
   'use strict';
   const $=id=>document.getElementById(id);
   const num=id=>parseFloat($(id).value);
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-  const lerp=(a,b,t)=>a+(b-a)*t;
-  const rand=(a,b)=>a+Math.random()*(b-a);
 
   const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
   bind($('pHyst'),$('pHystV'),0);
-  bind($('dRise'),$('dRiseV'),2); bind($('dDec'),$('dDecV'),2); bind($('dTick'),$('dTickV'),2);
-  bind($('dLvl'),$('dLvlV'),2); bind($('rateCurve'),$('rateCurveV'),1); bind($('dJit'),$('dJitV'),0);
-  bind($('falloff'),$('falloffV'),1); bind($('master'),$('masterV'),2);
+  bind($('master'),$('masterV'),2);
 
   // ---------- simulated features ----------
   // kind: 'main' | 'conn' (pipes)  ·  'fit' (fittings, drive drip rate)
@@ -273,8 +244,7 @@ import WaterProximityPulse from '../src/instruments/water-proximity-pulse.js';
   feats.forEach((f,i)=>{ f.phase=i*1.19; f.rate=0.04+i*0.009; f.last=-1e9; f.inside=false; });
 
   // ---------- audio ----------
-  let ctx=null,master=null,noiseBuf=null,waterPulse=null;
-  let dripTimer=null;
+  let ctx=null,master=null,waterPulse=null,waterDrip=null;
   const events=[];               // {t, lane, gain}
   const pulseTimes=[];
   const counts={pulse:0,drip:0,hold:0};
@@ -289,17 +259,6 @@ import WaterProximityPulse from '../src/instruments/water-proximity-pulse.js';
     while(el.children.length>50) el.removeChild(el.lastChild);
     $('logStats').textContent=counts.pulse+' pulse · '+counts.drip+' drip · '+counts.hold+' held';
   }
-
-  function makeNoise(ac){
-    const len=ac.sampleRate;
-    const b=ac.createBuffer(1,len,ac.sampleRate);
-    const d=b.getChannelData(0);
-    for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
-    return b;
-  }
-
-  // Minnaert — f ≈ 3.28 / r, r in metres
-  const bubbleHz=mm=>clamp(3.28/((mm/1000)/2),60,12000);
 
   // Thin wrapper: entry detection stays here (see the "Pulse (ported)" panel
   // hint), synthesis lives entirely in WaterProximityPulse now. The class's
@@ -321,57 +280,15 @@ import WaterProximityPulse from '../src/instruments/water-proximity-pulse.js';
     log('pulse','PULSE  '+f.id+' ('+f.kind+') @ '+f.dist.toFixed(1)+' m');
   }
 
-  function fireDrip(gain){
-    if(!ctx) return;
-    const now=ctx.currentTime;
-    const mm=rand(num('dSzMin'),num('dSzMax'));
-    const f0=bubbleHz(mm), dec=num('dDec'), rise=num('dRise');
-
-    const o=ctx.createOscillator(); o.type='sine';
-    o.frequency.setValueAtTime(f0,now);
-    if(rise>0.001) o.frequency.exponentialRampToValueAtTime(f0*(1+rise),now+dec*0.8);
-    const g=ctx.createGain();
-    g.gain.setValueAtTime(0.0001,now);
-    g.gain.linearRampToValueAtTime(gain,now+0.003);
-    g.gain.exponentialRampToValueAtTime(0.0001,now+dec);
-    o.connect(g).connect(master);
-    o.start(now); o.stop(now+dec+0.03);
-
-    // impact tick before the bubble
-    const tl=num('dTick');
-    if(tl>0.005){
-      const cs=ctx.createBufferSource(); cs.buffer=noiseBuf;
-      const hp=ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=f0*1.4;
-      const cg=ctx.createGain();
-      cg.gain.setValueAtTime(gain*tl,now);
-      cg.gain.exponentialRampToValueAtTime(0.0001,now+0.006);
-      cs.connect(hp).connect(cg).connect(master);
-      cs.start(now,Math.random()*0.4); cs.stop(now+0.02);
-    }
-
-    counts.drip++;
-    events.push({t:performance.now(),lane:1,gain});
-  }
-
-  function dripRate(){
-    const n=feats.filter(f=>f.kind==='fit'&&f.dist<=num('cRad')).length;
-    if(n===0) return 0;
-    const t=clamp((n-1)/7,0,1);
-    return lerp(num('rate1'),num('rate8'),Math.pow(t,num('rateCurve')));
-  }
-
-  function scheduleDrip(){
-    if(!ctx) return;
-    const r=dripRate();
-    if(r>0.001){
-      const nearest=Math.min(...feats.filter(f=>f.kind==='fit').map(f=>f.dist));
-      const prox=nearest<=num('cRad')?Math.pow(1-nearest/num('cRad'),num('falloff')):0;
-      if(prox>0.01) fireDrip(num('dLvl')*prox);
-      const j=num('dJit')/100;
-      dripTimer=setTimeout(scheduleDrip,(1000/r)*rand(1-j,1+j));
-    } else {
-      dripTimer=setTimeout(scheduleDrip,400);
-    }
+  // Fitting-cluster count within 15m (production-fixed radius) -> drip rate,
+  // production's exact formula. Called each tick; WaterFittingDrip owns its
+  // own scheduling/jitter internally.
+  function updateDripRate(){
+    if(!waterDrip) return;
+    const n=feats.filter(f=>f.kind==='fit'&&f.dist<=15).length;
+    const rate=Math.min(n*0.5,3.0);
+    waterDrip.setRate(rate);
+    return rate;
   }
 
   // ---------- entry detection ----------
@@ -406,11 +323,13 @@ import WaterProximityPulse from '../src/instruments/water-proximity-pulse.js';
     }
 
     evaluate(nowMs);
+    const rate=updateDripRate();
 
     const R=num('pRad');
     $('roPipes').textContent=String(feats.filter(f=>f.kind!=='fit'&&f.dist<=R).length);
-    $('roFits').textContent=String(feats.filter(f=>f.kind==='fit'&&f.dist<=num('cRad')).length);
-    $('roRate').textContent=dripRate().toFixed(2)+' Hz';
+    $('roFits').textContent=String(feats.filter(f=>f.kind==='fit'&&f.dist<=15).length);
+    $('roRate').textContent=(rate||0).toFixed(2)+' Hz';
+    $('roDripRate').textContent=(rate||0).toFixed(2)+' Hz';
     $('roPpm').textContent=String(pulseTimes.length);
 
     while(events.length && nowMs-events[0].t>20000) events.shift();
@@ -437,7 +356,7 @@ import WaterProximityPulse from '../src/instruments/water-proximity-pulse.js';
   buildTable();
 
   function paint(){
-    const R=num('pRad'), CR=num('cRad');
+    const R=num('pRad'), CR=15;
     feats.forEach((f,i)=>{
       const row=$('fr'+i); if(!row) return;
       const lim=f.kind==='fit'?CR:R;
@@ -480,10 +399,9 @@ import WaterProximityPulse from '../src/instruments/water-proximity-pulse.js';
       s2.beginPath(); s2.moveTo(x,0); s2.lineTo(x,h-14); s2.stroke();
       s2.fillText(f>=1000?(f/1000)+'k':String(f),x+3,h-4);
     });
-    // markers: pulse tones (fixed inside the class now: 800/1200Hz) + drip range
+    // markers: pulse tones + drip tone (all fixed inside their classes now: 800/1200/2800Hz)
     s2.setLineDash([2,3]);
-    [[800,css('--water')],[1200,css('--water')],
-     [bubbleHz(num('dSzMax')),css('--fit')],[bubbleHz(num('dSzMin')),css('--fit')]].forEach(([f,col])=>{
+    [[800,css('--water')],[1200,css('--water')],[2800,css('--fit')]].forEach(([f,col])=>{
       if(f<fMin||f>fMax) return;
       s2.strokeStyle=col; s2.globalAlpha=0.6;
       const x=Math.round(xOf(f))+0.5;
@@ -538,13 +456,15 @@ import WaterProximityPulse from '../src/instruments/water-proximity-pulse.js';
     if(ctx) return;
     ctx=new (window.AudioContext||window.webkitAudioContext)();
     await ctx.resume();
-    noiseBuf=makeNoise(ctx);
     master=ctx.createGain(); master.gain.value=num('master');
     analyser=ctx.createAnalyser(); analyser.fftSize=4096; analyser.smoothingTimeConstant=0.6;
     freqData=new Uint8Array(analyser.frequencyBinCount);
     master.connect(analyser); master.connect(ctx.destination);
     waterPulse=new WaterProximityPulse(ctx, master);
-    scheduleDrip();
+    waterDrip=new WaterFittingDrip(ctx, master, { onFire: ()=>{
+      counts.drip++;
+      events.push({t:performance.now(),lane:1,gain:1});
+    }});
     $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
     $('btnWalk').disabled=false; $('btnPulse').disabled=false; $('btnReset').disabled=false;
     $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';

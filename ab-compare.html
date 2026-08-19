@@ -40,30 +40,33 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>A/B Compare — Step 1 proof instruments</h1>
+  <h1>A/B Compare — Phase 3 proof instruments</h1>
   <p class="lede">
     Feeds one live <b>ProximityEngine.calculate()</b> tick to two parallel signal paths, panned hard left/right,
-    so a real field walk with earbuds gives a direct A/B. Scoped to water proximity pulse + electricity oscillator
-    pool only — every other layer is disabled on Path A. Not linked from <code>index.html</code>; production is
-    untouched by this page. See <code>docs/Implementation_Plan.md</code> Step 1 and
-    <code>docs/Technical_Architecture_v5.md</code> for why this comparison exists.
+    so a real field walk with earbuds gives a direct A/B. Scoped to water, electricity, and tram — every other
+    layer is disabled on Path A. Not linked from <code>index.html</code>; production is untouched by this page.
+    See <code>docs/Implementation_Plan.md</code> Steps 1-4 and <code>docs/Technical_Architecture_v5.md</code>
+    for why this comparison exists.
   </p>
 
   <div class="cols">
     <div class="col a">
       <h2>Path A — centre</h2>
-      <p>Unmodified <code>src/audio-layers.js</code> (<code>AudioLayers</code>), water + electricity only.
-      This is the current field-tested production sound. Plays centred — <code>AudioLayers</code> connects
-      straight to <code>ctx.destination</code> with no output node this harness can redirect without editing
-      production code, which Step 1 keeps untouched.</p>
+      <p>Unmodified <code>src/audio-layers.js</code> (<code>AudioLayers</code>), water + electricity + tram
+      only. This is the current field-tested production sound. Plays centred — <code>AudioLayers</code>
+      connects straight to <code>ctx.destination</code> with no output node this harness can redirect without
+      editing production code, which this rebuild keeps untouched throughout.</p>
     </div>
     <div class="col b">
       <h2>Path B — right ear</h2>
       <p>New Option A instrument classes: <code>WaterProximityPulse</code> + <code>WaterFittingDrip</code> +
       <code>ElectricityOscillatorPool</code> (steal-furthest + margin policy) + <code>LineCrossingVoice</code>
-      (electricity + water presets, crossing snap/knock + alongside loop for both), fed the same proximity
-      data, panned hard right. Compare by listening for what's <i>only</i> in the right channel against the
-      centred mix.</p>
+      (electricity + water presets) + <code>FeederCrackle</code> + <code>TramDrone</code> +
+      <code>TramHissPool</code>, fed the same proximity data, panned hard right. Compare by listening for
+      what's <i>only</i> in the right channel against the centred mix.
+      <b>Exception: tram hiss is a deliberate redesign (persistent per-feeder identity, see
+      tram-hiss-pool.js), not a parity port — it will not and should not sound like Path A's hiss. Crackle
+      and drone should still closely match.</b></p>
     </div>
   </div>
 
@@ -78,6 +81,7 @@
     <div><span class="k">Trams</span><span class="v" id="stTrams">—</span></div>
     <div><span class="k">Water — nearest pipe / fitting</span><span class="v" id="stWater">—</span></div>
     <div><span class="k">Electricity — sounding / in range</span><span class="v" id="stElec">—</span></div>
+    <div><span class="k">Tram hiss — sounding</span><span class="v" id="stHiss">—</span></div>
   </div>
 
   <div id="log"></div>
@@ -92,6 +96,9 @@ import WaterFittingDrip from './src/instruments/water-fitting-drip.js';
 import ElectricityOscillatorPool from './src/instruments/electricity-oscillator-pool.js';
 import LineCrossingVoice from './src/instruments/line-crossing-voice.js';
 import { ELECTRICITY_CROSSING, WATER_CROSSING } from './src/instruments/line-crossing-presets.js';
+import FeederCrackle from './src/instruments/feeder-crackle.js';
+import TramDrone from './src/instruments/tram-drone.js';
+import TramHissPool from './src/instruments/tram-hiss-pool.js';
 
 const $ = id => document.getElementById(id);
 
@@ -108,6 +115,8 @@ function log(text, cls){
 let ctx = null;
 let realLat = null, realLng = null, realHeading = null, realSpeed = null;
 let waterPulseB = null, waterDripB = null, elecPoolB = null, elecCrossingB = null, waterCrossingB = null;
+let crackleB = null, droneB = null, hissPoolB = null;
+const crackleTriggeredIds = new Set(); // mirrors production's _activeCrackleIds debounce
 let gpsWatchId = null;
 
 async function enableAudio(){
@@ -149,10 +158,12 @@ async function enableAudio(){
 }
 
 function startEngines(){
-  // Path A — production AudioLayers, water + electricity only, hard left.
+  // Path A — production AudioLayers, water + electricity + tram, hard left.
+  // Tram enabled here for the first time since Step 1 (was water+electricity
+  // only) — Step 4 needs a live A/B for tram specifically.
   AudioLayers.init(ctx);
   for (const key of Object.keys(AudioLayers.LAYER_ENABLED)){
-    AudioLayers.setLayerEnabled(key, key === 'water' || key === 'electricity');
+    AudioLayers.setLayerEnabled(key, key === 'water' || key === 'electricity' || key === 'tram');
   }
   // AudioLayers connects every one of its nodes straight to ctx.destination
   // (see e.g. _elecMasterGain.connect(_ctx.destination) in audio-layers.js) —
@@ -187,6 +198,16 @@ function startEngines(){
     onFire: (kind, detail) => {
       if (kind === 'crossing') log('[B] CROSS  '+detail.id);
       if (kind === 'alongside') log('[B] ALONG  electricity (shared)');
+    }
+  });
+  crackleB = new FeederCrackle(ctx, pannerB);
+  droneB = new TramDrone(ctx, pannerB); // no reverbBus — this harness has no shared reverb bus of its own, matching ElectricityOscillatorPool's omission above
+  hissPoolB = new TramHissPool(ctx, pannerB, {
+    onEvent: (type, detail) => {
+      if (type === 'claim')  log('[B] HISS CLAIM  '+detail.featureId+' @ '+detail.dist.toFixed(1)+'m');
+      if (type === 'steal')  log('[B] HISS STEAL  '+detail.featureId+' ← took '+detail.stolenFeatureId, 'no');
+      if (type === 'refuse') log('[B] HISS REFUSE '+detail.featureId);
+      if (type === 'release') log('[B] HISS RELEASE '+detail.featureId);
     }
   });
 
@@ -240,6 +261,31 @@ function startEngines(){
     // call-site logic (per-cable-id crossing, single shared alongside flag).
     for (const c of cables) if (c.crossing) elecCrossingB.trigger({ id: c.id });
     elecCrossingB.setAlongsideActive(cables.some(c => c.alongside));
+
+    // Tram — drone gain from powerline proximity (parity port).
+    droneB.update({ nearestPowerlineDist: proximity.nearestPowerlineDist });
+
+    // Feeder crackle — debounced per feeder's tram-triggered streak (NOT
+    // listener proximity; proximity.feeders[].triggered means "near an
+    // active tram" — parity port of _activeCrackleIds).
+    const feeders = proximity.feeders || [];
+    const triggeredIds = new Set(feeders.filter(f => f.triggered).map(f => f.id));
+    for (const id of crackleTriggeredIds) if (!triggeredIds.has(id)) crackleTriggeredIds.delete(id);
+    for (const f of feeders) {
+      if (f.triggered && !crackleTriggeredIds.has(f.id)) {
+        crackleB.trigger({
+          feederLat: f.lat, feederLng: f.lng,
+          listenerLat: realLat, listenerLng: realLng, listenerHeading: realHeading
+        });
+        crackleTriggeredIds.add(f.id);
+      }
+    }
+
+    // Tram hiss pool — the one deliberate redesign in this harness (see
+    // tram-hiss-pool.js's docblock). Purely listener-distance-driven,
+    // independent of proximity.feeders[].triggered (unlike crackle above).
+    hissPoolB.update({ feeders, listenerLat: realLat, listenerLng: realLng, listenerHeading: realHeading });
+    $('stHiss').textContent = String(hissPoolB.activeCount);
   });
 
   TramEngine.start();
@@ -256,6 +302,10 @@ function stopEngines(){
   if (waterCrossingB) waterCrossingB.destroy();
   if (elecPoolB) elecPoolB.destroy();
   if (elecCrossingB) elecCrossingB.destroy();
+  if (crackleB) crackleB.destroy();
+  if (droneB) droneB.destroy();
+  if (hissPoolB) hissPoolB.destroy();
+  crackleTriggeredIds.clear();
   if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
   log('Engines stopped');
   $('btnStart').disabled = false;

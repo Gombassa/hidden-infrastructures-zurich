@@ -82,6 +82,7 @@
           padding-top:9px;border-top:1px solid var(--rule);
           display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .status .ok{color:var(--live)}
+  .status .no{color:var(--warn)}
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -91,16 +92,19 @@
   <header class="masthead">
     <h1 class="title">Powerline <span>Drone</span></h1>
     <div class="masthead-meta">
-      TRAM ELECTRICAL · BEHAVIOUR 11/23<br>
-      <b>LINE-GATED · 20 M → 5 M</b><br>
+      TRAM ELECTRICAL · INSTRUMENT #10 · STEP 4 · PORTED<br>
+      <b>src/instruments/tram-drone.js — strict parity</b><br>
       HIDDEN INFRASTRUCTURES : ZÜRICH
     </div>
   </header>
 
   <p class="strapline">
-    The tightest gate in the project, modulated by the slowest LFOs — <em>0.017 Hz</em> is a 59-second cycle.
-    Cross the tracks and you are inside the gate for seconds; walk along them and it runs for minutes.
-    The lower panel shows how much of the cycle each encounter actually contains.
+    Voiced by the real <b>TramDrone</b> class now, not this page's old harmonic-rich synth — parameters
+    fixed to production's values: two oscillators (110/112Hz) each swept by its own LFO (0.017Hz /
+    0.023Hz, ±8Hz), gate linear 20m→5m with a 0.01 floor, private 2.0s reverb at fixed 3% wet. The tightest
+    gate in the project, modulated by the slowest LFOs — <em>0.017 Hz</em> is a 59-second cycle. Cross the
+    tracks and you are inside the gate for seconds; walk along them and it runs for minutes. The lower
+    panel shows how much of the cycle each encounter actually contains.
   </p>
 
   <section class="hero">
@@ -128,73 +132,16 @@
   <div class="grid">
 
     <section class="panel">
-      <div class="panel-head"><h2>Tone</h2><div class="note">110 Hz = A2</div></div>
-      <div class="row"><label>FUND Hz</label>
-        <div class="field"><input type="number" id="fund" value="110" step="0.5" min="40" max="400"></div>
-      </div>
-      <div class="row"><label>BEAT Hz</label>
-        <div class="field"><input type="range" id="beat" min="0" max="12" step="0.1" value="2"><span class="val" id="beatV">2.0</span></div>
-      </div>
-      <div class="row"><label>2ND</label>
-        <div class="field"><input type="range" id="p2" min="0" max="1" step="0.01" value="0.18"><span class="val" id="p2V">0.18</span></div>
-      </div>
-      <div class="row"><label>3RD</label>
-        <div class="field"><input type="range" id="p3" min="0" max="1" step="0.01" value="0.09"><span class="val" id="p3V">0.09</span></div>
-      </div>
-      <div class="row"><label>LEVEL</label>
-        <div class="field"><input type="range" id="toneLvl" min="0" max="1" step="0.01" value="0.55"><span class="val" id="toneLvlV">0.55</span></div>
-      </div>
-      <p class="hint">110 Hz is A2 exactly — the one place in the piece where a pitch is chosen musically rather than derived from the infrastructure. That makes this drone a tonal centre by default, which the <b>district theme</b> in Phase 3 will either have to accept or deliberately work against.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Sweep</h2><div class="note">0.017 / 0.023 Hz</div></div>
-      <div class="row"><label>LFO 1 Hz</label>
-        <div class="field"><input type="number" id="l1" value="0.017" step="0.001" min="0.002" max="1"></div>
-      </div>
-      <div class="row"><label>LFO 2 Hz</label>
-        <div class="field"><input type="number" id="l2" value="0.023" step="0.001" min="0.002" max="1"></div>
-      </div>
-      <div class="row"><label>DEPTH ±Hz</label>
-        <div class="field"><input type="range" id="lDep" min="0" max="30" step="0.5" value="8"><span class="val" id="lDepV">8.0</span></div>
-      </div>
-      <div class="row"><label>PERIOD 1</label><div class="field"><span class="val" id="per1" style="min-width:0">—</span></div></div>
-      <div class="row"><label>PERIOD 2</label><div class="field"><span class="val" id="per2" style="min-width:0">—</span></div></div>
-      <p class="hint">Each LFO drives one oscillator, so the beat rate itself wanders rather than staying fixed at the interval set above. The two rates are deliberately incommensurate — they never realign, so the drone never repeats exactly.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Gate</h2><div class="note">trasse proximity</div></div>
-      <div class="row"><label>OUTER m</label>
-        <div class="field"><input type="number" id="outer" value="20" step="1" min="2" max="120"></div>
-      </div>
-      <div class="row"><label>INNER m</label>
-        <div class="field"><input type="number" id="inner" value="5" step="1" min="0" max="60"></div>
-      </div>
-      <div class="row"><label>FALLOFF exp</label>
-        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
-      </div>
-      <div class="row"><label>RAMP s</label>
-        <div class="field"><input type="range" id="ramp" min="0.05" max="4" step="0.05" value="0.8"><span class="val" id="rampV">0.80</span></div>
-      </div>
-      <p class="hint">Silent beyond <b>outer</b>, full at <b>inner</b> — a 15 m window rather than a long fade. In District 1 the trasse runs the length of Bahnhofstrasse, so walking the street holds this open continuously while crossing it opens and shuts in seconds.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Private reverb</h2><div class="note">not the shared bus</div></div>
-      <div class="row"><label>LENGTH s</label>
-        <div class="field"><input type="range" id="irLen" min="0.3" max="6" step="0.1" value="2"><span class="val" id="irLenV">2.0</span></div>
-      </div>
-      <div class="row"><label>WET</label>
-        <div class="field"><input type="range" id="wet" min="0" max="0.4" step="0.005" value="0.03"><span class="val" id="wetV">0.030</span></div>
-      </div>
-      <div class="row"><label>DAMPING</label>
-        <div class="field"><input type="range" id="damp" min="200" max="8000" step="50" value="1800"><span class="val" id="dampV">1800</span></div>
-      </div>
-      <div class="row"><label>BUS SEND</label>
-        <div class="field"><input type="range" id="busSend" min="0" max="1" step="0.01" value="0.35"><span class="val" id="busSendV">0.35</span></div>
-      </div>
-      <p class="hint">This is the only layer with a reverb of its own, on top of its send to the shared density bus. Worth deciding whether that is a considered exception or an inherited one — every other continuous layer gets depth only from the shared bus.</p>
+      <div class="panel-head"><h2>Drone (ported)</h2><div class="note">synthesis now lives in the class</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        <b>Two oscillators</b>, 110Hz and 112Hz, each swept by its own sine LFO (<b>0.017Hz / 0.023Hz, ±8Hz
+        depth</b> — incommensurate rates, so the beat never repeats exactly). No harmonics, no adjustable
+        tone level. <b>Gate</b>: silent beyond 20m, full at 5m, linear in between with a 0.01 floor (not 0)
+        — ramped via a 2s time-constant, not an adjustable ramp. <b>Private reverb</b>: fixed 2.0s decay,
+        fixed 3% wet, no damping filter — plus a send to whatever shared reverb bus this page constructs
+        below (a stand-in for production's real shared density bus, which doesn't exist in this standalone
+        harness).
+      </p>
     </section>
 
     <section class="panel">
@@ -236,12 +183,15 @@
 
   <div class="status">
     <div id="modeStatus">Manual</div>
+    <div id="midiStatus">MIDI — not requested</div>
     <div id="ctxStatus">AudioContext — not created</div>
   </div>
 
 </div>
 
-<script>
+<script type="module">
+import TramDrone from '../src/instruments/tram-drone.js';
+
 (() => {
   'use strict';
   const $=id=>document.getElementById(id);
@@ -249,19 +199,13 @@
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 
   const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
-  bind($('beat'),$('beatV'),1); bind($('p2'),$('p2V'),2); bind($('p3'),$('p3V'),2);
-  bind($('toneLvl'),$('toneLvlV'),2); bind($('lDep'),$('lDepV'),1);
-  bind($('falloff'),$('falloffV'),1); bind($('ramp'),$('rampV'),2);
-  bind($('irLen'),$('irLenV'),1); bind($('wet'),$('wetV'),3); bind($('damp'),$('dampV'),0);
-  bind($('busSend'),$('busSendV'),2); bind($('offset'),$('offsetV'),1);
+  bind($('offset'),$('offsetV'),1);
   bind($('walkSpd'),$('walkSpdV'),1); bind($('master'),$('masterV'),2);
 
-  function syncPeriods(){
-    $('per1').textContent=(1/num('l1')).toFixed(0)+' s';
-    $('per2').textContent=(1/num('l2')).toFixed(0)+' s';
-  }
-  $('l1').addEventListener('input',syncPeriods); $('l2').addEventListener('input',syncPeriods);
-  syncPeriods();
+  // LFO rates are fixed inside the class now (0.017Hz / 0.023Hz, ~59s/~43s
+  // periods) — stated in the "Drone (ported)" panel's hint text, no
+  // dedicated readout elements any more.
+  const L1_HZ = 0.017, L2_HZ = 0.023;
 
   // ---------- world ----------
   const WORLD={w:120,h:44};
@@ -270,74 +214,18 @@
   let walkT=0;
 
   // ---------- audio ----------
-  let ctx=null,master=null,busBbus=null;
-  let oscA=null,oscB=null,o2=null,o3=null,gA=null,gB=null,g2=null,g3=null;
-  let carrier=null,layerGain=null,convolver=null,wetGain=null,dampF=null,busGain=null;
-  let lfo1=null,lfo2=null,d1=null,d2=null;
-  let t0=null;
-
-  function makeIR(ac,seconds){
-    const len=Math.max(1,Math.floor(ac.sampleRate*seconds));
-    const buf=ac.createBuffer(2,len,ac.sampleRate);
-    for(let c=0;c<2;c++){
-      const d=buf.getChannelData(c);
-      for(let i=0;i<len;i++){
-        d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6);
-      }
-    }
-    return buf;
-  }
-
-  function build(ac){
-    layerGain=ac.createGain(); layerGain.gain.value=0.0001;
-    carrier=ac.createGain(); carrier.gain.value=1;
-    carrier.connect(layerGain);
-    layerGain.connect(master);
-
-    const f=num('fund'), b=num('beat');
-    oscA=ac.createOscillator(); oscA.type='sine'; oscA.frequency.value=f;
-    gA=ac.createGain(); gA.gain.value=0.5; oscA.connect(gA).connect(carrier);
-    oscB=ac.createOscillator(); oscB.type='sine'; oscB.frequency.value=f+b;
-    gB=ac.createGain(); gB.gain.value=0.5; oscB.connect(gB).connect(carrier);
-
-    o2=ac.createOscillator(); o2.type='sine'; o2.frequency.value=f*2;
-    g2=ac.createGain(); g2.gain.value=num('p2'); o2.connect(g2).connect(carrier);
-    o3=ac.createOscillator(); o3.type='sine'; o3.frequency.value=f*3;
-    g3=ac.createGain(); g3.gain.value=num('p3'); o3.connect(g3).connect(carrier);
-
-    // one slow LFO per oscillator, so the beat rate itself drifts
-    lfo1=ac.createOscillator(); lfo1.type='sine'; lfo1.frequency.value=num('l1');
-    d1=ac.createGain(); d1.gain.value=num('lDep');
-    lfo1.connect(d1).connect(oscA.frequency);
-    lfo2=ac.createOscillator(); lfo2.type='sine'; lfo2.frequency.value=num('l2');
-    d2=ac.createGain(); d2.gain.value=num('lDep');
-    lfo2.connect(d2).connect(oscB.frequency);
-
-    // private reverb
-    convolver=ac.createConvolver(); convolver.buffer=makeIR(ac,num('irLen'));
-    dampF=ac.createBiquadFilter(); dampF.type='lowpass'; dampF.frequency.value=num('damp');
-    wetGain=ac.createGain(); wetGain.gain.value=num('wet');
-    layerGain.connect(dampF).connect(convolver).connect(wetGain).connect(master);
-
-    // stand-in for the shared density bus send
-    busGain=ac.createGain(); busGain.gain.value=num('busSend')*0.0001;
-    layerGain.connect(busGain).connect(master);
-
-    const t=ac.currentTime;
-    oscA.start(t); oscB.start(t); o2.start(t); o3.start(t); lfo1.start(t); lfo2.start(t);
-    t0=t;
-  }
-
-  $('irLen').addEventListener('change',()=>{ if(ctx) convolver.buffer=makeIR(ctx,num('irLen')); });
+  let ctx=null,master=null,drone=null,t0=null;
 
   // ---------- geometry ----------
   function distToTrasse(p){ return Math.abs(p.y-TRASSE_Y); }
+  // Display-only reproduction of the class's internal gate formula, fixed to
+  // production's values — used for the encounter/LFO-history readouts, never
+  // fed back into the real class, which computes this itself from
+  // nearestPowerlineDist.
   function gateGain(d){
-    const outer=num('outer'), inner=num('inner');
-    if(d>=outer) return 0;
-    if(d<=inner) return 1;
-    const t=(d-inner)/Math.max(0.001,outer-inner);
-    return Math.pow(1-t,num('falloff'));
+    if(d>20) return 0;
+    if(d<=5) return 0.3;
+    return 0.01 + (20-d)/15 * (0.3-0.01);
   }
 
   // ---------- encounter tracking ----------
@@ -372,12 +260,12 @@
     if(g<=0.001 && inGate){
       inGate=false;
       const dur=(nowMs-encStart)/1000;
-      lastPass=dur.toFixed(1)+' s · '+(dur*num('l1')).toFixed(2)+' cyc';
+      lastPass=dur.toFixed(1)+' s · '+(dur*L1_HZ).toFixed(2)+' cyc';
       encDur=0;
     }
     if(inGate) encDur=(nowMs-encStart)/1000;
 
-    const cycles=encDur*num('l1');
+    const cycles=encDur*L1_HZ;
     $('encT').textContent=encDur.toFixed(1)+' s';
     $('encC').textContent=cycles.toFixed(2);
     $('encC').classList.toggle('warn', inGate && cycles<0.25);
@@ -386,30 +274,12 @@
     $('roLast').textContent=lastPass;
 
     if(ctx){
-      updateAudio(g);
+      drone.update({ nearestPowerlineDist: d });
       const t=ctx.currentTime-t0;
-      lfoHist.push({t, v1:Math.sin(2*Math.PI*num('l1')*t), v2:Math.sin(2*Math.PI*num('l2')*t), g});
+      lfoHist.push({t, v1:Math.sin(2*Math.PI*L1_HZ*t), v2:Math.sin(2*Math.PI*L2_HZ*t), g});
       while(lfoHist.length && t-lfoHist[0].t>120) lfoHist.shift();
     }
     draw();
-  }
-
-  function updateAudio(g){
-    const now=ctx.currentTime, f=num('fund'), b=num('beat');
-    layerGain.gain.setTargetAtTime(Math.max(0.0001,g*num('toneLvl')),now,num('ramp'));
-    oscA.frequency.setTargetAtTime(f,now,0.4);
-    oscB.frequency.setTargetAtTime(f+b,now,0.4);
-    o2.frequency.setTargetAtTime(f*2,now,0.4);
-    o3.frequency.setTargetAtTime(f*3,now,0.4);
-    g2.gain.setTargetAtTime(num('p2'),now,0.2);
-    g3.gain.setTargetAtTime(num('p3'),now,0.2);
-    lfo1.frequency.setTargetAtTime(num('l1'),now,0.5);
-    lfo2.frequency.setTargetAtTime(num('l2'),now,0.5);
-    d1.gain.setTargetAtTime(num('lDep'),now,0.3);
-    d2.gain.setTargetAtTime(num('lDep'),now,0.3);
-    wetGain.gain.setTargetAtTime(num('wet'),now,0.3);
-    dampF.frequency.setTargetAtTime(num('damp'),now,0.3);
-    busGain.gain.setTargetAtTime(num('busSend')*0.08,now,0.3);
   }
 
   // ---------- draw ----------
@@ -434,7 +304,7 @@
     const w=tc.clientWidth,h=132;
     t2.clearRect(0,0,w,h); t2.fillStyle=css('--paper-2'); t2.fillRect(0,0,w,h);
 
-    const outer=num('outer'), inner=num('inner');
+    const outer=20, inner=5;
     t2.fillStyle='rgba(168,29,69,0.07)';
     t2.fillRect(0,Y(TRASSE_Y-outer),w,Y(outer*2));
     t2.fillStyle='rgba(168,29,69,0.13)';
@@ -530,10 +400,12 @@
     await ctx.resume();
     master=ctx.createGain(); master.gain.value=num('master');
     master.connect(ctx.destination);
-    build(ctx);
+    drone=new TramDrone(ctx, master);
+    t0=ctx.currentTime;
     $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
     $('btnAlong').disabled=false; $('btnAcross').disabled=false;
     $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+    requestMidi();
   }
   function statusLine(){
     const m=$('mode').value;
@@ -555,6 +427,34 @@
       e.preventDefault(); if(!ctx) enableAudio(); else $('btnAlong').click();
     }
   });
+
+  // ---------- Web MIDI — mirrors instruments/hiss-voice.html's pattern ----------
+  // No per-note identity here (drone is one continuous proximity-driven
+  // voice, not per-voice) — CC1 (mod wheel) instead directly sets simulated
+  // distance from the trasse (0-40m), switching to manual mode.
+  async function requestMidi(){
+    if(!navigator.requestMIDIAccess){
+      $('midiStatus').innerHTML='MIDI — <span class="no">unsupported in this browser</span>';
+      return;
+    }
+    try{
+      const access=await navigator.requestMIDIAccess();
+      const names=[];
+      access.inputs.forEach(inp=>{ names.push(inp.name); inp.onmidimessage=onMidi; });
+      $('midiStatus').innerHTML=names.length
+        ? 'MIDI — <span class="ok">'+names.join(', ')+'</span>'
+        : 'MIDI — <span class="no">no inputs found</span>';
+    }catch(err){
+      $('midiStatus').innerHTML='MIDI — <span class="no">blocked in this context</span>';
+    }
+  }
+  function onMidi(ev){
+    const [status,d1,d2]=ev.data;
+    if((status&0xF0)===0xB0 && d1===1){
+      $('mode').value='manual'; statusLine();
+      lis={x:24,y:TRASSE_Y+(d2/127)*40};
+    }
+  }
 
   tick();
 })();

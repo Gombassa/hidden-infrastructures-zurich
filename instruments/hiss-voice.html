@@ -191,18 +191,23 @@
   <header class="masthead">
     <h1 class="title">Hiss <span>Voice</span></h1>
     <div class="masthead-meta">
-      TRAM ELECTRICAL · BEHAVIOUR 09/23<br>
-      <b>SEED DERIVED FROM FEEDER ID</b> · NO SLOT POOL<br>
+      TRAM ELECTRICAL · INSTRUMENT #9 · STEP 4 · PORTED<br>
+      <b>src/instruments/tram-hiss-voice.js + tram-hiss-pool.js</b><br>
       HIDDEN INFRASTRUCTURES : ZÜRICH
     </div>
   </header>
 
   <p class="strapline">
-    One voice per feeder in range, built on entry from a seed hashed off the feeder's <em>_dedupKey</em> — a per-point
-    coordinate hash, not the <em>objectid</em> this used to say; tram nodes don't actually carry that property. That seed
-    is internal to the synth and never leaves this page — so a given feeder always sounds like itself <em>to you</em>,
-    but the exported log carries only random per-voice tokens unrelated to it. Two LFOs on separate rates modulate comb
-    delay and filter cutoff. A <em>600 Hz</em> tone sits under the noise: 50 Hz mains through 12-pulse rectification.
+    One voice per feeder in range, driven by the real <b>TramHissPool</b> class now — this page's own
+    allocator and synthesis are gone, replaced by imports. This is the deliberate redesign Step 4 chose
+    over porting production's stateless nearest-N slot reassignment: a persistent voice per feeder, timbre
+    hashed once from the feeder's own coordinate identity (via <em>feederKey(lat,lng)</em> — not the
+    <em>objectid</em> this page used to say; tram nodes don't carry that property, and no stable
+    <em>_dedupKey</em> is exposed by <code>ProximityEngine</code> either, so identity is derived from
+    coordinates directly). That identity is internal to the synth and never leaves this page — the exported
+    log still carries only random per-voice tokens unrelated to it. Two LFOs on separate rates modulate comb
+    delay and filter cutoff. A <em>600 Hz</em> tone sits under the noise: 50 Hz mains through 12-pulse
+    rectification. Positioning is real HRTF now, not the hashed stereo pan this page used to demonstrate.
   </p>
 
   <section class="hero">
@@ -218,11 +223,11 @@
 
     <div class="feeder-field">
       <div class="lab">
-        <span>Feeder objectid</span>
+        <span>Feeder label (bearing only — see hint below)</span>
         <span class="derived" id="seedOut">seed —</span>
       </div>
       <div class="feeder-row">
-        <input id="feederIn" type="text" spellcheck="false" placeholder="4821093" aria-label="Feeder objectid">
+        <input id="feederIn" type="text" spellcheck="false" placeholder="4821093" aria-label="Feeder label">
         <button id="btnRandom" class="ghost" title="Pick a random feeder id">Random</button>
       </div>
     </div>
@@ -243,6 +248,15 @@
     </div>
   </div>
 
+  <p class="hint" style="margin:-6px 0 14px">
+    The real <b>TramHissPool</b> keys voices by <em>feederKey(lat,lng)</em>, not by this typed label — the
+    label only sets a fixed hashed bearing for placing the synthetic feeder. Changing <b>DIST</b> and
+    re-triggering the same label moves that synthetic feeder to a new position, which is a <b>new identity</b>
+    to the pool (a fresh claim, new hashed timbre) — not an update to the same voice. This is a deliberate
+    consequence of "identity = coordinates," not a bug: it matches how <b>GPS walk</b> mode below actually
+    behaves (a feeder's real position never moves; only your distance to it changes).
+  </p>
+
   <div class="mode-toggle">
     <button id="modeManual" class="active" type="button">Manual</button>
     <button id="modeGps" class="gps" type="button">GPS walk</button>
@@ -255,8 +269,7 @@
       <button id="btnGpsStart" class="primary big" type="button">Start walk</button>
       <button id="btnGpsStop" class="ghost big" type="button" disabled>Stop walk</button>
       <div class="gps-radius">
-        <label for="gpsRadius" style="font-family:var(--mono); font-size:10px; color:var(--ink-2); letter-spacing:0.04em;">RADIUS m</label>
-        <input id="gpsRadius" type="number" value="50" min="5" max="200" step="1">
+        <span style="font-family:var(--mono); font-size:10px; color:var(--ink-2); letter-spacing:0.04em;">RADIUS 25m — fixed</span>
       </div>
       <button id="btnDownloadLog" class="ghost" type="button">Download log</button>
     </div>
@@ -285,123 +298,32 @@
       only to match live position against the feeder set. Neither the key nor the timbre seed derived from it is ever
       written to the log — the feeder set is small (~2,100 nodes) and public, so a logged seed could be reverse-matched
       against every feeder's hash and the walk reconstructed. Each voice instead gets a random <b>log token</b> and
-      <b>replay seed</b>, generated fresh at spawn, with no relationship to the feeder. Default radius is 50 m as
-      specified; production's actual hiss-trigger radius (<code>FEEDER_HISS_RADIUS</code> in <code>audio-layers.js</code>)
-      is 25 m, so voices left at 50 m may spawn near-silent until under ~25 m. Bearing-driven HRTF positioning is
-      deliberately not wired in this pass — this walk is for the voice model and allocation policy first; positioning
-      is next.
+      <b>replay seed</b>, generated fresh at spawn, with no relationship to the feeder. Radius is fixed at
+      <b>25 m</b> now — <code>TramHissPool</code> hardcodes production's actual <code>FEEDER_HISS_RADIUS</code>
+      internally, matching this page's earlier finding that the old 50m default spawned voices too far out to be
+      audible. Bearing-driven HRTF positioning, previously deferred, is wired in as of Step 4.
     </p>
   </section>
 
   <div class="grid">
 
     <section class="panel">
-      <div class="panel-head"><h2>Comb</h2><div class="note">resonance 112–435 Hz</div></div>
-      <div class="row"><label>DELAY ms</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="combMin" value="2.3" step="0.1" min="0.2" max="40"></div>
-          <div class="field"><span>max</span><input type="number" id="combMax" value="8.9" step="0.1" min="0.2" max="40"></div>
-        </div>
-      </div>
-      <div class="row"><label>FEEDBACK</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="fbMin" value="0.35" step="0.01" min="0" max="0.95"></div>
-          <div class="field"><span>max</span><input type="number" id="fbMax" value="0.72" step="0.01" min="0" max="0.95"></div>
-        </div>
-      </div>
-      <div class="row"><label>NOISE LVL</label>
-        <div class="field"><input type="range" id="noiseLvl" min="0" max="1" step="0.01" value="0.85"><span class="val" id="noiseLvlV">0.85</span></div>
-      </div>
-      <p class="hint">Delay time sets the comb's resonant series. The old 6-slot table fixed six values; a hashed draw across the same range gives a continuum, one point of which belongs permanently to each feeder.</p>
+      <div class="panel-head"><h2>Voice synthesis (ported)</h2><div class="note">src/instruments/tram-hiss-voice.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Voiced by the real <b>TramHissVoice</b> class now — comb delay (2.3–8.9ms), feedback, bandpass
+        centre/Q, dual LFOs, and the 600Hz rectifier tone are all still hashed per-feeder exactly as before,
+        but parameters are fixed inside the class rather than tunable from here. <b>Pan is real HRTF now</b>
+        (<code>PannerNode</code> via <code>tram-spatial.js</code>'s <code>feederToXYZ</code>), not the hashed
+        <code>StereoPanner</code> value this page used to expose — bearing-driven positioning, previously
+        deferred, is wired in as of Step 4. Peak gain (0.15) and radius (25m) are ported from production, not
+        this prototype's old 50m default. Attack 0.9s / release 1.6s / falloff 1.0 (linear) are also fixed.
+      </p>
     </section>
 
     <section class="panel">
-      <div class="panel-head"><h2>Filter</h2><div class="note">bandpass on noise path</div></div>
-      <div class="row"><label>CENTRE Hz</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="fcMin" value="900" step="10" min="80" max="16000"></div>
-          <div class="field"><span>max</span><input type="number" id="fcMax" value="3400" step="10" min="80" max="16000"></div>
-        </div>
-      </div>
-      <div class="row"><label>Q</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="qMin" value="0.8" step="0.1" min="0.1" max="20"></div>
-          <div class="field"><span>max</span><input type="number" id="qMax" value="4.0" step="0.1" min="0.1" max="20"></div>
-        </div>
-      </div>
-      <div class="row"><label>PAN SPREAD</label>
-        <div class="field"><input type="range" id="panSpread" min="0" max="1" step="0.01" value="0.7"><span class="val" id="panSpreadV">0.70</span></div>
-      </div>
-      <p class="hint">Pan is hashed per feeder here. In production this is replaced by the HRTF PannerNode fed from feeder bearing.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>LFO 1 → comb delay</h2><div class="note">pitch / resonance drift</div></div>
-      <div class="row"><label>RATE Hz</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="l1rMin" value="0.08" step="0.01" min="0.005" max="8"></div>
-          <div class="field"><span>max</span><input type="number" id="l1rMax" value="0.42" step="0.01" min="0.005" max="8"></div>
-        </div>
-      </div>
-      <div class="row"><label>DEPTH ms</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="l1dMin" value="0.15" step="0.01" min="0" max="6"></div>
-          <div class="field"><span>max</span><input type="number" id="l1dMax" value="0.9" step="0.01" min="0" max="6"></div>
-        </div>
-      </div>
-      <p class="hint">At walking pace a feeder inside 50 m lasts roughly 20–70 s, so anything below ~0.05 Hz never completes a cycle. <b>Phase is hashed per feeder</b>, so voices never move in lockstep.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>LFO 2 → filter cutoff</h2><div class="note">breathing / swell</div></div>
-      <div class="row"><label>RATE Hz</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="l2rMin" value="0.05" step="0.01" min="0.005" max="8"></div>
-          <div class="field"><span>max</span><input type="number" id="l2rMax" value="0.31" step="0.01" min="0.005" max="8"></div>
-        </div>
-      </div>
-      <div class="row"><label>DEPTH Hz</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="l2dMin" value="120" step="10" min="0" max="6000"></div>
-          <div class="field"><span>max</span><input type="number" id="l2dMax" value="1100" step="10" min="0" max="6000"></div>
-        </div>
-      </div>
-      <p class="hint">Separate rate draw from LFO 1, so the two modulations phase against each other within a single voice as well as across voices.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Rectifier tone</h2><div class="note">50 Hz × 12-pulse</div></div>
-      <div class="row"><label>BASE Hz</label>
-        <div class="field"><input type="number" id="toneHz" value="600" step="1" min="20" max="4000"></div>
-      </div>
-      <div class="row"><label>LEVEL</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="tlMin" value="0.02" step="0.005" min="0" max="0.6"></div>
-          <div class="field"><span>max</span><input type="number" id="tlMax" value="0.09" step="0.005" min="0" max="0.6"></div>
-        </div>
-      </div>
-      <div class="row"><label>DETUNE ±Hz</label>
-        <div class="field"><input type="range" id="toneDet" min="0" max="12" step="0.1" value="3.5"><span class="val" id="toneDetV">3.5</span></div>
-      </div>
-      <div class="row"><label>2ND HARM</label>
-        <div class="field"><input type="range" id="tone2" min="0" max="1" step="0.01" value="0.3"><span class="val" id="tone2V">0.30</span></div>
-      </div>
-      <p class="hint">Per-feeder detune means two voices beat rather than summing cleanly — different substations aren't phase-locked. Set detune to 0 to hear the difference.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Voice</h2><div class="note">envelope · cap · falloff</div></div>
-      <div class="row"><label>ATTACK s</label>
-        <div class="field"><input type="range" id="att" min="0.05" max="4" step="0.05" value="0.9"><span class="val" id="attV">0.90</span></div>
-      </div>
-      <div class="row"><label>RELEASE s</label>
-        <div class="field"><input type="range" id="rel" min="0.1" max="6" step="0.1" value="1.6"><span class="val" id="relV">1.60</span></div>
-      </div>
-      <div class="row"><label>FALLOFF exp</label>
-        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
-      </div>
+      <div class="panel-head"><h2>Allocator</h2><div class="note">src/instruments/pool-allocator.js</div></div>
       <div class="row"><label>MAX VOICES</label>
-        <div class="field"><input type="number" id="cap" value="6" step="1" min="1" max="24"></div>
+        <div class="field"><span class="val" style="min-width:0">6 — fixed, matches production's slot count</span></div>
       </div>
       <div class="row"><label>AT CAP</label>
         <div class="field">
@@ -418,7 +340,11 @@
       <div class="row"><label>MASTER</label>
         <div class="field"><input type="range" id="master" min="0" max="1" step="0.01" value="0.6"><span class="val" id="masterV">0.60</span></div>
       </div>
-      <p class="hint">Falloff <b>1.0</b> is linear — what the hiss uses today. <b>2.0</b> matches the feeder crackle's validated (1−t)² curve. Margin sets how much closer an incoming feeder must be before it displaces a sounding one.</p>
+      <p class="hint"><b>Steal furthest + margin</b> (20%) is Step 1's decided policy, reused unchanged here — same
+        <code>PoolAllocator</code> class electricity's pool uses, this is the third instrument built against it
+        (tram's hiss pool is the "third pool paradigm checkpoint" per <code>docs/Implementation_Plan.md</code>).
+        Identity here is now the feeder's own coordinates (via <code>feederKey(lat,lng)</code>), not an arbitrary
+        typed label — see the Manual panel's hint for what that changes about re-triggering.</p>
     </section>
 
   </div>
@@ -448,29 +374,14 @@
 
 </div>
 
-<script>
+<script type="module">
+import TramHissPool from '../src/instruments/tram-hiss-pool.js';
+import { hashId, paramsForKey } from '../src/instruments/tram-hiss-voice.js';
+import { feederKey } from '../src/instruments/tram-spatial.js';
+
 (() => {
   'use strict';
 
-  // ---------- feeder id → 32-bit seed (FNV-1a) ----------
-  function hashId(str) {
-    let h = 0x811c9dc5;
-    for (let i = 0; i < str.length; i++) {
-      h ^= str.charCodeAt(i);
-      h = Math.imul(h, 0x01000193);
-    }
-    return h >>> 0;
-  }
-
-  // ---------- seeded RNG (mulberry32) ----------
-  function mulberry32(a) {
-    return function () {
-      a |= 0; a = (a + 0x6D2B79F5) | 0;
-      let t = Math.imul(a ^ (a >>> 15), 1 | a);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  }
   const hex = n => (n >>> 0).toString(16).padStart(8, '0').toUpperCase();
 
   // Random, feeder-unrelated identity for the exported log — see the
@@ -487,33 +398,32 @@
 
   const $ = id => document.getElementById(id);
   const num = id => parseFloat($(id).value);
-  const lerp = (a, b, t) => a + (b - a) * t;
 
   const bindReadout = (input, out, digits) => {
     const sync = () => { out.textContent = parseFloat(input.value).toFixed(digits); };
     input.addEventListener('input', sync); sync();
   };
   bindReadout($('dist'), $('distV'), 1);
-  bindReadout($('noiseLvl'), $('noiseLvlV'), 2);
-  bindReadout($('panSpread'), $('panSpreadV'), 2);
-  bindReadout($('toneDet'), $('toneDetV'), 1);
-  bindReadout($('tone2'), $('tone2V'), 2);
-  bindReadout($('att'), $('attV'), 2);
-  bindReadout($('rel'), $('relV'), 2);
-  bindReadout($('falloff'), $('falloffV'), 1);
   bindReadout($('margin'), $('marginV'), 0);
   bindReadout($('master'), $('masterV'), 2);
 
   function syncMarginRow() {
     $('marginRow').classList.toggle('dim', $('capPolicy').value !== 'margin');
   }
-  $('capPolicy').addEventListener('change', syncMarginRow);
+  $('capPolicy').addEventListener('change', () => { syncMarginRow(); if (hissPool) hissPool.setPolicy($('capPolicy').value, num('margin')); });
+  $('margin').addEventListener('input', () => { if (hissPool) hissPool.setPolicy($('capPolicy').value, num('margin')); });
   syncMarginRow();
 
   // ---------- audio state ----------
-  let ctx = null, master = null, analyser = null, noiseBuf = null, freqData = null;
-  const voices = [];
-  const RADIUS = 50;
+  // Fixed synthetic listener anchor for manual mode — feeders are placed at
+  // (label-hashed bearing, DIST-slider radius) from this point. GPS mode uses
+  // the real device position instead (see startWalk/onGpsFix).
+  const LISTENER_LAT = 47.3700, LISTENER_LNG = 8.5410;
+  let lastListenerLat = LISTENER_LAT, lastListenerLng = LISTENER_LNG, lastListenerHeading = 0;
+
+  let ctx = null, master = null, analyser = null, freqData = null, hissPool = null;
+  const manualFeeders = new Map();  // label -> {id:label, lat, lng}
+  const activeMeta = new Map();     // pool key -> {label, lat, lng, logToken, replaySeed, source}
   const counts = { spawn: 0, steal: 0, refuse: 0 };
 
   function log(kind, text) {
@@ -529,216 +439,52 @@
     $('logStats').textContent = counts.spawn + ' spawn · ' + counts.steal + ' steal · ' + counts.refuse + ' refuse';
   }
 
-  function makeNoise(ac) {
-    const len = ac.sampleRate * 2;
-    const buf = ac.createBuffer(1, len, ac.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
-    return buf;
-  }
-
-  function phasedSine(ac, phase) {
-    const real = new Float32Array([0, Math.sin(phase)]);
-    const imag = new Float32Array([0, Math.cos(phase)]);
-    return ac.createPeriodicWave(real, imag, { disableNormalization: true });
-  }
-
-  function gainForDistance(d) {
-    const t = Math.min(1, Math.max(0, d / RADIUS));
-    return Math.pow(1 - t, num('falloff'));
-  }
-
-  // ---------- the instrument ----------
-  class HissVoice {
-    constructor(ac, dest, feederId, distance, source = 'manual') {
-      this.feederId = feederId;       // internal only — never logged (Part B: identity split)
-      this.source = source;
-      this.seed = hashId(feederId);   // timbre seed — internal only — never logged
-      this.logToken = randomLogToken();     // exported: correlates this voice's events, unrelated to feeder
-      this.replaySeed = randomReplaySeed(); // exported: what a replay page seeds its RNG with, unrelated to feeder
-      this.distance = distance;
-      const rnd = mulberry32(this.seed);
-
-      const p = this.params = {
-        combMs:  lerp(num('combMin'), num('combMax'), rnd()),
-        fb:      lerp(num('fbMin'),   num('fbMax'),   rnd()),
-        fc:      lerp(num('fcMin'),   num('fcMax'),   rnd()),
-        q:       lerp(num('qMin'),    num('qMax'),    rnd()),
-        l1rate:  lerp(num('l1rMin'),  num('l1rMax'),  rnd()),
-        l1depth: lerp(num('l1dMin'),  num('l1dMax'),  rnd()),
-        l1phase: rnd() * Math.PI * 2,
-        l2rate:  lerp(num('l2rMin'),  num('l2rMax'),  rnd()),
-        l2depth: lerp(num('l2dMin'),  num('l2dMax'),  rnd()),
-        l2phase: rnd() * Math.PI * 2,
-        toneLvl: lerp(num('tlMin'),   num('tlMax'),   rnd()),
-        toneOff: (rnd() * 2 - 1) * num('toneDet'),
-        pan:     (rnd() * 2 - 1) * num('panSpread')
-      };
-
-      const t = ac.currentTime;
-
-      this.env = ac.createGain();
-      this.env.gain.value = 0.0001;
-      this.panner = ac.createStereoPanner();
-      this.panner.pan.value = p.pan;
-      this.env.connect(this.panner).connect(dest);
-
-      this.src = ac.createBufferSource();
-      this.src.buffer = noiseBuf;
-      this.src.loop = true;
-
-      this.noiseGain = ac.createGain();
-      this.noiseGain.gain.value = num('noiseLvl') * 0.5;
-
-      this.delay = ac.createDelay(0.06);
-      this.delay.delayTime.value = p.combMs / 1000;
-      this.fb = ac.createGain();
-      this.fb.gain.value = p.fb;
-
-      this.bp = ac.createBiquadFilter();
-      this.bp.type = 'bandpass';
-      this.bp.frequency.value = p.fc;
-      this.bp.Q.value = p.q;
-
-      this.src.connect(this.noiseGain);
-      this.noiseGain.connect(this.bp);
-      this.noiseGain.connect(this.delay);
-      this.delay.connect(this.fb);
-      this.fb.connect(this.delay);
-      this.delay.connect(this.bp);
-      this.bp.connect(this.env);
-
-      const baseHz = num('toneHz');
-      this.tone = ac.createOscillator();
-      this.tone.type = 'sine';
-      this.tone.frequency.value = baseHz + p.toneOff;
-      this.toneGain = ac.createGain();
-      this.toneGain.gain.value = p.toneLvl;
-      this.tone.connect(this.toneGain).connect(this.env);
-
-      this.tone2 = ac.createOscillator();
-      this.tone2.type = 'sine';
-      this.tone2.frequency.value = (baseHz + p.toneOff) * 2;
-      this.tone2Gain = ac.createGain();
-      this.tone2Gain.gain.value = p.toneLvl * num('tone2');
-      this.tone2.connect(this.tone2Gain).connect(this.env);
-
-      this.lfo1 = ac.createOscillator();
-      this.lfo1.setPeriodicWave(phasedSine(ac, p.l1phase));
-      this.lfo1.frequency.value = p.l1rate;
-      this.lfo1Depth = ac.createGain();
-      this.lfo1Depth.gain.value = p.l1depth / 1000;
-      this.lfo1.connect(this.lfo1Depth).connect(this.delay.delayTime);
-
-      this.lfo2 = ac.createOscillator();
-      this.lfo2.setPeriodicWave(phasedSine(ac, p.l2phase));
-      this.lfo2.frequency.value = p.l2rate;
-      this.lfo2Depth = ac.createGain();
-      this.lfo2Depth.gain.value = p.l2depth;
-      this.lfo2.connect(this.lfo2Depth).connect(this.bp.frequency);
-
-      this.src.start(t); this.tone.start(t); this.tone2.start(t);
-      this.lfo1.start(t); this.lfo2.start(t);
-
-      this.target = gainForDistance(distance);
-      this.env.gain.setValueAtTime(0.0001, t);
-      this.env.gain.exponentialRampToValueAtTime(Math.max(0.0002, this.target), t + num('att'));
-
-      this.releasing = false;
-    }
-
-    setDistance(d) {
-      if (this.releasing) return;
-      this.distance = d;
-      this.target = gainForDistance(d);
-      this.env.gain.setTargetAtTime(Math.max(0.0002, this.target), ctx.currentTime, 0.25);
-    }
-
-    release(reason) {
-      if (this.releasing) return;
-      this.releasing = true;
-      log(reason === 'steal' ? 'steal' : 'rel',
-          (reason === 'steal' ? 'STEAL  ' : 'RELEASE') + ' ' + this.feederId + ' @ ' + this.distance.toFixed(1) + ' m');
-      logSession(reason === 'steal' ? 'steal' : 'release', this.logToken, this.replaySeed, this.distance);
-      const t = ctx.currentTime, r = num('rel');
-      this.env.gain.cancelScheduledValues(t);
-      this.env.gain.setValueAtTime(Math.max(0.0002, this.env.gain.value), t);
-      this.env.gain.exponentialRampToValueAtTime(0.0001, t + r);
-      [this.src, this.tone, this.tone2, this.lfo1, this.lfo2].forEach(n => { try { n.stop(t + r + 0.05); } catch (e) {} });
-      setTimeout(() => this.teardown(), (r + 0.2) * 1000);
-    }
-
-    teardown() {
-      [this.src, this.tone, this.tone2, this.lfo1, this.lfo2,
-       this.noiseGain, this.delay, this.fb, this.bp,
-       this.toneGain, this.tone2Gain, this.lfo1Depth, this.lfo2Depth,
-       this.env, this.panner].forEach(n => { try { n.disconnect(); } catch (e) {} });
-      const i = voices.indexOf(this);
-      if (i >= 0) voices.splice(i, 1);
-      renderVoices();
-    }
-  }
-
-  // ---------- allocation ----------
-  function randomFeederId() {
-    return String(4000000 + Math.floor(Math.random() * 999999));
-  }
-
-  function trigger(feederId, distance, source = 'manual') {
-    if (!ctx) return null;
-    const id = String(feederId || '').trim() || randomFeederId();
-    const d = (distance === undefined) ? num('dist') : distance;
-
-    if (source === 'manual') {
-      $('feederIn').value = id;
-      $('seedOut').textContent = 'seed ' + hex(hashId(id));
-    }
-
-    // one voice per feeder — a re-entry for a sounding feeder updates distance
-    const existing = voices.find(v => v.feederId === id && !v.releasing);
-    if (existing) {
-      existing.setDistance(d);
-      log('upd', 'UPDATE ' + id + ' → ' + d.toFixed(1) + ' m');
-      logSession('update', existing.logToken, existing.replaySeed, d);
-      renderVoices();
-      return existing;
-    }
-
-    const cap = Math.max(1, Math.round(num('cap')));
-    const live = voices.filter(v => !v.releasing);
-    const policy = $('capPolicy').value;
-
-    if (live.length >= cap) {
-      let furthest = live[0];
-      for (const v of live) if (v.distance > furthest.distance) furthest = v;
-
-      if (policy === 'refuse') {
-        counts.refuse++; flash($('btnSpawn'));
-        log('refuse', 'REFUSE ' + id + ' @ ' + d.toFixed(1) + ' m — cap ' + cap);
-        logSession('refuse', randomLogToken(), randomReplaySeed(), d);
-        renderVoices(); return null;
-      }
-      if (policy === 'margin') {
-        const threshold = furthest.distance * (1 - num('margin') / 100);
-        if (d >= threshold) {
-          counts.refuse++; flash($('btnSpawn'));
-          log('refuse', 'HOLD   ' + id + ' @ ' + d.toFixed(1) + ' m — needs < ' +
-              threshold.toFixed(1) + ' m to take ' + furthest.feederId);
-          logSession('hold', randomLogToken(), randomReplaySeed(), d);
-          renderVoices(); return null;
-        }
-      }
+  // ---------- pool event wiring (claim/steal/refuse/release -> log + table + session log) ----------
+  function onHissEvent(type, detail) {
+    const key = detail.featureId;
+    if (type === 'claim') {
+      counts.spawn++;
+      const meta = manualLabelFor(key) || { label: key.slice(0, 16) + '…', source: 'gps' };
+      const entry = { label: meta.label, lat: meta.lat, lng: meta.lng, source: meta.source || 'manual',
+                       logToken: randomLogToken(), replaySeed: randomReplaySeed() };
+      activeMeta.set(key, entry);
+      log('spawn', 'SPAWN  ' + entry.label + ' @ ' + detail.dist.toFixed(1) + ' m — seed ' + hex(hashId(key)));
+      logSession('spawn', entry.logToken, entry.replaySeed, detail.dist);
+    } else if (type === 'steal') {
       counts.steal++;
-      furthest.release('steal');
+      const stolen = activeMeta.get(detail.stolenFeatureId);
+      if (stolen) {
+        log('steal', 'STEAL  ' + stolen.label + ' — taken by incoming feeder');
+        logSession('steal', stolen.logToken, stolen.replaySeed, null);
+        activeMeta.delete(detail.stolenFeatureId);
+      }
+      const meta = manualLabelFor(key) || { label: key.slice(0, 16) + '…', source: 'gps' };
+      const entry = { label: meta.label, lat: meta.lat, lng: meta.lng, source: meta.source || 'manual',
+                       logToken: randomLogToken(), replaySeed: randomReplaySeed() };
+      activeMeta.set(key, entry);
+      log('spawn', 'SPAWN  ' + entry.label + ' @ ' + detail.dist.toFixed(1) + ' m — seed ' + hex(hashId(key)) + ' (stole a slot)');
+      logSession('spawn', entry.logToken, entry.replaySeed, detail.dist);
+    } else if (type === 'refuse') {
+      counts.refuse++; flash($('btnSpawn'));
+      const label = manualLabelFor(key)?.label || key.slice(0, 16) + '…';
+      log('refuse', 'HOLD   ' + label + ' @ ' + detail.dist.toFixed(1) + ' m — cap reached');
+      logSession('hold', randomLogToken(), randomReplaySeed(), detail.dist);
+    } else if (type === 'release') {
+      const entry = activeMeta.get(key);
+      if (entry) {
+        log('rel', 'RELEASE ' + entry.label);
+        logSession('release', entry.logToken, entry.replaySeed, null);
+        activeMeta.delete(key);
+      }
     }
-
-    counts.spawn++;
-    const v = new HissVoice(ctx, master, id, d, source);
-    voices.push(v);
-    log('spawn', 'SPAWN  ' + id + ' @ ' + d.toFixed(1) + ' m — seed ' + hex(v.seed));
-    logSession('spawn', v.logToken, v.replaySeed, d);
     renderVoices();
-    return v;
+  }
+
+  function manualLabelFor(key) {
+    for (const [label, f] of manualFeeders) {
+      if (feederKey(f.lat, f.lng) === key) return { label, lat: f.lat, lng: f.lng, source: 'manual' };
+    }
+    return null;
   }
 
   function flash(el) {
@@ -747,7 +493,37 @@
     setTimeout(() => { el.style.borderColor = ''; el.style.color = ''; }, 260);
   }
 
-  function releaseAll() { voices.slice().forEach(v => v.release()); }
+  // ---------- manual triggering ----------
+  function randomFeederId() {
+    return String(4000000 + Math.floor(Math.random() * 999999));
+  }
+
+  // Places a synthetic feeder at (hashed bearing from the label, DIST-slider
+  // radius) from the fixed listener anchor, then feeds the whole accumulated
+  // manual set through the real pool. Re-triggering the same label at a new
+  // distance moves that feeder — a NEW identity to the pool, since identity
+  // is now the feeder's own coordinates (see the panel hint above).
+  function manualTrigger(label, distance) {
+    if (!ctx || !hissPool) return;
+    const id = String(label || '').trim() || randomFeederId();
+    const d = distance === undefined ? num('dist') : distance;
+    $('feederIn').value = id;
+    $('seedOut').textContent = 'seed ' + hex(hashId(id));
+
+    const bearing = (hashId(id) % 360) * Math.PI / 180;
+    const latPerM = 1 / 111320, lngPerM = 1 / (111320 * Math.cos(LISTENER_LAT * Math.PI / 180));
+    const lat = LISTENER_LAT + Math.cos(bearing) * d * latPerM;
+    const lng = LISTENER_LNG + Math.sin(bearing) * d * lngPerM;
+    manualFeeders.set(id, { id, lat, lng });
+
+    lastListenerLat = LISTENER_LAT; lastListenerLng = LISTENER_LNG; lastListenerHeading = 0;
+    hissPool.update({ feeders: [...manualFeeders.values()], listenerLat: LISTENER_LAT, listenerLng: LISTENER_LNG, listenerHeading: 0 });
+  }
+
+  function releaseAll() {
+    manualFeeders.clear();
+    if (hissPool) hissPool.update({ feeders: [], listenerLat: LISTENER_LAT, listenerLng: LISTENER_LNG, listenerHeading: 0 });
+  }
 
   // ---------- session log (for DOWNLOAD LOG) ----------
   //
@@ -814,17 +590,10 @@
   }
 
   function getParamSnapshot() {
-    const ids = ['combMin', 'combMax', 'fbMin', 'fbMax', 'noiseLvl', 'fcMin', 'fcMax', 'qMin', 'qMax',
-      'panSpread', 'l1rMin', 'l1rMax', 'l1dMin', 'l1dMax', 'l2rMin', 'l2rMax', 'l2dMin', 'l2dMax',
-      'toneHz', 'tlMin', 'tlMax', 'toneDet', 'tone2', 'att', 'rel', 'falloff', 'cap', 'capPolicy',
-      'margin', 'master', 'gpsRadius'];
-    const snap = {};
-    for (const id of ids) {
-      const el = $(id);
-      if (!el) continue;
-      snap[id] = el.tagName === 'SELECT' ? el.value : parseFloat(el.value);
-    }
-    return snap;
+    // Synthesis params are fixed inside TramHissVoice now (see the "Voice
+    // synthesis" panel) — only the allocator policy is still configurable
+    // from this page.
+    return { capPolicy: $('capPolicy').value, margin: num('margin'), master: num('master') };
   }
 
   function downloadLog() {
@@ -835,7 +604,7 @@
               'are not recorded, so a replay is a new performance of the same structure, not a re-creation',
       note: 'no coordinates, timestamps, or feeder/timbre identity of any kind are recorded — see the comment ' +
             'block above logSession() in this file for why',
-      gpsRadiusMeters: num('gpsRadius'),
+      gpsRadiusMeters: 25,
       paramsAtWalkStart: paramsAtWalkStart || getParamSnapshot(),
       counts: eventCounts,
       events: sessionLog
@@ -866,13 +635,8 @@
   let gpsFixCount = 0;
   let wakeLock = null;
 
-  function distanceMeters(lat1, lng1, lat2, lng2) {
-    const dlat = (lat2 - lat1) * 111320;
-    const dlng = (lng2 - lng1) * 111320 * Math.cos(lat1 * Math.PI / 180);
-    return Math.sqrt(dlat * dlat + dlng * dlng);
-  }
-
-  function gpsRadiusValue() { return Math.max(1, num('gpsRadius')); }
+  let gpsHeading = null;
+  window.addEventListener('deviceorientation', e => { if (e.alpha !== null) gpsHeading = e.alpha; });
 
   function updateGpsStat(id, text, cls) {
     const el = $(id);
@@ -912,22 +676,17 @@
 
     // Screen sleep / tab backgrounding suspends the AudioContext — resume on every fix.
     if (ctx && ctx.state === 'suspended') { try { await ctx.resume(); } catch (e) {} }
+    if (!hissPool) return;
 
     const feeders = await loadGpsFeeders().catch(() => null);
     if (!feeders) return;
 
-    const inRange = [];
-    for (const f of feeders) {
-      const d = distanceMeters(latitude, longitude, f.lat, f.lng);
-      if (d < gpsRadiusValue()) inRange.push({ id: f.id, dist: d });
-    }
-    const inRangeIds = new Set(inRange.map(r => r.id));
-
-    for (const { id, dist } of inRange) trigger(id, dist, 'gps');
-    for (const v of voices) {
-      if (v.source === 'gps' && !v.releasing && !inRangeIds.has(v.feederId)) v.release();
-    }
-    updateGpsStat('gpsInRange', String(inRange.length), inRange.length ? 'ok' : '');
+    lastListenerLat = latitude; lastListenerLng = longitude; lastListenerHeading = gpsHeading;
+    // TramHissPool filters by its own fixed 25m radius internally — pass the
+    // whole loaded set, same pattern ab-compare.html uses for the real
+    // ProximityEngine feeder list.
+    hissPool.update({ feeders, listenerLat: latitude, listenerLng: longitude, listenerHeading: gpsHeading });
+    updateGpsStat('gpsInRange', String(hissPool.activeCount), hissPool.activeCount ? 'ok' : '');
   }
 
   function onGpsError(err) {
@@ -965,14 +724,14 @@
     requestWakeLock();
     $('btnGpsStart').disabled = true;
     $('btnGpsStop').disabled = false;
-    log('upd', 'WALK START — radius ' + gpsRadiusValue() + ' m');
+    log('upd', 'WALK START — radius 25 m (fixed)');
   }
 
   function stopWalk() {
     if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
     releaseWakeLock();
     updateGpsStat('gpsWakeLock', '—');
-    voices.filter(v => v.source === 'gps' && !v.releasing).forEach(v => v.release());
+    if (hissPool) hissPool.update({ feeders: [], listenerLat: lastListenerLat, listenerLng: lastListenerLng, listenerHeading: lastListenerHeading });
     $('btnGpsStart').disabled = false;
     $('btnGpsStop').disabled = true;
     log('upd', 'WALK STOP');
@@ -983,6 +742,7 @@
   const manualControlIds = ['feederIn', 'btnRandom', 'dist', 'btnSpawn'];
 
   function setMode(next) {
+    if (next === 'gps' && mode !== 'gps') releaseAll(); // clear manual voices before GPS takes over the shared pool
     mode = next;
     $('modeManual').classList.toggle('active', mode === 'manual');
     $('modeGps').classList.toggle('active', mode === 'gps');
@@ -997,32 +757,40 @@
   $('btnDownloadLog').addEventListener('click', downloadLog);
 
   // ---------- table ----------
+  function flatEarthDist(lat1, lng1, lat2, lng2) {
+    const dlat = (lat2 - lat1) * 111320;
+    const dlng = (lng2 - lng1) * 111320 * Math.cos(lat1 * Math.PI / 180);
+    return Math.sqrt(dlat * dlat + dlng * dlng);
+  }
+
   function renderVoices() {
     const wrap = $('voiceWrap');
-    const live = voices.filter(v => !v.releasing);
-    $('voiceCount').textContent = live.length + ' sounding' +
-      (voices.length - live.length ? ' · ' + (voices.length - live.length) + ' releasing' : '');
+    const keys = hissPool ? hissPool.activeFeatureIds() : [];
+    $('voiceCount').textContent = keys.length + ' sounding';
 
-    if (!voices.length) {
+    if (!keys.length) {
       wrap.innerHTML = '<p class="empty">No voices. Enable audio, then press Trigger or the space bar.</p>';
       return;
     }
-    const rows = voices.slice().sort((a, b) => a.distance - b.distance).map(v => {
-      const p = v.params;
+    const rows = keys.map(key => {
+      const meta = activeMeta.get(key);
+      if (!meta) return '';
+      const p = paramsForKey(key);
+      const dist = flatEarthDist(lastListenerLat, lastListenerLng, meta.lat, meta.lng);
+      const gain = Math.pow(1 - Math.min(1, Math.max(0, dist / 25)), 1);
       return '<tr>' +
-        '<td class="fid">' + v.feederId + '</td>' +
-        '<td>' + hex(v.seed) + '</td>' +
-        '<td>' + v.distance.toFixed(1) + '</td>' +
+        '<td class="fid">' + meta.label + '</td>' +
+        '<td>' + hex(hashId(key)) + '</td>' +
+        '<td>' + dist.toFixed(1) + '</td>' +
         '<td>' + p.combMs.toFixed(2) + '</td>' +
         '<td>' + p.fb.toFixed(2) + '</td>' +
         '<td>' + Math.round(p.fc) + '</td>' +
-        '<td><span class="lfo-dot" style="opacity:' + (v.releasing ? .25 : 1) + '"></span>' +
+        '<td><span class="lfo-dot"></span>' +
             p.l1rate.toFixed(3) + ' / ' + p.l1depth.toFixed(2) + '</td>' +
         '<td>' + p.l2rate.toFixed(3) + ' / ' + Math.round(p.l2depth) + '</td>' +
         '<td>' + (p.toneOff >= 0 ? '+' : '') + p.toneOff.toFixed(1) + '</td>' +
-        '<td>' + (v.releasing ? '<span style="color:var(--warn)">rel</span>' : v.target.toFixed(3)) + '</td>' +
-        '<td class="act">' + (v.releasing ? '' :
-          '<button data-fid="' + v.feederId + '" class="ghost vrel">Release</button>') + '</td>' +
+        '<td>' + gain.toFixed(3) + '</td>' +
+        '<td class="act"><button data-key="' + key + '" class="ghost vrel">Release</button></td>' +
       '</tr>';
     }).join('');
 
@@ -1033,8 +801,10 @@
 
     wrap.querySelectorAll('.vrel').forEach(b => {
       b.addEventListener('click', () => {
-        const v = voices.find(x => x.feederId === b.dataset.fid && !x.releasing);
-        if (v) v.release();
+        const key = b.dataset.key;
+        const meta = activeMeta.get(key);
+        if (meta && meta.source === 'manual') manualFeeders.delete(meta.label);
+        if (hissPool) hissPool.release(key);
       });
     });
   }
@@ -1092,7 +862,7 @@
     c2.lineTo(w, h - 16); c2.lineTo(0, h - 16); c2.closePath();
     c2.fillStyle = 'rgba(20,23,26,0.08)'; c2.fill();
 
-    const tHz = num('toneHz');
+    const tHz = 600; // fixed inside TramHissVoice now
     if (tHz >= fMin && tHz <= fMax) {
       const x = Math.round(xOf(tHz)) + 0.5;
       c2.setLineDash([3, 3]);
@@ -1113,7 +883,6 @@
     if (ctx) return;
     ctx = new (window.AudioContext || window.webkitAudioContext)();
     await ctx.resume();
-    noiseBuf = makeNoise(ctx);
     master = ctx.createGain();
     master.gain.value = num('master');
     analyser = ctx.createAnalyser();
@@ -1122,6 +891,8 @@
     freqData = new Uint8Array(analyser.frequencyBinCount);
     master.connect(analyser);
     master.connect(ctx.destination);
+    hissPool = new TramHissPool(ctx, master, { onEvent: onHissEvent });
+    hissPool.setPolicy($('capPolicy').value, num('margin'));
 
     $('btnAudio').textContent = 'Audio running';
     $('btnAudio').disabled = true;
@@ -1138,7 +909,7 @@
   });
 
   $('btnAudio').addEventListener('click', enableAudio);
-  $('btnSpawn').addEventListener('click', () => trigger($('feederIn').value));
+  $('btnSpawn').addEventListener('click', () => manualTrigger($('feederIn').value));
   $('btnRelease').addEventListener('click', releaseAll);
   $('btnRandom').addEventListener('click', () => {
     const id = randomFeederId();
@@ -1150,19 +921,19 @@
     $('seedOut').textContent = id ? 'seed ' + hex(hashId(id)) : 'seed —';
   });
   $('feederIn').addEventListener('keydown', e => {
-    if (e.key === 'Enter') { e.preventDefault(); trigger($('feederIn').value); }
+    if (e.key === 'Enter') { e.preventDefault(); manualTrigger($('feederIn').value); }
   });
 
   $('dist').addEventListener('input', () => {
-    const live = voices.filter(v => !v.releasing);
-    if (live.length) live[live.length - 1].setDistance(num('dist'));
+    const id = $('feederIn').value.trim();
+    if (id && manualFeeders.has(id)) manualTrigger(id, num('dist'));
   });
 
   document.addEventListener('keydown', e => {
     if (e.code !== 'Space') return;
     if (/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)) return;
     e.preventDefault();
-    if (!ctx) enableAudio(); else trigger(randomFeederId());
+    if (!ctx) enableAudio(); else manualTrigger(randomFeederId());
   });
 
   // ---------- Web MIDI ----------
@@ -1183,26 +954,22 @@
       $('midiStatus').innerHTML = 'MIDI — <span class="no">blocked in this context</span>';
     }
   }
+  // CC 70-77 comb/filter/LFO mapping is gone — those params are fixed inside
+  // TramHissVoice now, not tunable from this page (see the "Voice synthesis"
+  // panel hint).
   function onMidi(ev) {
     const [status, d1, d2] = ev.data;
     const cmd = status & 0xF0;
     if (cmd === 0x90 && d2 > 0) {
       // note number stands in for feeder identity; velocity → distance
       const id = 'MIDI-' + d1;
-      const d = (1 - d2 / 127) * RADIUS;
-      const v = trigger(id, d);
-      if (v) midiVoices.set(d1, v);
+      const d = (1 - d2 / 127) * 25;
+      manualTrigger(id, d);
+      midiVoices.set(d1, id);
     } else if (cmd === 0x80 || (cmd === 0x90 && d2 === 0)) {
-      const v = midiVoices.get(d1);
-      if (v) { v.release(); midiVoices.delete(d1); }
-    } else if (cmd === 0xB0) {
-      const map = { 70: 'combMin', 71: 'combMax', 72: 'fcMin', 73: 'fcMax',
-                    74: 'l1dMin', 75: 'l1dMax', 76: 'l2dMin', 77: 'l2dMax' };
-      const id = map[d1];
-      if (!id) return;
-      const el = $(id);
-      const lo = parseFloat(el.min), hi = parseFloat(el.max);
-      el.value = (lo + (hi - lo) * (d2 / 127)).toFixed(2);
+      const id = midiVoices.get(d1);
+      if (id) { manualFeeders.delete(id); midiVoices.delete(d1);
+        hissPool && hissPool.update({ feeders: [...manualFeeders.values()], listenerLat: LISTENER_LAT, listenerLng: LISTENER_LNG, listenerHeading: 0 }); }
     }
   }
 

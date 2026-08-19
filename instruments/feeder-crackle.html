@@ -87,6 +87,7 @@
           padding-top:9px;border-top:1px solid var(--rule);
           display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .status .ok{color:var(--live)}
+  .status .no{color:var(--warn)}
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -96,16 +97,19 @@
   <header class="masthead">
     <h1 class="title">Feeder <span>Crackle</span></h1>
     <div class="masthead-meta">
-      TRAM ELECTRICAL · BEHAVIOUR 10/23<br>
-      <b>FIRST DISCRETE-EVENT INSTRUMENT</b><br>
+      TRAM ELECTRICAL · INSTRUMENT #8 · STEP 4 · PORTED<br>
+      <b>src/instruments/feeder-crackle.js — HRTF, strict parity</b><br>
       HIDDEN INFRASTRUCTURES : ZÜRICH
     </div>
   </header>
 
   <p class="strapline">
-    Triggered by the <em>tram</em>, not by you — the only behaviour driven by an external live feed.
-    Gain follows <em>(1−t)²</em> on your own distance across 150 m, with no hard gate: distant feeders
-    stay faintly audible and draw you toward them.
+    Voiced by the real <b>FeederCrackle</b> class now, not this page's old multi-grain synth — parameters
+    fixed to production's values: <em>6 bursts, 50ms spacing, 20ms noise through a 1200Hz highpass, gain
+    (1−t)² across 150m</em>, positioned via real HRTF (<code>PannerNode</code>), not a 1D stereo pan. This
+    1D route simulation still drives <em>when</em> a feeder fires (tram-triggered, not listener-triggered —
+    <code>proximity.feeders[].triggered</code> means near a tram) by mapping simulated positions to synthetic
+    lat/lng so the real class's distance and HRTF math run unchanged.
   </p>
 
   <section class="hero">
@@ -128,74 +132,12 @@
   <div class="grid">
 
     <section class="panel">
-      <div class="panel-head"><h2>Falloff</h2><div class="note">the validated curve</div></div>
-      <div class="row"><label>RADIUS m</label>
-        <div class="field"><input type="number" id="radius" value="150" step="5" min="20" max="400"></div>
-      </div>
-      <div class="row"><label>EXPONENT</label>
-        <div class="field"><input type="range" id="expo" min="0.5" max="4" step="0.1" value="2"><span class="val" id="expoV">2.0</span></div>
-      </div>
-      <div class="row"><label>FLOOR</label>
-        <div class="field"><input type="range" id="floor" min="0" max="0.2" step="0.005" value="0"><span class="val" id="floorV">0.000</span></div>
-      </div>
-      <p class="hint">Exponent <b>2.0</b> is the production curve — the draw effect comes from removing the listener gate entirely, so events never hard-cut. Floor above 0 keeps very distant events just present; at 0 they vanish at the radius.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Grains</h2><div class="note">arcing, not one click</div></div>
-      <div class="row"><label>COUNT</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="gMin" value="5" step="1" min="1" max="24"></div>
-          <div class="field"><span>max</span><input type="number" id="gMax" value="14" step="1" min="1" max="24"></div>
-        </div>
-      </div>
-      <div class="row"><label>WINDOW ms</label>
-        <div class="field"><input type="range" id="gWin" min="8" max="400" step="2" value="90"><span class="val" id="gWinV">90</span></div>
-      </div>
-      <div class="row"><label>CLUMP</label>
-        <div class="field"><input type="range" id="gShape" min="0.4" max="4" step="0.1" value="1.8"><span class="val" id="gShapeV">1.8</span></div>
-      </div>
-      <div class="row"><label>DECAY ms</label>
-        <div class="field"><input type="range" id="gDec" min="2" max="90" step="1" value="16"><span class="val" id="gDecV">16</span></div>
-      </div>
-      <p class="hint">Contact arcing is a burst of micro-impulses, not a single transient. <b>Clump</b> above 1 front-loads them so the event has an attack and a tail rather than an even scatter.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Grain tone</h2><div class="note">per-grain bandpass</div></div>
-      <div class="row"><label>FREQ Hz</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="fMin" value="1400" step="50" min="200" max="16000"></div>
-          <div class="field"><span>max</span><input type="number" id="fMax" value="7200" step="50" min="200" max="16000"></div>
-        </div>
-      </div>
-      <div class="row"><label>Q</label>
-        <div class="field"><input type="range" id="gQ" min="0.5" max="24" step="0.5" value="6"><span class="val" id="gQV">6.0</span></div>
-      </div>
-      <div class="row"><label>SPREAD</label>
-        <div class="field"><input type="range" id="gSpread" min="0" max="1" step="0.01" value="0.8"><span class="val" id="gSpreadV">0.80</span></div>
-      </div>
-      <p class="hint">Each grain takes its own frequency from this range. Narrow the range and the crackle becomes a tone; widen it and it becomes static. Sits above the hiss pool's comb band so the two read as one layer without masking.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Body</h2><div class="note">cable ring + current surge</div></div>
-      <div class="row"><label>RING Hz</label>
-        <div class="field"><input type="number" id="ringHz" value="430" step="5" min="60" max="3000"></div>
-      </div>
-      <div class="row"><label>RING LVL</label>
-        <div class="field"><input type="range" id="ringLvl" min="0" max="1" step="0.01" value="0.28"><span class="val" id="ringLvlV">0.28</span></div>
-      </div>
-      <div class="row"><label>RING DEC s</label>
-        <div class="field"><input type="range" id="ringDec" min="0.02" max="1.2" step="0.01" value="0.22"><span class="val" id="ringDecV">0.22</span></div>
-      </div>
-      <div class="row"><label>SURGE Hz</label>
-        <div class="field"><input type="number" id="subHz" value="72" step="1" min="30" max="300"></div>
-      </div>
-      <div class="row"><label>SURGE LVL</label>
-        <div class="field"><input type="range" id="subLvl" min="0" max="1" step="0.01" value="0.18"><span class="val" id="subLvlV">0.18</span></div>
-      </div>
-      <p class="hint">Ring is the feeder cable itself; surge is the current draw. Both optional — set to 0 for a dry contact crackle and hear whether the event still carries at 100 m.</p>
+      <div class="panel-head"><h2>Crackle (ported)</h2><div class="note">synthesis now lives in the class</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        <b>6 noise bursts</b>, 50ms onset spacing, 20ms each, 1200Hz highpass, amplitude 0.1→0.6 by burst
+        index scaled by gain. <b>Gain = (1 − min(dist/150,1))²</b> — the validated production curve, fixed
+        radius 150m, exponent 2, no floor. One dedicated HRTF <code>PannerNode</code> per event.
+      </p>
     </section>
 
     <section class="panel">
@@ -256,25 +198,25 @@
       <div class="row"><label>NEAREST m</label><div class="field"><span class="val" id="roNear" style="min-width:0">—</span></div></div>
       <div class="row"><label>EVENTS/MIN</label><div class="field"><span class="val" id="roRate" style="min-width:0">—</span></div></div>
       <div class="row"><label>LAST GAIN</label><div class="field"><span class="val" id="roGain" style="min-width:0">—</span></div></div>
-      <div class="row"><label>GRAIN NODES</label><div class="field"><span class="val" id="roNodes" style="min-width:0">—</span></div></div>
-      <p class="hint">Grain nodes is the peak count created by a single event — three per grain, all torn down inside the decay window. Watch it if the crackle rate gets high; this is the one instrument that creates nodes per event rather than per voice.</p>
     </section>
   </div>
 
   <div class="status">
     <div id="simStatus">Simulation — idle</div>
+    <div id="midiStatus">MIDI — not requested</div>
     <div id="ctxStatus">AudioContext — not created</div>
   </div>
 
 </div>
 
-<script>
+<script type="module">
+import FeederCrackle from '../src/instruments/feeder-crackle.js';
+
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
   const num = id => parseFloat($(id).value);
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-  const lerp=(a,b,t)=>a+(b-a)*t;
 
   function hashId(s){ let h=0x811c9dc5; for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193);} return h>>>0; }
   function mulberry32(a){ return function(){ a|=0;a=(a+0x6D2B79F5)|0;
@@ -282,10 +224,6 @@
     return ((t^(t>>>14))>>>0)/4294967296; }; }
 
   const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
-  bind($('expo'),$('expoV'),1); bind($('floor'),$('floorV'),3);
-  bind($('gWin'),$('gWinV'),0); bind($('gShape'),$('gShapeV'),1); bind($('gDec'),$('gDecV'),0);
-  bind($('gQ'),$('gQV'),1); bind($('gSpread'),$('gSpreadV'),2);
-  bind($('ringLvl'),$('ringLvlV'),2); bind($('ringDec'),$('ringDecV'),2); bind($('subLvl'),$('subLvlV'),2);
   bind($('debounce'),$('debounceV'),1); bind($('tramSpd'),$('tramSpdV'),1);
   bind($('spacing'),$('spacingV'),0); bind($('jitter'),$('jitterV'),0);
   bind($('lisPos'),$('lisPosV'),0); bind($('walkSpd'),$('walkSpdV'),1);
@@ -310,11 +248,17 @@
   buildRoute();
 
   // ---------- audio ----------
-  let ctx=null, master=null, noiseBuf=null;
+  // 1D route position (metres) maps to synthetic lat/lng so the real
+  // FeederCrackle class's distance + HRTF math run unchanged: north offset
+  // only, listener always facing north (heading 0), so "ahead" on the route
+  // reads as "in front."
+  const BASE_LAT = 47.3700, BASE_LNG = 8.5410;
+  const posToLatLng = p => ({ lat: BASE_LAT + p / 111320, lng: BASE_LNG });
+
+  let ctx=null, master=null, crackle=null;
   let tramPos=0, lisPos=280, running=false, walking=false;
   const recent=[];              // {dist, gain, t}
   const fireTimes=[];
-  let peakNodes=0;
 
   function log(kind,text){
     const el=$('log'); const d=document.createElement('div');
@@ -326,86 +270,26 @@
     while(el.children.length>50) el.removeChild(el.lastChild);
   }
 
-  function makeNoise(ac){
-    const len=ac.sampleRate*1.5;
-    const b=ac.createBuffer(1,len,ac.sampleRate);
-    const d=b.getChannelData(0);
-    for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
-    return b;
-  }
-
-  // the validated mapping: (1 - d/R)^exp, no gate
+  // Display-only reproduction of the class's internal gain curve, fixed to
+  // production's values (radius 150, exponent 2, no floor) — used for the
+  // curve plot and readouts, never fed back into the real trigger() call,
+  // which computes this itself from listener/feeder coordinates.
   function falloff(d){
-    const R=num('radius');
-    const t=clamp(d/R,0,1);
-    return num('floor') + (1-num('floor'))*Math.pow(1-t,num('expo'));
+    const t=clamp(d/150,0,1);
+    return Math.pow(1-t,2);
   }
 
   function fire(f, listenerDist){
-    if(!ctx) return;
-    const now=ctx.currentTime;
+    if(!ctx || !crackle) return;
     const g=falloff(listenerDist);
-    if(g<=0.0005){ return; }
 
-    const rnd=mulberry32((hashId(f.id)+Math.floor(now*1000))>>>0);
-    const evt=ctx.createGain();
-    evt.gain.value=g;
-    const pan=ctx.createStereoPanner();
-    // 1-D route: feeder ahead or behind maps to left/right
-    pan.pan.value=clamp((f.pos-lisPos)/Math.max(20,num('radius')*0.6),-1,1);
-    evt.connect(pan).connect(master);
+    const feederPos = posToLatLng(f.pos);
+    const listenerPos = posToLatLng(lisPos);
+    crackle.trigger({
+      feederLat: feederPos.lat, feederLng: feederPos.lng,
+      listenerLat: listenerPos.lat, listenerLng: listenerPos.lng, listenerHeading: 0
+    });
 
-    const nG=Math.round(lerp(num('gMin'),num('gMax'),rnd()));
-    const win=num('gWin')/1000, dec=num('gDec')/1000;
-    const fLo=num('fMin'), fHi=num('fMax'), spread=num('gSpread');
-    let nodes=0;
-
-    for(let i=0;i<nG;i++){
-      const t0=now+Math.pow(rnd(),num('gShape'))*win;
-      const src=ctx.createBufferSource(); src.buffer=noiseBuf;
-      const bp=ctx.createBiquadFilter(); bp.type='bandpass';
-      const centre=lerp(fLo,fHi,rnd());
-      bp.frequency.value=lerp((fLo+fHi)/2, centre, spread);
-      bp.Q.value=num('gQ');
-      const ga=ctx.createGain();
-      const amp=0.25+0.75*rnd();
-      ga.gain.setValueAtTime(0.0001,t0);
-      ga.gain.linearRampToValueAtTime(amp,t0+0.0006);
-      ga.gain.exponentialRampToValueAtTime(0.0001,t0+dec);
-      src.connect(bp).connect(ga).connect(evt);
-      src.start(t0, rnd()*1.0);
-      src.stop(t0+dec+0.02);
-      nodes+=3;
-    }
-
-    // cable ring
-    const rl=num('ringLvl');
-    if(rl>0.001){
-      const o=ctx.createOscillator(); o.type='triangle';
-      o.frequency.value=num('ringHz')*(0.96+rnd()*0.08);
-      const og=ctx.createGain();
-      og.gain.setValueAtTime(0.0001,now);
-      og.gain.linearRampToValueAtTime(rl*0.5,now+0.003);
-      og.gain.exponentialRampToValueAtTime(0.0001,now+num('ringDec'));
-      o.connect(og).connect(evt); o.start(now); o.stop(now+num('ringDec')+0.05);
-      nodes+=2;
-    }
-    // current surge
-    const sl=num('subLvl');
-    if(sl>0.001){
-      const o=ctx.createOscillator(); o.type='sine';
-      o.frequency.setValueAtTime(num('subHz')*1.6,now);
-      o.frequency.exponentialRampToValueAtTime(num('subHz'),now+0.09);
-      const og=ctx.createGain();
-      og.gain.setValueAtTime(0.0001,now);
-      og.gain.linearRampToValueAtTime(sl*0.5,now+0.006);
-      og.gain.exponentialRampToValueAtTime(0.0001,now+0.28);
-      o.connect(og).connect(evt); o.start(now); o.stop(now+0.33);
-      nodes+=2;
-    }
-
-    peakNodes=Math.max(peakNodes,nodes);
-    $('roNodes').textContent=String(peakNodes);
     $('roGain').textContent=g.toFixed(3);
 
     recent.push({dist:listenerDist,gain:g,t:performance.now()});
@@ -493,7 +377,7 @@
     r2.fillText('FEEDERS',18,16);
 
     // radius shading around the listener
-    const R=num('radius');
+    const R=150;
     r2.fillStyle='rgba(168,29,69,0.07)';
     r2.fillRect(xOf(clamp(lisPos-R,0,L)),y-20,
                 xOf(clamp(lisPos+R,0,L))-xOf(clamp(lisPos-R,0,L)),40);
@@ -530,7 +414,7 @@
   }
 
   function drawCurve(){
-    const w=cc.clientWidth,h=186,R=num('radius');
+    const w=cc.clientWidth,h=186,R=150;
     c2.clearRect(0,0,w,h); c2.fillStyle=css('--paper-2'); c2.fillRect(0,0,w,h);
     const padL=34,padR=16,padT=14,padB=24;
     const xOf=d=>padL+(d/R)*(w-padL-padR);
@@ -548,7 +432,7 @@
       c2.beginPath(); c2.moveTo(x,padT); c2.lineTo(x,h-padB); c2.stroke();
       c2.fillText(Math.round(d)+'m',x+3,h-9);
     }
-    c2.fillText('GAIN  ×  DISTANCE   —   (1−t)^'+num('expo').toFixed(1),padL,10);
+    c2.fillText('GAIN  ×  DISTANCE   —   (1−t)^2 (fixed, production)',padL,10);
 
     // reference linear curve
     c2.strokeStyle=css('--ink-3'); c2.setLineDash([2,3]); c2.lineWidth=1;
@@ -589,12 +473,13 @@
     if(ctx) return;
     ctx=new (window.AudioContext||window.webkitAudioContext)();
     await ctx.resume();
-    noiseBuf=makeNoise(ctx);
     master=ctx.createGain(); master.gain.value=num('master');
     master.connect(ctx.destination);
+    crackle=new FeederCrackle(ctx, master);
     $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
     $('btnTram').disabled=false; $('btnWalk').disabled=false; $('btnFire').disabled=false;
     $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+    requestMidi();
   }
   function status(){
     $('simStatus').textContent='Simulation — '+
@@ -619,6 +504,31 @@
     e.preventDefault();
     if(!ctx) enableAudio(); else $('btnFire').click();
   });
+
+  // ---------- Web MIDI — mirrors instruments/hiss-voice.html's pattern ----------
+  // Note-on fires the nearest feeder to the current listener position,
+  // same as the "Fire nearest" button/spacebar — this instrument has no
+  // per-note identity to map to (crackle is tram-triggered, not per-voice).
+  async function requestMidi(){
+    if(!navigator.requestMIDIAccess){
+      $('midiStatus').innerHTML='MIDI — <span class="no">unsupported in this browser</span>';
+      return;
+    }
+    try{
+      const access=await navigator.requestMIDIAccess();
+      const names=[];
+      access.inputs.forEach(inp=>{ names.push(inp.name); inp.onmidimessage=onMidi; });
+      $('midiStatus').innerHTML=names.length
+        ? 'MIDI — <span class="ok">'+names.join(', ')+'</span>'
+        : 'MIDI — <span class="no">no inputs found</span>';
+    }catch(err){
+      $('midiStatus').innerHTML='MIDI — <span class="no">blocked in this context</span>';
+    }
+  }
+  function onMidi(ev){
+    const [status,,d2]=ev.data;
+    if((status&0xF0)===0x90 && d2>0) $('btnFire').click();
+  }
 
   tick();
 })();

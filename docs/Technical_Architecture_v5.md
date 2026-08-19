@@ -166,11 +166,17 @@ The District 1 musical theme is now Phase 3 scope (`docs/Project_Plan_v3_5.md`) 
 
 **This has happened, not just "if":** the risk this section flagged as a later possibility — 23 (now 24) per-behaviour modules producing unmanageable duplication — is what `crossing-family.html` found in practice for the 8 crossing/alongside items (most behaviours do share the one-shot-with-cooldown or randomised-loop-with-jitter shape already documented in `docs/archive/max/patch-inventory.md`). Consolidating toward per-layer instruments with behaviour *modes* remains an acceptable correction and is now a live decision, not a hypothetical one — see `docs/Implementation_Plan.md` Decision Point 4. The interface contract below is written so that change wouldn't require revisiting the surrounding application wiring — see Option B.
 
-## The interface contract — open decision
+## The interface contract — decided (Step 1, ratified)
 
-Every instrument needs a common way to be instantiated, fed the parameters ProximityEngine already emits (distance, density, crossing, alongside, bearing, dwell), triggered for discrete events, and torn down. Three candidate shapes, each grounded in what the codebase already does:
+**Ratified: Option A** (class-per-instrument, uniform lifecycle), built for real against both Step 1 proof instruments — `WaterProximityPulse` (`src/instruments/water-proximity-pulse.js`) and `ElectricityOscillatorPool` (`src/instruments/electricity-oscillator-pool.js`), sharing `src/instruments/instrument-base.js` and `src/instruments/pool-allocator.js`. Option B was eliminated before build on documented pool-fit grounds (see its trade-off paragraph below) — electricity was deliberately chosen as the proof instrument because it's a persistent-claim pool, which is exactly the case Option B is weakest against. Option C was evaluated by inspection against the real Option A build rather than built in parallel: it's close to what `audio-layers.js` already did informally, and the concrete evidence against it arrived unprompted — `instruments/hiss-voice.html` and `instruments/electricity-hum.html` had already independently reinvented an identical claim/steal/margin/refuse allocator (byte-identical FNV-1a hash + mulberry32 RNG helpers) before this decision was made, which is Option C's "23 modules can drift" risk actually occurring rather than a hypothetical. `src/instruments/pool-allocator.js` is the fix for that duplication.
 
-### Option A — Class-per-instrument, uniform lifecycle
+**Pool-exhaustion policy, also decided in this step**: steal-furthest + margin (20% margin) — see the "Pool-exhaustion behaviour" bullet below, and `PoolAllocator.claim()` in `src/instruments/pool-allocator.js` for the implementation. This replaces production's accidental silent-drop (`audio-layers.js`'s `_elecClaim`: `if (!slot) return;`) as a deliberate choice, not a preserved accident.
+
+**Step 1 is done**, per `docs/Implementation_Plan.md`'s done-means criteria — unblocking Steps 2–7 (`docs/Implementation_Plan.md` line 132: "Step 1 hard-blocks Steps 2–7").
+
+The comparison below is kept as the record of *why* — every instrument still needs a common way to be instantiated, fed the parameters ProximityEngine already emits (distance, density, crossing, alongside, bearing, dwell), triggered for discrete events, and torn down. Three candidate shapes were considered, each grounded in what the codebase already did:
+
+### Option A — Class-per-instrument, uniform lifecycle — RATIFIED
 
 Each instrument is a small class: `new WaterProximityPulse(ctx, outputNode)`, with `.update(params)`, `.trigger(params)` (for one-shots), and `.destroy()`. Pools (electricity, telecom, tram hiss) become a thin wrapper class that owns N instrument instances and implements its own claim/release policy internally.
 
@@ -181,7 +187,7 @@ Each instrument is a small class: `new WaterProximityPulse(ctx, outputNode)`, wi
 - **Score archive:** logging is a matter of wrapping `.trigger()`/`.update()` calls; straightforward to intercept at the call site.
 - **Trade-off:** 23 classes is more files and more boilerplate than today's single module, even with a shared base class factoring out the common node-graph teardown logic.
 
-### Option B — Behaviour-as-config, one generic instrument runner
+### Option B — Behaviour-as-config, one generic instrument runner — ELIMINATED (poor pool-fit)
 
 A single generic runner takes a declarative spec per behaviour (oscillator/noise source type, filter chain, envelope shape, parameter-to-gain mapping) and produces the Web Audio graph from it. Most behaviours already fit one of two shapes documented in the archived Max notes — "one-shot with cooldown" and "randomised loop with jitter" — so the spec format could be small.
 
@@ -192,7 +198,7 @@ A single generic runner takes a declarative spec per behaviour (oscillator/noise
 - **Score archive:** logging is uniform across all behaviours almost for free, since they all go through one code path.
 - **Trade-off:** if per-behaviour granularity gets consolidated later (see above), this option absorbs that change easily — the config just grows a "mode" field. That flexibility comes at the cost of more upfront design work on the config schema before writing any instrument at all.
 
-### Option C — Keep `audio-layers.js`'s current shape, extract per-behaviour modules without a shared base
+### Option C — Keep `audio-layers.js`'s current shape, extract per-behaviour modules without a shared base — EVALUATED BY INSPECTION, NOT BUILT
 
 Each behaviour becomes its own small module (a factory function returning `{ update, trigger, destroy }`) but there is no shared interface enforced beyond that duck-typed shape — closest to a mechanical refactor of what exists today, just split into 23 files instead of 6 layer-sections in one file.
 
@@ -203,12 +209,12 @@ Each behaviour becomes its own small module (a factory function returning `{ upd
 - **Score archive:** logging has to be added per module rather than once, since there's no shared entry point to intercept.
 - **Trade-off:** cheapest to build first, but the least future-proof — with no enforced contract, 23 modules can drift into 23 slightly different shapes over time, and the HTML control surfaces won't be reusable across instruments.
 
-**Not resolved here — deliberately.** `docs/Implementation_Plan.md` ("Decision Points," item 1) expands this into explicit comparison criteria (code volume, pool-fit, control-surface reusability, score-archive logging fit, mapping-curve-audit fit) to apply once the two Step 1 proof instruments — water proximity pulse and electricity oscillator pool — exist. Skim all three options above first, then use that criteria list rather than a gut read of which felt nicer to write for two small examples.
+**Resolved as of Step 1.** `docs/Implementation_Plan.md` ("Decision Points," item 1) laid out the comparison criteria (code volume, pool-fit, control-surface reusability, score-archive logging fit, mapping-curve-audit fit) applied here once the two Step 1 proof instruments — water proximity pulse and electricity oscillator pool — existed for real. Option A won primarily on pool-fit (proven directly against `ElectricityOscillatorPool`, the paradigm case) and on control-surface reusability (`PoolAllocator` is now shared, not reinvented per surface) — see the ratification note above for the full reasoning.
 
 ## Open questions — status
 
 - **Does the HTML control surface ship in the production build, or stay authoring-only?** **Reopened.** Was decided as authoring-only by default: all 24 instruments still get a control surface as a dev tool for sound design and MIDI-driven auditioning, with any specific control promoted into the production UI only per-control, later, once it exists and can be tried, and only with schedule headroom to harden it for production use. In practice, `docs/instrument-reference.html` reports the built surfaces are reachable on the deployed URL and one is linked from `index.html` — i.e. this question is currently being answered by default rather than deliberately. See `docs/Implementation_Plan.md`, Decision Points, item 2, for the live status.
-- **Pool-exhaustion behaviour.** **Resolved to decide early, once** — as part of Phase 3 Step 1 (`docs/Implementation_Plan.md`), against the electricity pool proof instrument, as a single policy rather than three separate per-pool decisions made at whatever point each pool gets built. The policy itself (silent drop vs. nearest-wins swap) isn't chosen in this document — only that it gets decided in Step 1, not inherited by accident the way electricity's current silent-drop behaviour was.
+- **Pool-exhaustion behaviour.** **Resolved.** Steal-furthest + margin (20% margin), decided in Step 1 against the electricity pool proof instrument and implemented in `src/instruments/pool-allocator.js`'s `PoolAllocator.claim()`. Applies as the single policy for all three pools (electricity now; tram hiss and telecom burst when they're built in Steps 4 and 6) rather than three separate per-pool decisions. Replaces electricity's previous silent-drop, which was production's accidental default, never a chosen policy.
 - **Mapping-curve audit.** Still open, and it's a task rather than a decision. Feeder crackle's (1−t)² falloff over 150m is validated and should be carried forward as-is. The other layers' proximity-to-gain curves (mostly linear) have not had the same scrutiny — flagged in `docs/archive/max/TECHNICAL_NOTES.md` and repeated here so it doesn't get lost in the pivot.
 
 ---

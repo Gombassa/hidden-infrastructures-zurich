@@ -58,7 +58,6 @@
   .row{display:grid;grid-template-columns:96px 1fr;gap:9px;align-items:center;margin-bottom:7px}
   .row:last-child{margin-bottom:0}
   .row>label{font-family:var(--mono);font-size:10px;color:var(--ink-2);line-height:1.2}
-  .rng{display:grid;grid-template-columns:1fr 1fr;gap:7px}
   .field{display:flex;align-items:center;gap:5px}
   .field span{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);
               letter-spacing:0.06em;text-transform:uppercase}
@@ -95,13 +94,14 @@
   #log .t{color:var(--ink-3)}
   #log .ev-claim{color:var(--ink)}
   #log .ev-steal{color:var(--warn)}
-  #log .ev-hold{color:var(--elec)}
-  #log .ev-rel{color:var(--ink-3)}
+  #log .ev-refuse{color:var(--elec)}
+  #log .ev-release{color:var(--ink-3)}
 
   .status{font-family:var(--mono);font-size:10px;color:var(--ink-2);margin-top:16px;
           padding-top:9px;border-top:1px solid var(--rule);
           display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .status .ok{color:var(--live)}
+  .status .no{color:var(--warn)}
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -111,16 +111,18 @@
   <header class="masthead">
     <h1 class="title">Transformer <span>Hum</span></h1>
     <div class="masthead-meta">
-      ELECTRICITY · BEHAVIOUR 13/23<br>
-      <b>SAME ALLOCATOR AS HISS VOICE</b><br>
+      ELECTRICITY · INSTRUMENT #5 · STEP 1 PROOF<br>
+      <b>ElectricityOscillatorPool — Option A contract</b><br>
       HIDDEN INFRASTRUCTURES : ZÜRICH
     </div>
   </header>
 
   <p class="strapline">
-    Magnetostriction hums at <em>100 Hz</em> — twice mains — and the series above it.
-    Low frequencies couple badly out of a buried enclosure, so street level hears the upper harmonics:
-    push <em>emphasis</em> up the series for the mid-band scream, down for the box you're standing on.
+    Drives <em>src/instruments/electricity-oscillator-pool.js</em> directly — the 8-slot fixed-sawtooth
+    pool ported unchanged from production, plus the newly-decided <em>steal-furthest + margin</em>
+    exhaustion policy replacing the old accidental silent-drop. This surface no longer has independent
+    synthesis of its own; every control below either feeds the class's <code>update()</code> input or
+    configures its allocator.
   </p>
 
   <section class="hero">
@@ -144,114 +146,22 @@
   <div class="grid">
 
     <section class="panel">
-      <div class="panel-head"><h2>Harmonic core</h2><div class="note">one PeriodicWave per node</div></div>
-      <div class="row"><label>FUNDAMENTAL</label>
-        <div class="field"><input type="number" id="fund" value="100" step="1" min="20" max="400"><span>Hz</span></div>
-      </div>
-      <div class="row"><label>HARMONICS</label>
-        <div class="field"><input type="range" id="nHarm" min="4" max="32" step="1" value="20"><span class="val" id="nHarmV">20</span></div>
-      </div>
-      <div class="row"><label>EMPHASIS k</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="empMin" value="6" step="0.5" min="1" max="32"></div>
-          <div class="field"><span>max</span><input type="number" id="empMax" value="15" step="0.5" min="1" max="32"></div>
-        </div>
-      </div>
-      <div class="row"><label>WIDTH</label>
-        <div class="field"><input type="range" id="empW" min="0.5" max="12" step="0.1" value="3.2"><span class="val" id="empWV">3.2</span></div>
-      </div>
-      <div class="row"><label>ROLLOFF</label>
-        <div class="field"><input type="range" id="rolloff" min="0.2" max="3" step="0.05" value="1.15"><span class="val" id="rolloffV">1.15</span></div>
-      </div>
-      <div class="row"><label>EVEN BIAS</label>
-        <div class="field"><input type="range" id="evenBias" min="0" max="1" step="0.01" value="0.45"><span class="val" id="evenBiasV">0.45</span></div>
-      </div>
-      <p class="hint">Emphasis <b>k</b> is which harmonic carries most energy — k=15 at 100 Hz lands on 1500 Hz, the current build's scream. k=2–3 is the boxy hum heard beside a transformer. Even bias favours 200/400/600 Hz, which is what magnetostriction actually produces most of.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Voice</h2><div class="note">per node, hashed from id</div></div>
-      <div class="row"><label>DETUNE ±Hz</label>
-        <div class="field"><input type="range" id="detune" min="0" max="4" step="0.05" value="0.6"><span class="val" id="detuneV">0.60</span></div>
-      </div>
-      <div class="row"><label>BEAT ±Hz</label>
-        <div class="field"><input type="range" id="beat" min="0" max="6" step="0.05" value="1.4"><span class="val" id="beatV">1.40</span></div>
-      </div>
-      <div class="row"><label>LFO Hz</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="lfoMin" value="0.18" step="0.01" min="0.01" max="6"></div>
-          <div class="field"><span>max</span><input type="number" id="lfoMax" value="0.62" step="0.01" min="0.01" max="6"></div>
-        </div>
-      </div>
-      <div class="row"><label>LFO DEPTH</label>
-        <div class="field"><input type="range" id="lfoDep" min="0" max="0.6" step="0.005" value="0.14"><span class="val" id="lfoDepV">0.140</span></div>
-      </div>
-      <div class="row"><label>ATTACK s</label>
-        <div class="field"><input type="range" id="att" min="0.05" max="5" step="0.05" value="1.4"><span class="val" id="attV">1.40</span></div>
-      </div>
-      <div class="row"><label>RELEASE s</label>
-        <div class="field"><input type="range" id="rel" min="0.1" max="8" step="0.1" value="2.2"><span class="val" id="relV">2.20</span></div>
-      </div>
-      <p class="hint">Two oscillators per voice, offset by <b>beat</b>. Real transformers are phase-locked to the same grid, so this is licence — but enclosure resonances and grid drift do produce some. Set beat to 0 for the physically strict version.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Voltage class</h2><div class="note">extracted, never yet read</div></div>
-      <div class="row"><label>MODE</label>
-        <div class="field">
-          <select id="vMode">
-            <option value="hash" selected>Hashed — id drives emphasis</option>
-            <option value="voltage">Voltage — class drives emphasis</option>
-          </select>
-        </div>
-      </div>
-      <div class="row"><label>HIGH V → k</label>
-        <div class="rng">
-          <div class="field"><span>low</span><input type="number" id="vLo" value="14" step="0.5" min="1" max="32"></div>
-          <div class="field"><span>high</span><input type="number" id="vHi" value="5" step="0.5" min="1" max="32"></div>
-        </div>
-      </div>
-      <p class="hint">Bigger cores sit lower in the series — more mass, more enclosure. This mirrors the water instrument's pipe-function mapping and rests on the same kind of unverified assumption: <b>voltageClass</b> values have never been read out of <b>lk-electricity.geojson</b>. Hashed mode ignores it entirely.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Proximity</h2><div class="note">40 m nodes · 40 m cables</div></div>
+      <div class="panel-head"><h2>Proximity input</h2><div class="note">feeds pool.update()</div></div>
       <div class="row"><label>NODE RADIUS</label>
         <div class="field"><input type="number" id="radius" value="40" step="1" min="5" max="200"><span>m</span></div>
-      </div>
-      <div class="row"><label>FALLOFF exp</label>
-        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
-      </div>
-      <div class="row"><label>CABLE RAD</label>
-        <div class="field"><input type="number" id="cabRad" value="40" step="1" min="5" max="200"><span>m</span></div>
-      </div>
-      <div class="row"><label>CABLE BOOST</label>
-        <div class="field"><input type="range" id="cabBoost" min="0" max="1" step="0.01" value="0.35"><span class="val" id="cabBoostV">0.35</span></div>
       </div>
       <div class="row"><label>CABLE DIST</label>
         <div class="field"><input type="range" id="cabDist" min="0" max="90" step="0.5" value="22"><span class="val" id="cabDistV">22.0</span></div>
       </div>
-      <p class="hint">The layer gates on <b>nodes</b> but is lifted by <b>cables</b> — two geometry types feeding one master. This is the first instrument where that happens, and it is the reason electricity is the contract test.</p>
+      <p class="hint">NODE RADIUS sets <b>triggered</b> per node (matches production's 40m). CABLE DIST simulates
+        <b>nearestCableDist</b> — the class hardcodes the 40m cable radius and +0.075 boost internally, same as
+        production; this slider is the only cable input this surface can drive.</p>
     </section>
 
     <section class="panel">
-      <div class="panel-head"><h2>Cluster density</h2><div class="note">nodes within radius</div></div>
-      <div class="row"><label>CLUSTER m</label>
-        <div class="field"><input type="number" id="clRad" value="30" step="1" min="5" max="120"></div>
-      </div>
-      <div class="row"><label>GAIN ×</label>
-        <div class="rng">
-          <div class="field"><span>1 node</span><input type="number" id="dg1" value="1.0" step="0.05" min="0.2" max="3"></div>
-          <div class="field"><span>5+ nodes</span><input type="number" id="dg5" value="1.8" step="0.05" min="0.2" max="3"></div>
-        </div>
-      </div>
-      <p class="hint">Matches the existing 1.0–1.8× multiplier at 5+ nodes within 30 m. Substation yards should feel like a mass of plant, not one loud box.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Allocator</h2><div class="note">lifted from hiss voice</div></div>
-      <div class="row"><label>MAX VOICES</label>
-        <div class="field"><input type="number" id="cap" value="8" step="1" min="1" max="24"></div>
+      <div class="panel-head"><h2>Allocator</h2><div class="note">PoolAllocator — Option A shared base</div></div>
+      <div class="row"><label>POOL SIZE</label>
+        <div class="field"><span class="val" style="min-width:0">8 — fixed, physical oscillator slots</span></div>
       </div>
       <div class="row"><label>AT CAP</label>
         <div class="field">
@@ -268,7 +178,9 @@
       <div class="row"><label>SOUNDING</label><div class="field"><span class="val" id="roVoices" style="min-width:0">—</span></div></div>
       <div class="row"><label>IN RANGE</label><div class="field"><span class="val" id="roRange" style="min-width:0">—</span></div></div>
       <div class="row"><label>LAYER GAIN</label><div class="field"><span class="val" id="roGain" style="min-width:0">—</span></div></div>
-      <p class="hint"><b>Refuse new</b> reproduces the current build exactly — first free slot wins, nothing happens on full. That was never chosen; it is what an 8-slot pool does by default. The other two are the alternatives.</p>
+      <p class="hint"><b>Steal furthest + margin</b> (20%) is Step 1's decided policy, replacing production's
+        accidental first-free-slot-or-drop. Pool slots are fixed-frequency (not per-feature timbre), so a steal
+        changes only bookkeeping — the sound doesn't audibly change, only which node currently "owns" a slot.</p>
     </section>
 
   </div>
@@ -277,7 +189,7 @@
     <section class="panel">
       <div class="panel-head">
         <h2>Simulated nodes</h2>
-        <div class="note">voltage 0 = low, 1 = high</div>
+        <div class="note">drag distance, or use MIDI note-on/off</div>
       </div>
       <div id="nodeWrap"></div>
     </section>
@@ -290,435 +202,245 @@
 
   <div class="status">
     <div id="modeStatus">Walk simulation — off</div>
+    <div id="midiStatus">MIDI — not requested</div>
     <div id="ctxStatus">AudioContext — not created</div>
   </div>
 
 </div>
 
-<script>
-(() => {
-  'use strict';
-  const $ = id => document.getElementById(id);
-  const num = id => parseFloat($(id).value);
-  const clamp = (v,a,b) => Math.min(b, Math.max(a, v));
-  const lerp = (a,b,t) => a + (b-a)*t;
+<script type="module">
+import ElectricityOscillatorPool from '../src/instruments/electricity-oscillator-pool.js';
 
-  // FNV-1a — same hash as the hiss instrument
-  function hashId(str){
-    let h = 0x811c9dc5;
-    for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 0x01000193); }
-    return h >>> 0;
-  }
-  function mulberry32(a){
-    return function(){ a|=0; a=(a+0x6D2B79F5)|0;
-      let t=Math.imul(a^(a>>>15),1|a); t=(t+Math.imul(t^(t>>>7),61|t))^t;
-      return ((t^(t>>>14))>>>0)/4294967296; };
-  }
-  const hex = n => (n>>>0).toString(16).padStart(8,'0').toUpperCase();
+const $ = id => document.getElementById(id);
+const num = id => parseFloat($(id).value);
+const clamp = (v,a,b) => Math.min(b, Math.max(a, v));
 
-  const bind = (i,o,d) => { const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)}; i.addEventListener('input',s); s(); };
-  bind($('nHarm'),$('nHarmV'),0); bind($('empW'),$('empWV'),1);
-  bind($('rolloff'),$('rolloffV'),2); bind($('evenBias'),$('evenBiasV'),2);
-  bind($('detune'),$('detuneV'),2); bind($('beat'),$('beatV'),2);
-  bind($('lfoDep'),$('lfoDepV'),3); bind($('att'),$('attV'),2); bind($('rel'),$('relV'),2);
-  bind($('falloff'),$('falloffV'),1); bind($('cabBoost'),$('cabBoostV'),2);
-  bind($('cabDist'),$('cabDistV'),1); bind($('margin'),$('marginV'),0);
-  bind($('master'),$('masterV'),2);
+const bind = (i,o,d) => { const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)}; i.addEventListener('input',s); s(); };
+bind($('cabDist'),$('cabDistV'),1); bind($('margin'),$('marginV'),0); bind($('master'),$('masterV'),2);
 
-  function syncMargin(){ $('marginRow').classList.toggle('dim', $('capPolicy').value!=='margin'); }
-  $('capPolicy').addEventListener('change', syncMargin); syncMargin();
+function syncMargin(){ $('marginRow').classList.toggle('dim', $('capPolicy').value!=='margin'); }
+$('capPolicy').addEventListener('change', () => { syncMargin(); applyPolicy(); });
+$('margin').addEventListener('input', applyPolicy);
+syncMargin();
 
-  // ---------- simulated node set ----------
-  const nodes = [
-    {id:'E-2201884', v:0.12, dist:14},
-    {id:'E-2201907', v:0.34, dist:23},
-    {id:'E-2204410', v:0.58, dist:31},
-    {id:'E-2204473', v:0.21, dist:18},
-    {id:'E-2209002', v:0.86, dist:37},
-    {id:'E-2209115', v:0.45, dist:44},
-    {id:'E-2211730', v:0.67, dist:52},
-    {id:'E-2211884', v:0.95, dist:29},
-    {id:'E-2214002', v:0.30, dist:61},
-    {id:'E-2214119', v:0.73, dist:26}
-  ];
-  nodes.forEach((n,i)=>{ n.phase = i*1.31; n.rate = 0.045 + i*0.011; });
+function applyPolicy(){
+  if (pool) pool.setPolicy($('capPolicy').value, num('margin'));
+}
 
-  // ---------- audio ----------
-  let ctx=null, master=null, analyser=null, freqData=null, layerGain=null;
-  const voices = new Map();          // nodeId -> Voice
-  const counts = { claim:0, steal:0, hold:0 };
+// ---------- simulated node set ----------
+const nodes = [
+  {id:'E-2201884', dist:14}, {id:'E-2201907', dist:23}, {id:'E-2204410', dist:31},
+  {id:'E-2204473', dist:18}, {id:'E-2209002', dist:37}, {id:'E-2209115', dist:44},
+  {id:'E-2211730', dist:52}, {id:'E-2211884', dist:29}, {id:'E-2214002', dist:61},
+  {id:'E-2214119', dist:26}
+];
+nodes.forEach((n,i)=>{ n.phase = i*1.31; n.rate = 0.045 + i*0.011; });
+const midiNodes = new Map(); // 'MIDI-N' -> dist, merged into the node list each tick
 
-  function log(kind, text){
-    const el=$('log'); const d=document.createElement('div');
-    const t=new Date();
-    const ts=String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0')+
-             '.'+String(Math.floor(t.getMilliseconds()/100));
-    d.innerHTML='<span class="t">'+ts+'</span> <span class="ev-'+kind+'">'+text+'</span>';
-    el.prepend(d);
-    while(el.children.length>60) el.removeChild(el.lastChild);
-    $('logStats').textContent = counts.claim+' claim · '+counts.steal+' steal · '+counts.hold+' hold';
-  }
+// ---------- audio ----------
+let ctx=null, master=null, analyser=null, freqData=null, pool=null;
+const counts = { claim:0, steal:0, refuse:0, release:0 };
 
-  // Build the harmonic spectrum as a single PeriodicWave.
-  // One oscillator per voice instead of one per harmonic — 20 harmonics
-  // would otherwise mean 20 nodes per voice before anything else.
-  function harmonicWave(ac, nH, centre, width, roll, evenBias){
-    const real = new Float32Array(nH+1);
-    const imag = new Float32Array(nH+1);
-    for (let k=1;k<=nH;k++){
-      const emph = Math.exp(-Math.pow((k-centre)/Math.max(0.4,width),2));
-      const base = 1/Math.pow(k, roll);
-      const parity = (k%2===0) ? (0.5+evenBias) : (1.5-evenBias);
-      imag[k] = base * (0.12 + emph) * parity;
-    }
-    return ac.createPeriodicWave(real, imag, {disableNormalization:false});
-  }
+function log(kind, text){
+  const el=$('log'); const d=document.createElement('div');
+  const t=new Date();
+  const ts=String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0')+
+           '.'+String(Math.floor(t.getMilliseconds()/100));
+  d.innerHTML='<span class="t">'+ts+'</span> <span class="ev-'+kind+'">'+text+'</span>';
+  el.prepend(d);
+  while(el.children.length>60) el.removeChild(el.lastChild);
+  $('logStats').textContent = counts.claim+' claim · '+counts.steal+' steal · '+counts.refuse+' refuse · '+counts.release+' rel';
+}
 
-  function emphasisFor(node){
-    if ($('vMode').value === 'voltage'){
-      return lerp(num('vLo'), num('vHi'), clamp(node.v,0,1));
-    }
-    const rnd = mulberry32(hashId(node.id));
-    return lerp(num('empMin'), num('empMax'), rnd());
-  }
+function onPoolEvent(type, detail){
+  counts[type] = (counts[type]||0) + 1;
+  const d = detail.dist !== undefined ? detail.dist.toFixed(1)+' m' : '';
+  if (type === 'claim')  log('claim',  'CLAIM   '+detail.featureId+' @ '+d);
+  if (type === 'steal')  log('steal',  'STEAL   '+detail.featureId+' @ '+d+' ← took '+detail.stolenFeatureId);
+  if (type === 'refuse') log('refuse', 'REFUSE  '+detail.featureId+' @ '+d);
+  if (type === 'release') log('release', 'RELEASE '+detail.featureId);
+}
 
-  class HumVoice {
-    constructor(ac, dest, node){
-      this.node = node;
-      this.id = node.id;
-      this.seed = hashId(node.id);
-      const rnd = mulberry32(this.seed);
-
-      this.emph = emphasisFor(node);
-      this.detOff = (rnd()*2-1) * num('detune');
-      this.lfoRate = lerp(num('lfoMin'), num('lfoMax'), rnd());
-      this.pan = (rnd()*2-1) * 0.7;
-      this.lfoPhase = rnd()*Math.PI*2;
-
-      const t = ac.currentTime;
-      this.env = ac.createGain(); this.env.gain.value = 0.0001;
-      this.panner = ac.createStereoPanner(); this.panner.pan.value = this.pan;
-      this.env.connect(this.panner).connect(dest);
-
-      const wave = harmonicWave(ac, Math.round(num('nHarm')), this.emph,
-                                num('empW'), num('rolloff'), num('evenBias'));
-      const f0 = num('fund') + this.detOff;
-
-      this.oscA = ac.createOscillator(); this.oscA.setPeriodicWave(wave);
-      this.oscA.frequency.value = f0;
-      this.oscB = ac.createOscillator(); this.oscB.setPeriodicWave(wave);
-      this.oscB.frequency.value = f0 + num('beat');
-
-      this.mix = ac.createGain(); this.mix.gain.value = 0.5;
-      this.oscA.connect(this.mix); this.oscB.connect(this.mix);
-      this.mix.connect(this.env);
-
-      // amplitude wobble, phase-offset per voice
-      const real=new Float32Array([0,Math.sin(this.lfoPhase)]);
-      const imag=new Float32Array([0,Math.cos(this.lfoPhase)]);
-      this.lfo = ac.createOscillator();
-      this.lfo.setPeriodicWave(ac.createPeriodicWave(real,imag,{disableNormalization:true}));
-      this.lfo.frequency.value = this.lfoRate;
-      this.lfoGain = ac.createGain(); this.lfoGain.gain.value = num('lfoDep')*0.5;
-      this.lfo.connect(this.lfoGain).connect(this.mix.gain);
-
-      this.oscA.start(t); this.oscB.start(t); this.lfo.start(t);
-
-      this.target = 0;
-      this.releasing = false;
-      this.setDistance(node.dist, true);
-    }
-
-    rebuildWave(){
-      if (this.releasing || !ctx) return;
-      const e = emphasisFor(this.node);
-      this.emph = e;
-      const w = harmonicWave(ctx, Math.round(num('nHarm')), e,
-                             num('empW'), num('rolloff'), num('evenBias'));
-      this.oscA.setPeriodicWave(w); this.oscB.setPeriodicWave(w);
-    }
-
-    setDistance(d, immediate){
-      if (this.releasing) return;
-      this.node.dist = d;
-      const R = num('radius');
-      const prox = d <= R ? Math.pow(1 - d/R, num('falloff')) : 0;
-      this.target = prox;
-      const now = ctx.currentTime;
-      if (immediate){
-        this.env.gain.setValueAtTime(0.0001, now);
-        this.env.gain.exponentialRampToValueAtTime(Math.max(0.0002, prox*this.layerMul()), now+num('att'));
-      } else {
-        this.env.gain.setTargetAtTime(Math.max(0.0001, prox*this.layerMul()), now, 0.4);
-      }
-    }
-    layerMul(){ return currentLayerMul; }
-
-    refresh(){
-      if (this.releasing || !ctx) return;
-      const now = ctx.currentTime;
-      this.env.gain.setTargetAtTime(Math.max(0.0001, this.target*currentLayerMul), now, 0.4);
-      this.oscA.frequency.setTargetAtTime(num('fund')+this.detOff, now, 0.3);
-      this.oscB.frequency.setTargetAtTime(num('fund')+this.detOff+num('beat'), now, 0.3);
-      this.lfoGain.gain.setTargetAtTime(num('lfoDep')*0.5, now, 0.3);
-    }
-
-    release(reason){
-      if (this.releasing) return;
-      this.releasing = true;
-      counts[reason==='steal'?'steal':'claim'] += 0;
-      log(reason==='steal'?'steal':'rel',
-          (reason==='steal'?'STEAL  ':'RELEASE')+' '+this.id+' @ '+this.node.dist.toFixed(1)+' m');
-      const t = ctx.currentTime, r = num('rel');
-      this.env.gain.cancelScheduledValues(t);
-      this.env.gain.setValueAtTime(Math.max(0.0002,this.env.gain.value), t);
-      this.env.gain.exponentialRampToValueAtTime(0.0001, t+r);
-      [this.oscA,this.oscB,this.lfo].forEach(n=>{ try{n.stop(t+r+0.05)}catch(e){} });
-      setTimeout(()=>this.teardown(), (r+0.2)*1000);
-    }
-
-    teardown(){
-      [this.oscA,this.oscB,this.lfo,this.mix,this.lfoGain,this.env,this.panner]
-        .forEach(n=>{ try{n.disconnect()}catch(e){} });
-      voices.delete(this.id);
-    }
-  }
-
-  let currentLayerMul = 1;
-
-  // ---------- allocator — same shape as the hiss instrument ----------
-  function allocate(inRange){
-    const cap = Math.max(1, Math.round(num('cap')));
-    const policy = $('capPolicy').value;
-
-    // release voices whose node has left range
-    for (const [id,v] of voices){
-      if (!v.releasing && !inRange.some(n=>n.id===id)) v.release('exit');
-    }
-
-    for (const n of inRange){
-      const existing = voices.get(n.id);
-      if (existing && !existing.releasing){ existing.setDistance(n.dist); continue; }
-
-      const live = [...voices.values()].filter(v=>!v.releasing);
-      if (live.length >= cap){
-        let furthest = live[0];
-        for (const v of live) if (v.node.dist > furthest.node.dist) furthest = v;
-
-        if (policy === 'refuse'){ counts.hold++; continue; }
-        if (policy === 'margin'){
-          const thr = furthest.node.dist * (1 - num('margin')/100);
-          if (n.dist >= thr){
-            counts.hold++;
-            if (counts.hold % 20 === 1)
-              log('hold','HOLD   '+n.id+' @ '+n.dist.toFixed(1)+' m — needs < '+thr.toFixed(1)+' m');
-            continue;
-          }
-        }
-        counts.steal++;
-        furthest.release('steal');
-        voices.delete(furthest.id);
-      }
-      counts.claim++;
-      const v = new HumVoice(ctx, layerGain, n);
-      voices.set(n.id, v);
-      log('claim','CLAIM  '+n.id+' @ '+n.dist.toFixed(1)+' m — seed '+hex(v.seed)+' k='+v.emph.toFixed(1));
-    }
-  }
-
-  // ---------- tick ----------
-  let walking=false, walkT=0;
-  function tick(){
-    requestAnimationFrame(tick);
-    if (walking){
-      walkT += 1/60;
-      nodes.forEach((n,i)=>{
-        n.dist = clamp(42 + 40*Math.sin(walkT*n.rate*2*Math.PI + n.phase), 0.5, 90);
-        const el = document.querySelector('[data-dist="'+i+'"]');
-        if (el) el.value = n.dist;
-      });
-      const c = clamp(40 + 34*Math.sin(walkT*0.06*2*Math.PI + 2.2), 0, 90);
-      $('cabDist').value = c; $('cabDistV').textContent = c.toFixed(1);
-    }
-    if (ctx) update();
-    paintNodes();
-  }
-
-  function update(){
-    const R = num('radius'), now = ctx.currentTime;
-    const inRange = nodes.filter(n=>n.dist<=R).sort((a,b)=>a.dist-b.dist);
-
-    // density multiplier from cluster count
-    const clR = num('clRad');
-    const cluster = nodes.filter(n=>n.dist<=clR).length;
-    const dNorm = clamp((cluster-1)/4, 0, 1);
-    const dMul = num('dg1') + (num('dg5')-num('dg1'))*dNorm;
-
-    // cable proximity lifts the whole layer
-    const cd = num('cabDist'), cR = num('cabRad');
-    const cProx = cd <= cR ? (1 - cd/cR) : 0;
-    const cMul = 1 + cProx*num('cabBoost');
-
-    currentLayerMul = dMul * cMul;
-
-    allocate(inRange);
-    for (const v of voices.values()) v.refresh();
-
-    layerGain.gain.setTargetAtTime(1, now, 0.3);
-
-    $('roVoices').textContent = String([...voices.values()].filter(v=>!v.releasing).length);
-    $('roRange').textContent  = String(inRange.length);
-    $('roGain').textContent   = currentLayerMul.toFixed(2);
-  }
-
-  // ---------- node table ----------
-  function buildNodes(){
-    const wrap=$('nodeWrap');
-    wrap.innerHTML='<table><thead><tr><th>Node</th><th>V</th><th class="slider">Distance m</th>'+
-      '<th>Dist</th><th>k</th><th>Level</th></tr></thead><tbody>'+
-      nodes.map((n,i)=>'<tr id="nr'+i+'">'+
-        '<td class="nid">'+n.id+'</td>'+
-        '<td><input type="range" data-v="'+i+'" min="0" max="1" step="0.01" value="'+n.v+'" style="width:52px"></td>'+
-        '<td class="slider"><input type="range" data-dist="'+i+'" min="0" max="90" step="0.5" value="'+n.dist+'"></td>'+
-        '<td id="nm'+i+'">'+n.dist.toFixed(1)+'</td>'+
-        '<td id="nk'+i+'">—</td>'+
-        '<td><span class="barwrap"><span class="bar" id="nb'+i+'" style="width:0"></span></span></td>'+
-      '</tr>').join('')+'</tbody></table>';
-
-    wrap.querySelectorAll('[data-dist]').forEach(el=>{
-      el.addEventListener('input',()=>{
-        nodes[+el.dataset.dist].dist = parseFloat(el.value);
-        if (walking){ walking=false; $('btnWalk').classList.remove('on');
-                      $('modeStatus').textContent='Walk simulation — off'; }
-      });
-    });
-    wrap.querySelectorAll('[data-v]').forEach(el=>{
-      el.addEventListener('input',()=>{
-        const i=+el.dataset.v; nodes[i].v=parseFloat(el.value);
-        const v=voices.get(nodes[i].id); if (v) v.rebuildWave();
-      });
-    });
-  }
-  buildNodes();
-
-  function paintNodes(){
-    const R=num('radius');
+// ---------- tick ----------
+let walking=false, walkT=0;
+function tick(){
+  requestAnimationFrame(tick);
+  if (walking){
+    walkT += 1/60;
     nodes.forEach((n,i)=>{
-      const row=$('nr'+i); if(!row) return;
-      const v=voices.get(n.id);
-      row.classList.toggle('out', n.dist>R);
-      row.classList.toggle('held', n.dist<=R && !v);
-      const m=$('nm'+i); if(m) m.textContent=n.dist.toFixed(1);
-      const k=$('nk'+i); if(k) k.textContent = v ? v.emph.toFixed(1) : '—';
-      const b=$('nb'+i);
-      if(b){ const w = v && !v.releasing ? clamp(v.target,0,1) : 0; b.style.width=Math.round(w*58)+'px'; }
+      n.dist = clamp(42 + 40*Math.sin(walkT*n.rate*2*Math.PI + n.phase), 0.5, 90);
+      const el = document.querySelector('[data-dist="'+i+'"]');
+      if (el) el.value = n.dist;
     });
+    const c = clamp(40 + 34*Math.sin(walkT*0.06*2*Math.PI + 2.2), 0, 90);
+    $('cabDist').value = c; $('cabDistV').textContent = c.toFixed(1);
   }
+  if (ctx && pool) update();
+  paintNodes();
+}
 
-  // ---------- scope ----------
-  const cv=$('scope'), c2=cv.getContext('2d');
-  function resizeScope(){
-    const r=cv.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
-    cv.width=Math.round(r.width*dpr); cv.height=Math.round(190*dpr);
-    c2.setTransform(dpr,0,0,dpr,0,0);
-  }
-  window.addEventListener('resize',resizeScope); resizeScope();
-  const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+function update(){
+  const R = num('radius');
+  const allNodes = nodes.concat([...midiNodes.entries()].map(([id,dist]) => ({ id, dist })));
+  const inputNodes = allNodes.map(n => ({ id: n.id, dist: n.dist, triggered: n.dist <= R }));
 
-  function drawScope(){
-    requestAnimationFrame(drawScope);
-    const w=cv.clientWidth, h=190;
-    c2.clearRect(0,0,w,h); c2.fillStyle=css('--paper-2'); c2.fillRect(0,0,w,h);
+  pool.update({ nodes: inputNodes, nearestCableDist: num('cabDist') });
 
-    const nyq = ctx ? ctx.sampleRate/2 : 24000;
-    const fMin=40, fMax=Math.min(12000,nyq);
-    const xOf=f=>(Math.log10(f/fMin)/Math.log10(fMax/fMin))*w;
+  $('roVoices').textContent = String(pool.activeCount);
+  $('roRange').textContent  = String(inputNodes.filter(n => n.triggered).length);
+  $('roGain').textContent   = pool.masterGainValue.toFixed(3);
+}
 
-    c2.strokeStyle=css('--rule'); c2.lineWidth=1; c2.fillStyle=css('--ink-3');
-    c2.font='9px ui-monospace, Menlo, monospace';
-    [50,100,200,500,1000,2000,5000,10000].forEach(f=>{
-      if(f<fMin||f>fMax) return;
-      const x=Math.round(xOf(f))+0.5;
-      c2.beginPath(); c2.moveTo(x,0); c2.lineTo(x,h-14); c2.stroke();
-      c2.fillText(f>=1000?(f/1000)+'k':String(f), x+3, h-4);
+// ---------- node table ----------
+function buildNodes(){
+  const wrap=$('nodeWrap');
+  wrap.innerHTML='<table><thead><tr><th>Node</th><th class="slider">Distance m</th>'+
+    '<th>Dist</th><th>Active</th></tr></thead><tbody>'+
+    nodes.map((n,i)=>'<tr id="nr'+i+'">'+
+      '<td class="nid">'+n.id+'</td>'+
+      '<td class="slider"><input type="range" data-dist="'+i+'" min="0" max="90" step="0.5" value="'+n.dist+'"></td>'+
+      '<td id="nm'+i+'">'+n.dist.toFixed(1)+'</td>'+
+      '<td><span class="barwrap"><span class="bar" id="nb'+i+'" style="width:0"></span></span></td>'+
+    '</tr>').join('')+'</tbody></table>';
+
+  wrap.querySelectorAll('[data-dist]').forEach(el=>{
+    el.addEventListener('input',()=>{
+      nodes[+el.dataset.dist].dist = parseFloat(el.value);
+      if (walking){ walking=false; $('btnWalk').classList.remove('on');
+                    $('modeStatus').textContent='Walk simulation — off'; }
     });
+  });
+}
+buildNodes();
 
-    // harmonic series of the nearest sounding voice
-    if (ctx){
-      const live=[...voices.values()].filter(v=>!v.releasing).sort((a,b)=>a.node.dist-b.node.dist);
-      const v=live[0];
-      if (v){
-        const f0=num('fund')+v.detOff, nH=Math.round(num('nHarm'));
-        c2.setLineDash([2,3]); c2.strokeStyle=css('--elec');
-        for(let k=1;k<=nH;k++){
-          const f=f0*k; if(f<fMin||f>fMax) continue;
-          const e=Math.exp(-Math.pow((k-v.emph)/Math.max(0.4,num('empW')),2));
-          c2.globalAlpha=0.15+0.7*e;
-          const x=Math.round(xOf(f))+0.5;
-          c2.beginPath(); c2.moveTo(x,6); c2.lineTo(x,h-14); c2.stroke();
-        }
-        c2.globalAlpha=1; c2.setLineDash([]);
-      }
-    }
+function paintNodes(){
+  const R=num('radius');
+  nodes.forEach((n,i)=>{
+    const row=$('nr'+i); if(!row) return;
+    const active = pool ? pool.activeFeatureIds().includes(n.id) : false;
+    row.classList.toggle('out', n.dist>R);
+    row.classList.toggle('held', n.dist<=R && !active);
+    const m=$('nm'+i); if(m) m.textContent=n.dist.toFixed(1);
+    const b=$('nb'+i);
+    if(b) b.style.width = active ? '58px' : '0';
+  });
+}
 
-    if(!ctx||!analyser) return;
-    analyser.getByteFrequencyData(freqData);
-    const bins=freqData.length;
-    c2.beginPath(); let started=false;
-    for(let x=0;x<=w;x++){
-      const f=fMin*Math.pow(fMax/fMin,x/w);
-      const bin=Math.min(bins-1,Math.round((f/nyq)*bins));
-      const val=freqData[bin]/255;
-      const y=h-16-val*(h-30);
-      if(!started){c2.moveTo(x,y);started=true}else c2.lineTo(x,y);
-    }
-    c2.strokeStyle=css('--ink'); c2.lineWidth=1.2; c2.stroke();
-    c2.lineTo(w,h-16); c2.lineTo(0,h-16); c2.closePath();
-    c2.fillStyle='rgba(20,23,26,0.08)'; c2.fill();
+// ---------- scope ----------
+const cv=$('scope'), c2=cv.getContext('2d');
+function resizeScope(){
+  const r=cv.getBoundingClientRect(), dpr=window.devicePixelRatio||1;
+  cv.width=Math.round(r.width*dpr); cv.height=Math.round(190*dpr);
+  c2.setTransform(dpr,0,0,dpr,0,0);
+}
+window.addEventListener('resize',resizeScope); resizeScope();
+const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+
+function drawScope(){
+  requestAnimationFrame(drawScope);
+  const w=cv.clientWidth, h=190;
+  c2.clearRect(0,0,w,h); c2.fillStyle=css('--paper-2'); c2.fillRect(0,0,w,h);
+
+  const nyq = ctx ? ctx.sampleRate/2 : 24000;
+  const fMin=40, fMax=Math.min(12000,nyq);
+  const xOf=f=>(Math.log10(f/fMin)/Math.log10(fMax/fMin))*w;
+
+  c2.strokeStyle=css('--rule'); c2.lineWidth=1; c2.fillStyle=css('--ink-3');
+  c2.font='9px ui-monospace, Menlo, monospace';
+  [50,100,200,500,1000,2000,5000,10000].forEach(f=>{
+    if(f<fMin||f>fMax) return;
+    const x=Math.round(xOf(f))+0.5;
+    c2.beginPath(); c2.moveTo(x,0); c2.lineTo(x,h-14); c2.stroke();
+    c2.fillText(f>=1000?(f/1000)+'k':String(f), x+3, h-4);
+  });
+
+  if(!ctx||!analyser) return;
+  analyser.getByteFrequencyData(freqData);
+  const bins=freqData.length;
+  c2.beginPath(); let started=false;
+  for(let x=0;x<=w;x++){
+    const f=fMin*Math.pow(fMax/fMin,x/w);
+    const bin=Math.min(bins-1,Math.round((f/nyq)*bins));
+    const val=freqData[bin]/255;
+    const y=h-16-val*(h-30);
+    if(!started){c2.moveTo(x,y);started=true}else c2.lineTo(x,y);
   }
-  drawScope(); tick();
+  c2.strokeStyle=css('--ink'); c2.lineWidth=1.2; c2.stroke();
+  c2.lineTo(w,h-16); c2.lineTo(0,h-16); c2.closePath();
+  c2.fillStyle='rgba(20,23,26,0.08)'; c2.fill();
+}
+drawScope(); tick();
 
-  // ---------- controls ----------
-  async function enableAudio(){
-    if (ctx) return;
-    ctx = new (window.AudioContext||window.webkitAudioContext)();
-    await ctx.resume();
-    master = ctx.createGain(); master.gain.value = num('master');
-    layerGain = ctx.createGain(); layerGain.gain.value = 1;
-    analyser = ctx.createAnalyser(); analyser.fftSize=4096; analyser.smoothingTimeConstant=0.78;
-    freqData = new Uint8Array(analyser.frequencyBinCount);
-    layerGain.connect(master);
-    master.connect(analyser); master.connect(ctx.destination);
+// ---------- controls ----------
+async function enableAudio(){
+  if (ctx) return;
+  ctx = new (window.AudioContext||window.webkitAudioContext)();
+  await ctx.resume();
+  master = ctx.createGain(); master.gain.value = num('master');
+  analyser = ctx.createAnalyser(); analyser.fftSize=4096; analyser.smoothingTimeConstant=0.78;
+  freqData = new Uint8Array(analyser.frequencyBinCount);
+  master.connect(analyser); master.connect(ctx.destination);
 
-    $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
-    $('btnWalk').disabled=false; $('btnPanic').disabled=false;
-    $('scopeLabel').textContent='SPECTRUM — '+Math.round(ctx.sampleRate/1000)+' kHz · dashed = harmonic series, nearest voice';
-    $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+  pool = new ElectricityOscillatorPool(ctx, master, { onEvent: onPoolEvent });
+  pool.setPolicy($('capPolicy').value, num('margin'));
+
+  $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
+  $('btnWalk').disabled=false; $('btnPanic').disabled=false;
+  $('scopeLabel').textContent='SPECTRUM — '+Math.round(ctx.sampleRate/1000)+' kHz';
+  $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+  requestMidi();
+}
+
+$('btnAudio').addEventListener('click', enableAudio);
+$('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
+$('btnWalk').addEventListener('click',()=>{
+  walking=!walking; $('btnWalk').classList.toggle('on',walking);
+  $('modeStatus').textContent='Walk simulation — '+(walking?'running':'off');
+});
+$('btnPanic').addEventListener('click',()=>{
+  nodes.forEach((n,i)=>{ n.dist=90; const el=document.querySelector('[data-dist="'+i+'"]'); if(el) el.value=90; });
+  midiNodes.clear();
+  walking=false; $('btnWalk').classList.remove('on'); $('modeStatus').textContent='Walk simulation — off';
+});
+
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space' && !/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
+    e.preventDefault(); if(!ctx) enableAudio(); else $('btnWalk').click();
   }
+});
 
-  $('btnAudio').addEventListener('click', enableAudio);
-  $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
-  $('btnWalk').addEventListener('click',()=>{
-    walking=!walking; $('btnWalk').classList.toggle('on',walking);
-    $('modeStatus').textContent='Walk simulation — '+(walking?'running':'off');
-  });
-  $('btnPanic').addEventListener('click',()=>{
-    nodes.forEach((n,i)=>{ n.dist=90; const el=document.querySelector('[data-dist="'+i+'"]'); if(el) el.value=90; });
-    walking=false; $('btnWalk').classList.remove('on'); $('modeStatus').textContent='Walk simulation — off';
-  });
-
-  // spectrum-shaping controls rebuild every live voice's wave
-  ['nHarm','empW','rolloff','evenBias','vMode','vLo','vHi','empMin','empMax'].forEach(id=>{
-    $(id).addEventListener('input',()=>{ for(const v of voices.values()) v.rebuildWave(); });
-    $(id).addEventListener('change',()=>{ for(const v of voices.values()) v.rebuildWave(); });
-  });
-
-  document.addEventListener('keydown',e=>{
-    if(e.code==='Space' && !/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
-      e.preventDefault(); if(!ctx) enableAudio(); else $('btnWalk').click();
-    }
-  });
-})();
+// ---------- Web MIDI — mirrors instruments/hiss-voice.html's pattern ----------
+// Note-on: note number stands in for a synthetic node id, velocity -> distance
+// (louder/harder = closer). Note-off releases it by removing from midiNodes,
+// which then reads as out-of-range on the next update() tick.
+const NODE_RADIUS_FOR_MIDI = 40;
+async function requestMidi(){
+  if (!navigator.requestMIDIAccess){
+    $('midiStatus').innerHTML = 'MIDI — <span class="no">unsupported in this browser</span>';
+    return;
+  }
+  try {
+    const access = await navigator.requestMIDIAccess();
+    const names = [];
+    access.inputs.forEach(inp => { names.push(inp.name); inp.onmidimessage = onMidi; });
+    $('midiStatus').innerHTML = names.length
+      ? 'MIDI — <span class="ok">'+names.join(', ')+'</span>'
+      : 'MIDI — <span class="no">no inputs found</span>';
+  } catch (err){
+    $('midiStatus').innerHTML = 'MIDI — <span class="no">blocked in this context</span>';
+  }
+}
+function onMidi(ev){
+  const [status, d1, d2] = ev.data;
+  const cmd = status & 0xF0;
+  const id = 'MIDI-'+d1;
+  if (cmd === 0x90 && d2 > 0){
+    const d = (1 - d2/127) * NODE_RADIUS_FOR_MIDI;
+    midiNodes.set(id, d);
+  } else if (cmd === 0x80 || (cmd === 0x90 && d2 === 0)){
+    midiNodes.delete(id);
+  }
+}
 </script>
 </body>
 </html>

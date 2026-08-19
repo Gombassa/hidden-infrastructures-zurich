@@ -96,6 +96,7 @@
           padding-top:9px;border-top:1px solid var(--rule);
           display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .status .ok{color:var(--live)}
+  .status .no{color:var(--warn)}
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -147,14 +148,18 @@
   <div class="grid">
 
     <section class="panel lw">
-      <div class="panel-head"><h2>Water — knock</h2><div class="note">380 Hz</div></div>
-      <div class="row"><label>FREQ Hz</label><div class="field"><input type="number" id="w_hz" value="380" step="5" min="40" max="12000"></div></div>
-      <div class="row"><label>Q</label><div class="field"><input type="range" id="w_q" min="1" max="50" step="1" value="18"><span class="val" id="w_qV">18</span></div></div>
-      <div class="row"><label>DECAY s</label><div class="field"><input type="range" id="w_dec" min="0.02" max="1.2" step="0.01" value="0.24"><span class="val" id="w_decV">0.24</span></div></div>
-      <div class="row"><label>SWEEP ×</label><div class="field"><input type="range" id="w_swp" min="0.4" max="3" step="0.05" value="1"><span class="val" id="w_swpV">1.00</span></div></div>
-      <div class="row"><label>NOISE</label><div class="field"><input type="range" id="w_noi" min="0" max="1" step="0.01" value="0.75"><span class="val" id="w_noiV">0.75</span></div></div>
-      <div class="row"><label>LEVEL</label><div class="field"><input type="range" id="w_lvl" min="0" max="1" step="0.01" value="0.4"><span class="val" id="w_lvlV">0.40</span></div></div>
-      <div class="row"><label>ALONG s</label><div class="field"><input type="range" id="w_int" min="1" max="20" step="0.5" value="4"><span class="val" id="w_intV">4.0</span></div></div>
+      <div class="panel-head"><h2>Water — knock</h2><div class="note">ported — src/instruments/line-crossing-voice.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Voiced by the real <b>LineCrossingVoice</b> class now (WATER_CROSSING preset), not this page's
+        <code>transient()</code>: <b>380 Hz · Q 4 · 400ms decay · cooldown 3s · alongside ~3.5s ±30%</b>
+        jitter, no panning, no reverb send. Sewage/telecom below are unchanged.
+      </p>
+      <div class="row"><label>TEST</label>
+        <div class="field"><button id="btnWaterTest" type="button" style="width:100%">Fire crossing (W-1140)</button></div>
+      </div>
+      <div class="row"><label>ALONGSIDE</label>
+        <div class="field"><button id="btnWaterAlong" type="button" style="width:100%">Toggle alongside</button></div>
+      </div>
     </section>
 
     <section class="panel ls">
@@ -169,14 +174,19 @@
     </section>
 
     <section class="panel le">
-      <div class="panel-head"><h2>Electricity — snap</h2><div class="note">2200 Hz</div></div>
-      <div class="row"><label>FREQ Hz</label><div class="field"><input type="number" id="e_hz" value="2200" step="25" min="40" max="14000"></div></div>
-      <div class="row"><label>Q</label><div class="field"><input type="range" id="e_q" min="1" max="50" step="1" value="9"><span class="val" id="e_qV">9</span></div></div>
-      <div class="row"><label>DECAY s</label><div class="field"><input type="range" id="e_dec" min="0.01" max="1.2" step="0.01" value="0.06"><span class="val" id="e_decV">0.06</span></div></div>
-      <div class="row"><label>SWEEP ×</label><div class="field"><input type="range" id="e_swp" min="0.4" max="3" step="0.05" value="1"><span class="val" id="e_swpV">1.00</span></div></div>
-      <div class="row"><label>NOISE</label><div class="field"><input type="range" id="e_noi" min="0" max="1" step="0.01" value="1"><span class="val" id="e_noiV">1.00</span></div></div>
-      <div class="row"><label>LEVEL</label><div class="field"><input type="range" id="e_lvl" min="0" max="1" step="0.01" value="0.3"><span class="val" id="e_lvlV">0.30</span></div></div>
-      <div class="row"><label>ALONG s</label><div class="field"><input type="range" id="e_int" min="1" max="20" step="0.5" value="5"><span class="val" id="e_intV">5.0</span></div></div>
+      <div class="panel-head"><h2>Electricity — snap</h2><div class="note">ported — src/instruments/line-crossing-voice.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Voiced by the real <b>LineCrossingVoice</b> class now, not this page's <code>transient()</code> —
+        parameters are fixed to production's values and no longer tunable from here:
+        <b>2200 Hz · Q 8 · 80ms decay · cooldown 3s · alongside ~5s ±40%</b> jitter, no panning, no reverb send.
+        Water/sewage/telecom below are unchanged — still the prototype's own synthesis, pending their own steps.
+      </p>
+      <div class="row"><label>TEST</label>
+        <div class="field"><button id="btnElecTest" type="button" style="width:100%">Fire crossing (E-2204)</button></div>
+      </div>
+      <div class="row"><label>ALONGSIDE</label>
+        <div class="field"><button id="btnElecAlong" type="button" style="width:100%">Toggle alongside</button></div>
+      </div>
     </section>
 
     <section class="panel lt">
@@ -221,12 +231,16 @@
 
   <div class="status">
     <div id="modeStatus">Auto walk — off</div>
+    <div id="midiStatus">MIDI — not requested</div>
     <div id="ctxStatus">AudioContext — not created</div>
   </div>
 
 </div>
 
-<script>
+<script type="module">
+import LineCrossingVoice from '../src/instruments/line-crossing-voice.js';
+import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-crossing-presets.js';
+
 (() => {
   'use strict';
   const $=id=>document.getElementById(id);
@@ -236,7 +250,9 @@
   const R2D=180/Math.PI;
 
   const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
-  ['w','s','e','t'].forEach(k=>{
+  // Electricity ('e') and water ('w') no longer have tunable synthesis controls —
+  // voiced by the real LineCrossingVoice class now, params fixed to production's values.
+  ['s','t'].forEach(k=>{
     bind($(k+'_q'),$(k+'_qV'),0); bind($(k+'_dec'),$(k+'_decV'),2);
     bind($(k+'_swp'),$(k+'_swpV'),2); bind($(k+'_noi'),$(k+'_noiV'),2);
     bind($(k+'_lvl'),$(k+'_lvlV'),2); bind($(k+'_int'),$(k+'_intV'),1);
@@ -295,6 +311,8 @@
 
   // ---------- audio ----------
   let ctx=null,master=null,noiseBuf=null,analyser=null;
+  const REAL_VOICE_PRESETS={e:ELECTRICITY_CROSSING,w:WATER_CROSSING}; // extend in Steps 5/6
+  const REAL_VOICES={}; // populated in enableAudio() once instances exist
 
   function makeNoise(ac){
     const len=ac.sampleRate;
@@ -358,6 +376,25 @@
     $('colN').classList.toggle('warn', counts.ev>8 && counts.col/counts.ev>0.25);
   }
 
+  // Bookkeeping-only counterpart to fire(), for any layer voiced by a real
+  // LineCrossingVoice (electricity, water — more join in Steps 5/6) — the audio
+  // already happened inside the class (no stagger/re-delay possible here), this
+  // just keeps the collision counter and event raster in sync so the page's own
+  // legibility test still sees the real activity.
+  function logFamilyFire(L, kind, id){
+    const nowMs=performance.now();
+    if(nowMs-lastEventTime < num('colMs')){
+      counts.col++;
+      log('col','COLLIDE '+(id||LAYERS[L].name)+' — '+(nowMs-lastEventTime).toFixed(0)+' ms after previous');
+    }
+    lastEventTime=nowMs;
+    counts.ev++;
+    events.push({t:nowMs,L,gain:1,kind:kind==='crossing'?'cross':'along'});
+    $('colN').textContent=String(counts.col);
+    $('evN').textContent=String(counts.ev);
+    $('colN').classList.toggle('warn', counts.ev>8 && counts.col/counts.ev>0.25);
+  }
+
   function startAlong(line){
     if(alongState.has(line.id)) return;
     if([...alongState.keys()].length>=num('alongMax')) return;
@@ -380,18 +417,29 @@
   }
 
   // ---------- detection, once per fix ----------
+  // Layers with a real LineCrossingVoice (REAL_VOICES, populated in enableAudio())
+  // are voiced through it instead of fire()/startAlong()/stopAlong() — see the
+  // branches below. Layers not yet in REAL_VOICES (sewage/telecom, pending Steps
+  // 5/6) are unchanged. Alongside is aggregated into one shared
+  // voice.setAlongsideActive() call per pass per real-voiced layer (matching
+  // production's single shared boolean for the whole layer), not per-line like
+  // this prototype's alongState Map handles the remaining prototype-only layers.
   function evaluate(newFix, nowMs){
     if(prevFix){
       const moved=Math.hypot(newFix.x-prevFix.x,newFix.y-prevFix.y);
       if(moved>=num('minMove')){
         const mvAng=Math.atan2(newFix.y-prevFix.y,newFix.x-prevFix.x);
+        const familyAlongside={};
+        for(const L in REAL_VOICES) familyAlongside[L]=false;
         for(const line of lines){
+          const voice=REAL_VOICES[line.L];
           if(segsCross(prevFix,newFix,line.a,line.b)){
             const cd=num('crossCD')*1000;
             if(nowMs-(lastCross.get(line.id)||-1e9)>cd){
               lastCross.set(line.id,nowMs);
               const n=nearestOnSeg(newFix,line.a,line.b);
-              fire(line,1,(n.x-newFix.x)/25,'cross');
+              if(voice) voice.trigger({id:line.id});
+              else fire(line,1,(n.x-newFix.x)/25,'cross');
               log('l'+line.L,'CROSS   '+line.id+' ('+LAYERS[line.L].name+')');
               flashes.push({x:n.x,y:n.y,t:nowMs,L:line.L});
             }
@@ -400,9 +448,16 @@
           const segAng=Math.atan2(line.b.y-line.a.y,line.b.x-line.a.x);
           let diff=Math.abs(((mvAng-segAng)*R2D+180)%360-180);
           if(diff>90) diff=180-diff;
-          if(n.d<=num('alongR') && diff<=num('alongA')) startAlong(line);
-          else stopAlong(line.id);
+          const isAlongside=n.d<=num('alongR') && diff<=num('alongA');
+          if(voice){
+            if(isAlongside) familyAlongside[line.L]=true;
+          } else if(isAlongside){
+            startAlong(line);
+          } else {
+            stopAlong(line.id);
+          }
         }
+        for(const L in REAL_VOICES) REAL_VOICES[L].setAlongsideActive(familyAlongside[L]);
       }
     }
     prevFix=newFix;
@@ -558,9 +613,14 @@
     noiseBuf=makeNoise(ctx);
     master=ctx.createGain(); master.gain.value=num('master');
     master.connect(ctx.destination);
+    for(const L in REAL_VOICE_PRESETS){
+      REAL_VOICES[L]=new LineCrossingVoice(ctx, master, REAL_VOICE_PRESETS[L],
+        { onFire:(kind,detail)=>logFamilyFire(L,kind,detail?.id) });
+    }
     $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
     $('btnWalk').disabled=false;
     $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+    requestMidi();
   }
   function status(){ $('modeStatus').textContent='Auto walk — '+(walking?'running':'off'); }
 
@@ -568,11 +628,67 @@
   $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
   $('btnWalk').addEventListener('click',()=>{ walking=!walking; $('btnWalk').classList.toggle('on',walking); status(); });
 
+  // Generic manual test/alongside wiring for any real-voiced layer — id and log
+  // class parameterized so adding sewage/telecom in Steps 5/6 is a one-liner each.
+  const alongTestActive={};
+  function wireManualTest(btnId, alongBtnId, L, testId){
+    alongTestActive[L]=false;
+    $(btnId).addEventListener('click',()=>{
+      const voice=REAL_VOICES[L]; if(!voice) return;
+      const held=voice.isOnCooldown(testId);
+      voice.trigger({id:testId});
+      log(held?'end':'l'+L, (held?'HELD    ':'CROSS   ')+testId+' ('+LAYERS[L].name+') — manual test'+(held?', still on cooldown':''));
+    });
+    $(alongBtnId).addEventListener('click',()=>{
+      const voice=REAL_VOICES[L]; if(!voice) return;
+      alongTestActive[L]=!alongTestActive[L];
+      voice.setAlongsideActive(alongTestActive[L]);
+      $(alongBtnId).classList.toggle('on',alongTestActive[L]);
+      log('l'+L,'ALONG   '+LAYERS[L].name+' — manual test '+(alongTestActive[L]?'on':'off'));
+    });
+  }
+  wireManualTest('btnElecTest','btnElecAlong','e','E-2204');
+  wireManualTest('btnWaterTest','btnWaterAlong','w','W-1140');
+
   document.addEventListener('keydown',e=>{
     if(e.code==='Space'&&!/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
       e.preventDefault(); if(!ctx) enableAudio(); else $('btnWalk').click();
     }
   });
+
+  // ---------- Web MIDI — mirrors instruments/hiss-voice.html's pattern ----------
+  // Note-on -> trigger() on whichever real voice the note range targets, with a
+  // synthetic id per note. Split is arbitrary but documented: notes < 72 target
+  // electricity, >= 72 target water (extend for sewage/telecom in Steps 5/6).
+  // CC64 (sustain) is not per-note, so it's not layer-selective either — it
+  // toggles setAlongsideActive() on every real voice at once, a documented
+  // simplification rather than a UI selector on this dev-only surface.
+  async function requestMidi(){
+    if(!navigator.requestMIDIAccess){
+      $('midiStatus').innerHTML='MIDI — <span class="no">unsupported in this browser</span>';
+      return;
+    }
+    try{
+      const access=await navigator.requestMIDIAccess();
+      const names=[];
+      access.inputs.forEach(inp=>{ names.push(inp.name); inp.onmidimessage=onMidi; });
+      $('midiStatus').innerHTML=names.length
+        ? 'MIDI — <span class="ok">'+names.join(', ')+'</span>'
+        : 'MIDI — <span class="no">no inputs found</span>';
+    }catch(err){
+      $('midiStatus').innerHTML='MIDI — <span class="no">blocked in this context</span>';
+    }
+  }
+  function onMidi(ev){
+    const [status,d1,d2]=ev.data;
+    const cmd=status&0xF0;
+    if(cmd===0x90 && d2>0){
+      const voice=d1<72?REAL_VOICES.e:REAL_VOICES.w;
+      if(voice) voice.trigger({id:'midi-'+d1});
+    }else if(cmd===0xB0 && d1===64){
+      for(const L in REAL_VOICES) REAL_VOICES[L].setAlongsideActive(d2>=64);
+    }
+  }
 
   tick();
 })();

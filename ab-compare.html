@@ -60,7 +60,8 @@
     <div class="col b">
       <h2>Path B — right ear</h2>
       <p>New Option A instrument classes: <code>WaterProximityPulse</code> +
-      <code>ElectricityOscillatorPool</code> (steal-furthest + margin policy), fed the same proximity data,
+      <code>ElectricityOscillatorPool</code> (steal-furthest + margin policy) + <code>LineCrossingVoice</code>
+      (electricity + water presets, crossing snap/knock + alongside loop for both), fed the same proximity data,
       panned hard right. Compare by listening for what's <i>only</i> in the right channel against the centred mix.</p>
     </div>
   </div>
@@ -87,6 +88,8 @@ import ProximityEngine from './src/proximity-engine.js';
 import AudioLayers from './src/audio-layers.js';
 import WaterProximityPulse from './src/instruments/water-proximity-pulse.js';
 import ElectricityOscillatorPool from './src/instruments/electricity-oscillator-pool.js';
+import LineCrossingVoice from './src/instruments/line-crossing-voice.js';
+import { ELECTRICITY_CROSSING, WATER_CROSSING } from './src/instruments/line-crossing-presets.js';
 
 const $ = id => document.getElementById(id);
 
@@ -102,7 +105,7 @@ function log(text, cls){
 
 let ctx = null;
 let realLat = null, realLng = null, realHeading = null, realSpeed = null;
-let waterPulseB = null, elecPoolB = null;
+let waterPulseB = null, elecPoolB = null, elecCrossingB = null, waterCrossingB = null;
 let gpsWatchId = null;
 
 async function enableAudio(){
@@ -162,11 +165,23 @@ function startEngines(){
   pannerB.pan.value = 1;
   pannerB.connect(ctx.destination);
   waterPulseB = new WaterProximityPulse(ctx, pannerB);
+  waterCrossingB = new LineCrossingVoice(ctx, pannerB, WATER_CROSSING, {
+    onFire: (kind, detail) => {
+      if (kind === 'crossing') log('[B] CROSS  '+detail.id+' (water)');
+      if (kind === 'alongside') log('[B] ALONG  water (shared)');
+    }
+  });
   elecPoolB = new ElectricityOscillatorPool(ctx, pannerB, {
     onEvent: (type, detail) => {
       if (type === 'claim')  log('[B] CLAIM  '+detail.featureId+' @ '+detail.dist.toFixed(1)+'m');
       if (type === 'steal')  log('[B] STEAL  '+detail.featureId+' ← took '+detail.stolenFeatureId, 'no');
       if (type === 'refuse') log('[B] REFUSE '+detail.featureId);
+    }
+  });
+  elecCrossingB = new LineCrossingVoice(ctx, pannerB, ELECTRICITY_CROSSING, {
+    onFire: (kind, detail) => {
+      if (kind === 'crossing') log('[B] CROSS  '+detail.id);
+      if (kind === 'alongside') log('[B] ALONG  electricity (shared)');
     }
   });
 
@@ -195,12 +210,26 @@ function startEngines(){
       (pipes.length ? pipes.reduce((a,b)=>a.dist<b.dist?a:b).dist.toFixed(1)+'m' : '—') + ' / ' +
       (fittings.length ? fittings.reduce((a,b)=>a.dist<b.dist?a:b).dist.toFixed(1)+'m' : '—');
 
+    // Water pipe crossing + alongside — mirrors audio-layers.js's exact
+    // call-site logic. Deliberately a SEPARATE, unfiltered pipes reference
+    // (not the `.filter(triggered)` `pipes` above) — production iterates the
+    // full proximity.water.pipes array for crossing/alongside, same as
+    // electricity's `cables` reference below.
+    const allPipes = proximity.water?.pipes || [];
+    for (const p of allPipes) if (p.crossing) waterCrossingB.trigger({ id: p.id });
+    waterCrossingB.setAlongsideActive(allPipes.some(p => p.alongside));
+
     const nodes = proximity.electricity?.nodes || [];
     const cables = proximity.electricity?.cables || [];
     let nearestCableDist = Infinity;
     for (const c of cables) if (c.dist < nearestCableDist) nearestCableDist = c.dist;
     elecPoolB.update({ nodes, nearestCableDist });
     $('stElec').textContent = elecPoolB.activeCount + ' / ' + nodes.filter(n => n.triggered).length;
+
+    // Cable-crossing snap + alongside loop — mirrors audio-layers.js's exact
+    // call-site logic (per-cable-id crossing, single shared alongside flag).
+    for (const c of cables) if (c.crossing) elecCrossingB.trigger({ id: c.id });
+    elecCrossingB.setAlongsideActive(cables.some(c => c.alongside));
   });
 
   TramEngine.start();
@@ -213,7 +242,9 @@ function stopEngines(){
   TramEngine.stop();
   AudioLayers.stop();
   if (waterPulseB) waterPulseB.destroy();
+  if (waterCrossingB) waterCrossingB.destroy();
   if (elecPoolB) elecPoolB.destroy();
+  if (elecCrossingB) elecCrossingB.destroy();
   if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
   log('Engines stopped');
   $('btnStart').disabled = false;

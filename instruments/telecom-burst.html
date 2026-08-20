@@ -37,8 +37,7 @@
 
   .hero{margin:0 0 14px;border:1px solid var(--rule);background:var(--paper-2)}
   canvas.viz{display:block;width:100%}
-  canvas#scope{height:170px;border-bottom:1px solid var(--rule)}
-  canvas#gate{height:76px}
+  canvas#scope{height:170px}
 
   .transport{display:flex;gap:10px;align-items:center;margin:14px 0 18px;flex-wrap:wrap}
   button{font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
@@ -62,21 +61,14 @@
   .row{display:grid;grid-template-columns:98px 1fr;gap:9px;align-items:center;margin-bottom:7px}
   .row:last-child{margin-bottom:0}
   .row>label{font-family:var(--mono);font-size:10px;color:var(--ink-2);line-height:1.2}
-  .rng{display:grid;grid-template-columns:1fr 1fr;gap:7px}
   .field{display:flex;align-items:center;gap:5px}
-  .field span{font-family:var(--mono);font-size:8.5px;color:var(--ink-3);
-              letter-spacing:0.06em;text-transform:uppercase}
   input[type=number]{font-family:var(--mono);font-size:11px;width:100%;min-width:0;padding:5px 6px;
                      border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
-  input[type=number]:focus-visible{outline:2px solid var(--live);outline-offset:-1px}
   input[type=range]{width:100%;accent-color:var(--tel)}
-  select{font-family:var(--mono);font-size:11px;padding:5px 6px;border:1px solid var(--rule);
-         background:var(--paper);color:var(--ink);width:100%}
   .val{font-family:var(--mono);font-size:10.5px;color:var(--ink);min-width:46px;text-align:right}
   .hint{font-family:var(--mono);font-size:9.5px;color:var(--ink-3);line-height:1.5;
         margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--rule)}
   .hint b{color:var(--tel);font-weight:500}
-  .dim{opacity:.35;pointer-events:none}
 
   .lower{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;align-items:start}
   @media(max-width:900px){.lower{grid-template-columns:1fr}}
@@ -97,6 +89,7 @@
           padding-top:9px;border-top:1px solid var(--rule);
           display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .status .ok{color:var(--live)}
+  .status .no{color:var(--warn)}
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -106,21 +99,21 @@
   <header class="masthead">
     <h1 class="title">Telecom <span>Burst</span></h1>
     <div class="masthead-meta">
-      TELECOM · BEHAVIOUR 19+21/23<br>
+      TELECOM · #16/17/18 OF 24<br>
       <b>FIXED POOL — NO ALLOCATOR</b><br>
       HIDDEN INFRASTRUCTURES : ZÜRICH
     </div>
   </header>
 
   <p class="strapline">
-    Four fixed slots, never claimed per feature — gating at <em>22–78 Hz</em> sits below pitch and above rhythm,
-    where amplitude modulation reads as roughness rather than pulse. Cable density scales the rates.
+    Four fixed slots, never claimed per feature — the confirmed pool-paradigm escape hatch (Step 6):
+    no <b>PoolAllocator</b>, just collective gating by aggregate proximity. Voiced by the real
+    <b>TelecomBurstPool</b>/<b>TelecomNodeChirp</b>/<b>TelecomNodeHandshake</b> classes now, production parity.
     No acoustic original: this layer <em>represents</em> rather than sonifies.
   </p>
 
   <section class="hero">
     <canvas id="scope" class="viz" width="1160" height="170"></canvas>
-    <canvas id="gate" class="viz" width="1160" height="76"></canvas>
   </section>
 
   <div class="transport">
@@ -142,128 +135,48 @@
   <div class="grid">
 
     <section class="panel">
-      <div class="panel-head"><h2>Burst pool</h2><div class="note">4 slots, HP noise</div></div>
-      <div class="row"><label>SLOTS</label>
-        <div class="field"><input type="range" id="slots" min="1" max="8" step="1" value="4"><span class="val" id="slotsV">4</span></div>
-      </div>
-      <div class="row"><label>HP Hz</label>
-        <div class="rng">
-          <div class="field"><span>low</span><input type="number" id="hpLo" value="5000" step="100" min="500" max="14000"></div>
-          <div class="field"><span>high</span><input type="number" id="hpHi" value="6800" step="100" min="500" max="16000"></div>
-        </div>
-      </div>
-      <div class="row"><label>LEVEL</label>
-        <div class="field"><input type="range" id="poolLvl" min="0" max="1" step="0.01" value="0.42"><span class="val" id="poolLvlV">0.42</span></div>
-      </div>
-      <p class="hint">Slots are fixed, not claimed — this is the one pool in the project that needs no allocator, because nothing here has per-feature identity. Widen the HP span and the slots separate into distinct bands; narrow it and they fuse into one texture.</p>
+      <div class="panel-head"><h2>Burst pool</h2><div class="note">ported — src/instruments/telecom-burst-pool.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Voiced by the real <b>TelecomBurstPool</b> class, not this page's former packet-framing/
+        variable-duty synthesis (that Packets/Shape/Duty exploration had no production counterpart and is
+        retired, same treatment as sewage's Surge/Chamber in Step 5): 4 fixed slots, highpass
+        <b>5000/5600/6200/6800 Hz</b>, sine LFO amplitude gate <b>22/38/54/78 Hz</b> (±0.45 depth), master
+        gain from nearest-cable distance (<b>30 m radius, 0.8 s ramp</b>), rate scaled <b>0.5–2.0×</b> by
+        cable count within radius (<b>0.5 s ramp</b>). No allocator — confirmed, see the masthead.
+      </p>
+      <div class="row"><label>NEAREST</label><div class="field" id="poolNearest" style="font-family:var(--mono);font-size:11px">—</div></div>
+      <div class="row"><label>RATE ×</label><div class="field" id="poolRate" style="font-family:var(--mono);font-size:11px">—</div></div>
     </section>
 
     <section class="panel">
-      <div class="panel-head"><h2>Gate</h2><div class="note">below pitch, above rhythm</div></div>
-      <div class="row"><label>RATE Hz</label>
-        <div class="rng">
-          <div class="field"><span>low</span><input type="number" id="rateLo" value="22" step="1" min="1" max="200"></div>
-          <div class="field"><span>high</span><input type="number" id="rateHi" value="78" step="1" min="1" max="240"></div>
-        </div>
+      <div class="panel-head"><h2>Node chirp</h2><div class="note">ported — src/instruments/telecom-node-chirp.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Was <b>unbuilt</b> before Step 6. Voiced by <b>TelecomNodeChirp</b>: 2000→4000 Hz sine sweep, 0.2 s,
+        gain 0.08. Debounced per node id until the oscillator's own <code>onended</code> fires
+        (~0.2 s) — not a time cooldown, matches production exactly. Fires on entry within <b>40 m</b>.
+      </p>
+      <div class="row"><label>TEST</label>
+        <div class="field"><button id="btnChirpTest" type="button" style="width:100%">Fire chirp (N-4401)</button></div>
       </div>
-      <div class="row"><label>SHAPE</label>
-        <div class="field"><input type="range" id="shape" min="1" max="16" step="1" value="7"><span class="val" id="shapeV">7</span></div>
-      </div>
-      <div class="row"><label>DUTY</label>
-        <div class="field"><input type="range" id="duty" min="0.05" max="0.95" step="0.01" value="0.38"><span class="val" id="dutyV">0.38</span></div>
-      </div>
-      <div class="row"><label>DEPTH</label>
-        <div class="field"><input type="range" id="depth" min="0" max="1" step="0.01" value="0.85"><span class="val" id="depthV">0.85</span></div>
-      </div>
-      <p class="hint"><b>Shape</b> 1 is a sine — smooth tremolo. Higher adds harmonics toward a pulse, which throws sidebands either side of the carrier and is what makes this read as electronic rather than as a fan. Duty sets how much of each cycle is open.</p>
     </section>
 
     <section class="panel">
-      <div class="panel-head"><h2>Packets</h2><div class="note">framing above the gate</div></div>
-      <div class="row"><label>ENABLE</label>
-        <div class="field">
-          <select id="pktOn">
-            <option value="1" selected>On — framed</option>
-            <option value="0">Off — continuous</option>
-          </select>
-        </div>
-      </div>
-      <div class="row"><label>FRAME ms</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="frMin" value="90" step="10" min="20" max="3000"></div>
-          <div class="field"><span>max</span><input type="number" id="frMax" value="420" step="10" min="20" max="4000"></div>
-        </div>
-      </div>
-      <div class="row"><label>GAP ms</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="gpMin" value="40" step="10" min="0" max="3000"></div>
-          <div class="field"><span>max</span><input type="number" id="gpMax" value="600" step="10" min="0" max="4000"></div>
-        </div>
-      </div>
-      <div class="row"><label>EDGE ms</label>
-        <div class="field"><input type="range" id="pktEdge" min="1" max="120" step="1" value="14"><span class="val" id="pktEdgeV">14</span></div>
-      </div>
-      <p class="hint">Continuous gating is a steady buzz. Framing it into bursts with gaps is what makes it read as transmission rather than as machinery — each slot frames independently, so they interleave. Turn it off to hear what the current build does.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Density</h2><div class="note">cables within radius</div></div>
-      <div class="row"><label>RATE ×</label>
-        <div class="rng">
-          <div class="field"><span>sparse</span><input type="number" id="dr1" value="0.5" step="0.05" min="0.1" max="4"></div>
-          <div class="field"><span>dense</span><input type="number" id="dr6" value="2.0" step="0.05" min="0.1" max="4"></div>
-        </div>
-      </div>
-      <div class="row"><label>GAP SCALE</label>
-        <div class="field"><input type="range" id="dGap" min="0" max="1" step="0.01" value="0.6"><span class="val" id="dGapV">0.60</span></div>
-      </div>
-      <p class="hint">The 0.5–2.0× rate scaling is the documented mapping — more cable, faster traffic. Gap scale additionally shortens the silences as density rises, so a dense junction feels busy rather than merely faster.</p>
+      <div class="panel-head"><h2>Dwell handshake</h2><div class="note">ported — src/instruments/telecom-node-handshake.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Voiced by <b>TelecomNodeHandshake</b>: 1000→8000 Hz sweep, 0.4 s, gain 0.18, <b>8 s cooldown</b>
+        (internal to the class). The <b>5 s dwell threshold</b> itself is caller-side bookkeeping in this
+        page (a Map, matching where production keeps it) — not part of the class, same precedent as feeder
+        crackle's re-fire guard living in its caller. Fires only if you stop near a node and stay stopped.
+      </p>
+      <div class="row"><label>LAST FIRED</label><div class="field" id="hsLast" style="font-family:var(--mono);font-size:11px">—</div></div>
     </section>
 
     <section class="panel">
       <div class="panel-head"><h2>Proximity</h2><div class="note">30 m cables · 40 m nodes</div></div>
-      <div class="row"><label>CABLE RAD</label>
-        <div class="field"><input type="number" id="radius" value="30" step="1" min="5" max="150"><span>m</span></div>
+      <div class="row"><label>NODE RAD m</label>
+        <div class="field"><input type="number" id="nodeRad" value="40" step="1" min="5" max="150"></div>
       </div>
-      <div class="row"><label>NODE RAD</label>
-        <div class="field"><input type="number" id="nodeRad" value="40" step="1" min="5" max="150"><span>m</span></div>
-      </div>
-      <div class="row"><label>FALLOFF exp</label>
-        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
-      </div>
-      <div class="row"><label>RAMP s</label>
-        <div class="field"><input type="range" id="ramp" min="0.05" max="4" step="0.05" value="0.6"><span class="val" id="rampV">0.60</span></div>
-      </div>
-      <p class="hint">30 m is the tightest continuous radius of any layer. Combined with a short ramp this layer switches on and off as you move rather than fading — which suits data, and contrasts deliberately with sewage's 80 m bed.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Dwell handshake</h2><div class="note">the only time-based trigger</div></div>
-      <div class="row"><label>THRESHOLD s</label>
-        <div class="field"><input type="range" id="dwellT" min="1" max="20" step="0.5" value="5"><span class="val" id="dwellTV">5.0</span></div>
-      </div>
-      <div class="row"><label>SWEEP Hz</label>
-        <div class="rng">
-          <div class="field"><span>from</span><input type="number" id="hsFrom" value="1000" step="50" min="100" max="8000"></div>
-          <div class="field"><span>to</span><input type="number" id="hsTo" value="8000" step="100" min="200" max="18000"></div>
-        </div>
-      </div>
-      <div class="row"><label>JITTER ±Hz</label>
-        <div class="field"><input type="range" id="hsJit" min="0" max="2000" step="25" value="500"><span class="val" id="hsJitV">500</span></div>
-      </div>
-      <div class="row"><label>DURATION s</label>
-        <div class="field"><input type="range" id="hsDur" min="0.05" max="1.5" step="0.05" value="0.4"><span class="val" id="hsDurV">0.40</span></div>
-      </div>
-      <div class="row"><label>LEVEL</label>
-        <div class="field"><input type="range" id="hsLvl" min="0" max="0.6" step="0.01" value="0.18"><span class="val" id="hsLvlV">0.18</span></div>
-      </div>
-      <div class="row"><label>COOLDOWN s</label>
-        <div class="field"><input type="range" id="hsCool" min="1" max="60" step="1" value="8"><span class="val" id="hsCoolV">8</span></div>
-      </div>
-      <div class="row"><label>LAST FIRED</label>
-        <div class="field"><span class="val" id="hsLast" style="min-width:0">—</span></div>
-      </div>
-      <p class="hint">Fires only if you stop near a node and stay stopped. Nothing else in the piece rewards standing still — worth deciding whether that is a hidden detail or something the work should make findable. <b>Jitter</b> offsets each endpoint independently per firing, so the span varies as well as the register and no two handshakes are identical.</p>
+      <p class="hint">30 m is the tightest continuous radius of any layer (cable burst pool). Node radius (40 m) is separate — it gates chirp and dwell handshake, both of which are switched by proximity to nodes, not cables.</p>
     </section>
 
   </div>
@@ -274,34 +187,34 @@
       <div id="cabWrap"></div>
     </section>
     <section class="panel">
-      <div class="panel-head"><h2>Simulated nodes</h2><div class="note">handshake targets</div></div>
+      <div class="panel-head"><h2>Simulated nodes</h2><div class="note">chirp + handshake targets</div></div>
       <div id="nodeWrap"></div>
     </section>
   </div>
 
   <div class="status">
     <div id="modeStatus">Walk simulation — off</div>
+    <div id="midiStatus">MIDI — not requested</div>
     <div id="ctxStatus">AudioContext — not created</div>
   </div>
 
 </div>
 
-<script>
+<script type="module">
+import TelecomBurstPool from '../src/instruments/telecom-burst-pool.js';
+import TelecomNodeChirp from '../src/instruments/telecom-node-chirp.js';
+import TelecomNodeHandshake from '../src/instruments/telecom-node-handshake.js';
+
+const CABLE_RADIUS = 30;
+const DWELL_THRESHOLD_MS = 5000; // matches production's hardcoded 5s dwell
+
 (() => {
   'use strict';
   const $=id=>document.getElementById(id);
   const num=id=>parseFloat($(id).value);
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-  const lerp=(a,b,t)=>a+(b-a)*t;
-  const rand=(a,b)=>a+Math.random()*(b-a);
 
   const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
-  bind($('slots'),$('slotsV'),0); bind($('poolLvl'),$('poolLvlV'),2);
-  bind($('shape'),$('shapeV'),0); bind($('duty'),$('dutyV'),2); bind($('depth'),$('depthV'),2);
-  bind($('pktEdge'),$('pktEdgeV'),0); bind($('dGap'),$('dGapV'),2);
-  bind($('falloff'),$('falloffV'),1); bind($('ramp'),$('rampV'),2);
-  bind($('dwellT'),$('dwellTV'),1); bind($('hsDur'),$('hsDurV'),2); bind($('hsJit'),$('hsJitV'),0);
-  bind($('hsLvl'),$('hsLvlV'),2); bind($('hsCool'),$('hsCoolV'),0);
   bind($('master'),$('masterV'),2);
 
   // ---------- simulation state ----------
@@ -310,117 +223,19 @@
     {id:'T-89001', dist:7},{id:'T-89117', dist:52},{id:'T-89422', dist:29}
   ];
   const nodes=[
-    {id:'N-4401', dist:18, last:-1e9},{id:'N-4478', dist:33, last:-1e9},{id:'N-4512', dist:61, last:-1e9}
+    {id:'N-4401', dist:18},{id:'N-4478', dist:33},{id:'N-4512', dist:61}
   ];
   cables.forEach((c,i)=>{c.phase=i*1.21;c.rate=0.05+i*0.014;});
   nodes.forEach((n,i)=>{n.phase=i*2.1;n.rate=0.038+i*0.017;});
 
   // ---------- audio ----------
-  let ctx=null,master=null,analyser=null,freqData=null,noiseBuf=null,layerGain=null;
-  const slots=[];
+  let ctx=null,master=null,analyser=null,freqData=null;
+  let burstPool=null, nodeChirp=null, nodeHandshake=null;
+  // Caller-side dwell tracking — mirrors audio-layers.js's _telecomNodeDwell
+  // Map exactly (first-seen ms per triggered node id, cleared when no longer
+  // triggered). Not inside TelecomNodeHandshake — see its docblock.
+  const nodeDwell=new Map();
   let dwell=0, moving=false, lastSig='';
-
-  function makeNoise(ac){
-    const len=ac.sampleRate*2;
-    const b=ac.createBuffer(1,len,ac.sampleRate);
-    const d=b.getChannelData(0);
-    for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
-    return b;
-  }
-
-  // pulse train of arbitrary duty, as a PeriodicWave.
-  // shape=1 gives a sine; higher adds harmonics toward a hard gate.
-  function gateWave(ac,duty,nH){
-    const real=new Float32Array(nH+1), imag=new Float32Array(nH+1);
-    for(let k=1;k<=nH;k++){
-      real[k]=(2/(k*Math.PI))*Math.sin(k*Math.PI*duty);
-    }
-    return ac.createPeriodicWave(real,imag,{disableNormalization:true});
-  }
-
-  function buildSlots(ac){
-    slots.forEach(s=>{ try{s.src.stop()}catch(e){} try{s.lfo.stop()}catch(e){}
-      [s.src,s.hp,s.gate,s.lfo,s.lfoDep,s.pkt].forEach(n=>{try{n.disconnect()}catch(e){}});
-      if(s.timer) clearTimeout(s.timer); });
-    slots.length=0;
-
-    const n=Math.round(num('slots'));
-    for(let i=0;i<n;i++){
-      const t=n===1?0.5:i/(n-1);
-      const src=ac.createBufferSource(); src.buffer=noiseBuf; src.loop=true;
-      const hp=ac.createBiquadFilter(); hp.type='highpass';
-      hp.frequency.value=lerp(num('hpLo'),num('hpHi'),t); hp.Q.value=0.8;
-      const gate=ac.createGain(); gate.gain.value=1-num('depth')*0.5;
-      const pkt=ac.createGain(); pkt.gain.value=1;
-      const lfo=ac.createOscillator();
-      lfo.setPeriodicWave(gateWave(ac,num('duty'),Math.round(num('shape'))));
-      const baseRate=lerp(num('rateLo'),num('rateHi'),t);
-      lfo.frequency.value=baseRate;
-      const lfoDep=ac.createGain(); lfoDep.gain.value=num('depth')*0.5;
-      lfo.connect(lfoDep).connect(gate.gain);
-
-      src.connect(hp).connect(gate).connect(pkt).connect(layerGain);
-      src.start(ac.currentTime+i*0.013);
-      lfo.start(ac.currentTime);
-
-      const s={src,hp,gate,lfo,lfoDep,pkt,baseRate,timer:null,open:true};
-      slots.push(s);
-      schedulePacket(s);
-    }
-  }
-
-  function schedulePacket(s){
-    if(!ctx) return;
-    const on=$('pktOn').value==='1';
-    const now=ctx.currentTime, edge=num('pktEdge')/1000;
-    if(!on){
-      s.pkt.gain.setTargetAtTime(1,now,0.02);
-      s.timer=setTimeout(()=>schedulePacket(s),300);
-      return;
-    }
-    const gapScale=1-num('dGap')*densityNorm();
-    if(s.open){
-      s.pkt.gain.setTargetAtTime(0.0001,now,edge);
-      const g=rand(num('gpMin'),num('gpMax'))*Math.max(0.15,gapScale);
-      s.open=false;
-      s.timer=setTimeout(()=>schedulePacket(s),g);
-    } else {
-      s.pkt.gain.setTargetAtTime(1,now,edge);
-      const f=rand(num('frMin'),num('frMax'));
-      s.open=true;
-      s.timer=setTimeout(()=>schedulePacket(s),f);
-    }
-  }
-
-  function densityNorm(){
-    const R=num('radius');
-    const c=cables.filter(x=>x.dist<=R).length;
-    return clamp((c-1)/5,0,1);
-  }
-
-  function handshake(node){
-    if(!ctx) return;
-    const now=ctx.currentTime, dur=num('hsDur');
-    // Each endpoint is offset independently, so the span varies as well as the
-    // register — a coherent shift would only transpose the same gesture.
-    const j=num('hsJit');
-    const from=clamp(num('hsFrom')+rand(-j,j), 60, 16000);
-    const to  =clamp(num('hsTo')  +rand(-j,j), 60, 18000);
-    const o=ctx.createOscillator(); o.type='sine';
-    o.frequency.setValueAtTime(from,now);
-    o.frequency.exponentialRampToValueAtTime(to,now+dur);
-    $('hsLast').textContent=Math.round(from)+' → '+Math.round(to)+' Hz';
-    const g=ctx.createGain();
-    g.gain.setValueAtTime(0.0001,now);
-    g.gain.linearRampToValueAtTime(num('hsLvl'),now+0.02);
-    g.gain.setValueAtTime(num('hsLvl'),now+dur*0.75);
-    g.gain.exponentialRampToValueAtTime(0.0001,now+dur+0.08);
-    o.connect(g).connect(master);
-    o.start(now); o.stop(now+dur+0.15);
-    node.last=performance.now();
-    lastHs=performance.now();
-  }
-  let lastHs=0;
 
   // ---------- tick ----------
   let walking=false, walkT=0, lastT=performance.now();
@@ -440,49 +255,46 @@
       });
     }
 
-    // dwell: accumulate only while nothing is moving
     const sig=cables.map(c=>c.dist.toFixed(1)).join()+nodes.map(n=>n.dist.toFixed(1)).join();
     moving = sig!==lastSig; lastSig=sig;
-    if(moving) dwell=0; else dwell+=dt;
+    if(moving) dwell=0; else dwell+=dt*1000;
+    $('dwellFill').style.width=Math.round(clamp(dwell/DWELL_THRESHOLD_MS,0,1)*96)+'px';
+    $('dwellV').textContent=(dwell/1000).toFixed(1)+' s';
 
-    const thr=num('dwellT');
-    $('dwellFill').style.width=Math.round(clamp(dwell/thr,0,1)*96)+'px';
-    $('dwellV').textContent=dwell.toFixed(1)+' s';
-
-    if(ctx && !moving && dwell>=thr){
-      const cool=num('hsCool')*1000;
-      const near=nodes.filter(n=>n.dist<=num('nodeRad'))
-                      .sort((a,b)=>a.dist-b.dist)[0];
-      if(near && nowMs-near.last>cool){ handshake(near); dwell=0; }
-    }
-
-    if(ctx) update();
+    if(ctx) update(nowMs);
     paint();
   }
 
-  function update(){
-    const now=ctx.currentTime, R=num('radius');
-    const inR=cables.filter(c=>c.dist<=R);
-    const nearest=inR.length?Math.min(...inR.map(c=>c.dist)):Infinity;
-    const prox=inR.length?Math.pow(1-nearest/R,num('falloff')):0;
-    layerGain.gain.setTargetAtTime(Math.max(0.0001,prox*num('poolLvl')),now,num('ramp'));
+  function update(nowMs){
+    const now=ctx.currentTime;
+    const nodeRad=num('nodeRad');
 
-    const dN=densityNorm();
-    const rScale=lerp(num('dr1'),num('dr6'),dN);
-    const wave=gateWave(ctx,num('duty'),Math.round(num('shape')));
-    slots.forEach((s,i)=>{
-      const n=slots.length;
-      const t=n===1?0.5:i/(n-1);
-      s.baseRate=lerp(num('rateLo'),num('rateHi'),t);
-      s.lfo.frequency.setTargetAtTime(s.baseRate*rScale,now,0.15);
-      s.lfo.setPeriodicWave(wave);
-      s.lfoDep.gain.setTargetAtTime(num('depth')*0.5,now,0.1);
-      s.gate.gain.setTargetAtTime(1-num('depth')*0.5,now,0.1);
-      s.hp.frequency.setTargetAtTime(lerp(num('hpLo'),num('hpHi'),t),now,0.2);
-    });
+    // Burst pool — nearest cable distance + density count, mirrors
+    // audio-layers.js's update() block exactly.
+    let nearestCableDist=Infinity;
+    for(const c of cables) if(c.dist<nearestCableDist) nearestCableDist=c.dist;
+    const cableCount=cables.filter(c=>c.dist<=CABLE_RADIUS).length;
+    burstPool.update({nearestCableDist, cableCount});
+    const rateMult=0.5+Math.min(cableCount/4,1.0)*1.5;
+    $('poolNearest').textContent=isFinite(nearestCableDist)?nearestCableDist.toFixed(1)+' m':'—';
+    $('poolRate').textContent='×'+rateMult.toFixed(2)+' ('+cableCount+' cables in range)';
 
-    $('cabStats').textContent=inR.length+' in range · nearest '+
-      (isFinite(nearest)?nearest.toFixed(1)+' m':'—')+' · rate ×'+rScale.toFixed(2);
+    // Node chirp — fires on entry within nodeRad (per-tick, debounce is internal).
+    const triggeredIds=new Set(nodes.filter(n=>n.dist<=nodeRad).map(n=>n.id));
+    for(const n of nodes) if(triggeredIds.has(n.id)) nodeChirp.trigger({id:n.id});
+
+    // Dwell handshake — caller-side tracking (see nodeDwell above).
+    for(const id of [...nodeDwell.keys()]) if(!triggeredIds.has(id)) nodeDwell.delete(id);
+    for(const id of triggeredIds){
+      if(!nodeDwell.has(id)) nodeDwell.set(id, nowMs);
+      else if(nowMs-nodeDwell.get(id) > DWELL_THRESHOLD_MS){
+        nodeHandshake.trigger({id});
+        $('hsLast').textContent=id+' @ '+new Date().toLocaleTimeString();
+      }
+    }
+
+    $('cabStats').textContent=cables.filter(c=>c.dist<=CABLE_RADIUS).length+' in range · nearest '+
+      (isFinite(nearestCableDist)?nearestCableDist.toFixed(1)+' m':'—');
   }
 
   // ---------- tables ----------
@@ -512,13 +324,12 @@
   buildTables();
 
   function paint(){
-    const R=num('radius');
     cables.forEach((c,i)=>{
       const row=$('cr'+i); if(!row) return;
-      row.classList.toggle('out',c.dist>R);
+      row.classList.toggle('out',c.dist>CABLE_RADIUS);
       const m=$('cm'+i); if(m) m.textContent=c.dist.toFixed(1);
       const b=$('cb'+i);
-      if(b){ const w=c.dist<=R?Math.pow(1-c.dist/R,num('falloff')):0; b.style.width=Math.round(w*56)+'px'; }
+      if(b){ const w=c.dist<=CABLE_RADIUS?1-c.dist/CABLE_RADIUS:0; b.style.width=Math.round(w*56)+'px'; }
     });
     const NR=num('nodeRad');
     nodes.forEach((n,i)=>{
@@ -528,23 +339,19 @@
     });
   }
 
-  // ---------- scope + gate view ----------
+  // ---------- scope ----------
   const sc=$('scope'), s2=sc.getContext('2d');
-  const gc=$('gate'), g2=gc.getContext('2d');
   function resize(){
     const dpr=window.devicePixelRatio||1;
-    [[sc,s2,170],[gc,g2,76]].forEach(([cv,cx,h])=>{
-      const r=cv.getBoundingClientRect();
-      cv.width=Math.round(r.width*dpr); cv.height=Math.round(h*dpr);
-      cx.setTransform(dpr,0,0,dpr,0,0);
-    });
+    const r=sc.getBoundingClientRect();
+    sc.width=Math.round(r.width*dpr); sc.height=Math.round(170*dpr);
+    s2.setTransform(dpr,0,0,dpr,0,0);
   }
   window.addEventListener('resize',resize); resize();
   const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
 
   function draw(){
     requestAnimationFrame(draw);
-    // spectrum
     const w=sc.clientWidth,h=170;
     s2.clearRect(0,0,w,h); s2.fillStyle=css('--paper-2'); s2.fillRect(0,0,w,h);
     const nyq=ctx?ctx.sampleRate/2:24000;
@@ -560,9 +367,7 @@
     });
     if(ctx){
       s2.setLineDash([2,3]); s2.strokeStyle=css('--tel'); s2.globalAlpha=0.55;
-      slots.forEach((s,i)=>{
-        const n=slots.length, t=n===1?0.5:i/(n-1);
-        const f=lerp(num('hpLo'),num('hpHi'),t);
+      [5000,5600,6200,6800].forEach(f=>{
         if(f<fMin||f>fMax) return;
         const x=Math.round(xOf(f))+0.5;
         s2.beginPath(); s2.moveTo(x,8); s2.lineTo(x,h-14); s2.stroke();
@@ -584,33 +389,6 @@
       s2.lineTo(w,h-16); s2.lineTo(0,h-16); s2.closePath();
       s2.fillStyle='rgba(20,23,26,0.08)'; s2.fill();
     }
-
-    // gate shape view — one cycle per slot
-    const gw=gc.clientWidth,gh=76;
-    g2.clearRect(0,0,gw,gh); g2.fillStyle=css('--paper-2'); g2.fillRect(0,0,gw,gh);
-    g2.fillStyle=css('--ink-3'); g2.font='9px ui-monospace, Menlo, monospace';
-    g2.fillText('GATE SHAPE — ONE CYCLE PER SLOT',8,12);
-    const duty=num('duty'), nH=Math.round(num('shape'));
-    const rows=Math.max(1,slots.length||Math.round(num('slots')));
-    for(let i=0;i<rows;i++){
-      const y0=22+i*((gh-30)/rows);
-      const hgt=(gh-30)/rows-3;
-      g2.strokeStyle=css('--tel'); g2.globalAlpha=0.85; g2.lineWidth=1.2;
-      g2.beginPath();
-      for(let x=0;x<=gw-16;x++){
-        const ph=(x/(gw-16))*2*Math.PI*2;   // two cycles across
-        let v=0;
-        for(let k=1;k<=nH;k++) v+=(2/(k*Math.PI))*Math.sin(k*Math.PI*duty)*Math.cos(k*ph);
-        const g=clamp((1-num('depth')*0.5)+v*num('depth')*0.5,0,1.4);
-        const px=8+x, py=y0+hgt-g*hgt*0.72;
-        x===0?g2.moveTo(px,py):g2.lineTo(px,py);
-      }
-      g2.stroke(); g2.globalAlpha=1;
-      if(slots[i]){
-        g2.fillStyle=css('--ink-3');
-        g2.fillText(slots[i].lfo.frequency.value.toFixed(1)+' Hz',gw-58,y0+hgt*0.6);
-      }
-    }
   }
   draw(); tick();
 
@@ -619,35 +397,66 @@
     if(ctx) return;
     ctx=new (window.AudioContext||window.webkitAudioContext)();
     await ctx.resume();
-    noiseBuf=makeNoise(ctx);
     master=ctx.createGain(); master.gain.value=num('master');
-    layerGain=ctx.createGain(); layerGain.gain.value=0.0001;
     analyser=ctx.createAnalyser(); analyser.fftSize=4096; analyser.smoothingTimeConstant=0.72;
     freqData=new Uint8Array(analyser.frequencyBinCount);
-    layerGain.connect(master); master.connect(analyser); master.connect(ctx.destination);
-    buildSlots(ctx);
+    master.connect(analyser); master.connect(ctx.destination);
+
+    burstPool=new TelecomBurstPool(ctx, master);
+    nodeChirp=new TelecomNodeChirp(ctx, master);
+    nodeHandshake=new TelecomNodeHandshake(ctx, master);
+
     $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
     $('btnWalk').disabled=false; $('btnPanic').disabled=false;
     $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+    requestMidi();
   }
   function status(){ $('modeStatus').textContent='Walk simulation — '+(walking?'running':'off'); }
 
   $('btnAudio').addEventListener('click',enableAudio);
   $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
   $('btnWalk').addEventListener('click',()=>{ walking=!walking; $('btnWalk').classList.toggle('on',walking); status(); });
+  $('btnChirpTest').addEventListener('click',()=>{
+    if(!nodeChirp) return;
+    nodeChirp.trigger({id:'N-4401'});
+  });
   $('btnPanic').addEventListener('click',()=>{
     cables.forEach((c,i)=>{c.dist=90;const el=document.querySelector('[data-cab="'+i+'"]');if(el)el.value=90;});
     nodes.forEach((n,i)=>{n.dist=90;const el=document.querySelector('[data-node="'+i+'"]');if(el)el.value=90;});
     walking=false; $('btnWalk').classList.remove('on'); status();
   });
-  $('slots').addEventListener('change',()=>{ if(ctx) buildSlots(ctx); });
-  $('pktOn').addEventListener('change',()=>{ slots.forEach(s=>{ if(s.timer) clearTimeout(s.timer); s.open=true; schedulePacket(s); }); });
 
   document.addEventListener('keydown',e=>{
     if(e.code==='Space'&&!/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
       e.preventDefault(); if(!ctx) enableAudio(); else $('btnWalk').click();
     }
   });
+
+  // ---------- Web MIDI — mirrors instruments/crossing-family.html's pattern ----------
+  // Any note-on fires the chirp test (debounce-respecting) — this page's other
+  // two behaviours (pool, handshake) are proximity/dwell-driven, not MIDI-playable.
+  async function requestMidi(){
+    if(!navigator.requestMIDIAccess){
+      $('midiStatus').innerHTML='MIDI — <span class="no">unsupported in this browser</span>';
+      return;
+    }
+    try{
+      const access=await navigator.requestMIDIAccess();
+      const names=[];
+      access.inputs.forEach(inp=>{ names.push(inp.name); inp.onmidimessage=onMidi; });
+      $('midiStatus').innerHTML=names.length
+        ? 'MIDI — <span class="ok">'+names.join(', ')+'</span>'
+        : 'MIDI — <span class="no">no inputs found</span>';
+    }catch(err){
+      $('midiStatus').innerHTML='MIDI — <span class="no">blocked in this context</span>';
+    }
+  }
+  function onMidi(ev){
+    const [status,d1,d2]=ev.data;
+    if((status&0xF0)===0x90 && d2>0 && nodeChirp){
+      nodeChirp.trigger({id:'N-4401'});
+    }
+  }
 })();
 </script>
 </body>

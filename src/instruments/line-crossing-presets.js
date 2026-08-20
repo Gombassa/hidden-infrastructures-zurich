@@ -1,9 +1,10 @@
 // line-crossing-presets.js — per-layer presets for src/instruments/line-crossing-voice.js.
-// One shared module rather than inline values at each call site: three more
-// layers (water, sewage, telecom) will add their own preset here in
-// docs/Implementation_Plan.md Steps 3/5/6, keeping the "one voicing function,
-// N presets" consolidation (Decision Point 4) visible in one place rather than
-// scattered across per-layer surfaces.
+// One shared module rather than inline values at each call site: water and
+// sewage added their own preset here in docs/Implementation_Plan.md Steps
+// 3/5, keeping the "one voicing function, N presets" consolidation (Decision
+// Point 4) visible in one place rather than scattered across per-layer
+// surfaces. Telecom (Step 6) does NOT — see the note at the bottom of this
+// file for why the consolidation doesn't extend to a 4th preset here.
 //
 // Values ported unchanged from src/audio-layers.js's _triggerElecSnap /
 // _scheduleElecSnap / _setElecSnapActive — NOT from instruments/crossing-family.html's
@@ -54,5 +55,12 @@ export const SEWAGE_CROSSING = {
   crossingCooldownMs: 3000,
 };
 
-// TELECOM_CROSSING added in Step 6 — not stubbed now; its production values
-// haven't been verified this session.
+// No TELECOM_CROSSING here — telecom's cable-crossing click/alongside (#19,
+// #20) is NOT a LineCrossingVoice instance, deliberately. Its sound is a
+// swept sine oscillator (_triggerTelecomClick, 3500->6000Hz), not filtered
+// noise like every preset above — LineCrossingVoice._fire() can't reproduce
+// a sweep, so a preset alone wasn't enough. See
+// src/instruments/telecom-click-voice.js and docs/Implementation_Plan.md
+// Step 6 / Decision Point 4 for the full finding (the second revision to
+// "one class serves all 4 layers" — the first was SEWAGE_CROSSING's note
+// above).

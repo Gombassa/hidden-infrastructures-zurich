@@ -43,19 +43,19 @@
   <h1>A/B Compare — Phase 3 proof instruments</h1>
   <p class="lede">
     Feeds one live <b>ProximityEngine.calculate()</b> tick to two parallel signal paths, panned hard left/right,
-    so a real field walk with earbuds gives a direct A/B. Scoped to water, electricity, tram, and sewage —
-    every other layer is disabled on Path A. Not linked from <code>index.html</code>; production is untouched
-    by this page. See <code>docs/Implementation_Plan.md</code> Steps 1-5 and
-    <code>docs/Technical_Architecture_v5.md</code> for why this comparison exists.
+    so a real field walk with earbuds gives a direct A/B. All 6 layers are enabled on Path A — Fernwärme
+    (Step 7) was the last one. Not linked from <code>index.html</code>; production is untouched by this page.
+    See <code>docs/Implementation_Plan.md</code> Steps 1-7 and <code>docs/Technical_Architecture_v5.md</code>
+    for why this comparison exists.
   </p>
 
   <div class="cols">
     <div class="col a">
       <h2>Path A — centre</h2>
-      <p>Unmodified <code>src/audio-layers.js</code> (<code>AudioLayers</code>), water + electricity + tram +
-      sewage only. This is the current field-tested production sound. Plays centred — <code>AudioLayers</code>
-      connects straight to <code>ctx.destination</code> with no output node this harness can redirect without
-      editing production code, which this rebuild keeps untouched throughout.</p>
+      <p>Unmodified <code>src/audio-layers.js</code> (<code>AudioLayers</code>), all 6 layers. This is the
+      current field-tested production sound. Plays centred — <code>AudioLayers</code> connects straight to
+      <code>ctx.destination</code> with no output node this harness can redirect without editing production
+      code, which this rebuild keeps untouched throughout.</p>
     </div>
     <div class="col b">
       <h2>Path B — right ear</h2>
@@ -63,12 +63,17 @@
       <code>ElectricityOscillatorPool</code> (steal-furthest + margin policy) + <code>LineCrossingVoice</code>
       (electricity + water + sewage-crossing presets) + <code>FeederCrackle</code> + <code>TramDrone</code> +
       <code>TramHissPool</code> + <code>SewageRumble</code> + <code>SewageJunctionThud</code> +
-      <code>SewageGurgle</code>, fed the same proximity data, panned hard right. Compare by listening for
-      what's <i>only</i> in the right channel against the centred mix.
+      <code>SewageGurgle</code> + <code>TelecomBurstPool</code> + <code>TelecomNodeChirp</code> +
+      <code>TelecomNodeHandshake</code> + <code>TelecomClickVoice</code> + <code>FernwaermeThermal</code>,
+      fed the same proximity data, panned hard right. Compare by listening for what's <i>only</i> in the
+      right channel against the centred mix.
       <b>Exceptions, not parity ports: tram hiss is a deliberate redesign (persistent per-feeder identity, see
       tram-hiss-pool.js) and sewage gurgle/alongside retunes its burst to a circle-of-fifths note instead of
-      production's fixed 100Hz (see sewage-gurgle.js) — neither will or should sound like Path A. Crackle,
-      drone, sewage rumble, sewage thud, and sewage crossing should still closely match.</b></p>
+      production's fixed 100Hz (see sewage-gurgle.js) — neither will or should sound like Path A. Fernwärme is
+      a parity port but is NOT panned hard right like everything else here — its own bearing panner is the
+      behaviour under test, so nesting it inside the hard-right panner would corrupt exactly what's being
+      compared; it plays through its own pan on both paths instead (see startEngines()). Everything else
+      should still closely match.</b></p>
     </div>
   </div>
 
@@ -85,6 +90,8 @@
     <div><span class="k">Electricity — sounding / in range</span><span class="v" id="stElec">—</span></div>
     <div><span class="k">Tram hiss — sounding</span><span class="v" id="stHiss">—</span></div>
     <div><span class="k">Sewage — nearest pipe / gurgling</span><span class="v" id="stSewage">—</span></div>
+    <div><span class="k">Telecom — nearest cable / rate ×</span><span class="v" id="stTelecom">—</span></div>
+    <div><span class="k">Fernwärme — nearest pipe / bearing</span><span class="v" id="stFern">—</span></div>
   </div>
 
   <div id="log"></div>
@@ -105,6 +112,11 @@ import TramHissPool from './src/instruments/tram-hiss-pool.js';
 import SewageRumble from './src/instruments/sewage-rumble.js';
 import SewageJunctionThud from './src/instruments/sewage-junction-thud.js';
 import SewageGurgle from './src/instruments/sewage-gurgle.js';
+import TelecomBurstPool from './src/instruments/telecom-burst-pool.js';
+import TelecomNodeChirp from './src/instruments/telecom-node-chirp.js';
+import TelecomNodeHandshake from './src/instruments/telecom-node-handshake.js';
+import TelecomClickVoice from './src/instruments/telecom-click-voice.js';
+import FernwaermeThermal from './src/instruments/fernwaerme-thermal.js';
 
 const $ = id => document.getElementById(id);
 
@@ -123,7 +135,10 @@ let realLat = null, realLng = null, realHeading = null, realSpeed = null;
 let waterPulseB = null, waterDripB = null, elecPoolB = null, elecCrossingB = null, waterCrossingB = null;
 let crackleB = null, droneB = null, hissPoolB = null;
 let sewageRumbleB = null, sewageThudB = null, sewageGurgleB = null, sewageCrossingB = null;
+let telecomPoolB = null, telecomChirpB = null, telecomHandshakeB = null, telecomClickB = null;
+let fernThermalB = null;
 const crackleTriggeredIds = new Set(); // mirrors production's _activeCrackleIds debounce
+const telecomNodeDwellB = new Map(); // mirrors production's _telecomNodeDwell — caller-side, see telecom-node-handshake.js
 let gpsWatchId = null;
 
 async function enableAudio(){
@@ -165,12 +180,13 @@ async function enableAudio(){
 }
 
 function startEngines(){
-  // Path A — production AudioLayers, water + electricity + tram + sewage, hard left.
-  // Sewage enabled here for the first time since Step 1 — Step 5 needs a live
-  // A/B for sewage specifically.
+  // Path A — production AudioLayers, all 6 layers, hard left. Fernwärme
+  // enabled here for the first time since Step 1 — Step 7 needs a live A/B
+  // for Fernwärme specifically, and this is the last layer, so LAYER_ENABLED
+  // no longer needs any per-layer filtering.
   AudioLayers.init(ctx);
   for (const key of Object.keys(AudioLayers.LAYER_ENABLED)){
-    AudioLayers.setLayerEnabled(key, key === 'water' || key === 'electricity' || key === 'tram' || key === 'sewage');
+    AudioLayers.setLayerEnabled(key, true);
   }
   // AudioLayers connects every one of its nodes straight to ctx.destination
   // (see e.g. _elecMasterGain.connect(_ctx.destination) in audio-layers.js) —
@@ -230,6 +246,27 @@ function startEngines(){
     // sewage's alongside loop is driven through sewageGurgleB instead, below,
     // same carve-out as instruments/crossing-family.html's (see sewage-gurgle.js).
   });
+  telecomPoolB = new TelecomBurstPool(ctx, pannerB); // no reverbBus — same omission as droneB above
+  telecomChirpB = new TelecomNodeChirp(ctx, pannerB);
+  telecomHandshakeB = new TelecomNodeHandshake(ctx, pannerB);
+  telecomClickB = new TelecomClickVoice(ctx, pannerB, {
+    onFire: (kind, detail) => {
+      if (kind === 'crossing') log('[B] CROSS  '+detail.id+' (telecom)');
+      if (kind === 'alongside') log('[B] ALONG  telecom (shared)');
+    }
+    // Both crossing AND alongside route here — unlike sewage, telecom's
+    // pairing matches electricity/water (same sound both ways), it's just
+    // not a LineCrossingVoice instance. See telecom-click-voice.js.
+  });
+  // Fernwärme deliberately does NOT connect to pannerB, unlike every other
+  // Path B instrument. It has its own internal StereoPanner driving bearing
+  // position (see fernwaerme-thermal.js) — nesting a stereo signal inside
+  // pannerB's constant hard-right pan would corrupt that exact behaviour,
+  // not just relocate it. Production's Path A equivalent already plays
+  // centred with its own unconstrained pan; Path B gets the same treatment
+  // so the bearing panning itself is what's being compared, not "bearing
+  // panning plus a hard-right bias."
+  fernThermalB = new FernwaermeThermal(ctx, ctx.destination);
 
   TramEngine.onUpdate((tramState) => {
     const proximity = ProximityEngine.calculate(tramState, realLat, realLng, realHeading, realSpeed);
@@ -325,6 +362,52 @@ function startEngines(){
     sewageGurgleB.setAlongsideActive(sewagePipes.some(p => p.alongside));
     $('stSewage').textContent =
       (isFinite(nearestSewageDist) ? nearestSewageDist.toFixed(1)+'m' : '—') + ' / ' + (gurgling ? 'yes' : 'no');
+
+    // Telecom — mirrors audio-layers.js's exact call-site logic (~L1027-1077).
+    const telecomNodes = proximity.telecom?.nodes || [];
+    const telecomCables = proximity.telecom?.cables || [];
+
+    // Node chirp — debounce is internal to TelecomNodeChirp.
+    for (const n of telecomNodes) if (n.triggered) telecomChirpB.trigger({ id: n.id });
+
+    // Node dwell handshake — 5s dwell tracked here (caller-side, matches
+    // production's _telecomNodeDwell placement, NOT inside the class — see
+    // telecom-node-handshake.js).
+    const nowT = Date.now();
+    const triggeredNodeIds = new Set(telecomNodes.filter(n => n.triggered).map(n => n.id));
+    for (const id of [...telecomNodeDwellB.keys()]) if (!triggeredNodeIds.has(id)) telecomNodeDwellB.delete(id);
+    for (const id of triggeredNodeIds) {
+      if (!telecomNodeDwellB.has(id)) telecomNodeDwellB.set(id, nowT);
+      else if (nowT - telecomNodeDwellB.get(id) > 5000) telecomHandshakeB.trigger({ id });
+    }
+
+    // Burst pool — nearest cable distance drives gain, density drives rate.
+    let nearestCableDist = Infinity;
+    for (const c of telecomCables) if (c.dist < nearestCableDist) nearestCableDist = c.dist;
+    const telecomCableCount = telecomCables.filter(c => c.dist <= 30).length;
+    telecomPoolB.update({ nearestCableDist, cableCount: telecomCableCount });
+    const telecomRateMult = 0.5 + Math.min(telecomCableCount / 4, 1.0) * 1.5;
+
+    // Cable crossing click (3s cooldown, internal) + alongside loop — both
+    // route to telecomClickB, matching electricity/water's pairing shape.
+    for (const c of telecomCables) if (c.crossing) telecomClickB.trigger({ id: c.id });
+    telecomClickB.setAlongsideActive(telecomCables.some(c => c.alongside));
+
+    $('stTelecom').textContent =
+      (isFinite(nearestCableDist) ? nearestCableDist.toFixed(1)+'m' : '—') + ' / ×' + telecomRateMult.toFixed(2);
+
+    // Fernwärme — mirrors audio-layers.js's exact call-site logic (~L1080-1112).
+    const fernPipes = proximity.fernwaerme?.pipes || [];
+    let nearestFernDist = Infinity, nearestFernBearing = null;
+    for (const p of fernPipes) {
+      if (p.dist < nearestFernDist) { nearestFernDist = p.dist; nearestFernBearing = p.bearing; }
+    }
+    fernThermalB.update({ nearestDist: nearestFernDist, nearestBearing: nearestFernBearing, heading: realHeading });
+    for (const p of fernPipes) if (p.crossing) fernThermalB.trigger({ id: p.id });
+    fernThermalB.setAlongsideActive(fernPipes.some(p => p.alongside));
+    $('stFern').textContent =
+      (isFinite(nearestFernDist) ? nearestFernDist.toFixed(1)+'m' : '—') + ' / ' +
+      (nearestFernBearing !== null ? Math.round(nearestFernBearing)+'°' : '—');
   });
 
   TramEngine.start();
@@ -348,6 +431,12 @@ function stopEngines(){
   if (sewageThudB) sewageThudB.destroy();
   if (sewageGurgleB) sewageGurgleB.destroy();
   if (sewageCrossingB) sewageCrossingB.destroy();
+  if (telecomPoolB) telecomPoolB.destroy();
+  if (telecomChirpB) telecomChirpB.destroy();
+  if (telecomHandshakeB) telecomHandshakeB.destroy();
+  if (telecomClickB) telecomClickB.destroy();
+  if (fernThermalB) fernThermalB.destroy();
+  telecomNodeDwellB.clear();
   crackleTriggeredIds.clear();
   if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
   log('Engines stopped');

@@ -43,17 +43,17 @@
   <h1>A/B Compare — Phase 3 proof instruments</h1>
   <p class="lede">
     Feeds one live <b>ProximityEngine.calculate()</b> tick to two parallel signal paths, panned hard left/right,
-    so a real field walk with earbuds gives a direct A/B. Scoped to water, electricity, and tram — every other
-    layer is disabled on Path A. Not linked from <code>index.html</code>; production is untouched by this page.
-    See <code>docs/Implementation_Plan.md</code> Steps 1-4 and <code>docs/Technical_Architecture_v5.md</code>
-    for why this comparison exists.
+    so a real field walk with earbuds gives a direct A/B. Scoped to water, electricity, tram, and sewage —
+    every other layer is disabled on Path A. Not linked from <code>index.html</code>; production is untouched
+    by this page. See <code>docs/Implementation_Plan.md</code> Steps 1-5 and
+    <code>docs/Technical_Architecture_v5.md</code> for why this comparison exists.
   </p>
 
   <div class="cols">
     <div class="col a">
       <h2>Path A — centre</h2>
-      <p>Unmodified <code>src/audio-layers.js</code> (<code>AudioLayers</code>), water + electricity + tram
-      only. This is the current field-tested production sound. Plays centred — <code>AudioLayers</code>
+      <p>Unmodified <code>src/audio-layers.js</code> (<code>AudioLayers</code>), water + electricity + tram +
+      sewage only. This is the current field-tested production sound. Plays centred — <code>AudioLayers</code>
       connects straight to <code>ctx.destination</code> with no output node this harness can redirect without
       editing production code, which this rebuild keeps untouched throughout.</p>
     </div>
@@ -61,12 +61,14 @@
       <h2>Path B — right ear</h2>
       <p>New Option A instrument classes: <code>WaterProximityPulse</code> + <code>WaterFittingDrip</code> +
       <code>ElectricityOscillatorPool</code> (steal-furthest + margin policy) + <code>LineCrossingVoice</code>
-      (electricity + water presets) + <code>FeederCrackle</code> + <code>TramDrone</code> +
-      <code>TramHissPool</code>, fed the same proximity data, panned hard right. Compare by listening for
+      (electricity + water + sewage-crossing presets) + <code>FeederCrackle</code> + <code>TramDrone</code> +
+      <code>TramHissPool</code> + <code>SewageRumble</code> + <code>SewageJunctionThud</code> +
+      <code>SewageGurgle</code>, fed the same proximity data, panned hard right. Compare by listening for
       what's <i>only</i> in the right channel against the centred mix.
-      <b>Exception: tram hiss is a deliberate redesign (persistent per-feeder identity, see
-      tram-hiss-pool.js), not a parity port — it will not and should not sound like Path A's hiss. Crackle
-      and drone should still closely match.</b></p>
+      <b>Exceptions, not parity ports: tram hiss is a deliberate redesign (persistent per-feeder identity, see
+      tram-hiss-pool.js) and sewage gurgle/alongside retunes its burst to a circle-of-fifths note instead of
+      production's fixed 100Hz (see sewage-gurgle.js) — neither will or should sound like Path A. Crackle,
+      drone, sewage rumble, sewage thud, and sewage crossing should still closely match.</b></p>
     </div>
   </div>
 
@@ -82,6 +84,7 @@
     <div><span class="k">Water — nearest pipe / fitting</span><span class="v" id="stWater">—</span></div>
     <div><span class="k">Electricity — sounding / in range</span><span class="v" id="stElec">—</span></div>
     <div><span class="k">Tram hiss — sounding</span><span class="v" id="stHiss">—</span></div>
+    <div><span class="k">Sewage — nearest pipe / gurgling</span><span class="v" id="stSewage">—</span></div>
   </div>
 
   <div id="log"></div>
@@ -95,10 +98,13 @@ import WaterProximityPulse from './src/instruments/water-proximity-pulse.js';
 import WaterFittingDrip from './src/instruments/water-fitting-drip.js';
 import ElectricityOscillatorPool from './src/instruments/electricity-oscillator-pool.js';
 import LineCrossingVoice from './src/instruments/line-crossing-voice.js';
-import { ELECTRICITY_CROSSING, WATER_CROSSING } from './src/instruments/line-crossing-presets.js';
+import { ELECTRICITY_CROSSING, WATER_CROSSING, SEWAGE_CROSSING } from './src/instruments/line-crossing-presets.js';
 import FeederCrackle from './src/instruments/feeder-crackle.js';
 import TramDrone from './src/instruments/tram-drone.js';
 import TramHissPool from './src/instruments/tram-hiss-pool.js';
+import SewageRumble from './src/instruments/sewage-rumble.js';
+import SewageJunctionThud from './src/instruments/sewage-junction-thud.js';
+import SewageGurgle from './src/instruments/sewage-gurgle.js';
 
 const $ = id => document.getElementById(id);
 
@@ -116,6 +122,7 @@ let ctx = null;
 let realLat = null, realLng = null, realHeading = null, realSpeed = null;
 let waterPulseB = null, waterDripB = null, elecPoolB = null, elecCrossingB = null, waterCrossingB = null;
 let crackleB = null, droneB = null, hissPoolB = null;
+let sewageRumbleB = null, sewageThudB = null, sewageGurgleB = null, sewageCrossingB = null;
 const crackleTriggeredIds = new Set(); // mirrors production's _activeCrackleIds debounce
 let gpsWatchId = null;
 
@@ -158,12 +165,12 @@ async function enableAudio(){
 }
 
 function startEngines(){
-  // Path A — production AudioLayers, water + electricity + tram, hard left.
-  // Tram enabled here for the first time since Step 1 (was water+electricity
-  // only) — Step 4 needs a live A/B for tram specifically.
+  // Path A — production AudioLayers, water + electricity + tram + sewage, hard left.
+  // Sewage enabled here for the first time since Step 1 — Step 5 needs a live
+  // A/B for sewage specifically.
   AudioLayers.init(ctx);
   for (const key of Object.keys(AudioLayers.LAYER_ENABLED)){
-    AudioLayers.setLayerEnabled(key, key === 'water' || key === 'electricity' || key === 'tram');
+    AudioLayers.setLayerEnabled(key, key === 'water' || key === 'electricity' || key === 'tram' || key === 'sewage');
   }
   // AudioLayers connects every one of its nodes straight to ctx.destination
   // (see e.g. _elecMasterGain.connect(_ctx.destination) in audio-layers.js) —
@@ -209,6 +216,19 @@ function startEngines(){
       if (type === 'refuse') log('[B] HISS REFUSE '+detail.featureId);
       if (type === 'release') log('[B] HISS RELEASE '+detail.featureId);
     }
+  });
+  sewageRumbleB = new SewageRumble(ctx, pannerB); // no reverbBus — same omission as droneB above
+  sewageThudB = new SewageJunctionThud(ctx, pannerB, {
+    onFire: (d) => log('[B] THUD   '+d.id+' (sewage junction)')
+  });
+  sewageGurgleB = new SewageGurgle(ctx, pannerB, {
+    onFire: (d) => log('[B] GURGLE '+d.source+' — '+d.chordName+' note '+d.note+' ('+Math.round(d.freq)+'Hz)')
+  });
+  sewageCrossingB = new LineCrossingVoice(ctx, pannerB, SEWAGE_CROSSING, {
+    onFire: (kind, detail) => { if (kind === 'crossing') log('[B] CROSS  '+detail.id+' (sewage)'); }
+    // No 'alongside' case — sewageCrossingB.setAlongsideActive() is never called;
+    // sewage's alongside loop is driven through sewageGurgleB instead, below,
+    // same carve-out as instruments/crossing-family.html's (see sewage-gurgle.js).
   });
 
   TramEngine.onUpdate((tramState) => {
@@ -286,6 +306,25 @@ function startEngines(){
     // independent of proximity.feeders[].triggered (unlike crackle above).
     hissPoolB.update({ feeders, listenerLat: realLat, listenerLng: realLng, listenerHeading: realHeading });
     $('stHiss').textContent = String(hissPoolB.activeCount);
+
+    // Sewage — mirrors audio-layers.js's exact call-site logic (~L947-982):
+    // nearest-pipe-distance gain, gurgle below 20m, junction thud on entry
+    // (10s cooldown, handled inside SewageJunctionThud.trigger()), pipe
+    // crossing (3s cooldown, handled inside LineCrossingVoice.trigger()),
+    // alongside redirected to sewageGurgleB — NOT sewageCrossingB, see its
+    // construction above.
+    const sewagePipes = proximity.sewage?.pipes || [];
+    const sewageJunctions = proximity.sewage?.junctions || [];
+    let nearestSewageDist = Infinity;
+    for (const p of sewagePipes) if (p.dist < nearestSewageDist) nearestSewageDist = p.dist;
+    sewageRumbleB.update({ nearestDist: nearestSewageDist });
+    const gurgling = nearestSewageDist <= 20;
+    sewageGurgleB.setGurgleActive(gurgling);
+    for (const j of sewageJunctions) if (j.triggered) sewageThudB.trigger({ id: j.id });
+    for (const p of sewagePipes) if (p.crossing) sewageCrossingB.trigger({ id: p.id });
+    sewageGurgleB.setAlongsideActive(sewagePipes.some(p => p.alongside));
+    $('stSewage').textContent =
+      (isFinite(nearestSewageDist) ? nearestSewageDist.toFixed(1)+'m' : '—') + ' / ' + (gurgling ? 'yes' : 'no');
   });
 
   TramEngine.start();
@@ -305,6 +344,10 @@ function stopEngines(){
   if (crackleB) crackleB.destroy();
   if (droneB) droneB.destroy();
   if (hissPoolB) hissPoolB.destroy();
+  if (sewageRumbleB) sewageRumbleB.destroy();
+  if (sewageThudB) sewageThudB.destroy();
+  if (sewageGurgleB) sewageGurgleB.destroy();
+  if (sewageCrossingB) sewageCrossingB.destroy();
   crackleTriggeredIds.clear();
   if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
   log('Engines stopped');

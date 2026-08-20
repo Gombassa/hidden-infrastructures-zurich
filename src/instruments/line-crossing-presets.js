@@ -34,5 +34,25 @@ export const WATER_CROSSING = {
   alongsideJitter: 0.3,
 };
 
-// SEWAGE_CROSSING, TELECOM_CROSSING added in Steps 5/6 — not stubbed now;
-// their production values haven't been verified this session.
+// Ported from _triggerSewageCrossing (src/audio-layers.js ~L411-425).
+// Deliberately has NO alongsideBaseMs/alongsideJitter: unlike electricity and
+// water, sewage's alongside loop does not re-fire this crossing sound — it
+// re-fires the gurgle sound instead (confirmed against
+// docs/Technical_Architecture_v5.md: "Alongside loop: gurgle rhythm ~4s ±35%
+// jitter", and src/audio-layers.js's _scheduleSewageKnock calling
+// _triggerSewageGurgle, not _triggerSewageCrossing). This preset is only
+// ever driven via LineCrossingVoice.trigger() — setAlongsideActive() is
+// never called on the instance built from it. See
+// src/instruments/sewage-gurgle.js for where alongside actually lives, and
+// docs/Implementation_Plan.md Step 5 for the full finding.
+export const SEWAGE_CROSSING = {
+  freq: 200,
+  q: 3.5,
+  duration: 0.35,
+  attack: 0.01,
+  gain: 0.07,
+  crossingCooldownMs: 3000,
+};
+
+// TELECOM_CROSSING added in Step 6 — not stubbed now; its production values
+// haven't been verified this session.

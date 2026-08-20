@@ -77,6 +77,7 @@
   .hint i{color:var(--water);font-style:normal}
   .panel.ref{border-color:var(--water)}
   .panel.ref .panel-head h2{color:var(--water)}
+  .chordDisplay{font-family:var(--mono);font-size:13px;color:var(--sew);font-weight:600}
 
   .pipes{margin-top:14px}
   table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:10.5px}
@@ -95,6 +96,7 @@
           padding-top:9px;border-top:1px solid var(--rule);
           display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
   .status .ok{color:var(--live)}
+  .status .no{color:var(--warn)}
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -104,16 +106,17 @@
   <header class="masthead">
     <h1 class="title">Sewage <span>Rumble</span></h1>
     <div class="masthead-meta">
-      SEWAGE · BEHAVIOUR 15+16/23<br>
+      SEWAGE · #11/12/14 OF 24<br>
       <b>80 M — THE WIDEST RADIUS</b><br>
       HIDDEN INFRASTRUCTURES : ZÜRICH
     </div>
   </header>
 
   <p class="strapline">
-    Gravity-fed and part-full, so there is air above the flow — <em>unpitched</em> turbulence and bubbles,
-    against <i>water</i>'s pressurised bore resonance. Gurgle pitch comes from Minnaert: a bubble's
-    frequency is 3.28 ⁄ radius, so size alone sets it.
+    Gravity-fed and part-full, so there is air above the flow — <em>unpitched</em> rumble,
+    against <i>water</i>'s pressurised bore resonance. Rumble and junction thud are voiced by the real
+    <b>SewageRumble</b>/<b>SewageJunctionThud</b> classes now (Step 5), production parity. Gurgle is voiced by
+    <b>SewageGurgle</b> — its pitch is a Step 5 redesign, not production parity: see the Gurgle panel.
   </p>
 
   <section class="hero">
@@ -138,112 +141,45 @@
   <div class="grid">
 
     <section class="panel">
-      <div class="panel-head"><h2>Rumble</h2><div class="note">flow turbulence</div></div>
-      <div class="row"><label>LEVEL</label>
-        <div class="field"><input type="range" id="rumLvl" min="0" max="1" step="0.01" value="0.55"><span class="val" id="rumLvlV">0.55</span></div>
-      </div>
-      <div class="row"><label>CUTOFF Hz</label>
-        <div class="rng">
-          <div class="field"><span>far</span><input type="number" id="lpFar" value="90" step="5" min="30" max="1200"></div>
-          <div class="field"><span>near</span><input type="number" id="lpNear" value="240" step="5" min="30" max="1200"></div>
-        </div>
-      </div>
-      <div class="row"><label>SLOPE</label>
-        <div class="field">
-          <select id="slope">
-            <option value="1">12 dB — open</option>
-            <option value="2" selected>24 dB — closed</option>
-            <option value="3">36 dB — buried</option>
-          </select>
-        </div>
-      </div>
-      <div class="row"><label>HP Hz</label>
-        <div class="field"><input type="number" id="hp" value="28" step="2" min="10" max="200"></div>
-      </div>
-      <p class="hint">Documented as 180 Hz lowpass. Lower and steeper reads as further underground; the steeper slopes are what keep this clear of <i>water</i>'s 185 Hz lowest resonance.</p>
+      <div class="panel-head"><h2>Rumble</h2><div class="note">ported — src/instruments/sewage-rumble.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Voiced by the real <b>SewageRumble</b> class, not this page's former cutoff-sweep synthesis
+        (that Slope/Surge/Chamber exploration had no production counterpart and is retired): looped noise
+        → fixed <b>180 Hz lowpass, Q 0.8</b> → gain by nearest-pipe distance, <b>80 m radius, 1.5 s ramp</b>,
+        sends to the shared density reverb bus. No tunable parameters left — this is production's exact shape.
+      </p>
+      <div class="row"><label>NEAREST</label><div class="field" id="rumbleNearest" style="font-family:var(--mono);font-size:11px">—</div></div>
+      <div class="row"><label>GAIN</label><div class="field" id="rumbleGain" style="font-family:var(--mono);font-size:11px">—</div></div>
     </section>
 
     <section class="panel">
-      <div class="panel-head"><h2>Surge</h2><div class="note">irregular, not an LFO</div></div>
-      <div class="row"><label>RATE s</label>
-        <div class="field"><input type="range" id="surgeRate" min="0.4" max="12" step="0.1" value="3.4"><span class="val" id="surgeRateV">3.4</span></div>
+      <div class="panel-head"><h2>Junction thud</h2><div class="note">ported — src/instruments/sewage-junction-thud.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Was <b>unbuilt</b> before Step 5. Voiced by <b>SewageJunctionThud</b>: 0.6 s noise burst → bandpass
+        <b>55 Hz, Q 3</b>, <b>10 s cooldown</b> per junction. This page has no junction-clustering model
+        (that's <code>computeSewageJunctions()</code> in <code>proximity-engine.js</code>, not simulated
+        here) — use the manual test button.
+      </p>
+      <div class="row"><label>TEST</label>
+        <div class="field"><button id="btnThudTest" type="button" style="width:100%">Fire thud (J-01)</button></div>
       </div>
-      <div class="row"><label>DEPTH</label>
-        <div class="field"><input type="range" id="surgeDep" min="0" max="0.9" step="0.01" value="0.34"><span class="val" id="surgeDepV">0.34</span></div>
-      </div>
-      <div class="row"><label>CUTOFF MOD</label>
-        <div class="field"><input type="range" id="surgeCut" min="0" max="120" step="2" value="38"><span class="val" id="surgeCutV">38</span></div>
-      </div>
-      <p class="hint">A random walk, not a sine. Fernwärme already owns periodic tremolo at 0.3 Hz — anything regular here would read as the same gesture. Flow surges are irregular by nature.</p>
+      <div class="row"><label>STATUS</label><div class="field" id="thudStatus" style="font-family:var(--mono);font-size:11px">idle</div></div>
     </section>
 
     <section class="panel">
-      <div class="panel-head"><h2>Chamber</h2><div class="note">culvert resonance</div></div>
-      <div class="row"><label>FREQ Hz</label>
-        <div class="field"><input type="number" id="chHz" value="74" step="1" min="30" max="400"></div>
-      </div>
-      <div class="row"><label>Q</label>
-        <div class="field"><input type="range" id="chQ" min="1" max="30" step="0.5" value="9"><span class="val" id="chQV">9.0</span></div>
-      </div>
-      <div class="row"><label>LEVEL</label>
-        <div class="field"><input type="range" id="chLvl" min="0" max="0.8" step="0.01" value="0.22"><span class="val" id="chLvlV">0.22</span></div>
-      </div>
-      <p class="hint">A single low resonance gives the sense of a void rather than a pipe. Keep Q modest — high Q makes it a pitch, which is the property that is supposed to belong to <i>water</i>.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Gurgle</h2><div class="note">Minnaert bubbles</div></div>
+      <div class="panel-head"><h2>Gurgle</h2><div class="note">below 20 m · redesigned pitch</div></div>
       <div class="row"><label>GATE m</label>
         <div class="field"><input type="number" id="gurgGate" value="20" step="1" min="3" max="80"></div>
       </div>
-      <div class="row"><label>INTERVAL s</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="intMin" value="1.25" step="0.05" min="0.15" max="20"></div>
-          <div class="field"><span>max</span><input type="number" id="intMax" value="5" step="0.05" min="0.2" max="30"></div>
-        </div>
-      </div>
-      <div class="row"><label>BUBBLES</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="bubMin" value="1" step="1" min="1" max="12"></div>
-          <div class="field"><span>max</span><input type="number" id="bubMax" value="5" step="1" min="1" max="12"></div>
-        </div>
-      </div>
-      <div class="row"><label>SIZE mm</label>
-        <div class="rng">
-          <div class="field"><span>min</span><input type="number" id="szMin" value="6" step="1" min="2" max="120"></div>
-          <div class="field"><span>max</span><input type="number" id="szMax" value="46" step="1" min="2" max="120"></div>
-        </div>
-      </div>
-      <div class="row"><label>RISE</label>
-        <div class="field"><input type="range" id="bubRise" min="0" max="1.2" step="0.01" value="0.42"><span class="val" id="bubRiseV">0.42</span></div>
-      </div>
-      <div class="row"><label>DECAY s</label>
-        <div class="field"><input type="range" id="bubDec" min="0.02" max="0.5" step="0.01" value="0.11"><span class="val" id="bubDecV">0.11</span></div>
-      </div>
-      <div class="row"><label>LEVEL</label>
-        <div class="field"><input type="range" id="bubLvl" min="0" max="1" step="0.01" value="0.4"><span class="val" id="bubLvlV">0.40</span></div>
-      </div>
-      <p class="hint">6–46 mm gives roughly 1100 Hz down to 140 Hz. <b>Rise</b> is the pitch climb as a bubble pinches off — set it to 0 for a flat blip and hear how much of "bubble" is that gesture rather than the tone.</p>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head"><h2>Proximity</h2><div class="note">80 m pipe radius</div></div>
-      <div class="row"><label>RADIUS m</label>
-        <div class="field"><input type="number" id="radius" value="80" step="1" min="10" max="250"></div>
-      </div>
-      <div class="row"><label>FALLOFF exp</label>
-        <div class="field"><input type="range" id="falloff" min="0.5" max="3" step="0.1" value="1"><span class="val" id="falloffV">1.0</span></div>
-      </div>
-      <div class="row"><label>RAMP s</label>
-        <div class="field"><input type="range" id="ramp" min="0.1" max="6" step="0.1" value="1.5"><span class="val" id="rampV">1.50</span></div>
-      </div>
-      <div class="row"><label>DENSITY ×</label>
-        <div class="rng">
-          <div class="field"><span>1</span><input type="number" id="dg1" value="1.0" step="0.05" min="0.2" max="3"></div>
-          <div class="field"><span>6+</span><input type="number" id="dg6" value="1.35" step="0.05" min="0.2" max="3"></div>
-        </div>
-      </div>
-      <p class="hint">80 m is the widest radius of any layer, so in District 1 this is almost always present — the bed everything else sits on. The 1.5 s ramp is the documented time constant.</p>
+      <p class="hint">
+        Voiced by <b>SewageGurgle</b>: 0.15 s noise burst → bandpass, <b>Q 2.5</b>, gain 0.06, random
+        <b>1.25–5 s</b> interval while within GATE m. <b>Deliberate redesign (Step 5):</b> production's burst
+        has a fixed 100 Hz center; this instead retunes the bandpass to
+        <code>src/instruments/sewage-chords.js</code>'s current circle-of-fifths note (MIDI→Hz) on every
+        fire — the original Max spec's intent, never shipped in <code>audio-layers.js</code>. Will not sound
+        like production, by design.
+      </p>
+      <div class="row"><label>CHORD</label><div class="field chordDisplay" id="chordDisplay">—</div></div>
     </section>
 
     <section class="panel ref">
@@ -275,26 +211,25 @@
 
   <div class="status">
     <div id="modeStatus">Walk simulation — off · water reference off</div>
+    <div id="midiStatus">MIDI — not requested</div>
     <div id="ctxStatus">AudioContext — not created</div>
   </div>
 
 </div>
 
-<script>
+<script type="module">
+import SewageRumble from '../src/instruments/sewage-rumble.js';
+import SewageJunctionThud from '../src/instruments/sewage-junction-thud.js';
+import SewageGurgle from '../src/instruments/sewage-gurgle.js';
+
 (() => {
   'use strict';
   const $=id=>document.getElementById(id);
   const num=id=>parseFloat($(id).value);
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-  const lerp=(a,b,t)=>a+(b-a)*t;
   const rand=(a,b)=>a+Math.random()*(b-a);
 
   const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
-  bind($('rumLvl'),$('rumLvlV'),2); bind($('surgeRate'),$('surgeRateV'),1);
-  bind($('surgeDep'),$('surgeDepV'),2); bind($('surgeCut'),$('surgeCutV'),0);
-  bind($('chQ'),$('chQV'),1); bind($('chLvl'),$('chLvlV'),2);
-  bind($('bubRise'),$('bubRiseV'),2); bind($('bubDec'),$('bubDecV'),2); bind($('bubLvl'),$('bubLvlV'),2);
-  bind($('falloff'),$('falloffV'),1); bind($('ramp'),$('rampV'),2);
   bind($('wLvl'),$('wLvlV'),2); bind($('wQ'),$('wQV'),1);
   bind($('master'),$('masterV'),2);
 
@@ -308,102 +243,21 @@
 
   // ---------- audio ----------
   let ctx=null,master=null,analyser=null,freqData=null,noiseBuf=null;
-  let layerGain,rumGain,lp1,lp2,lp3,hpF,surgeGain,chBP,chGain,bubBus;
+  let sewageRumble=null, sewageThud=null, sewageGurgle=null;
   let wRefGain=null,wRefA=null,wRefB=null,wRefSrc=null,wRefOn=false;
-  let gurgleTimer=null,surgeTimer=null;
 
   function makeNoise(ac){
     const len=ac.sampleRate*4;
     const b=ac.createBuffer(1,len,ac.sampleRate);
     const d=b.getChannelData(0);
-    let last=0;
-    for(let i=0;i<len;i++){
-      const w=Math.random()*2-1;
-      last=(last+0.012*w)/1.012;        // heavier brown tilt than the water bed
-      d[i]=last*5.2;
-    }
+    for(let i=0;i<len;i++) d[i]=Math.random()*2-1;
     return b;
-  }
-
-  function build(ac){
-    layerGain=ac.createGain(); layerGain.gain.value=0.0001; layerGain.connect(master);
-
-    const src=ac.createBufferSource(); src.buffer=noiseBuf; src.loop=true;
-
-    hpF=ac.createBiquadFilter(); hpF.type='highpass'; hpF.frequency.value=num('hp');
-    lp1=ac.createBiquadFilter(); lp1.type='lowpass'; lp1.Q.value=0.7;
-    lp2=ac.createBiquadFilter(); lp2.type='lowpass'; lp2.Q.value=0.7;
-    lp3=ac.createBiquadFilter(); lp3.type='lowpass'; lp3.Q.value=0.7;
-    surgeGain=ac.createGain(); surgeGain.gain.value=1;
-    rumGain=ac.createGain(); rumGain.gain.value=num('rumLvl');
-
-    src.connect(hpF).connect(lp1).connect(lp2).connect(lp3)
-       .connect(surgeGain).connect(rumGain).connect(layerGain);
-
-    // chamber resonance, tapped off the same bed
-    chBP=ac.createBiquadFilter(); chBP.type='bandpass';
-    chBP.frequency.value=num('chHz'); chBP.Q.value=num('chQ');
-    chGain=ac.createGain(); chGain.gain.value=num('chLvl');
-    hpF.connect(chBP).connect(chGain).connect(layerGain);
-
-    bubBus=ac.createGain(); bubBus.gain.value=1; bubBus.connect(layerGain);
-
-    src.start(ac.currentTime);
-    scheduleSurge(); scheduleGurgle();
-  }
-
-  // irregular amplitude + cutoff drift — a random walk, deliberately not periodic
-  function scheduleSurge(){
-    if(!ctx) return;
-    const now=ctx.currentTime;
-    const dep=num('surgeDep');
-    const target=1-dep*Math.random();
-    surgeGain.gain.setTargetAtTime(target,now,num('surgeRate')*0.4);
-    surgeOffset=(Math.random()*2-1)*num('surgeCut');
-    surgeTimer=setTimeout(scheduleSurge, rand(0.55,1.6)*num('surgeRate')*1000);
-  }
-  let surgeOffset=0;
-
-  // Minnaert: f ≈ 3.28 / r  (r in metres) — bubble size alone sets pitch
-  function bubbleHz(diameterMm){
-    const r=(diameterMm/1000)/2;
-    return clamp(3.28/r, 40, 6000);
-  }
-
-  function fireBubble(t0, gain){
-    const d=rand(num('szMin'),num('szMax'));
-    const f0=bubbleHz(d);
-    const rise=num('bubRise'), dec=num('bubDec');
-    const o=ctx.createOscillator(); o.type='sine';
-    o.frequency.setValueAtTime(f0,t0);
-    if(rise>0.001) o.frequency.exponentialRampToValueAtTime(f0*(1+rise), t0+dec*0.85);
-    const g=ctx.createGain();
-    g.gain.setValueAtTime(0.0001,t0);
-    g.gain.linearRampToValueAtTime(gain,t0+0.004);
-    g.gain.exponentialRampToValueAtTime(0.0001,t0+dec);
-    o.connect(g).connect(bubBus);
-    o.start(t0); o.stop(t0+dec+0.03);
-  }
-
-  function scheduleGurgle(){
-    if(!ctx) return;
-    const nearest=nearestDist();
-    if(nearest<=num('gurgGate')){
-      const prox=1-clamp(nearest/num('gurgGate'),0,1);
-      const n=Math.round(rand(num('bubMin'),num('bubMax')));
-      const t0=ctx.currentTime+0.01;
-      for(let i=0;i<n;i++){
-        fireBubble(t0+Math.pow(Math.random(),1.4)*0.22, num('bubLvl')*(0.35+0.65*prox)*0.5);
-      }
-    }
-    const iMin=num('intMin'), iMax=Math.max(num('intMin')+0.05,num('intMax'));
-    gurgleTimer=setTimeout(scheduleGurgle, rand(iMin,iMax)*1000);
   }
 
   function nearestDist(){
     let n=Infinity;
     for(const p of pipes) n=Math.min(n,p.dist);
-    return n;
+    return isFinite(n)?n:null;
   }
 
   // ---------- water reference ----------
@@ -439,37 +293,29 @@
   }
 
   function update(){
-    const now=ctx.currentTime, R=num('radius');
-    const inRange=pipes.filter(p=>p.dist<=R);
-    const nearest=inRange.length?Math.min(...inRange.map(p=>p.dist)):Infinity;
-    const prox=inRange.length?Math.pow(1-nearest/R,num('falloff')):0;
-    const dNorm=clamp((inRange.length-1)/5,0,1);
-    const dMul=num('dg1')+(num('dg6')-num('dg1'))*dNorm;
+    const now=ctx.currentTime;
+    const nearest=nearestDist();
 
-    layerGain.gain.setTargetAtTime(Math.max(0.0001,prox*dMul),now,num('ramp'));
+    if(sewageRumble) sewageRumble.update({nearestDist:nearest});
+    if(sewageGurgle) sewageGurgle.setGurgleActive(nearest!==null && nearest<=num('gurgGate'));
 
-    const cut=num('lpFar')+(num('lpNear')-num('lpFar'))*prox+surgeOffset;
-    const s=parseInt($('slope').value,10);
-    lp1.frequency.setTargetAtTime(cut,now,0.4);
-    lp2.frequency.setTargetAtTime(s>=2?cut:18000,now,0.4);
-    lp3.frequency.setTargetAtTime(s>=3?cut:18000,now,0.4);
-    hpF.frequency.setTargetAtTime(num('hp'),now,0.3);
-    rumGain.gain.setTargetAtTime(num('rumLvl'),now,0.2);
-    chBP.frequency.setTargetAtTime(num('chHz'),now,0.3);
-    chBP.Q.setTargetAtTime(num('chQ'),now,0.3);
-    chGain.gain.setTargetAtTime(num('chLvl'),now,0.3);
+    const inRange=nearest!==null && nearest<=80;
+    const gain=inRange?(1-nearest/80)*0.18:0;
+    $('rumbleNearest').textContent=nearest!==null?nearest.toFixed(1)+' m':'—';
+    $('rumbleGain').textContent=gain.toFixed(3);
 
     if(wRefGain){
       wRefA.frequency.setTargetAtTime(num('wLo'),now,0.3);
       wRefB.frequency.setTargetAtTime(num('wHi'),now,0.3);
       wRefA.Q.setTargetAtTime(num('wQ'),now,0.3);
       wRefB.Q.setTargetAtTime(num('wQ'),now,0.3);
+      const prox=inRange?Math.pow(1-nearest/80,1):0;
       wRefGain.gain.setTargetAtTime(wRefOn?Math.max(0.0001,num('wLvl')*prox*0.5):0.0001,now,0.4);
     }
 
-    $('pipeStats').textContent=inRange.length+' in range · nearest '+
-      (isFinite(nearest)?nearest.toFixed(1)+' m':'—')+' · gain '+(prox*dMul).toFixed(3)+
-      (nearest<=num('gurgGate')?' · gurgling':'');
+    $('pipeStats').textContent=pipes.filter(p=>p.dist<=80).length+' in range · nearest '+
+      (nearest!==null?nearest.toFixed(1)+' m':'—')+
+      (nearest!==null && nearest<=num('gurgGate')?' · gurgling':'');
   }
 
   // ---------- pipe table ----------
@@ -491,13 +337,13 @@
   buildPipes();
 
   function paintPipes(){
-    const R=num('radius');
+    const R=80;
     pipes.forEach((p,i)=>{
       const row=$('pr'+i); if(!row) return;
       row.classList.toggle('out',p.dist>R);
       const m=$('pm'+i); if(m) m.textContent=p.dist.toFixed(1);
       const b=$('pb'+i);
-      if(b){ const w=p.dist<=R?Math.pow(1-p.dist/R,num('falloff')):0; b.style.width=Math.round(w*60)+'px'; }
+      if(b){ const w=p.dist<=R?1-p.dist/R:0; b.style.width=Math.round(w*60)+'px'; }
     });
   }
 
@@ -535,18 +381,6 @@
       c2.fillText(f>=1000?(f/1000)+'k':String(f),x+3,h-4);
     });
 
-    if(ctx){
-      // bubble size range markers
-      const b1=bubbleHz(num('szMax')), b2=bubbleHz(num('szMin'));
-      c2.setLineDash([2,3]); c2.strokeStyle=css('--sew'); c2.globalAlpha=0.6;
-      [b1,b2].forEach(f=>{
-        if(f<fMin||f>fMax) return;
-        const x=Math.round(xOf(f))+0.5;
-        c2.beginPath(); c2.moveTo(x,16); c2.lineTo(x,h-14); c2.stroke();
-      });
-      c2.globalAlpha=1; c2.setLineDash([]);
-    }
-
     if(!ctx||!analyser) return;
     analyser.getByteFrequencyData(freqData);
     const bins=freqData.length;
@@ -574,11 +408,21 @@
     analyser=ctx.createAnalyser(); analyser.fftSize=4096; analyser.smoothingTimeConstant=0.8;
     freqData=new Uint8Array(analyser.frequencyBinCount);
     master.connect(analyser); master.connect(ctx.destination);
-    build(ctx); buildWaterRef(ctx);
+
+    sewageRumble=new SewageRumble(ctx, master);
+    sewageThud=new SewageJunctionThud(ctx, master, {
+      onFire:()=>{ $('thudStatus').textContent='fired '+new Date().toLocaleTimeString(); }
+    });
+    sewageGurgle=new SewageGurgle(ctx, master, {
+      onFire:(d)=>{ $('chordDisplay').textContent=d.chordName+' · note '+d.note+' · '+Math.round(d.freq)+'Hz'; }
+    });
+
+    buildWaterRef(ctx);
     $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
     $('btnWalk').disabled=false; $('btnWater').disabled=false; $('btnPanic').disabled=false;
-    $('scopeLabel').textContent='SPECTRUM — '+Math.round(ctx.sampleRate/1000)+' kHz · dashed = bubble size range';
+    $('scopeLabel').textContent='SPECTRUM — '+Math.round(ctx.sampleRate/1000)+' kHz';
     $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
+    requestMidi();
   }
   function status(){
     $('modeStatus').textContent='Walk simulation — '+(walking?'running':'off')+
@@ -589,6 +433,12 @@
   $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
   $('btnWalk').addEventListener('click',()=>{ walking=!walking; $('btnWalk').classList.toggle('on',walking); status(); });
   $('btnWater').addEventListener('click',()=>{ wRefOn=!wRefOn; $('btnWater').classList.toggle('wateron',wRefOn); status(); });
+  $('btnThudTest').addEventListener('click',()=>{
+    if(!sewageThud) return;
+    const held=sewageThud.isOnCooldown('J-01');
+    sewageThud.trigger({id:'J-01'});
+    if(held) $('thudStatus').textContent='held — still on cooldown';
+  });
   $('btnPanic').addEventListener('click',()=>{
     pipes.forEach((p,i)=>{p.dist=120;const el=document.querySelector('[data-dist="'+i+'"]');if(el)el.value=120;});
     walking=false; $('btnWalk').classList.remove('on'); status();
@@ -598,6 +448,35 @@
       e.preventDefault(); if(!ctx) enableAudio(); else $('btnWalk').click();
     }
   });
+
+  // ---------- Web MIDI — mirrors instruments/crossing-family.html's pattern ----------
+  // Any note-on fires the junction thud test (cooldown-respecting) — this page
+  // has only the one manually-triggerable behaviour (thud); rumble and gurgle
+  // are both proximity-driven from the simulated pipe table, not MIDI-playable.
+  async function requestMidi(){
+    if(!navigator.requestMIDIAccess){
+      $('midiStatus').innerHTML='MIDI — <span class="no">unsupported in this browser</span>';
+      return;
+    }
+    try{
+      const access=await navigator.requestMIDIAccess();
+      const names=[];
+      access.inputs.forEach(inp=>{ names.push(inp.name); inp.onmidimessage=onMidi; });
+      $('midiStatus').innerHTML=names.length
+        ? 'MIDI — <span class="ok">'+names.join(', ')+'</span>'
+        : 'MIDI — <span class="no">no inputs found</span>';
+    }catch(err){
+      $('midiStatus').innerHTML='MIDI — <span class="no">blocked in this context</span>';
+    }
+  }
+  function onMidi(ev){
+    const [status,d1,d2]=ev.data;
+    if((status&0xF0)===0x90 && d2>0 && sewageThud){
+      const held=sewageThud.isOnCooldown('J-01');
+      sewageThud.trigger({id:'J-01'});
+      if(held) $('thudStatus').textContent='held — still on cooldown';
+    }
+  }
 })();
 </script>
 </body>

@@ -340,7 +340,7 @@ See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log. N
 
 See `docs/Project_Plan_v3_5.md` for the phased timeline to public launch and `docs/Implementation_Plan.md` for the instrument build plan specifically. In brief, ahead of launch:
 
-- Instrument architecture: resolve the interface contract (still open), integrate the 10 surfaces already built (22 of 24 behaviours — see `docs/instrument-reference.html`) and build the 2 remaining
+- Instrument architecture: interface contract resolved (Option A, Step 1); electricity, water, tram, and sewage (Steps 2–5) fully rebuilt against it — 23 of 24 behaviours built (see `docs/instrument-reference.html`). Remaining: build telecom's node-entry chirp (Step 6) and Fernwärme's two spec-less behaviours (Step 7), then integrate the full instrument set into `index.html` and retire `audio-layers.js` (Step 8)
 - PWA: Service Worker, Web App Manifest, offline caching — not yet started
 - User testing across District 1
 - Documentation and launch materials

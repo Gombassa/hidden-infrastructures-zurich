@@ -336,27 +336,29 @@
 
     <div class="instr sew">
       <div class="instr-head">
-        <h3>Rumble &amp; Gurgle</h3>
+        <h3>Rumble, Junction Thud &amp; Gurgle</h3>
         <div><span class="tag sim">Simulation</span> <span class="file">sewage-rumble.html</span></div>
       </div>
       <div class="instr-body">
-        <p>Two behaviours on one surface because the gurgle is proximity-gated on the same bed — judging
-        one without the other tells you little. The widest radius of any layer at 80 m, so in District 1
-        this is almost always present.</p>
+        <p>Three behaviours on one surface, Step 5: rumble and junction thud are strict parity ports
+        (<code>src/instruments/sewage-rumble.js</code>, <code>sewage-junction-thud.js</code> — thud was
+        previously unbuilt). The gurgle is voiced by <code>sewage-gurgle.js</code>, which also drives the
+        alongside loop on <code>crossing-family.html</code> — see below for why that's not the usual
+        crossing/alongside pairing. The widest radius of any layer at 80 m, so in District 1 this is
+        almost always present.</p>
         <table>
-          <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
+          <thead><tr><th>Parameter</th><th>Value</th><th>What it does, and why</th></tr></thead>
           <tbody>
-            <tr><td class="p">Slope</td><td class="v">24 dB</td><td class="why">Steeper reads as further underground and is what keeps this clear of water's lowest resonance at 185 Hz.</td></tr>
-            <tr><td class="p">Surge</td><td class="v">3.4 s, random walk</td><td class="why">Deliberately not an LFO. Fernwärme owns periodic tremolo at 0.3 Hz; anything regular here would read as the same gesture on a different layer.</td></tr>
-            <tr><td class="p">Chamber</td><td class="v">74 Hz, Q 9</td><td class="why">A single low resonance suggests a void rather than a pipe. Keep Q modest — high Q makes it a pitch, and pitch belongs to water.</td></tr>
-            <tr><td class="p">Bubble size</td><td class="v">6–46 mm</td><td class="why">Roughly 1100–140 Hz. Ten times water's drip size, so the two should never be confused. Rise is the pitch climb as a bubble pinches off — set to 0 for a flat blip.</td></tr>
+            <tr><td class="p">Rumble filter</td><td class="v">180 Hz LP, Q 0.8, fixed</td><td class="why">Production has no cutoff sweep or slope selector — this page's earlier Slope/Surge/Chamber exploration had no production counterpart and was retired once the real class landed.</td></tr>
+            <tr><td class="p">Junction thud</td><td class="v">55 Hz, Q 3, 10s cooldown</td><td class="why">Manual test only — this page has no junction-clustering model (that's <code>computeSewageJunctions()</code> in <code>proximity-engine.js</code>).</td></tr>
+            <tr><td class="p">Gurgle burst</td><td class="v">Q 2.5, gain 0.06, 1.25–5s below 20m</td><td class="why">Pitch is a <b>deliberate Step 5 redesign</b>: bandpass center retunes to a ported circle-of-fifths engine's current note (MIDI→Hz) each fire, instead of production's fixed 100Hz — realizing the original Max spec's intent, never shipped in <code>audio-layers.js</code>.</td></tr>
             <tr><td class="p">Water reference</td><td class="v">off</td><td class="why">A stripped stand-in for the flow instrument so the collision can be heard on one page. Monitoring aid, not the real instrument.</td></tr>
           </tbody>
         </table>
-        <div class="note dec"><span class="lab">Waiting on</span>
-        Run the water reference, then mute it. If sewage was only distinguishable by contrast, the fix is
-        more likely steepening this slope than moving water — sewage has the whole bass to itself if it
-        stays there.</div>
+        <div class="note dec"><span class="lab">Non-parity by design</span>
+        The gurgle/alongside pitch will not and should not match <code>audio-layers.js</code> — same
+        treatment as the tram hiss pool redesign. Everything else on this surface (rumble, thud, crossing)
+        is strict parity.</div>
       </div>
     </div>
   </section>
@@ -458,26 +460,31 @@
         <div><span class="tag sim">Simulation</span> <span class="file">crossing-family.html</span></div>
       </div>
       <div class="instr-body">
-        <p>Eight behaviours on one surface — four crossing transients and four alongside loops. They share
-        one detection path and one voicing function; only frequency, Q, decay, sweep and noise balance
-        differ. The question is not whether each works but whether four transients stay legible when they
-        fire together.</p>
+        <p>Eight behaviours on one surface — four crossing transients and four alongside loops. Electricity,
+        water, and telecom (once Step 6 lands) share one detection path and one voicing function per layer;
+        only frequency, Q, decay, sweep and noise balance differ. <b>Sewage is the exception (Step 5):</b>
+        its crossing transient is voiced the same way (<code>SEWAGE_CROSSING</code> preset), but its
+        alongside loop is not — production re-fires the gurgle sound instead, so it's dispatched to a
+        separate <code>SewageGurgle</code> instance, not this shared voicing function. See the parameter
+        table below for the current (parity) crossing value; the field-tuned session further down predates
+        this split and describes the old exploratory "thud" panel.</p>
         <table>
           <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
           <tbody>
             <tr><td class="p">Water knock</td><td class="v">380 Hz, Q 18</td><td class="why">Resonant, short — a struck pipe, lower than the entry pulse.</td></tr>
-            <tr><td class="p">Sewage thud</td><td class="v">200 Hz, Q 6</td><td class="why">Duller and more damped. Low Q is what makes it read as unpitched.</td></tr>
+            <tr><td class="p">Sewage crossing</td><td class="v">200 Hz, Q 3.5</td><td class="why">Production's exact value (<code>SEWAGE_CROSSING</code>, Step 5) — the prototype's exploratory Q 6 is superseded. Alongside is a different sound entirely; see above.</td></tr>
             <tr><td class="p">Electricity snap</td><td class="v">2200 Hz, 0.06 s</td><td class="why">Sharp, fully noise-based, almost no decay.</td></tr>
             <tr><td class="p">Telecom click</td><td class="v">3500 Hz × 1.71</td><td class="why">The sweep multiplier gives the documented 3500→6000 Hz. Sweep is what makes it a click rather than a knock.</td></tr>
             <tr><td class="p">Collisions</td><td class="v">150 ms window</td><td class="why">Two transients inside the window count as one collision. Turns amber past 25% — at that point they are arriving as composites and individual tuning will not fix it.</td></tr>
             <tr><td class="p">Stagger</td><td class="v">0 ms</td><td class="why">Delays colliding events so they arrive in sequence rather than as a chord. A small lie about simultaneity in exchange for legibility.</td></tr>
           </tbody>
         </table>
-        <div class="note dec"><span class="lab">Architectural finding</span>
-        This family is one instrument with four presets, not eight instruments. Treating it as a single
-        module would take the inventory from 24 to about 17. The detection block here is
-        <b>identical</b> to the Fernwärme surface — check the two agree before either set of values is
-        treated as settled.</div>
+        <div class="note dec"><span class="lab">Architectural finding, revised in Step 5</span>
+        This family was expected to become one instrument with four presets, taking the inventory from 24
+        to about 17. Sewage's alongside loop doesn't fit that shape (see above), so the reduction is no
+        longer a clean "8 rows → 4" — recheck the arithmetic once telecom (Step 6) confirms whether its
+        alongside loop matches electricity/water's pattern or sewage's. The detection block here is still
+        <b>identical</b> to the Fernwärme surface for the layers that do share it.</div>
 
         <h3>Field-tuned values — session 1 (2026-08-18)</h3>
         <p>Console dump of every control's live value after a hand-tuning pass on <code>crossing-family.html</code>.
@@ -615,16 +622,17 @@
     <h2 class="sec"><span class="num">12</span>How to move forward</h2>
 
     <div class="statusgrid">
-      <div class="stat"><div class="n">22/24</div><div class="l">Behaviours built</div></div>
+      <div class="stat"><div class="n">23/24</div><div class="l">Behaviours built</div></div>
       <div class="stat"><div class="n">2/10</div><div class="l">GPS-wired</div></div>
       <div class="stat"><div class="n">0</div><div class="l">Integrated</div></div>
-      <div class="stat"><div class="n">2</div><div class="l">Behaviours remaining</div></div>
+      <div class="stat"><div class="n">1</div><div class="l">Behaviours remaining</div></div>
     </div>
 
-    <p>Still unbuilt: the <b>sewage junction thud</b> and the <b>telecom node-entry chirp</b>. The chirp is
-    structurally identical to the water entry pulse. The thud is the only behaviour driven by a computed
-    rather than a given feature — junctions are derived by clustering pipe endpoints at 8 m — which makes
-    it worth building rather than assuming.</p>
+    <p>Still unbuilt: the <b>telecom node-entry chirp</b>, structurally identical to the water entry pulse.
+    The <b>sewage junction thud</b> (Step 5) was the only behaviour driven by a computed rather than a given
+    feature — junctions are derived by clustering pipe endpoints at 8 m — and is now built as
+    <code>src/instruments/sewage-junction-thud.js</code>, manual-test-only on this page since the junction
+    clustering itself isn't simulated here.</p>
 
     <ol class="steps">
       <li>

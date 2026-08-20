@@ -152,7 +152,7 @@
       <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
         Voiced by the real <b>LineCrossingVoice</b> class now (WATER_CROSSING preset), not this page's
         <code>transient()</code>: <b>380 Hz · Q 4 · 400ms decay · cooldown 3s · alongside ~3.5s ±30%</b>
-        jitter, no panning, no reverb send. Sewage/telecom below are unchanged.
+        jitter, no panning, no reverb send. Telecom below is unchanged.
       </p>
       <div class="row"><label>TEST</label>
         <div class="field"><button id="btnWaterTest" type="button" style="width:100%">Fire crossing (W-1140)</button></div>
@@ -163,14 +163,25 @@
     </section>
 
     <section class="panel ls">
-      <div class="panel-head"><h2>Sewage — thud</h2><div class="note">200 Hz</div></div>
-      <div class="row"><label>FREQ Hz</label><div class="field"><input type="number" id="s_hz" value="200" step="5" min="40" max="12000"></div></div>
-      <div class="row"><label>Q</label><div class="field"><input type="range" id="s_q" min="1" max="50" step="1" value="6"><span class="val" id="s_qV">6</span></div></div>
-      <div class="row"><label>DECAY s</label><div class="field"><input type="range" id="s_dec" min="0.02" max="1.2" step="0.01" value="0.38"><span class="val" id="s_decV">0.38</span></div></div>
-      <div class="row"><label>SWEEP ×</label><div class="field"><input type="range" id="s_swp" min="0.4" max="3" step="0.05" value="0.7"><span class="val" id="s_swpV">0.70</span></div></div>
-      <div class="row"><label>NOISE</label><div class="field"><input type="range" id="s_noi" min="0" max="1" step="0.01" value="0.9"><span class="val" id="s_noiV">0.90</span></div></div>
-      <div class="row"><label>LEVEL</label><div class="field"><input type="range" id="s_lvl" min="0" max="1" step="0.01" value="0.42"><span class="val" id="s_lvlV">0.42</span></div></div>
-      <div class="row"><label>ALONG s</label><div class="field"><input type="range" id="s_int" min="1" max="20" step="0.5" value="4"><span class="val" id="s_intV">4.0</span></div></div>
+      <div class="panel-head"><h2>Sewage — crossing</h2><div class="note">ported — src/instruments/line-crossing-voice.js + sewage-gurgle.js</div></div>
+      <p class="hint" style="margin-top:0;padding-top:0;border-top:none">
+        Crossing voiced by the real <b>LineCrossingVoice</b> class (SEWAGE_CROSSING preset):
+        <b>200 Hz · Q 3.5 · 350ms decay · cooldown 3s</b>, no panning, no reverb send. Alongside is
+        <i>not</i> this same sound re-fired — production re-fires the <b>gurgle</b> sound instead
+        (confirmed against <code>docs/Technical_Architecture_v5.md</code>), so alongside here is a
+        separate <b>SewageGurgle</b> instance: ~4s ±35% jitter, bandpass retuned each fire to the
+        current circle-of-fifths note (<code>src/instruments/sewage-chords.js</code>) — a deliberate
+        redesign from production's fixed 100Hz, decided in Step 5. Telecom below is unchanged.
+      </p>
+      <div class="row"><label>TEST</label>
+        <div class="field"><button id="btnSewageTest" type="button" style="width:100%">Fire crossing (S-3011)</button></div>
+      </div>
+      <div class="row"><label>ALONGSIDE</label>
+        <div class="field"><button id="btnSewageAlong" type="button" style="width:100%">Toggle alongside (gurgle voice)</button></div>
+      </div>
+      <div class="row"><label>CHORD</label>
+        <div class="field" id="sewageChordDisplay" style="font-family:var(--mono);font-size:11px;color:var(--ink-2)">—</div>
+      </div>
     </section>
 
     <section class="panel le">
@@ -179,7 +190,7 @@
         Voiced by the real <b>LineCrossingVoice</b> class now, not this page's <code>transient()</code> —
         parameters are fixed to production's values and no longer tunable from here:
         <b>2200 Hz · Q 8 · 80ms decay · cooldown 3s · alongside ~5s ±40%</b> jitter, no panning, no reverb send.
-        Water/sewage/telecom below are unchanged — still the prototype's own synthesis, pending their own steps.
+        Telecom below is unchanged — still the prototype's own synthesis, pending Step 6.
       </p>
       <div class="row"><label>TEST</label>
         <div class="field"><button id="btnElecTest" type="button" style="width:100%">Fire crossing (E-2204)</button></div>
@@ -239,7 +250,8 @@
 
 <script type="module">
 import LineCrossingVoice from '../src/instruments/line-crossing-voice.js';
-import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-crossing-presets.js';
+import { ELECTRICITY_CROSSING, WATER_CROSSING, SEWAGE_CROSSING } from '../src/instruments/line-crossing-presets.js';
+import SewageGurgle from '../src/instruments/sewage-gurgle.js';
 
 (() => {
   'use strict';
@@ -250,9 +262,9 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
   const R2D=180/Math.PI;
 
   const bind=(i,o,d)=>{const s=()=>{o.textContent=parseFloat(i.value).toFixed(d)};i.addEventListener('input',s);s();};
-  // Electricity ('e') and water ('w') no longer have tunable synthesis controls —
-  // voiced by the real LineCrossingVoice class now, params fixed to production's values.
-  ['s','t'].forEach(k=>{
+  // Electricity ('e'), water ('w'), and sewage ('s') no longer have tunable synthesis
+  // controls — voiced by real classes now, params fixed to production's values.
+  ['t'].forEach(k=>{
     bind($(k+'_q'),$(k+'_qV'),0); bind($(k+'_dec'),$(k+'_decV'),2);
     bind($(k+'_swp'),$(k+'_swpV'),2); bind($(k+'_noi'),$(k+'_noiV'),2);
     bind($(k+'_lvl'),$(k+'_lvlV'),2); bind($(k+'_int'),$(k+'_intV'),1);
@@ -311,8 +323,14 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
 
   // ---------- audio ----------
   let ctx=null,master=null,noiseBuf=null,analyser=null;
-  const REAL_VOICE_PRESETS={e:ELECTRICITY_CROSSING,w:WATER_CROSSING}; // extend in Steps 5/6
+  const REAL_VOICE_PRESETS={e:ELECTRICITY_CROSSING,w:WATER_CROSSING,s:SEWAGE_CROSSING}; // telecom extends this in Step 6
   const REAL_VOICES={}; // populated in enableAudio() once instances exist
+  // Sewage's alongside loop does NOT reuse SEWAGE_CROSSING/REAL_VOICES.s — production
+  // re-fires the gurgle sound for alongside, not the crossing snap (see
+  // src/instruments/sewage-gurgle.js's header and src/instruments/line-crossing-presets.js's
+  // SEWAGE_CROSSING comment). This separate instance is what sewage's alongside
+  // dispatch actually drives; REAL_VOICES.s is crossing-only for sewage.
+  let sewageGurgleVoice=null; // populated in enableAudio()
 
   function makeNoise(ac){
     const len=ac.sampleRate;
@@ -419,11 +437,16 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
   // ---------- detection, once per fix ----------
   // Layers with a real LineCrossingVoice (REAL_VOICES, populated in enableAudio())
   // are voiced through it instead of fire()/startAlong()/stopAlong() — see the
-  // branches below. Layers not yet in REAL_VOICES (sewage/telecom, pending Steps
-  // 5/6) are unchanged. Alongside is aggregated into one shared
-  // voice.setAlongsideActive() call per pass per real-voiced layer (matching
-  // production's single shared boolean for the whole layer), not per-line like
-  // this prototype's alongState Map handles the remaining prototype-only layers.
+  // branches below. Layers not yet in REAL_VOICES (telecom, pending Step 6) are
+  // unchanged. Alongside is aggregated into one shared voice.setAlongsideActive()
+  // call per pass per real-voiced layer (matching production's single shared
+  // boolean for the whole layer), not per-line like this prototype's alongState
+  // Map handles the remaining prototype-only layers.
+  //
+  // Sewage is the one exception to "REAL_VOICES[L] handles both crossing and
+  // alongside": REAL_VOICES.s is crossing-only (production's alongside re-fires
+  // the gurgle sound, not the crossing snap — see sewage-gurgle.js) so its
+  // alongside dispatch is redirected to sewageGurgleVoice instead, below.
   function evaluate(newFix, nowMs){
     if(prevFix){
       const moved=Math.hypot(newFix.x-prevFix.x,newFix.y-prevFix.y);
@@ -457,7 +480,10 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
             stopAlong(line.id);
           }
         }
-        for(const L in REAL_VOICES) REAL_VOICES[L].setAlongsideActive(familyAlongside[L]);
+        for(const L in REAL_VOICES){
+          if(L==='s'){ if(sewageGurgleVoice) sewageGurgleVoice.setAlongsideActive(familyAlongside[L]); continue; }
+          REAL_VOICES[L].setAlongsideActive(familyAlongside[L]);
+        }
       }
     }
     prevFix=newFix;
@@ -617,6 +643,12 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
       REAL_VOICES[L]=new LineCrossingVoice(ctx, master, REAL_VOICE_PRESETS[L],
         { onFire:(kind,detail)=>logFamilyFire(L,kind,detail?.id) });
     }
+    sewageGurgleVoice=new SewageGurgle(ctx, master, {
+      onFire:(d)=>{
+        $('sewageChordDisplay').textContent=d.chordName+' · note '+d.note+' · '+Math.round(d.freq)+'Hz';
+        if(d.source==='alongside') logFamilyFire('s','alongside');
+      }
+    });
     $('btnAudio').textContent='Audio running'; $('btnAudio').disabled=true;
     $('btnWalk').disabled=false;
     $('ctxStatus').innerHTML='AudioContext — <span class="ok">running @ '+ctx.sampleRate+' Hz</span>';
@@ -628,8 +660,10 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
   $('master').addEventListener('input',()=>{ if(master) master.gain.setTargetAtTime(num('master'),ctx.currentTime,0.02); });
   $('btnWalk').addEventListener('click',()=>{ walking=!walking; $('btnWalk').classList.toggle('on',walking); status(); });
 
-  // Generic manual test/alongside wiring for any real-voiced layer — id and log
-  // class parameterized so adding sewage/telecom in Steps 5/6 is a one-liner each.
+  // Generic manual test/alongside wiring for any real-voiced layer — crossing (TEST)
+  // is a one-liner per layer via REAL_VOICES[L]; alongside is too EXCEPT for sewage,
+  // where it must redirect to sewageGurgleVoice instead of REAL_VOICES.s (see the
+  // comment on sewageGurgleVoice's declaration above) — the one non-generic branch.
   const alongTestActive={};
   function wireManualTest(btnId, alongBtnId, L, testId){
     alongTestActive[L]=false;
@@ -640,7 +674,7 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
       log(held?'end':'l'+L, (held?'HELD    ':'CROSS   ')+testId+' ('+LAYERS[L].name+') — manual test'+(held?', still on cooldown':''));
     });
     $(alongBtnId).addEventListener('click',()=>{
-      const voice=REAL_VOICES[L]; if(!voice) return;
+      const voice=(L==='s')?sewageGurgleVoice:REAL_VOICES[L]; if(!voice) return;
       alongTestActive[L]=!alongTestActive[L];
       voice.setAlongsideActive(alongTestActive[L]);
       $(alongBtnId).classList.toggle('on',alongTestActive[L]);
@@ -649,6 +683,7 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
   }
   wireManualTest('btnElecTest','btnElecAlong','e','E-2204');
   wireManualTest('btnWaterTest','btnWaterAlong','w','W-1140');
+  wireManualTest('btnSewageTest','btnSewageAlong','s','S-3011');
 
   document.addEventListener('keydown',e=>{
     if(e.code==='Space'&&!/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
@@ -658,11 +693,13 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
 
   // ---------- Web MIDI — mirrors instruments/hiss-voice.html's pattern ----------
   // Note-on -> trigger() on whichever real voice the note range targets, with a
-  // synthetic id per note. Split is arbitrary but documented: notes < 72 target
-  // electricity, >= 72 target water (extend for sewage/telecom in Steps 5/6).
-  // CC64 (sustain) is not per-note, so it's not layer-selective either — it
-  // toggles setAlongsideActive() on every real voice at once, a documented
-  // simplification rather than a UI selector on this dev-only surface.
+  // synthetic id per note. Split is arbitrary but documented: notes < 48 target
+  // electricity, 48-71 water, >= 72 sewage's crossing voice (extend for telecom
+  // in Step 6). CC64 (sustain) is not per-note, so it's not layer-selective
+  // either — it toggles setAlongsideActive() on every real voice at once (and
+  // on sewageGurgleVoice, since REAL_VOICES.s's alongside isn't the one that
+  // actually sounds for sewage — see above), a documented simplification
+  // rather than a UI selector on this dev-only surface.
   async function requestMidi(){
     if(!navigator.requestMIDIAccess){
       $('midiStatus').innerHTML='MIDI — <span class="no">unsupported in this browser</span>';
@@ -683,10 +720,13 @@ import { ELECTRICITY_CROSSING, WATER_CROSSING } from '../src/instruments/line-cr
     const [status,d1,d2]=ev.data;
     const cmd=status&0xF0;
     if(cmd===0x90 && d2>0){
-      const voice=d1<72?REAL_VOICES.e:REAL_VOICES.w;
+      const voice=d1<48?REAL_VOICES.e:d1<72?REAL_VOICES.w:REAL_VOICES.s;
       if(voice) voice.trigger({id:'midi-'+d1});
     }else if(cmd===0xB0 && d1===64){
-      for(const L in REAL_VOICES) REAL_VOICES[L].setAlongsideActive(d2>=64);
+      for(const L in REAL_VOICES){
+        if(L==='s'){ if(sewageGurgleVoice) sewageGurgleVoice.setAlongsideActive(d2>=64); continue; }
+        REAL_VOICES[L].setAlongsideActive(d2>=64);
+      }
     }
   }
 

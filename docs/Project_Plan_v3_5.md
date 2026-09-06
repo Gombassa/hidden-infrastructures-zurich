@@ -2,9 +2,9 @@
 
 ## **Project Plan — 6 Infrastructure Layers, District 1**
 
-**Document version:** v3.5.4 — September 2026
+**Document version:** v3.5.5 — September 2026
 
-**Changes from v3.5.3 (Steps 6–8 complete, field walk round 1):** Telecom (Step 6) and Fernwärme (Step 7) are fully rebuilt as real instrument classes — all 24 behaviours across all 6 layers are now built, closing out the "only telecom's chirp remains" gap this document previously tracked. `index.html` has been reintegrated onto a new orchestrator (`src/instrument-layers.js`) in place of `audio-layers.js` (Step 8) — but only on the `step-8-reintegration` branch, not `main`; production Cloud Run traffic is unaffected until Step 8's field-walk gate closes. Round 1 of that field walk (2026-09) found the electricity layer too loud overall, fixed with a -9dB trim, redeployed to a separate `--no-traffic` Cloud Run test revision (tagged `step8`) for further rounds. Phase 3's Step 3 checklist below ("Reintegration") is now substantively done in code, pending only that field validation — see `docs/Implementation_Plan.md` v2.1 for the full record. Not re-run here: the Timeline Reality Check's week-accounting, per this document's own convention (see `docs/CHANGELOG.md`'s v3.5.1 entry) of not inventing derived numbers without a real basis — the remaining unknown is field-walk duration, not build time, which this document isn't positioned to estimate.
+**Changes from v3.5.4 (funding application dead):** The Stadt Zürich Digitale Künste — Umsetzung und Präsentation application was never submitted — its 1 September 2026 deadline has passed with nothing filed, and no external funding is currently being pursued. Removed every place that treated it as pending: the Timeline Reality Check's opening framing (it no longer "consumes real working days"), and both "development continues regardless of funding outcome" lines (Timeline Reality Check and Critical Path), which read as hedging against an outcome that no longer exists — replaced with the settled fact that development proceeds on existing hardware and GCP free/low-cost tiers, not contingent on any application. The Budget section is retitled **historical** (the costed scope as prepared for that application, not current spend) with a leading paragraph stating no application was submitted and none is being pursued; its arithmetic — how CHF 12,819 became CHF 10,700 — is kept intact as the audit trail, not deleted. The June 2026 Ideenfindung und Konzeptentwicklung refusal (ref 2026/KTR 24950, Architecture Decision section) is a separate, earlier event and stays unchanged — it remains the stated rationale for the Max/MSP + RNBO pivot, unaffected by this application's fate.
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -263,7 +263,7 @@ Phase 3 replaces the single `src/audio-layers.js` module with self-contained ins
 
 ### **Timeline Reality Check**
 
-Today is 27 July 2026. The public launch target was September 2026. Between now and launch sits the Stadt Zürich Digitale Künste — Umsetzung und Präsentation funding application, due 1 September (out of scope for this document, but it will consume real working days in the first third of Phase 3).
+Today is 27 July 2026. The public launch target was September 2026. **Update, September 2026: the Stadt Zürich Digitale Künste — Umsetzung und Präsentation funding application referenced below as a live consideration was never submitted.** Its 1 September deadline has passed with nothing filed, and no external funding is currently being pursued — it no longer consumes any working days in Phase 3, or figures into this timeline at all.
 
 **Decision: accept a launch slip into October rather than cutting scope to force September.** At full scope — interface-contract decision, 24 instruments each with its own authoring-only HTML control surface, the district musical theme, PWA groundwork plus completion, a 15-person testing round, and documentation — this does not fit before the end of September for a solo developer. Rough accounting (**stale as of August 2026 — see below**): 1 week for the interface-contract decision (now also covering the pool-exhaustion policy — see `docs/Implementation_Plan.md`), 4–5 weeks to build and control-surface the 21 remaining instruments (with reduced velocity around the 1 September deadline), **+1 week (estimate, not verified against any prior data point) for the district musical theme workstream, newly pulled into Phase 3 scope**, 1 week PWA completion (groundwork now front-loaded into Phase 3's parallel slack alongside the instrument weeks, so it isn't added as separate sequential time — treat this as risk reduction for Phase 4 Week 1, not a time saving), 2–3 weeks for testing (scheduling and running 15 walks takes real calendar time, not just working hours), 1 week documentation, plus launch week. That totals to roughly **11–13 weeks** from today — landing in **mid-to-late October**, roughly a week or two later than this document's previous estimate, because the theme and PWA-groundwork scope added by this revision aren't free.
 
@@ -271,7 +271,7 @@ Today is 27 July 2026. The public launch target was September 2026. Between now 
 
 This was weighed against cutting scope to hit September instead — reducing control-surface count, shrinking the pre-launch testing pool, or consolidating instrument granularity — and October was chosen over those cuts. Instrument granularity was decided to stay at 24 but that decision is **now resolved toward partial consolidation, not held at 24** (see `docs/Implementation_Plan.md` Decision Point 4 and `docs/Technical_Architecture_v5.md`'s Granularity section — `crossing-family.html`'s consolidation finding held for electricity and water, partially for sewage, and not at all for telecom, so the 24-behaviour inventory ends up realised by 15 instrument classes, not 24 separate ones), and control surfaces were meant to be authoring-only by default but are **actually reachable in production already** (Decision Point 2, still reopened) — the control-surface assumption this time estimate rests on remains a live question; the granularity one no longer is. Pre-launch testing scope (15 vs. a smaller pilot) remains open and is the one lever still available if mid-to-late October slips further — see Phase 4, Week 2–3 below.
 
-**Development continues regardless of funding outcome** — this was true before the pivot and remains true now; the toolchain narrowing described in this revision is not contingent on the pending application either.
+**Development continues, not contingent on any funding** — this was true before the pivot and remains true now. No application is pending: the Digitale Künste — Umsetzung und Präsentation application was never submitted (see the update above), and none is currently being pursued. The toolchain narrowing described in this revision was never contingent on it either.
 
 This section will need revisiting once the interface-contract decision (Phase 3, Step 1) is made and its actual build time is known — the estimate above is necessarily approximate before that.
 
@@ -350,7 +350,7 @@ Rather than storing audio, the archive captures the "score" of each walk — the
 
 **Phase 4 (September–October 2026):** PWA (Service Worker, offline caching, Web App Manifest), user testing, documentation, public launch. See Timeline Reality Check above — launch is expected in October, accepted rather than compressed to hit September.
 
-Development continues regardless of funding outcome.
+Development continues on existing hardware and GCP's free/low-cost tiers — not contingent on external funding, none of which is currently being pursued (see Budget below, retitled to reflect this).
 
 ---
 
@@ -430,9 +430,11 @@ Development continues regardless of funding outcome.
 
 ---
 
-## **Budget**
+## **Budget (historical — costed for the abandoned funding application)**
 
-**Total: CHF 10,700** (Stadt Zürich Digitale Künste — Umsetzung und Präsentation, 1 September 2026 deadline)
+No application was ultimately submitted — the Stadt Zürich Digitale Künste — Umsetzung und Präsentation application's 1 September 2026 deadline passed with nothing filed, and no external funding is currently being pursued. Everything below is retained as a historical artefact: the costed scope as it was prepared for that application, not the project's actual current spend. The project is proceeding at effectively zero cost, on existing hardware and GCP's free/low-cost tiers (see `docs/Technical_Architecture_v5.md`'s Deployment section for what's actually running). The arithmetic below — how CHF 12,819 became CHF 10,700 across two revisions — is kept intact as the audit trail for that costing exercise, not because it reflects money currently being spent.
+
+**Total as costed for that application: CHF 10,700** (Stadt Zürich Digitale Künste — Umsetzung und Präsentation — application never submitted; figure retained for the audit trail below)
 
 ### **Infrastructure & Hosting (CHF 1,200)**
 
@@ -475,6 +477,6 @@ District 1 musical theme composition (CHF 1,500 in v3.5) is removed from the bud
 
 ---
 
-**Document Version:** 3.5.4
+**Document Version:** 3.5.5
 **Last Updated:** September 2026
 **Next Review:** Step 8's field-walk gate closing (no regression confirmed, `step-8-reintegration` merged to `main`) — the Timeline Reality Check above should be revisited then with an actual build-time data point, since only the field-walk duration remains genuinely unknown at that point.

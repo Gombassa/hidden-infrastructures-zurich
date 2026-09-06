@@ -306,6 +306,10 @@ Two things this script cannot reach, and still need a human:
 
 Do **not** add `docs/phase2-data-layer.md` to `TARGET_DOCS` — it's an intentionally frozen iteration log, not a live figure; its staleness is flagged elsewhere rather than corrected.
 
+**Standing instruction — version history goes in `docs/CHANGELOG.md`, not the document header.**
+
+`docs/Project_Plan_v3_5.md` and `docs/Technical_Architecture_v5.md` each carry only their *current* version's "Changes from vX.Y" note near the top of the document, followed by a one-line pointer to `docs/CHANGELOG.md`. Every prior version's entry lives in `docs/CHANGELOG.md` instead (one section per document, newest-first, one subsection per version) — moved there verbatim, meta-commentary included, when this convention was introduced (2026-09). When either document's version bumps again: add the new entry to `docs/CHANGELOG.md` at the top of that document's section, and replace the header's "Changes from..." note with the new one (the old one moves to the changelog, it doesn't accumulate in the header). Footers keep only `Document Version` / `Last Updated` (plus, for Technical Architecture, `Author`/`Contact`/`Repository`/`Deployed`) — no changelog content there.
+
 Audio lifecycle:
 - Unlock Audio: ProximityEngine.init() + AudioContext.resume() only — no synthesis nodes
 - Start: InstrumentLayers.init(ctx) — creates all nodes incl. shared reverb bus first; TramEngine.start()

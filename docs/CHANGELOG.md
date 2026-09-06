@@ -8,6 +8,10 @@ Version history for the project's planning and architecture documents, moved out
 
 ## Project Plan (`docs/Project_Plan_v3_5.md`)
 
+### v3.5.7
+
+**Changes from v3.5.6 (dead backend items removed; phase2-data-layer.md flag simplified):** Removed "Cloud Firestore — cache tram data" and "Cloud Functions — API aggregation" from Technical Stack → Backend — both were marked "not yet implemented," and a grep confirms neither is used anywhere in the codebase; `TramEngine` polls transport.opendata.ch directly from the client. Dropped as never-implemented, not deferred — there is no plan to build either. Also simplified the Data Layer section's `docs/phase2-data-layer.md` cross-reference now that document carries its own frozen-historical-snapshot banner (added this pass) — the "flagged, not corrected" explanation here was redundant once the source document says so itself.
+
 ### v3.5.6
 
 **Changes from v3.5.5 (stale behaviour-count fixes):** Corrected three present-tense "~23"/"21 remaining" instrument-count references that had never been updated to the current 24-item behaviour inventory (Water Flow's addition) — the Architecture decision paragraph, the Instrument architecture risk in Risk Mitigation, and Step 1/2's "remaining 21 instruments" checklist items (now 22, i.e. 24 minus Step 1's two proof instruments). The Architecture decision and Risk Mitigation edits also now say explicitly that behaviour count and instrument-class count are different numbers since consolidation (24 behaviours, 15 classes as of Step 8) — the original wording used one number for both, which was accurate under the plan as announced but not after `docs/Implementation_Plan.md` Decision Point 4. Left untouched, per this document's own convention: the three "not one of the 24 instruments (was 23)" district-theme mentions (a different, already-correct claim), and the "15 instruments in" risk-communication phrase in the Instrument architecture risk's Mitigation line (a hypothetical build-depth marker, coincidentally reusing 15, unrelated to today's class count).
@@ -53,6 +57,10 @@ Version history for the project's planning and architecture documents, moved out
 ---
 
 ## Technical Architecture (`docs/Technical_Architecture_v5.md`)
+
+### v5.5
+
+**Changes from v5.4 (diagram labeling + phase2-data-layer.md frozen):** The System Architecture Overview's Data Flow and Audio Graph diagrams are now explicitly labeled production/`main` — both were accurate for `main` but the document elsewhere describes Step 8's `src/instrument-layers.js` orchestrator, which they didn't reflect. Added a short delta note after each diagram describing what changes on `step-8-reintegration` (not a second diagram): `InstrumentLayers.update()`/`.onListenerMove()` replacing `AudioLayers`'s, the same 5-node shared-reverb topology now built from 17 instances across 15 classes under `src/instruments/*.js`, and the -9dB electricity master-gain trim from field-walk round 1. Also simplified two `docs/phase2-data-layer.md` cross-references (Data Layer section, Performance Optimisation) now that that document carries its own frozen-historical-snapshot banner — the per-document "flagged, not corrected" explanation was redundant once the source document says so itself.
 
 ### v5.4
 

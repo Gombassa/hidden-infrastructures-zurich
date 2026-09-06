@@ -1,5 +1,7 @@
 # Phase 2 Data Layer — Planning & Iteration
 
+> **Historical snapshot (2026-09) — not maintained.** This is a frozen Phase 2 iteration log. Its feature counts, per-file breakdowns, and the deployed URL below reflect specific points in time during April–July 2026 (as few as 12 GeoShop tile orders in places) and are not kept current — the different count sections in this document don't even agree with each other, each having been written against whatever tile set existed that day. For live figures, see the generated counts table in `docs/Project_Plan_v3_5.md`, `docs/Technical_Architecture_v5.md`, `README.md`, or `CLAUDE.md` (kept current by `scripts/generate-counts.js`, which deliberately excludes this file). For current ProximityEngine radii and behaviour, see `docs/Technical_Architecture_v5.md` and the live code (`src/proximity-engine.js`, `src/instrument-layers.js`), not this document. What remains genuinely useful here: the Decisions Log below and the per-layer sound-design rationale — both are historical record, not live figures, and don't go stale the way a count does.
+
 ## Status
 
 **GeoShop tile orders:** 30 total (55297–55476). Extraction script: `scripts/extract-lk-geojson.js`. Manifest: `data/processed/.processed-orders.json` (tracked in git). Automated ingestion: `scripts/import-new-tiles.js`. All tiles processed with deduplication. ✅

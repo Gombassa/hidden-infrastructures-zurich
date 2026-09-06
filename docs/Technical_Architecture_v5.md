@@ -1,8 +1,8 @@
 # Hidden Infrastructures: Zürich — Technical Architecture
 
-**Document version:** v5.4 — September 2026
+**Document version:** v5.5 — September 2026
 
-**Changes from v5.3 (Steps 6–8 complete, field walk round 1):** Telecom (Step 6) and Fernwärme (Step 7) are fully rebuilt as real `src/instruments/*.js` classes — all 24 behaviours across all 6 layers are now built (was 23/24, only telecom's node-entry chirp unbuilt, as of v5.3). `index.html` has been reintegrated onto a new orchestrator, `src/instrument-layers.js`, in place of `audio-layers.js` (Step 8) — but only on the `step-8-reintegration` branch; `audio-layers.js` remains the untouched, field-tested reference and stays what `main`/Cloud Run's production traffic actually serves until a field walk confirms no regression. Round 1 of that field walk (2026-09) found the electricity layer too loud overall; fixed with a -9dB trim at its master gain stage, redeployed to a `--no-traffic`, `step8`-tagged Cloud Run test revision (0% production traffic) for further rounds. See `docs/Implementation_Plan.md` v2.1 for the full record. `docs/Project_Plan_v3_5.md` updated in step.
+**Changes from v5.4 (diagram labeling + phase2-data-layer.md frozen):** The System Architecture Overview's Data Flow and Audio Graph diagrams are now explicitly labeled production/`main` — both were accurate for `main` but the document elsewhere describes Step 8's `src/instrument-layers.js` orchestrator, which they didn't reflect. Added a short delta note after each diagram describing what changes on `step-8-reintegration` (not a second diagram): `InstrumentLayers.update()`/`.onListenerMove()` replacing `AudioLayers`'s, the same 5-node shared-reverb topology now built from 17 instances across 15 classes under `src/instruments/*.js`, and the -9dB electricity master-gain trim from field-walk round 1. Also simplified two `docs/phase2-data-layer.md` cross-references (Data Layer section, Performance Optimisation) now that that document carries its own frozen-historical-snapshot banner — the per-document "flagged, not corrected" explanation was redundant once the source document says so itself.
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -239,7 +239,7 @@ Each behaviour becomes its own small module (a factory function returning `{ upd
 
 # System Architecture Overview
 
-## Data Flow
+## Data Flow (production / `main`)
 
 ```
 transport.opendata.ch API (10s)
@@ -254,6 +254,8 @@ ProximityEngine.js ← lk-*.geojson (7 files, loaded once)
         ↓
 Web Audio API (destination → headphones)
 ```
+
+This is what `main`/Cloud Run actually runs today. On the `step-8-reintegration` branch (not yet merged), the last hop changes: `index.html` calls `InstrumentLayers.update(proximity, lat, lng, heading, speed)` instead of `AudioLayers.update(...)` — same shape and same caller, different orchestrator. See the Audio Graph section below for the fuller delta.
 
 ## ProximityEngine Output Shape
 
@@ -274,7 +276,7 @@ Web Audio API (destination → headphones)
 }
 ```
 
-## Audio Graph (simplified, current implementation)
+## Audio Graph (simplified, production / `main`)
 
 ```
 TramEngine tick / GPS fix
@@ -291,9 +293,14 @@ Per-layer synthesis nodes (all in audio-layers.js)
 sharedReverbBus → Convolver (1.8s IR) → sharedReverbOut (density-driven wet) → destination
 ```
 
+**Delta on `step-8-reintegration` (not yet merged to `main`) — not a second diagram, just what changes:**
+- Entry point: `InstrumentLayers.update()` / `.onListenerMove()` (`src/instrument-layers.js`) replaces `AudioLayers.update()` / `.onListenerMove()` above.
+- The five per-layer nodes shown above are no longer inline in one file — each is now a real class under `src/instruments/*.js` (17 instances built from 15 classes, since some behaviours consolidated onto shared classes — see the Granularity section above). The graph topology they build is otherwise the same shape: same five continuous-gain nodes feeding the same `sharedReverbBus` → `Convolver` (1.8s IR) → `sharedReverbOut` chain shown above, ported node-for-node into `_initSharedReverb()`/`_buildReverb()` in `instrument-layers.js`.
+- One node value differs from the diagram above: `elecMasterGain`'s target now carries an additional **-9dB trim** (`FIELD_TRIM_DB = -9` in `electricity-oscillator-pool.js`), applied after the existing density/proximity formula and before both the `destination` and `sharedReverbBus` sends — so it scales electricity's whole output uniformly, reverb send included. This came from round 1 of the Step 8 field walk (2026-09: electricity read as too loud) and has no counterpart in `main`'s `audio-layers.js`, which is unmodified.
+
 ## Performance Optimisation
 
-**Spatial culling:** `cullBounds()` computes a bounding box at 100m radius; `cullLines()` and `cullPoints()` pre-filter features before distance math. `docs/phase2-data-layer.md`'s "26,936 total features" figure (historical, April 2026) is long superseded — see the counts table above for the current total, which keeps growing with each GeoShop ingestion; the post-cull "~50–200 nearby" figure was never formally measured (`docs/Project_Plan_v3_5.md`'s Phase 3 checklist says as much) and isn't corrected here since there's nothing to recompute it from — it needs an actual field measurement, not a document edit.
+**Spatial culling:** `cullBounds()` computes a bounding box at 100m radius; `cullLines()` and `cullPoints()` pre-filter features before distance math. `docs/phase2-data-layer.md`'s old feature-count figures (see its banner — a frozen historical snapshot) are long superseded; see the counts table above for the current total, which keeps growing with each GeoShop ingestion. The post-cull "~50–200 nearby" figure was never formally measured (`docs/Project_Plan_v3_5.md`'s Phase 3 checklist says as much) and isn't corrected here since there's nothing to recompute it from — it needs an actual field measurement, not a document edit.
 
 **Movement detection:** `extendLinesWithMovement()` only fires crossing/alongside logic when `moveDist > MIN_MOVE_METRES (0.5m)` and a previous position exists — prevents spurious events on GPS jitter.
 
@@ -332,7 +339,7 @@ Current per-file counts (plus `substations.geojson`, 71 features, loaded separat
 *Generated by `scripts/generate-counts.js` from `data/processed/.processed-orders.json` and `public/lk-*.geojson` — do not hand-edit the content between the markers above and below.*
 <!-- COUNTS:END -->
 
-See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log. Note: that document's own "Extracted Files" feature counts reflect an earlier 12-order snapshot and are stale against the totals above — flagged, not corrected, per that document's own scope.
+See `docs/phase2-data-layer.md` for the extraction pipeline and decision history — a frozen historical snapshot (see its banner), not a live figure; its counts are not kept current against the totals above.
 
 # Deployment
 
@@ -361,7 +368,7 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.4
+**Document Version:** 5.5
 **Last Updated:** September 2026
 **Author:** Robin Pender
 **Contact:** robinpender23@gmail.com

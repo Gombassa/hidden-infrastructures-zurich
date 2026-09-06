@@ -2,9 +2,9 @@
 
 ## **Project Plan — 6 Infrastructure Layers, District 1**
 
-**Document version:** v3.5.6 — September 2026
+**Document version:** v3.5.7 — September 2026
 
-**Changes from v3.5.5 (stale behaviour-count fixes):** Corrected three present-tense "~23"/"21 remaining" instrument-count references that had never been updated to the current 24-item behaviour inventory (Water Flow's addition) — the Architecture decision paragraph, the Instrument architecture risk in Risk Mitigation, and Step 1/2's "remaining 21 instruments" checklist items (now 22, i.e. 24 minus Step 1's two proof instruments). The Architecture decision and Risk Mitigation edits also now say explicitly that behaviour count and instrument-class count are different numbers since consolidation (24 behaviours, 15 classes as of Step 8) — the original wording used one number for both, which was accurate under the plan as announced but not after `docs/Implementation_Plan.md` Decision Point 4. Left untouched, per this document's own convention: the three "not one of the 24 instruments (was 23)" district-theme mentions (a different, already-correct claim), and the "15 instruments in" risk-communication phrase in the Instrument architecture risk's Mitigation line (a hypothetical build-depth marker, coincidentally reusing 15, unrelated to today's class count).
+**Changes from v3.5.6 (dead backend items removed; phase2-data-layer.md flag simplified):** Removed "Cloud Firestore — cache tram data" and "Cloud Functions — API aggregation" from Technical Stack → Backend — both were marked "not yet implemented," and a grep confirms neither is used anywhere in the codebase; `TramEngine` polls transport.opendata.ch directly from the client. Dropped as never-implemented, not deferred — there is no plan to build either. Also simplified the Data Layer section's `docs/phase2-data-layer.md` cross-reference now that document carries its own frozen-historical-snapshot banner (added this pass) — the "flagged, not corrected" explanation here was redundant once the source document says so itself.
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -55,7 +55,7 @@ Two JavaScript engine modules and an inline GPS listener form the core of the ap
 
 ### **Data Layer**
 
-All six infrastructure layers extracted and serving from `public/`. See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log, and `docs/Technical_Architecture_v5.md` for ProximityEngine radii — `phase2-data-layer.md`'s own feature-count table reflects a much earlier 12-order snapshot and is stale against the current totals; flagged there rather than corrected, since that document's data content is otherwise out of scope for this revision. See `CLAUDE.md`'s standing instruction for how the figures below are kept current.
+All six infrastructure layers extracted and serving from `public/`. See `docs/phase2-data-layer.md` for the extraction pipeline and decision history (a frozen historical snapshot, not a live figure — see its banner) and `docs/Technical_Architecture_v5.md` for current ProximityEngine radii. See `CLAUDE.md`'s standing instruction for how the figures below are kept current.
 
 <!-- COUNTS:BEGIN -->
 | File | Total features | By geomType | Size |
@@ -315,8 +315,6 @@ Rather than storing audio, the archive captures the "score" of each walk — the
 ### **Backend**
 
 * **Google Cloud Platform** — existing GCP account, containerised deployment via Cloud Run
-* **Cloud Firestore** — cache tram data (free tier) — not yet implemented
-* **Cloud Functions** — API aggregation (free tier) — not yet implemented
 
 ### **Data Sources**
 
@@ -477,6 +475,6 @@ District 1 musical theme composition (CHF 1,500 in v3.5) is removed from the bud
 
 ---
 
-**Document Version:** 3.5.6
+**Document Version:** 3.5.7
 **Last Updated:** September 2026
 **Next Review:** Step 8's field-walk gate closing (no regression confirmed, `step-8-reintegration` merged to `main`) — the Timeline Reality Check above should be revisited then with an actual build-time data point, since only the field-walk duration remains genuinely unknown at that point.

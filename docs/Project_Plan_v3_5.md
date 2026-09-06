@@ -2,9 +2,9 @@
 
 ## **Project Plan — 6 Infrastructure Layers, District 1**
 
-**Document version:** v3.5.5 — September 2026
+**Document version:** v3.5.6 — September 2026
 
-**Changes from v3.5.4 (funding application dead):** The Stadt Zürich Digitale Künste — Umsetzung und Präsentation application was never submitted — its 1 September 2026 deadline has passed with nothing filed, and no external funding is currently being pursued. Removed every place that treated it as pending: the Timeline Reality Check's opening framing (it no longer "consumes real working days"), and both "development continues regardless of funding outcome" lines (Timeline Reality Check and Critical Path), which read as hedging against an outcome that no longer exists — replaced with the settled fact that development proceeds on existing hardware and GCP free/low-cost tiers, not contingent on any application. The Budget section is retitled **historical** (the costed scope as prepared for that application, not current spend) with a leading paragraph stating no application was submitted and none is being pursued; its arithmetic — how CHF 12,819 became CHF 10,700 — is kept intact as the audit trail, not deleted. The June 2026 Ideenfindung und Konzeptentwicklung refusal (ref 2026/KTR 24950, Architecture Decision section) is a separate, earlier event and stays unchanged — it remains the stated rationale for the Max/MSP + RNBO pivot, unaffected by this application's fate.
+**Changes from v3.5.5 (stale behaviour-count fixes):** Corrected three present-tense "~23"/"21 remaining" instrument-count references that had never been updated to the current 24-item behaviour inventory (Water Flow's addition) — the Architecture decision paragraph, the Instrument architecture risk in Risk Mitigation, and Step 1/2's "remaining 21 instruments" checklist items (now 22, i.e. 24 minus Step 1's two proof instruments). The Architecture decision and Risk Mitigation edits also now say explicitly that behaviour count and instrument-class count are different numbers since consolidation (24 behaviours, 15 classes as of Step 8) — the original wording used one number for both, which was accurate under the plan as announced but not after `docs/Implementation_Plan.md` Decision Point 4. Left untouched, per this document's own convention: the three "not one of the 24 instruments (was 23)" district-theme mentions (a different, already-correct claim), and the "15 instruments in" risk-communication phrase in the Instrument architecture risk's Mitigation line (a hypothetical build-depth marker, coincidentally reusing 15, unrelated to today's class count).
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -78,7 +78,7 @@ All six infrastructure layers extracted and serving from `public/`. See `docs/ph
 
 All six audio layers have been field-tested and confirmed working as Web Audio API procedural synthesis in `src/audio-layers.js`. This is no longer a placeholder awaiting a production toolchain — see the architecture decision below.
 
-**Architecture decision (July 2026): Max/MSP + RNBO dropped.** Production sound design will not be authored in Max/MSP and exported via RNBO. Instead, each of the ~23 sonic behaviours across the six layers is being rebuilt as a self-contained Web Audio instrument module in JavaScript, each with a paired HTML control surface for hands-on sound design and MIDI-driven auditioning.
+**Architecture decision (July 2026): Max/MSP + RNBO dropped.** Production sound design will not be authored in Max/MSP and exported via RNBO. Instead, each of the 24 sonic behaviours across the six layers is being rebuilt as a self-contained Web Audio instrument, each with a paired HTML control surface for hands-on sound design and MIDI-driven auditioning. (This was the plan as announced — behaviour count and instrument-class count are no longer the same number: some behaviours later consolidated onto shared classes, 24 behaviours realised by 15 instrument classes as of Step 8; see `docs/Technical_Architecture_v5.md`'s Granularity section.)
 
 **Why now:** a CHF 9,000 Ideenfindung und Konzeptentwicklung funding application (ref 2026/KTR 24950) was refused in June 2026, making avoidance of non-essential spend a live constraint — see Budget below. But the deeper reason is that direct Web Audio synthesis was already this project's field-validated fallback in every prior risk-mitigation section; this pivot simply promotes the fallback to the primary path. Authoring and deployment now share one runtime, with no export step and no toolchain drift between what's designed and what ships. See `docs/Technical_Architecture_v5.md` for the full rationale, the instrument granularity decision, and the (currently open) interface-contract choice, and `docs/Implementation_Plan.md` for the build order.
 
@@ -198,12 +198,12 @@ Phase 3 replaces the single `src/audio-layers.js` module with self-contained ins
 **Step 1: Interface Contract**
 
 * [ ] Build one instrument under each (or a fast subset) of the three candidate contracts in `docs/Technical_Architecture_v5.md`
-* [ ] Decide the contract before building the remaining 21 instruments
+* [ ] Decide the contract before building the remaining 22 instruments
 * **Deliverable:** Chosen interface contract, validated against at least one pool-type instrument (not just a simple one-shot)
 
 **Step 2: Instrument Build-out**
 
-* [ ] Build remaining 21 instruments grouped by layer, per the order and reasoning in `docs/Implementation_Plan.md`
+* [ ] Build remaining 22 instruments grouped by layer, per the order and reasoning in `docs/Implementation_Plan.md`
 * [ ] HTML control surface per instrument, authoring-only by default (see Timeline Reality Check and `docs/Implementation_Plan.md`, Decision Points item 2)
 * [ ] Resolve pool-exhaustion behaviour (silent drop vs. nearest-wins swap) explicitly for each pool instrument
 * [ ] Mapping-curve audit pass on all layers except tram crackle (already validated)
@@ -370,7 +370,7 @@ Development continues on existing hardware and GCP's free/low-cost tiers — not
 
 **Instrument architecture risk (replaces the retired "RNBO patch performance" risk)**
 
-* **Challenge:** Rebuilding ~23 behaviours as self-contained instruments under a not-yet-chosen interface contract, within a tight timeline (see Timeline Reality Check), carries real risk of scope overrun or of a contract choice that doesn't hold up once most instruments are built.
+* **Challenge:** Rebuilding 24 behaviours as self-contained instruments under a not-yet-chosen interface contract, within a tight timeline (see Timeline Reality Check), carries real risk of scope overrun or of a contract choice that doesn't hold up once most instruments are built. (As built, behaviour count and instrument-class count diverged — see the Architecture decision paragraph above.)
 * **Mitigation:** Phase 3 Step 1 deliberately builds one instrument under each candidate contract, including at least one pool-type instrument, before committing — the costliest mistake (choosing wrong, then discovering it 15 instruments in) is front-loaded into a single small phase.
 * **Fallback:** If a chosen contract proves wrong partway through, the current `audio-layers.js` behaviour functions remain a working reference implementation throughout the rebuild — nothing is deleted until its replacement is field-validated, so there is no point at which the app has no working audio.
 
@@ -477,6 +477,6 @@ District 1 musical theme composition (CHF 1,500 in v3.5) is removed from the bud
 
 ---
 
-**Document Version:** 3.5.5
+**Document Version:** 3.5.6
 **Last Updated:** September 2026
 **Next Review:** Step 8's field-walk gate closing (no regression confirmed, `step-8-reintegration` merged to `main`) — the Timeline Reality Check above should be revisited then with an actual build-time data point, since only the field-walk duration remains genuinely unknown at that point.

@@ -33,6 +33,23 @@
 // listener-distance itself and does NOT filter by `triggered` at all,
 // matching production's _updateHissGains exactly (hiss is purely
 // listener-distance-driven, independent of tram activity).
+//
+// Field-walk finding (2026-09, Step 8 reintegration test): audible dropouts
+// and glitching reported specifically while riding a tram, not walking.
+// Root cause: instrument-layers.js's onListenerMove() calls update() on
+// every GPS fix, unthrottled (index.html's watchPosition has no rate limit
+// beyond device cadence). Every feeder newly entering or leaving RADIUS
+// triggers a claim/steal that fully constructs or tears down a
+// TramHissVoice — ~10 Web Audio nodes (buffer source, 2 tone oscillators,
+// 2 LFOs, delay+feedback, bandpass, panner, envelope) with ramps, plus a
+// 1.8s delayed teardown timer on release (see tram-hiss-voice.js). At
+// walking speed that churn is spread out enough to be inaudible; at tram
+// speed the listener crosses the same RADIUS zones several times faster,
+// compressing a route's worth of construct/teardown events into a couple
+// of seconds. Fixed by rate-limiting the claim/release/steal pass to
+// CLAIM_THROTTLE_MS — panner repositioning (setListenerState, cheap, no
+// node construction) still runs on every call so spatial tracking stays
+// smooth between throttled passes.
 
 import { Instrument } from './instrument-base.js';
 import { PoolAllocator } from './pool-allocator.js';
@@ -41,6 +58,7 @@ import { flatEarthDist, feederKey } from './tram-spatial.js';
 
 const RADIUS = 25; // metres — matches production's FEEDER_HISS_RADIUS
 const POOL_SIZE = 6; // matches production's slot count
+const CLAIM_THROTTLE_MS = 500; // minimum interval between claim/release/steal passes
 
 export default class TramHissPool extends Instrument {
   constructor(ctx, outputNode, { onEvent } = {}) {
@@ -48,6 +66,7 @@ export default class TramHissPool extends Instrument {
     this._allocator = new PoolAllocator({ size: POOL_SIZE, policy: 'margin', marginPct: 20 });
     this._voices = new Map(); // key -> TramHissVoice
     this._onEvent = onEvent || (() => {});
+    this._lastClaimPassMs = 0;
   }
 
   // { feeders, listenerLat, listenerLng, listenerHeading }
@@ -60,37 +79,45 @@ export default class TramHissPool extends Instrument {
       if (dist <= RADIUS) inRange.push({ key: feederKey(f.lat, f.lng), lat: f.lat, lng: f.lng, dist });
     }
 
-    const seenKeys = new Set();
-    for (const { key, lat, lng, dist } of inRange) {
-      seenKeys.add(key);
-      const result = this._allocator.claim(key, dist);
-      if (result.action === 'claim') {
-        const voice = new TramHissVoice(this.ctx, this.outputNode, { feederKey: key, feederLat: lat, feederLng: lng, distance: dist });
-        this._voices.set(key, voice);
-        this._onEvent('claim', { featureId: key, dist });
-      } else if (result.action === 'steal') {
-        const stolen = this._voices.get(result.stolenFeatureId);
-        if (stolen) { stolen.release(); this._voices.delete(result.stolenFeatureId); }
-        const voice = new TramHissVoice(this.ctx, this.outputNode, { feederKey: key, feederLat: lat, feederLng: lng, distance: dist });
-        this._voices.set(key, voice);
-        this._onEvent('steal', { featureId: key, dist, stolenFeatureId: result.stolenFeatureId });
-      } else if (result.action === 'update') {
-        const voice = this._voices.get(key);
-        if (voice) voice.setDistance(dist);
-      } else if (result.action === 'refuse') {
-        this._onEvent('refuse', { featureId: key, dist });
+    const now = Date.now();
+    if (now - this._lastClaimPassMs >= CLAIM_THROTTLE_MS) {
+      this._lastClaimPassMs = now;
+
+      const seenKeys = new Set();
+      for (const { key, lat, lng, dist } of inRange) {
+        seenKeys.add(key);
+        const result = this._allocator.claim(key, dist);
+        if (result.action === 'claim') {
+          const voice = new TramHissVoice(this.ctx, this.outputNode, { feederKey: key, feederLat: lat, feederLng: lng, distance: dist });
+          this._voices.set(key, voice);
+          this._onEvent('claim', { featureId: key, dist });
+        } else if (result.action === 'steal') {
+          const stolen = this._voices.get(result.stolenFeatureId);
+          if (stolen) { stolen.release(); this._voices.delete(result.stolenFeatureId); }
+          const voice = new TramHissVoice(this.ctx, this.outputNode, { feederKey: key, feederLat: lat, feederLng: lng, distance: dist });
+          this._voices.set(key, voice);
+          this._onEvent('steal', { featureId: key, dist, stolenFeatureId: result.stolenFeatureId });
+        } else if (result.action === 'update') {
+          const voice = this._voices.get(key);
+          if (voice) voice.setDistance(dist);
+        } else if (result.action === 'refuse') {
+          this._onEvent('refuse', { featureId: key, dist });
+        }
+      }
+
+      for (const key of this._allocator.activeFeatureIds()) {
+        if (!seenKeys.has(key)) {
+          this._allocator.release(key);
+          const voice = this._voices.get(key);
+          if (voice) { voice.release(); this._voices.delete(key); }
+          this._onEvent('release', { featureId: key });
+        }
       }
     }
 
-    for (const key of this._allocator.activeFeatureIds()) {
-      if (!seenKeys.has(key)) {
-        this._allocator.release(key);
-        const voice = this._voices.get(key);
-        if (voice) { voice.release(); this._voices.delete(key); }
-        this._onEvent('release', { featureId: key });
-      }
-    }
-
+    // Always reposition already-active voices' panners, even on a throttled
+    // tick — this is cheap (three setTargetAtTime calls per voice, no node
+    // construction) and keeps spatial tracking smooth between claim passes.
     for (const voice of this._voices.values()) {
       voice.setListenerState({ lat: listenerLat, lng: listenerLng, heading: listenerHeading });
     }

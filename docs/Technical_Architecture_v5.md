@@ -1,8 +1,8 @@
 # Hidden Infrastructures: Zürich — Technical Architecture
 
-**Document version:** v5.6 — October 2026
+**Document version:** v5.7 — October 2026
 
-**Changes from v5.5 (Step 8 merged, live in production):** `step-8-reintegration` merged to `main` on 2026-10-02 (commit `646b8a3`) after a second field-walk round (tram-hiss audio glitching at tram speed, fixed with a claim-rate throttle) came back clean, satisfying Step 8's "Done means" gate alongside round 1's electricity trim. Rewrote the System Architecture Overview's Data Flow and Audio Graph diagrams to show `InstrumentLayers`/`src/instruments/*.js` as what production actually runs now, with `AudioLayers`/`audio-layers.js` demoted to a historical note (previously the reverse — the diagrams showed the old architecture as current and the new one as a branch-only "delta," which stopped being true the moment this merged). Updated Future Development Work's instrument-architecture bullet to say merged and live rather than "on the step-8-reintegration branch, pending a field walk." Deployment was verified by inspecting the live production JS bundle for code fingerprints, not just by the build reporting success — see `docs/Implementation_Plan.md` Step 8 for why that extra check mattered here.
+**Changes from v5.6 (audio-layers.js archived; step8 Cloud Run tag cleaned up):** `src/audio-layers.js` — superseded since the Step 8 merge but kept rather than deleted — has been moved to `Archive/audio-layers.js` (file untouched otherwise); `ab-compare.html`'s Path A import updated to the new path. The `step8`-tagged Cloud Run test revision, redundant since the merge, has been cleaned up: tag removed via `gcloud run services update-traffic ... --remove-tags=step8` and the orphaned revision deleted (2026-10-02). Updated path references in the Data Flow/Audio Graph sections and the Future Development Work bullet accordingly; left the older "Development Status" section's pre-rebuild baseline description as a historical snapshot rather than rewritten, consistent with how that section was already written before this pass.
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -255,7 +255,7 @@ ProximityEngine.js ← lk-*.geojson (7 files, loaded once)
 Web Audio API (destination → headphones)
 ```
 
-This is what `main`/Cloud Run actually runs today, as of the Step 8 merge (2026-10-02, commit `646b8a3`). Before that merge, this last hop was `AudioLayers.update(proximity, lat, lng, heading)` — same shape, same caller, different orchestrator; `audio-layers.js` is superseded and retained in the repo only as reference, no longer live. See the Audio Graph section below for what changed underneath this call.
+This is what `main`/Cloud Run actually runs today, as of the Step 8 merge (2026-10-02, commit `646b8a3`). Before that merge, this last hop was `AudioLayers.update(proximity, lat, lng, heading)` — same shape, same caller, different orchestrator; `audio-layers.js` is superseded, no longer live, and has been moved to `Archive/audio-layers.js` as a kept-not-deleted reference. See the Audio Graph section below for what changed underneath this call.
 
 ## ProximityEngine Output Shape
 
@@ -293,7 +293,7 @@ src/instruments/*.js classes (17 instances, 15 classes — orchestrated by instr
 sharedReverbBus → Convolver (1.8s IR) → sharedReverbOut (density-driven wet) → destination
 ```
 
-**Historical note — this is the second generation of this graph, not a hypothetical.** Until the Step 8 merge (2026-10-02, commit `646b8a3`), production ran `AudioLayers.update()`/`.onListenerMove()` with all five continuous-gain nodes inline in one file (`audio-layers.js`), same topology, no per-instrument class boundaries — same five nodes feeding the same `sharedReverbBus` → `Convolver` (1.8s IR) → `sharedReverbOut` chain shown above. `audio-layers.js` is retained in the repo as the field-tested reference those classes were built against (`ab-compare.html`'s Path A still imports it directly), but `index.html` no longer does. Two node values above have no counterpart in `audio-layers.js` — both are field-walk fixes made during the Step 8 branch's own validation, not parity ports: electricity's master gain carries an additional **-9dB trim** (`FIELD_TRIM_DB = -9` in `electricity-oscillator-pool.js`, applied after the density/proximity formula, before both the `destination` and `sharedReverbBus` sends, so it scales the whole layer uniformly); and the tram-hiss pool's claim/release/steal pass is rate-limited to 500ms (`CLAIM_THROTTLE_MS` in `tram-hiss-pool.js`, not visible in this simplified diagram) to stop audio glitching at tram speed.
+**Historical note — this is the second generation of this graph, not a hypothetical.** Until the Step 8 merge (2026-10-02, commit `646b8a3`), production ran `AudioLayers.update()`/`.onListenerMove()` with all five continuous-gain nodes inline in one file (`audio-layers.js`), same topology, no per-instrument class boundaries — same five nodes feeding the same `sharedReverbBus` → `Convolver` (1.8s IR) → `sharedReverbOut` chain shown above. That file is kept, not deleted, now archived at `Archive/audio-layers.js` as the field-tested reference those classes were built against (`ab-compare.html`'s Path A imports it from there), but `index.html` no longer does. Two node values above have no counterpart in `audio-layers.js` — both are field-walk fixes made during the Step 8 branch's own validation, not parity ports: electricity's master gain carries an additional **-9dB trim** (`FIELD_TRIM_DB = -9` in `electricity-oscillator-pool.js`, applied after the density/proximity formula, before both the `destination` and `sharedReverbBus` sends, so it scales the whole layer uniformly); and the tram-hiss pool's claim/release/steal pass is rate-limited to 500ms (`CLAIM_THROTTLE_MS` in `tram-hiss-pool.js`, not visible in this simplified diagram) to stop audio glitching at tram speed.
 
 ## Performance Optimisation
 
@@ -354,7 +354,7 @@ See `docs/phase2-data-layer.md` for the extraction pipeline and decision history
 
 See `docs/Project_Plan_v3_5.md` for the phased timeline to public launch and `docs/Implementation_Plan.md` for the instrument build plan specifically. In brief, ahead of launch:
 
-- Instrument architecture: interface contract resolved (Option A, Step 1), both pool-paradigm checkpoints closed (Steps 4, 6); electricity, water, tram, sewage, telecom, and Fernwärme (Steps 2–7) fully rebuilt against it — all 24 behaviours built (see `docs/instrument-reference.html`). `index.html` is reintegrated onto the new `src/instrument-layers.js` orchestrator in place of `audio-layers.js` (Step 8) — **merged to `main` and live in production since 2026-10-02** (commit `646b8a3`). Two field-walk rounds found and fixed real issues before the gate closed: electricity read too loud, trimmed -9dB; and audio glitched riding a tram, fixed with a claim-rate throttle in the tram-hiss pool. `audio-layers.js` stays in the repo, untouched, as reference — no longer imported by `index.html`, pending a decision on deleting it
+- Instrument architecture: interface contract resolved (Option A, Step 1), both pool-paradigm checkpoints closed (Steps 4, 6); electricity, water, tram, sewage, telecom, and Fernwärme (Steps 2–7) fully rebuilt against it — all 24 behaviours built (see `docs/instrument-reference.html`). `index.html` is reintegrated onto the new `src/instrument-layers.js` orchestrator in place of `audio-layers.js` (Step 8) — **merged to `main` and live in production since 2026-10-02** (commit `646b8a3`). Two field-walk rounds found and fixed real issues before the gate closed: electricity read too loud, trimmed -9dB; and audio glitched riding a tram, fixed with a claim-rate throttle in the tram-hiss pool. `audio-layers.js` stays in the repo, untouched, as reference — no longer imported by `index.html`, moved to `Archive/audio-layers.js` rather than deleted
 - PWA: Service Worker, Web App Manifest, offline caching — not yet started
 - User testing across District 1
 - Documentation and launch materials
@@ -365,8 +365,8 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.6
-**Last Updated:** September 2026
+**Document Version:** 5.7
+**Last Updated:** October 2026
 **Author:** Robin Pender
 **Contact:** robinpender23@gmail.com
 **Repository:** https://github.com/Gombassa/hiddeninfrastructures-zurich

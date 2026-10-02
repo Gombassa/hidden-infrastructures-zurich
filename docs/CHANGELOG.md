@@ -8,6 +8,10 @@ Version history for the project's planning and architecture documents, moved out
 
 ## Project Plan (`docs/Project_Plan_v3_5.md`)
 
+### v3.5.9
+
+**Changes from v3.5.8 (audio-layers.js archived; step8 Cloud Run tag cleaned up):** `audio-layers.js` — superseded since the Step 8 merge, kept rather than deleted — has been moved to `Archive/audio-layers.js`. The `step8`-tagged Cloud Run test revision, redundant since the merge, has been cleaned up (tag removed, orphaned revision deleted, 2026-10-02). Updated the Timeline Reality Check's "still open" list and the Risk Mitigation fallback note to reflect the new path and the resolved decision (archive, not delete).
+
 ### v3.5.8
 
 **Changes from v3.5.7 (Step 8 merged, live in production):** `step-8-reintegration` merged to `main` on 2026-10-02 (commit `646b8a3`) after a second field-walk round (tram-hiss audio glitching at tram speed, fixed with a claim-rate throttle) came back clean, satisfying Step 8's Done-means gate alongside round 1's electricity -9dB trim. Updated the Phase 3 progress note, the Critical Path's bracketed-status line (reintegration and field-parity both now [done], not [in progress]), the Timeline Reality Check's stale-accounting note, and the Next Review footer — all previously said "on the `step-8-reintegration` branch, pending a field walk," which stopped being true the moment this merged. `audio-layers.js` is superseded, retained as reference pending a decision on deleting it.
@@ -62,6 +66,10 @@ Version history for the project's planning and architecture documents, moved out
 
 ## Technical Architecture (`docs/Technical_Architecture_v5.md`)
 
+### v5.7
+
+**Changes from v5.6 (audio-layers.js archived; step8 Cloud Run tag cleaned up):** `src/audio-layers.js` — superseded since the Step 8 merge but kept rather than deleted — has been moved to `Archive/audio-layers.js` (file untouched otherwise); `ab-compare.html`'s Path A import updated to the new path. The `step8`-tagged Cloud Run test revision, redundant since the merge, has been cleaned up: tag removed via `gcloud run services update-traffic ... --remove-tags=step8` and the orphaned revision deleted (2026-10-02). Updated path references in the Data Flow/Audio Graph sections and the Future Development Work bullet accordingly; left the older "Development Status" section's pre-rebuild baseline description as a historical snapshot rather than rewritten, consistent with how that section was already written before this pass.
+
 ### v5.6
 
 **Changes from v5.5 (Step 8 merged, live in production):** `step-8-reintegration` merged to `main` on 2026-10-02 (commit `646b8a3`) after a second field-walk round (tram-hiss audio glitching at tram speed, fixed with a claim-rate throttle) came back clean, satisfying Step 8's "Done means" gate alongside round 1's electricity trim. Rewrote the System Architecture Overview's Data Flow and Audio Graph diagrams to show `InstrumentLayers`/`src/instruments/*.js` as what production actually runs now, with `AudioLayers`/`audio-layers.js` demoted to a historical note (previously the reverse — the diagrams showed the old architecture as current and the new one as a branch-only "delta," which stopped being true the moment this merged). Updated Future Development Work's instrument-architecture bullet to say merged and live rather than "on the step-8-reintegration branch, pending a field walk." Deployment was verified by inspecting the live production JS bundle for code fingerprints, not just by the build reporting success — see `docs/Implementation_Plan.md` Step 8 for why that extra check mattered here.
@@ -93,6 +101,10 @@ Version history for the project's planning and architecture documents, moved out
 ---
 
 ## Implementation Plan (`docs/Implementation_Plan.md`)
+
+### v2.4
+
+**Changes from v2.3 (audio-layers.js archived; step8 Cloud Run tag cleaned up):** `src/audio-layers.js` — kept, not deleted, now that the parity comparison it existed for has passed — has been moved to `Archive/audio-layers.js` (file untouched otherwise); `ab-compare.html`'s Path A import updated to the new path. The `step8`-tagged Cloud Run test revision, redundant since the merge, has been cleaned up: tag removed via `gcloud run services update-traffic ... --remove-tags=step8` and the orphaned revision deleted (2026-10-02). Updated Step 8's "Done"/field-walk text and the Risks section's regression-mitigation bullet to point at the new path.
 
 ### v2.3
 

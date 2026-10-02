@@ -52,10 +52,11 @@
   <div class="cols">
     <div class="col a">
       <h2>Path A — centre</h2>
-      <p>Unmodified <code>src/audio-layers.js</code> (<code>AudioLayers</code>), all 6 layers. This is the
-      current field-tested production sound. Plays centred — <code>AudioLayers</code> connects straight to
-      <code>ctx.destination</code> with no output node this harness can redirect without editing production
-      code, which this rebuild keeps untouched throughout.</p>
+      <p>Unmodified <code>Archive/audio-layers.js</code> (<code>AudioLayers</code>), all 6 layers. This was
+      the production sound prior to the Step 8 merge (2026-10-02) and is kept here, archived but untouched,
+      as the parity baseline Path B was built and field-validated against. Plays centred — <code>AudioLayers</code>
+      connects straight to <code>ctx.destination</code> with no output node this harness can redirect without
+      editing that code, which this rebuild keeps untouched throughout.</p>
     </div>
     <div class="col b">
       <h2>Path B — right ear</h2>
@@ -100,7 +101,7 @@
 <script type="module">
 import TramEngine from './src/tram-engine.js';
 import ProximityEngine from './src/proximity-engine.js';
-import AudioLayers from './src/audio-layers.js';
+import AudioLayers from './Archive/audio-layers.js';
 import WaterProximityPulse from './src/instruments/water-proximity-pulse.js';
 import WaterFittingDrip from './src/instruments/water-fitting-drip.js';
 import ElectricityOscillatorPool from './src/instruments/electricity-oscillator-pool.js';

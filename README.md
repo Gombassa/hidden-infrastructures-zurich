@@ -25,7 +25,7 @@ Phase 2 complete. All 6 infrastructure layers working with event-driven audio an
 
 ## Audio architecture
 
-All synthesis *shipped in production* is direct Web Audio API code in `src/audio-layers.js` — no Max/MSP, no RNBO, no compiled WASM patches. This is the confirmed production path, not a placeholder pending a native-audio toolchain. Each of the 24 sonic behaviours across the six layers (proximity pulses, crossing transients, alongside loops, oscillator/burst pools, continuous drones), plus the District 1 musical theme as a separate workstream, is being rebuilt as a self-contained instrument module with a paired HTML control surface for hands-on sound design and MIDI-driven auditioning — Phase 3 is **underway**: the interface contract is resolved (Option A, ratified Step 1), and electricity, water, tram, and sewage (Steps 2–5) are fully rebuilt as real instrument classes — 23 of 24 behaviours now built across 10 standalone surfaces (see `docs/instrument-reference.html`), though none are yet integrated into `index.html`. Only telecom (Step 6) remains before Fernwärme (Step 7) and reintegration (Step 8). See `docs/Technical_Architecture_v5.md` for the interface contract writeup and `docs/Implementation_Plan.md` for the build plan. `max/` holds archived Max for Live specifications retained as sonic reference — not part of the current toolchain.
+All synthesis *shipped in production* is direct Web Audio API code — no Max/MSP, no RNBO, no compiled WASM patches; this is the confirmed production path, not a placeholder pending a native-audio toolchain. Each of the 24 sonic behaviours across the six layers (proximity pulses, crossing transients, alongside loops, oscillator/burst pools, continuous drones), plus the District 1 musical theme as a separate workstream, is being rebuilt as a self-contained instrument module (`src/instruments/*.js`) with a paired HTML control surface for hands-on sound design and MIDI-driven auditioning — Phase 3 is **nearly complete**: the interface contract is resolved (Option A, ratified Step 1), and all six layers (Steps 2–7) are fully rebuilt as real instrument classes — all 24 behaviours now built across standalone surfaces (see `docs/instrument-reference.html`). `index.html` has been reintegrated (Step 8) onto a new orchestrator, `src/instrument-layers.js`, in place of the original `src/audio-layers.js` — but only on the `step-8-reintegration` branch, not `main`; production still runs `audio-layers.js` until a field walk confirms no regression against it. One round of that walk is done (the electricity layer was trimmed -9dB after reading too loud), redeployed to a separate no-traffic Cloud Run test URL for further rounds. See `docs/Technical_Architecture_v5.md` for the interface contract writeup and `docs/Implementation_Plan.md` for the build plan. `max/` holds archived Max for Live specifications retained as sonic reference — not part of the current toolchain.
 
 ## Running locally
 
@@ -77,9 +77,11 @@ node scripts/import-new-tiles.js
 
 ```
 src/
-├── tram-engine.js       # Live tram positions (transport.opendata.ch, 10s poll)
-├── proximity-engine.js  # Distance calc for all 6 layers; crossing/alongside detection
-└── audio-layers.js      # Web Audio API synthesis for all 6 layers + shared density reverb
+├── tram-engine.js         # Live tram positions (transport.opendata.ch, 10s poll)
+├── proximity-engine.js    # Distance calc for all 6 layers; crossing/alongside detection
+├── instrument-layers.js   # Orchestrates src/instruments/*.js — what index.html runs on (step-8-reintegration branch)
+├── instruments/           # One self-contained class per sonic behaviour (24 total)
+└── audio-layers.js        # Original monolithic synthesis — still what production (main) serves, pending field validation
 ```
 
 Key ProximityEngine capabilities: nearest-point-on-segment distance, spatial bounding-box culling, `extendLinesWithMovement()` (crossing + alongside detection for all LineString layers), `nearestSegmentBearing()` (Fernwärme panning), sewage junction clustering.

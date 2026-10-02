@@ -23,6 +23,15 @@ import { PoolAllocator } from './pool-allocator.js';
 const ELEC_POOL_SIZE = 8;
 const ELEC_CABLE_RADIUS = 40;
 
+// Field-walk finding (2026-09, Step 8 reintegration test): electricity read
+// as too loud overall against the other layers. Trimmed 9dB at the master
+// gain stage — after the density/proximity formula, not baked into its
+// individual constants — so it scales the whole layer uniformly (including
+// its shared-reverb-bus send, which taps off the same _masterGain) without
+// disturbing the proximity/density balance those constants encode.
+const FIELD_TRIM_DB = -9;
+const FIELD_TRIM = Math.pow(10, FIELD_TRIM_DB / 20);
+
 export default class ElectricityOscillatorPool extends Instrument {
   // onEvent(type, detail) — optional hook for HTML control-surface logging or a
   // future score-archive (see docs/Technical_Architecture_v5.md, "Score archive"
@@ -95,7 +104,7 @@ export default class ElectricityOscillatorPool extends Instrument {
     // Node cluster density: count nodes within 30m, scale pool gain up in dense areas
     const clusterCount = nodes.filter(n => n.dist <= 30).length;
     const densityMult   = 1.0 + Math.min(clusterCount / 5, 1.0) * 0.8; // 1.0 -> 1.8 at 5+ nodes
-    masterTarget = Math.min(0.45, masterTarget * densityMult);
+    masterTarget = Math.min(0.45, masterTarget * densityMult) * FIELD_TRIM;
     this._masterGain.gain.setTargetAtTime(masterTarget, this.ctx.currentTime, 0.8);
   }
 

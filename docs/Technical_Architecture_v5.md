@@ -1,5 +1,13 @@
 # Hidden Infrastructures: Zürich — Technical Architecture
 
+**Document version:** v5.5 — September 2026
+
+**Changes from v5.4 (diagram labeling + phase2-data-layer.md frozen):** The System Architecture Overview's Data Flow and Audio Graph diagrams are now explicitly labeled production/`main` — both were accurate for `main` but the document elsewhere describes Step 8's `src/instrument-layers.js` orchestrator, which they didn't reflect. Added a short delta note after each diagram describing what changes on `step-8-reintegration` (not a second diagram): `InstrumentLayers.update()`/`.onListenerMove()` replacing `AudioLayers`'s, the same 5-node shared-reverb topology now built from 17 instances across 15 classes under `src/instruments/*.js`, and the -9dB electricity master-gain trim from field-walk round 1. Also simplified two `docs/phase2-data-layer.md` cross-references (Data Layer section, Performance Optimisation) now that that document carries its own frozen-historical-snapshot banner — the per-document "flagged, not corrected" explanation was redundant once the source document says so itself.
+
+**Prior version history moved to `docs/CHANGELOG.md`.**
+
+---
+
 # Executive Summary
 
 This document describes the technical architecture for Hidden Infrastructures: Zürich, a location-based generative music application that sonifies six layers of urban infrastructure through spatial audio. The system combines real-time municipal data, procedural audio synthesis, and privacy-by-design principles to create an accessible public artwork requiring only a smartphone and headphones.
@@ -143,7 +151,7 @@ This is a simplification of an already-working path, not a rescue or a reinventi
 
 ## Granularity: one instrument per sonic behaviour
 
-**Reopened (was: held at 23, revisit only on unmanageable duplication).** `instruments/crossing-family.html` — built to cover 8 of the inventory's crossing/alongside items in one page — reports exactly the duplication signal this decision was waiting for: one detection path, one voicing function, 8 parameter presets, not 8 instruments. See `docs/Implementation_Plan.md` Decision Point 4 for the live status; this section's table and count are corrected to 24 below but not yet consolidated. Absent a final call, each sonic behaviour still gets its own instrument module — not one instrument per infrastructure layer. Water, for example, yields four instruments (proximity pulse, fitting-cluster drip, pipe-crossing knock, alongside loop) rather than one "water instrument." This mirrors how `audio-layers.js` is already internally organised (distinct trigger/schedule functions per behaviour) and matches the Max for Live patch boundaries in `docs/archive/max/patch-inventory.md`.
+**Resolved: consolidate** — with a mixed, per-layer outcome, not the uniform "hold at 24" or "consolidate all 8" this decision originally expected. `instruments/crossing-family.html` — built to cover 8 of the inventory's crossing/alongside items in one page — reported exactly the duplication signal this decision was waiting for: one detection path, one voicing function, 8 parameter presets, not 8 instruments. See `docs/Implementation_Plan.md` Decision Point 4 for the full per-layer record, and the note after the inventory table below for how it actually played out and the resulting effective instrument-class count. Outside the crossing/alongside family, each sonic behaviour still gets its own instrument module — not one instrument per infrastructure layer. Water's proximity pulse and fitting-cluster drip (#1/#2), for example, are still two separate classes, not folded into one "water instrument." This mirrors how `audio-layers.js` is already internally organised (distinct trigger/schedule functions per behaviour) and matches the Max for Live patch boundaries in `docs/archive/max/patch-inventory.md`.
 
 **Behaviour inventory** (derived from `src/audio-layers.js`, cross-checked against the 19 archived M4L patches):
 
@@ -164,7 +172,9 @@ Density-gain and rate-modulation (electricity's node-count multiplier, telecom's
 
 The District 1 musical theme is now Phase 3 scope (`docs/Project_Plan_v3_5.md`) rather than deferred indefinitely — but it is deliberately **not** a 24th entry in the table above. It's a continuous ambient foundation the six layers perform atop, architecturally closer to the shared density reverb bus (a piece of infrastructure the layers all relate to) than to a per-behaviour instrument tied to proximity events from one layer's geodata. The 24-instrument count and the granularity decision above are unaffected by the theme's schedule move.
 
-**This has happened, not just "if":** the risk this section flagged as a later possibility — 23 (now 24) per-behaviour modules producing unmanageable duplication — is what `crossing-family.html` found in practice for the 8 crossing/alongside items (most behaviours do share the one-shot-with-cooldown or randomised-loop-with-jitter shape already documented in `docs/archive/max/patch-inventory.md`). **Resolved toward consolidation** (`docs/Implementation_Plan.md` Decision Point 4) rather than held at 24 — `src/instruments/line-crossing-voice.js` is the shared realization, built in Step 2 for electricity's cable-crossing snap (#6) and alongside loop (#7) and extended in Step 3 to water's pipe-crossing knock (#3) and alongside loop (#4), both via a preset-per-layer design (`src/instruments/line-crossing-presets.js`; sewage/telecom's presets follow in Steps 5/6). This resolves under the Option A contract below (a preset-parameterized single class, not Option B's generic runner) — see the ratification note under "The interface contract" for why B was already eliminated on pool-fit grounds unrelated to this question.
+**This happened, not just "if":** the risk this section flagged as a later possibility — 23 (now 24) per-behaviour modules producing unmanageable duplication — is what `crossing-family.html` found in practice for the 8 crossing/alongside items (most behaviours do share the one-shot-with-cooldown or randomised-loop-with-jitter shape already documented in `docs/archive/max/patch-inventory.md`). `src/instruments/line-crossing-voice.js` is the shared realization: built in Step 2 for electricity's cable-crossing snap (#6) and alongside loop (#7), extended in Step 3 to water's pipe-crossing knock (#3) and alongside loop (#4), and extended again in Step 5 to sewage's pipe-crossing knock (#13) — each via its own preset in `src/instruments/line-crossing-presets.js` (`ELECTRICITY_CROSSING`, `WATER_CROSSING`, `SEWAGE_CROSSING`). It stops there: sewage's alongside loop (#15) re-fires a different sound instead (`sewage-gurgle.js`, a Step 5 finding), and telecom's cable-crossing click/alongside (#19/#20, Step 6) never reach this class at all — that pair's swept-sine synthesis doesn't fit `LineCrossingVoice`'s noise+bandpass `_fire()`, so both live in their own class, `telecom-click-voice.js`, with no `TELECOM_CROSSING` preset. **Net effect:** `line-crossing-voice.js` fully serves 2 of the 4 crossing/alongside layers (electricity, water — both crossing and alongside), partially serves a 3rd (sewage — crossing only), and doesn't reach the 4th (telecom) at all — 5 of the original 8 candidate rows consolidate onto one class, not all 8. This resolves under the Option A contract below (a preset-parameterized single class, not Option B's generic runner) — see the ratification note under "The interface contract" for why B was already eliminated on pool-fit grounds unrelated to this question.
+
+**Effective instrument-class count vs. the 24-behaviour inventory — two different numbers.** As of Step 8, 23 of the 24 inventory behaviours above are realised by a real class under `src/instruments/`; behaviour #24, Water Flow, has none — it exists only as the pre-Step-1 exploratory `instruments/water-flow.html` surface (see its row in the table above) and was never assigned a build step in `docs/Implementation_Plan.md`, so it is not instantiated by `src/instrument-layers.js` and is not part of the live app. Those 23 behaviours are realised by **15 distinct classes**, not 23 and not 24: 11 classes that each cover exactly one behaviour (`water-proximity-pulse.js`, `water-fitting-drip.js`, `electricity-oscillator-pool.js`, `feeder-crackle.js`, `tram-hiss-pool.js`, `tram-drone.js`, `sewage-rumble.js`, `sewage-junction-thud.js`, `telecom-burst-pool.js`, `telecom-node-chirp.js`, `telecom-node-handshake.js`), `line-crossing-voice.js` (covering 5 behaviours across 3 layers via the 3 presets above), and 3 more that each cover a small same-layer group — `sewage-gurgle.js` (#14 + #15), `telecom-click-voice.js` (#19 + #20), `fernwaerme-thermal.js` (#21 + #22 + #23). `src/instrument-layers.js` instantiates 17 objects from those 15 classes (`line-crossing-voice.js` is instantiated three times, once per preset — see its constructor calls in that file's `init()`).
 
 ## The interface contract — decided (Step 1, ratified)
 
@@ -229,7 +239,7 @@ Each behaviour becomes its own small module (a factory function returning `{ upd
 
 # System Architecture Overview
 
-## Data Flow
+## Data Flow (production / `main`)
 
 ```
 transport.opendata.ch API (10s)
@@ -244,6 +254,8 @@ ProximityEngine.js ← lk-*.geojson (7 files, loaded once)
         ↓
 Web Audio API (destination → headphones)
 ```
+
+This is what `main`/Cloud Run actually runs today. On the `step-8-reintegration` branch (not yet merged), the last hop changes: `index.html` calls `InstrumentLayers.update(proximity, lat, lng, heading, speed)` instead of `AudioLayers.update(...)` — same shape and same caller, different orchestrator. See the Audio Graph section below for the fuller delta.
 
 ## ProximityEngine Output Shape
 
@@ -264,7 +276,7 @@ Web Audio API (destination → headphones)
 }
 ```
 
-## Audio Graph (simplified, current implementation)
+## Audio Graph (simplified, production / `main`)
 
 ```
 TramEngine tick / GPS fix
@@ -281,9 +293,14 @@ Per-layer synthesis nodes (all in audio-layers.js)
 sharedReverbBus → Convolver (1.8s IR) → sharedReverbOut (density-driven wet) → destination
 ```
 
+**Delta on `step-8-reintegration` (not yet merged to `main`) — not a second diagram, just what changes:**
+- Entry point: `InstrumentLayers.update()` / `.onListenerMove()` (`src/instrument-layers.js`) replaces `AudioLayers.update()` / `.onListenerMove()` above.
+- The five per-layer nodes shown above are no longer inline in one file — each is now a real class under `src/instruments/*.js` (17 instances built from 15 classes, since some behaviours consolidated onto shared classes — see the Granularity section above). The graph topology they build is otherwise the same shape: same five continuous-gain nodes feeding the same `sharedReverbBus` → `Convolver` (1.8s IR) → `sharedReverbOut` chain shown above, ported node-for-node into `_initSharedReverb()`/`_buildReverb()` in `instrument-layers.js`.
+- One node value differs from the diagram above: `elecMasterGain`'s target now carries an additional **-9dB trim** (`FIELD_TRIM_DB = -9` in `electricity-oscillator-pool.js`), applied after the existing density/proximity formula and before both the `destination` and `sharedReverbBus` sends — so it scales electricity's whole output uniformly, reverb send included. This came from round 1 of the Step 8 field walk (2026-09: electricity read as too loud) and has no counterpart in `main`'s `audio-layers.js`, which is unmodified.
+
 ## Performance Optimisation
 
-**Spatial culling:** `cullBounds()` computes a bounding box at 100m radius; `cullLines()` and `cullPoints()` pre-filter features before distance math. The "26,000+ total features" this claim used to cite is stale — the current total is in the counts table above (84,098 as of this pass) and keeps growing with each GeoShop ingestion; the post-cull "~50–200 nearby" figure was never formally measured (`docs/Project_Plan_v3_5.md`'s Phase 3 checklist says as much) and isn't corrected here since there's nothing to recompute it from — it needs an actual field measurement, not a document edit.
+**Spatial culling:** `cullBounds()` computes a bounding box at 100m radius; `cullLines()` and `cullPoints()` pre-filter features before distance math. `docs/phase2-data-layer.md`'s old feature-count figures (see its banner — a frozen historical snapshot) are long superseded; see the counts table above for the current total, which keeps growing with each GeoShop ingestion. The post-cull "~50–200 nearby" figure was never formally measured (`docs/Project_Plan_v3_5.md`'s Phase 3 checklist says as much) and isn't corrected here since there's nothing to recompute it from — it needs an actual field measurement, not a document edit.
 
 **Movement detection:** `extendLinesWithMovement()` only fires crossing/alongside logic when `moveDist > MIN_MOVE_METRES (0.5m)` and a previous position exists — prevents spurious events on GPS jitter.
 
@@ -322,9 +339,7 @@ Current per-file counts (plus `substations.geojson`, 71 features, loaded separat
 *Generated by `scripts/generate-counts.js` from `data/processed/.processed-orders.json` and `public/lk-*.geojson` — do not hand-edit the content between the markers above and below.*
 <!-- COUNTS:END -->
 
-Updated via `/extract` (3 new orders, +347 features across all six layers). Previously 88 orders/55297–56642, 83,751 total features.
-
-See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log. Note: that document's own "Extracted Files" feature counts reflect an earlier 12-order snapshot and are stale against the totals above (30 orders) — flagged, not corrected, per that document's own scope.
+See `docs/phase2-data-layer.md` for the extraction pipeline and decision history — a frozen historical snapshot (see its banner), not a live figure; its counts are not kept current against the totals above.
 
 # Deployment
 
@@ -342,7 +357,7 @@ See `docs/phase2-data-layer.md` for the extraction pipeline and iteration log. N
 
 See `docs/Project_Plan_v3_5.md` for the phased timeline to public launch and `docs/Implementation_Plan.md` for the instrument build plan specifically. In brief, ahead of launch:
 
-- Instrument architecture: interface contract resolved (Option A, Step 1), both pool-paradigm checkpoints closed (Steps 4, 6); electricity, water, tram, sewage, and telecom (Steps 2–6) fully rebuilt against it — all 24 behaviours now built (see `docs/instrument-reference.html`). Remaining: Fernwärme (Step 7), then integrate the full instrument set into `index.html` and retire `audio-layers.js` (Step 8)
+- Instrument architecture: interface contract resolved (Option A, Step 1), both pool-paradigm checkpoints closed (Steps 4, 6); electricity, water, tram, sewage, telecom, and Fernwärme (Steps 2–7) fully rebuilt against it — all 24 behaviours built (see `docs/instrument-reference.html`). `index.html` is reintegrated onto the new `src/instrument-layers.js` orchestrator in place of `audio-layers.js` (Step 8), but only on the `step-8-reintegration` branch — production traffic on `main`/Cloud Run is unaffected until a field walk confirms no regression. Round 1 of that field walk (2026-09) found the electricity layer too loud and it's been trimmed -9dB; the fix is live on a `--no-traffic`, `step8`-tagged Cloud Run test revision for further walk-throughs. `audio-layers.js` stays in the repo, untouched, as the reference implementation until this gate closes and the branch merges
 - PWA: Service Worker, Web App Manifest, offline caching — not yet started
 - User testing across District 1
 - Documentation and launch materials
@@ -353,12 +368,8 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.3
-**Last Updated:** August 2026
-**Changes from v5.2 (progress sync):** 10 of the 24-item instrument inventory (see below — corrected from 23) now exist as standalone HTML surfaces under `instruments/`, documented in the new companion doc `docs/instrument-reference.html`. Two decisions previously marked resolved in "Open questions — status" are reopened by what that build work found: control-surface production shipping (surfaces are reachable on the deployed URL already, not authoring-only as decided) and granularity (`crossing-family.html` shows 8 of the 24 items are one module with presets, not 8 separate instruments). Behaviour inventory table gains a Water Flow row (#24), a new continuous-bed behaviour with no prior spec. See `docs/Implementation_Plan.md` v1.2 for the full build-status detail this document summarises.
-**Changes from v5.1 (correction pass):** Corrected the COEP/COOP justification in Deployment — the correct reason is SharedArrayBuffer/high-resolution-timer cross-origin isolation, not AudioWorklet, and neither is currently used in the codebase, so the headers are retained without an active requirement today. Verified substations are still loaded and emitted (7 files, not 6) — no change needed, a prior assumption that they'd been removed did not hold. Added a note that the District 1 musical theme, now Phase 3 scope, is deliberately not a 24th instrument. Corrected the Data Layer table's feature counts and order count, both roughly 3× stale (26,936 → 83,751 total features; 30 orders/55297–55476 → 88 orders/55297–56642) — counted directly from the current `public/lk-*.geojson` files and `data/processed/.processed-orders.json`, not carried over from prior documents.
-**Changes from v5.0:** Resolved four of the five open items from the instrument-architecture section: control surfaces confirmed authoring-only by default (with a per-control promotion path); pool-exhaustion policy moved to be decided once in Phase 3 Step 1 rather than per-pool; granularity confirmed held at 23. Interface contract itself remains open but its decision criteria are now expanded in `docs/Implementation_Plan.md`.
-**Changes from v4.0:** Removed Max/MSP + RNBO as the production audio path; documented the pivot decision and rationale. Added Audio Instrument Architecture section: 23-behaviour inventory cross-checked against 19 archived M4L patches, three interface-contract candidates with trade-offs, open questions (control-surface shipping, pool-exhaustion behaviour, mapping-curve audit). Rebased "Future Development Work" off the stale May/June/August phase calendar to point at `Project_Plan_v3_5.md` and the new `Implementation_Plan.md`. Noted `docs/phase2-data-layer.md`'s feature-count staleness without altering that document.
+**Document Version:** 5.5
+**Last Updated:** September 2026
 **Author:** Robin Pender
 **Contact:** robinpender23@gmail.com
 **Repository:** https://github.com/Gombassa/hiddeninfrastructures-zurich

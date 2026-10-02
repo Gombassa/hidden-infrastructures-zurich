@@ -130,9 +130,9 @@
 
   <script type="module">
 
-    import TramEngine      from './src/tram-engine.js';
-    import ProximityEngine from './src/proximity-engine.js';
-    import AudioLayers     from './src/audio-layers.js';
+    import TramEngine       from './src/tram-engine.js';
+    import ProximityEngine  from './src/proximity-engine.js';
+    import InstrumentLayers from './src/instrument-layers.js';
 
     window._tramEngine      = TramEngine;
     window._proximityEngine = ProximityEngine;
@@ -198,7 +198,7 @@
             if (listenerMarker) listenerMarker.setLatLng([realLat, realLng]);
             if (following && map) map.setView([realLat, realLng], 19);
             if (pos.coords.accuracy <= 50) {
-              AudioLayers.onListenerMove(realLat, realLng, realHeading);
+              InstrumentLayers.onListenerMove(realLat, realLng, realHeading);
             }
           },
           (err) => appendLog(`GPS error: ${err.message}`, 'lerr'),
@@ -266,35 +266,35 @@
       const mid = f => [f.midLat, f.midLng];
 
       overlayGroups.tram.clearLayers();
-      if (AudioLayers.LAYER_ENABLED.tram)
+      if (InstrumentLayers.LAYER_ENABLED.tram)
         for (const f of proximity.feeders.filter(f => f.triggered))
           dot(...pt(f), LAYER_COLORS.tram).addTo(overlayGroups.tram);
 
       overlayGroups.water.clearLayers();
-      if (AudioLayers.LAYER_ENABLED.water) {
+      if (InstrumentLayers.LAYER_ENABLED.water) {
         for (const f of (proximity.water?.pipes    || []).filter(f => f.triggered)) dot(...mid(f), LAYER_COLORS.water).addTo(overlayGroups.water);
         for (const f of (proximity.water?.fittings || []).filter(f => f.triggered)) dot(...pt(f),  LAYER_COLORS.water).addTo(overlayGroups.water);
       }
 
       overlayGroups.sewage.clearLayers();
-      if (AudioLayers.LAYER_ENABLED.sewage)
+      if (InstrumentLayers.LAYER_ENABLED.sewage)
         for (const f of (proximity.sewage?.pipes || []).filter(f => f.triggered))
           dot(...mid(f), LAYER_COLORS.sewage).addTo(overlayGroups.sewage);
 
       overlayGroups.electricity.clearLayers();
-      if (AudioLayers.LAYER_ENABLED.electricity) {
+      if (InstrumentLayers.LAYER_ENABLED.electricity) {
         for (const f of (proximity.electricity?.nodes  || []).filter(f => f.triggered)) dot(...pt(f),  LAYER_COLORS.electricity).addTo(overlayGroups.electricity);
         for (const f of (proximity.electricity?.cables || []).filter(f => f.triggered)) dot(...mid(f), LAYER_COLORS.electricity).addTo(overlayGroups.electricity);
       }
 
       overlayGroups.telecom.clearLayers();
-      if (AudioLayers.LAYER_ENABLED.telecom) {
+      if (InstrumentLayers.LAYER_ENABLED.telecom) {
         for (const f of (proximity.telecom?.nodes  || []).filter(f => f.triggered)) dot(...pt(f),  LAYER_COLORS.telecom).addTo(overlayGroups.telecom);
         for (const f of (proximity.telecom?.cables || []).filter(f => f.triggered)) dot(...mid(f), LAYER_COLORS.telecom).addTo(overlayGroups.telecom);
       }
 
       overlayGroups.fernwaerme.clearLayers();
-      if (AudioLayers.LAYER_ENABLED.fernwaerme)
+      if (InstrumentLayers.LAYER_ENABLED.fernwaerme)
         for (const f of (proximity.fernwaerme?.pipes || []).filter(f => f.triggered))
           dot(...mid(f), LAYER_COLORS.fernwaerme).addTo(overlayGroups.fernwaerme);
     }
@@ -372,7 +372,7 @@
           nearestFeederDist === Infinity ? '—' : `${Math.round(nearestFeederDist)}m`,
           feederTriggered
         );
-        if (ctx) AudioLayers.update(proximity, realLat, realLng, realHeading);
+        if (ctx) InstrumentLayers.update(proximity, realLat, realLng, realHeading);
         _updateTriggerOverlays(proximity);
       }
     });
@@ -436,8 +436,8 @@
     });
 
     btnStart.addEventListener('click', () => {
-      AudioLayers.init(ctx);
-      appendLog('AudioLayers ready (tram / water / sewage / elec / telecom / fernwärme)', 'lok');
+      InstrumentLayers.init(ctx);
+      appendLog('InstrumentLayers ready (tram / water / sewage / elec / telecom / fernwärme)', 'lok');
       TramEngine.start();
       following = true;
       btnStart.disabled = true;
@@ -453,7 +453,7 @@
         navigator.geolocation.clearWatch(gpsWatcherId);
         gpsWatcherId = null;
       }
-      AudioLayers.stop();
+      InstrumentLayers.stop();
       btnStart.disabled = false;
       btnStart.classList.remove('active');
       btnStop.disabled = true;
@@ -464,8 +464,8 @@
     for (const [key, color] of Object.entries(LAYER_COLORS)) {
       const btn = document.getElementById(`toggle-${key}`);
       btn.addEventListener('click', () => {
-        AudioLayers.setLayerEnabled(key, !AudioLayers.LAYER_ENABLED[key]);
-        const on = AudioLayers.LAYER_ENABLED[key];
+        InstrumentLayers.setLayerEnabled(key, !InstrumentLayers.LAYER_ENABLED[key]);
+        const on = InstrumentLayers.LAYER_ENABLED[key];
         btn.style.borderColor = on ? color : '#2a2a2a';
         btn.style.color       = on ? color : '#333';
         btn.classList.toggle('on', on);

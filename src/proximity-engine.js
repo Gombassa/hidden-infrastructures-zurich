@@ -261,10 +261,17 @@ function parseTramLk(geojson) {
   for (const f of geojson.features) {
     const gt = f.properties.geomType;
     if (gt === 'node' && f.geometry.type === 'Point') {
+      const p = f.properties;
       parsedFeeders.push({
-        id: `tram-node-${nodeIdx++}`,
+        // Stable across GeoShop re-extraction — _dedupKey is assigned once at
+        // extraction time (scripts/extract-lk-geojson.js) and verified
+        // present/unique across all six public/lk-*.geojson files (2026-09
+        // investigation). `${prefix}-${idx}` falls back only if a future
+        // extraction ever omits it, which hasn't happened to date.
+        id: p._dedupKey || `tram-node-${nodeIdx++}`,
         lng: f.geometry.coordinates[0],
         lat: f.geometry.coordinates[1],
+        accuracyClass: p.accuracyClass,
       });
     } else if (gt === 'trasse' && f.geometry.type === 'LineString') {
       parsedPowerlines.push(f.geometry.coordinates);
@@ -273,29 +280,54 @@ function parseTramLk(geojson) {
   return { parsedFeeders, parsedPowerlines };
 }
 
-// Extract LineString features matching geomTypeFilter.
+// Extract LineString features matching geomTypeFilter. id/semantic-property
+// restoration (2026-09): previously discarded _dedupKey and every extraction-
+// time property, assigning id from array position instead — unstable across
+// re-extraction and unusable by any instrument wanting per-feature identity
+// or synthesis-relevant metadata. _dedupKey is confirmed 100% present, 0%
+// duplicate across all six layers, so it's used directly, not merely as a
+// fallback. Semantic properties are passed through even where a given layer
+// doesn't carry a particular one (e.g. pipeType is sewage-only) — the extra
+// keys are simply undefined for other layers, which every current consumer
+// already tolerates since none does exhaustive shape validation.
 function parseLineFeatures(geojson, geomTypeFilter, prefix) {
   const result = [];
   let idx = 0;
   for (const f of geojson.features) {
     if (f.properties.geomType === geomTypeFilter && f.geometry.type === 'LineString') {
       const coords = f.geometry.coordinates;
-      result.push({ id: `${prefix}-${idx++}`, coords, ...midpoint(coords) });
+      const p = f.properties;
+      result.push({
+        id: p._dedupKey || `${prefix}-${idx++}`,
+        coords, ...midpoint(coords),
+        accuracyClass: p.accuracyClass,
+        pipeType: p.pipeType,
+        diameterClass: p.diameterClass,
+        operator: p.operator,
+        voltageClass: p.voltageClass,
+      });
     }
   }
   return result;
 }
 
-// Extract Point features matching geomTypeFilter.
+// Extract Point features matching geomTypeFilter. See parseLineFeatures'
+// docblock above for the id/semantic-property restoration this shares.
 function parsePointFeatures(geojson, geomTypeFilter, prefix) {
   const result = [];
   let idx = 0;
   for (const f of geojson.features) {
     if (f.properties.geomType === geomTypeFilter && f.geometry.type === 'Point') {
+      const p = f.properties;
       result.push({
-        id: `${prefix}-${idx++}`,
+        id: p._dedupKey || `${prefix}-${idx++}`,
         lng: f.geometry.coordinates[0],
         lat: f.geometry.coordinates[1],
+        accuracyClass: p.accuracyClass,
+        pipeType: p.pipeType,
+        diameterClass: p.diameterClass,
+        operator: p.operator,
+        voltageClass: p.voltageClass,
       });
     }
   }

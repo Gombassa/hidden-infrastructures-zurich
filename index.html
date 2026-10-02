@@ -68,12 +68,6 @@
     .linf { color: #4a90e2; }
     .lok  { color: #00e87a; }
 
-    .layer-toggles {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
     .layer-btn {
       background: #111;
       border: 1px solid #2a2a2a;
@@ -86,6 +80,70 @@
       transition: border-color 0.15s, color 0.15s;
     }
     .layer-btn.on { /* color set inline per layer */ }
+
+    /* ── Layer mixer: per-layer mute + fader + meter strip ───────────────── */
+    .mixer {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+      overflow-x: auto; /* phone-width safety net if 6 strips don't fit */
+      padding-bottom: 2px;
+    }
+    .channel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      background: #111;
+      border: 1px solid #1e1e1e;
+      padding: 8px 4px;
+      width: 58px;
+      flex: 0 0 auto;
+    }
+    .channel-label {
+      font-size: 9px;
+      letter-spacing: 0.5px;
+      text-align: center;
+      line-height: 1.25;
+      min-height: 22px;
+    }
+    .channel-strip {
+      display: flex;
+      gap: 5px;
+      align-items: flex-end;
+      height: 100px;
+    }
+    .channel-fader {
+      /* Vertical range input — Android Chrome / WebKit-specific property,
+         acceptable here since this app targets Android Chrome in the field
+         (see STARTUP.md / Cloudflare tunnel workflow for mobile GPS testing). */
+      -webkit-appearance: slider-vertical;
+      appearance: slider-vertical;
+      width: 22px;
+      height: 100px;
+      background: transparent;
+    }
+    .channel-meter {
+      width: 8px;
+      height: 100px;
+      background: #050505;
+      border: 1px solid #1a1a1a;
+      position: relative;
+      overflow: hidden;
+    }
+    .channel-meter-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0%;
+    }
+    .channel-mute {
+      width: 100%;
+      padding: 5px 2px;
+      font-size: 9px;
+      letter-spacing: 0.3px;
+    }
   </style>
 </head>
 <body>
@@ -113,13 +171,55 @@
     <button id="btn-stop" disabled>Stop</button>
   </div>
 
-  <div class="layer-toggles">
-    <button id="toggle-tram"        class="layer-btn on" style="border-color:#ff9f43;color:#ff9f43">TRAM</button>
-    <button id="toggle-water"       class="layer-btn on" style="border-color:#4a90e2;color:#4a90e2">WATER</button>
-    <button id="toggle-sewage"      class="layer-btn on" style="border-color:#a0855b;color:#a0855b">SEWAGE</button>
-    <button id="toggle-electricity" class="layer-btn on" style="border-color:#ffd43b;color:#ffd43b">ELECTRICITY</button>
-    <button id="toggle-telecom"     class="layer-btn on" style="border-color:#cc5de8;color:#cc5de8">TELECOM</button>
-    <button id="toggle-fernwaerme"  class="layer-btn on" style="border-color:#ff6b35;color:#ff6b35">FERNWÄRME</button>
+  <div class="mixer">
+    <div class="channel">
+      <div class="channel-label" style="color:#ff9f43">TRAM</div>
+      <div class="channel-strip">
+        <input type="range" class="channel-fader" id="fader-tram" min="0" max="1" step="0.01" value="1">
+        <div class="channel-meter"><div class="channel-meter-fill" id="meter-tram" style="background:#ff9f43"></div></div>
+      </div>
+      <button id="toggle-tram" class="layer-btn channel-mute on" style="border-color:#ff9f43;color:#ff9f43">MUTE</button>
+    </div>
+    <div class="channel">
+      <div class="channel-label" style="color:#4a90e2">WATER</div>
+      <div class="channel-strip">
+        <input type="range" class="channel-fader" id="fader-water" min="0" max="1" step="0.01" value="1">
+        <div class="channel-meter"><div class="channel-meter-fill" id="meter-water" style="background:#4a90e2"></div></div>
+      </div>
+      <button id="toggle-water" class="layer-btn channel-mute on" style="border-color:#4a90e2;color:#4a90e2">MUTE</button>
+    </div>
+    <div class="channel">
+      <div class="channel-label" style="color:#a0855b">SEWAGE</div>
+      <div class="channel-strip">
+        <input type="range" class="channel-fader" id="fader-sewage" min="0" max="1" step="0.01" value="1">
+        <div class="channel-meter"><div class="channel-meter-fill" id="meter-sewage" style="background:#a0855b"></div></div>
+      </div>
+      <button id="toggle-sewage" class="layer-btn channel-mute on" style="border-color:#a0855b;color:#a0855b">MUTE</button>
+    </div>
+    <div class="channel">
+      <div class="channel-label" style="color:#ffd43b">ELECTRICITY</div>
+      <div class="channel-strip">
+        <input type="range" class="channel-fader" id="fader-electricity" min="0" max="1" step="0.01" value="1">
+        <div class="channel-meter"><div class="channel-meter-fill" id="meter-electricity" style="background:#ffd43b"></div></div>
+      </div>
+      <button id="toggle-electricity" class="layer-btn channel-mute on" style="border-color:#ffd43b;color:#ffd43b">MUTE</button>
+    </div>
+    <div class="channel">
+      <div class="channel-label" style="color:#cc5de8">TELECOM</div>
+      <div class="channel-strip">
+        <input type="range" class="channel-fader" id="fader-telecom" min="0" max="1" step="0.01" value="1">
+        <div class="channel-meter"><div class="channel-meter-fill" id="meter-telecom" style="background:#cc5de8"></div></div>
+      </div>
+      <button id="toggle-telecom" class="layer-btn channel-mute on" style="border-color:#cc5de8;color:#cc5de8">MUTE</button>
+    </div>
+    <div class="channel">
+      <div class="channel-label" style="color:#ff6b35">FERNWÄRME</div>
+      <div class="channel-strip">
+        <input type="range" class="channel-fader" id="fader-fernwaerme" min="0" max="1" step="0.01" value="1">
+        <div class="channel-meter"><div class="channel-meter-fill" id="meter-fernwaerme" style="background:#ff6b35"></div></div>
+      </div>
+      <button id="toggle-fernwaerme" class="layer-btn channel-mute on" style="border-color:#ff6b35;color:#ff6b35">MUTE</button>
+    </div>
   </div>
   <div id="map"></div>
   <div class="buttons" style="margin-bottom:10px;">
@@ -443,6 +543,7 @@
       btnStart.disabled = true;
       btnStart.classList.add('active');
       btnStop.disabled = false;
+      if (meterRafId === null) meterRafId = requestAnimationFrame(meterLoop);
       appendLog('Engines started — TramEngine polling every 10s', 'lok');
     });
 
@@ -454,13 +555,18 @@
         gpsWatcherId = null;
       }
       InstrumentLayers.stop();
+      if (meterRafId !== null) { cancelAnimationFrame(meterRafId); meterRafId = null; }
+      for (const key of Object.keys(LAYER_COLORS)) meterFillEls[key].style.height = '0%';
       btnStart.disabled = false;
       btnStart.classList.remove('active');
       btnStop.disabled = true;
       appendLog('Engines stopped', 'linf');
     });
 
-    // ── LAYER TOGGLES ────────────────────────────────────────────────────────
+    // ── LAYER MIXER (mute + fader + meter per layer) ─────────────────────────
+    let meterRafId = null;
+    const meterFillEls = {};
+
     for (const [key, color] of Object.entries(LAYER_COLORS)) {
       const btn = document.getElementById(`toggle-${key}`);
       btn.addEventListener('click', () => {
@@ -472,6 +578,24 @@
         if (overlayGroups?.[key] && !on) overlayGroups[key].clearLayers();
         appendLog(`[TOGGLE] ${key} ${on ? 'ON' : 'OFF'}`, 'linf');
       });
+
+      const fader = document.getElementById(`fader-${key}`);
+      fader.addEventListener('input', () => {
+        // Safe to call before Start — InstrumentLayers stores the level
+        // regardless of AudioContext state and applies it when init() creates
+        // the layer's bus.
+        InstrumentLayers.setLayerLevel(key, parseFloat(fader.value));
+      });
+
+      meterFillEls[key] = document.getElementById(`meter-${key}`);
+    }
+
+    function meterLoop() {
+      for (const key of Object.keys(LAYER_COLORS)) {
+        const level = InstrumentLayers.getLayerMeter(key);
+        meterFillEls[key].style.height = `${Math.min(100, level * 100)}%`;
+      }
+      meterRafId = requestAnimationFrame(meterLoop);
     }
 
     // ── TRAM ERROR SURFACE ────────────────────────────────────────────────────

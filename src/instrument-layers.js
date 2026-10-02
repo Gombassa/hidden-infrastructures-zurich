@@ -1,10 +1,17 @@
 // instrument-layers.js — Phase 3 Step 8 (reintegration). Replaces AudioLayers
-// (src/audio-layers.js) as what index.html actually runs on, orchestrating
+// (Archive/audio-layers.js) as what index.html actually runs on, orchestrating
 // the 17 real src/instruments/*.js instances that together voice all 24
-// behaviours built in Steps 1-7. Public shape matches AudioLayers exactly
-// ({ init, update, onListenerMove, stop, setLayerEnabled, LAYER_ENABLED }) —
-// index.html's call sites needed only an import/name change, not a shape
-// change, per docs/Implementation_Plan.md Step 8.
+// behaviours built in Steps 1-7, per docs/Implementation_Plan.md Step 8.
+//
+// Public shape: { init, update, onListenerMove, stop, setLayerEnabled,
+// LAYER_ENABLED, setLayerLevel, getLayerLevel, getLayerMeter }. The first six
+// match AudioLayers exactly (index.html's original call sites needed only an
+// import/name change, not a shape change); the last three are the per-layer
+// mixer (feature/layer-mixer branch) — a fader (setLayerLevel/getLayerLevel)
+// and a meter tap (getLayerMeter) per layer, sitting between each layer's
+// instruments and ctx.destination. Mute (setLayerEnabled) is unchanged by
+// this — it still silences a layer by feeding its instruments an
+// out-of-range update, independently of the fader/bus.
 //
 // audio-layers.js is NOT deleted or modified — it stays in the repo as the
 // reference implementation until a field walk confirms no regression (Step
@@ -66,6 +73,8 @@ const LAYER_ENABLED = {
   fernwaerme: true,
 };
 
+const LAYER_KEYS = ['tram', 'water', 'sewage', 'electricity', 'telecom', 'fernwaerme'];
+
 let _ctx = null;
 let _initialized = false;
 
@@ -73,6 +82,28 @@ let _initialized = false;
 let _reverbBus = null;
 let _reverbConvolver = null;
 let _reverbOut = null;
+
+// Per-layer mixer: one GainNode (fader) and one AnalyserNode (meter tap) per
+// layer, interposed between each layer's instruments and ctx.destination.
+// _layerLevel is deliberately NOT reset in stop() — fader positions must
+// survive a Stop/Start cycle (same AudioContext persists across both, see
+// index.html's btn-audio/btn-start/btn-stop handlers).
+let _layerBus = {};
+let _layerAnalyser = {};
+let _layerMeterBuf = {}; // one reusable Float32Array per layer, for getLayerMeter
+let _layerLevel = { tram: 1, water: 1, sewage: 1, electricity: 1, telecom: 1, fernwaerme: 1 };
+
+// How long to wait after destroy() before disconnecting a layer's bus from
+// destination. Each instrument's own destroy() ramps its gain to silence
+// over its own tail (instrument-base.js's default is 0.3s, but several
+// instruments override it — electricity 0.9s, telecom-burst-pool 1.2s,
+// sewage-rumble 2.25s, and tram-drone the longest at 2.5s) before
+// disconnecting its own nodes ~50ms later. Disconnecting the shared layer
+// bus before the slowest instrument on it has finished ramping would cut
+// that still-live signal off abruptly — a click, the exact thing this delay
+// exists to avoid — so this is set above the longest observed tail (tram
+// -drone's 2.5s + 0.05s buffer = 2.55s) rather than a uniform guess.
+const BUS_DISCONNECT_DELAY_MS = 2700;
 
 // Instrument instances
 let waterPulse = null, waterDrip = null, waterCrossing = null;
@@ -116,32 +147,52 @@ function init(ctx) {
   if (_initialized) return;
   _initialized = true;
   _ctx = ctx;
-  const dest = ctx.destination;
 
   _initSharedReverb(ctx); // must come first — instruments send into it during construction
 
-  waterPulse = new WaterProximityPulse(ctx, dest);
-  waterDrip = new WaterFittingDrip(ctx, dest);
-  waterCrossing = new LineCrossingVoice(ctx, dest, WATER_CROSSING);
+  // Per-layer mixer bus + meter tap. Each instrument's dry output now goes to
+  // its layer's bus instead of straight to ctx.destination; the shared
+  // density-reverb sends (reverbBus, above) stay wired directly to
+  // _reverbBus independently of this, so faders don't touch the shared
+  // reverb's wet level — only TramDrone's own private convolver (which
+  // outputs through its outputNode like any other instrument) follows the
+  // tram fader, which is expected.
+  for (const key of LAYER_KEYS) {
+    const bus = ctx.createGain();
+    bus.gain.value = _layerLevel[key];
+    bus.connect(ctx.destination);
 
-  elecPool = new ElectricityOscillatorPool(ctx, dest, { reverbBus: _reverbBus });
-  elecCrossing = new LineCrossingVoice(ctx, dest, ELECTRICITY_CROSSING);
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = 256;
+    bus.connect(analyser); // tap only — analyser is not connected onward
 
-  crackle = new FeederCrackle(ctx, dest);
-  drone = new TramDrone(ctx, dest, { reverbBus: _reverbBus });
-  hissPool = new TramHissPool(ctx, dest);
+    _layerBus[key] = bus;
+    _layerAnalyser[key] = analyser;
+    _layerMeterBuf[key] = new Float32Array(analyser.fftSize);
+  }
 
-  sewageRumble = new SewageRumble(ctx, dest, { reverbBus: _reverbBus });
-  sewageThud = new SewageJunctionThud(ctx, dest);
-  sewageGurgle = new SewageGurgle(ctx, dest);
-  sewageCrossing = new LineCrossingVoice(ctx, dest, SEWAGE_CROSSING);
+  waterPulse = new WaterProximityPulse(ctx, _layerBus.water);
+  waterDrip = new WaterFittingDrip(ctx, _layerBus.water);
+  waterCrossing = new LineCrossingVoice(ctx, _layerBus.water, WATER_CROSSING);
 
-  telecomPool = new TelecomBurstPool(ctx, dest, { reverbBus: _reverbBus });
-  telecomChirp = new TelecomNodeChirp(ctx, dest);
-  telecomHandshake = new TelecomNodeHandshake(ctx, dest);
-  telecomClick = new TelecomClickVoice(ctx, dest);
+  elecPool = new ElectricityOscillatorPool(ctx, _layerBus.electricity, { reverbBus: _reverbBus });
+  elecCrossing = new LineCrossingVoice(ctx, _layerBus.electricity, ELECTRICITY_CROSSING);
 
-  fernThermal = new FernwaermeThermal(ctx, dest, { reverbBus: _reverbBus });
+  crackle = new FeederCrackle(ctx, _layerBus.tram);
+  drone = new TramDrone(ctx, _layerBus.tram, { reverbBus: _reverbBus });
+  hissPool = new TramHissPool(ctx, _layerBus.tram);
+
+  sewageRumble = new SewageRumble(ctx, _layerBus.sewage, { reverbBus: _reverbBus });
+  sewageThud = new SewageJunctionThud(ctx, _layerBus.sewage);
+  sewageGurgle = new SewageGurgle(ctx, _layerBus.sewage);
+  sewageCrossing = new LineCrossingVoice(ctx, _layerBus.sewage, SEWAGE_CROSSING);
+
+  telecomPool = new TelecomBurstPool(ctx, _layerBus.telecom, { reverbBus: _reverbBus });
+  telecomChirp = new TelecomNodeChirp(ctx, _layerBus.telecom);
+  telecomHandshake = new TelecomNodeHandshake(ctx, _layerBus.telecom);
+  telecomClick = new TelecomClickVoice(ctx, _layerBus.telecom);
+
+  fernThermal = new FernwaermeThermal(ctx, _layerBus.fernwaerme, { reverbBus: _reverbBus });
 }
 
 // proximity: ProximityEngine.calculate()'s return value.
@@ -380,8 +431,60 @@ function stop() {
   _lastFeeders = [];
 
   _reverbBus = null; _reverbConvolver = null; _reverbOut = null;
+
+  // Disconnect the layer buses/analysers only after every instrument's own
+  // destroy() tail has finished (see BUS_DISCONNECT_DELAY_MS above) — cutting
+  // a bus while an instrument on it is still ramping down would click.
+  // Capture references before resetting the module-level maps, so this timer
+  // tears down the right (old) nodes even if init() runs again before it
+  // fires and repopulates _layerBus/_layerAnalyser with new ones.
+  const busesToDisconnect = _layerBus;
+  const analysersToDisconnect = _layerAnalyser;
+  setTimeout(() => {
+    for (const key of LAYER_KEYS) {
+      if (busesToDisconnect[key]) busesToDisconnect[key].disconnect();
+      if (analysersToDisconnect[key]) analysersToDisconnect[key].disconnect();
+    }
+  }, BUS_DISCONNECT_DELAY_MS);
+  _layerBus = {};
+  _layerAnalyser = {};
+  _layerMeterBuf = {};
+
   _initialized = false;
   _ctx = null;
 }
 
-export default { init, update, onListenerMove, stop, setLayerEnabled, LAYER_ENABLED };
+// v in [0, 1]. Always stores the value, even with no AudioContext yet, so a
+// fader moved before Start is respected once init() creates the buses
+// (reads _layerLevel[key] as that bus's initial gain — see init() above).
+function setLayerLevel(key, v) {
+  const clamped = Math.max(0, Math.min(1, v));
+  _layerLevel[key] = clamped;
+  const bus = _layerBus[key];
+  if (bus && _ctx) bus.gain.setTargetAtTime(clamped, _ctx.currentTime, 0.02);
+}
+
+function getLayerLevel(key) {
+  return _layerLevel[key];
+}
+
+// Peak (0-1) of the layer's current output, read from its AnalyserNode's
+// time-domain buffer. Returns 0 if the layer has no analyser yet (before
+// Start, or after Stop).
+function getLayerMeter(key) {
+  const analyser = _layerAnalyser[key];
+  if (!analyser) return 0;
+  const buf = _layerMeterBuf[key];
+  analyser.getFloatTimeDomainData(buf);
+  let peak = 0;
+  for (let i = 0; i < buf.length; i++) {
+    const abs = Math.abs(buf[i]);
+    if (abs > peak) peak = abs;
+  }
+  return peak;
+}
+
+export default {
+  init, update, onListenerMove, stop, setLayerEnabled, LAYER_ENABLED,
+  setLayerLevel, getLayerLevel, getLayerMeter,
+};

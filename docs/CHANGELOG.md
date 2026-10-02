@@ -8,6 +8,10 @@ Version history for the project's planning and architecture documents, moved out
 
 ## Project Plan (`docs/Project_Plan_v3_5.md`)
 
+### v3.5.8
+
+**Changes from v3.5.7 (Step 8 merged, live in production):** `step-8-reintegration` merged to `main` on 2026-10-02 (commit `646b8a3`) after a second field-walk round (tram-hiss audio glitching at tram speed, fixed with a claim-rate throttle) came back clean, satisfying Step 8's Done-means gate alongside round 1's electricity -9dB trim. Updated the Phase 3 progress note, the Critical Path's bracketed-status line (reintegration and field-parity both now [done], not [in progress]), the Timeline Reality Check's stale-accounting note, and the Next Review footer — all previously said "on the `step-8-reintegration` branch, pending a field walk," which stopped being true the moment this merged. `audio-layers.js` is superseded, retained as reference pending a decision on deleting it.
+
 ### v3.5.7
 
 **Changes from v3.5.6 (dead backend items removed; phase2-data-layer.md flag simplified):** Removed "Cloud Firestore — cache tram data" and "Cloud Functions — API aggregation" from Technical Stack → Backend — both were marked "not yet implemented," and a grep confirms neither is used anywhere in the codebase; `TramEngine` polls transport.opendata.ch directly from the client. Dropped as never-implemented, not deferred — there is no plan to build either. Also simplified the Data Layer section's `docs/phase2-data-layer.md` cross-reference now that document carries its own frozen-historical-snapshot banner (added this pass) — the "flagged, not corrected" explanation here was redundant once the source document says so itself.
@@ -58,6 +62,10 @@ Version history for the project's planning and architecture documents, moved out
 
 ## Technical Architecture (`docs/Technical_Architecture_v5.md`)
 
+### v5.6
+
+**Changes from v5.5 (Step 8 merged, live in production):** `step-8-reintegration` merged to `main` on 2026-10-02 (commit `646b8a3`) after a second field-walk round (tram-hiss audio glitching at tram speed, fixed with a claim-rate throttle) came back clean, satisfying Step 8's "Done means" gate alongside round 1's electricity trim. Rewrote the System Architecture Overview's Data Flow and Audio Graph diagrams to show `InstrumentLayers`/`src/instruments/*.js` as what production actually runs now, with `AudioLayers`/`audio-layers.js` demoted to a historical note (previously the reverse — the diagrams showed the old architecture as current and the new one as a branch-only "delta," which stopped being true the moment this merged). Updated Future Development Work's instrument-architecture bullet to say merged and live rather than "on the step-8-reintegration branch, pending a field walk." Deployment was verified by inspecting the live production JS bundle for code fingerprints, not just by the build reporting success — see `docs/Implementation_Plan.md` Step 8 for why that extra check mattered here.
+
 ### v5.5
 
 **Changes from v5.4 (diagram labeling + phase2-data-layer.md frozen):** The System Architecture Overview's Data Flow and Audio Graph diagrams are now explicitly labeled production/`main` — both were accurate for `main` but the document elsewhere describes Step 8's `src/instrument-layers.js` orchestrator, which they didn't reflect. Added a short delta note after each diagram describing what changes on `step-8-reintegration` (not a second diagram): `InstrumentLayers.update()`/`.onListenerMove()` replacing `AudioLayers`'s, the same 5-node shared-reverb topology now built from 17 instances across 15 classes under `src/instruments/*.js`, and the -9dB electricity master-gain trim from field-walk round 1. Also simplified two `docs/phase2-data-layer.md` cross-references (Data Layer section, Performance Optimisation) now that that document carries its own frozen-historical-snapshot banner — the per-document "flagged, not corrected" explanation was redundant once the source document says so itself.
@@ -81,3 +89,11 @@ Version history for the project's planning and architecture documents, moved out
 ### v5.0
 
 **Changes from v4.0:** Removed Max/MSP + RNBO as the production audio path; documented the pivot decision and rationale. Added Audio Instrument Architecture section: 23-behaviour inventory cross-checked against 19 archived M4L patches, three interface-contract candidates with trade-offs, open questions (control-surface shipping, pool-exhaustion behaviour, mapping-curve audit). Rebased "Future Development Work" off the stale May/June/August phase calendar to point at `Project_Plan_v3_5.md` and the new `Implementation_Plan.md`. Noted `docs/phase2-data-layer.md`'s feature-count staleness without altering that document.
+
+---
+
+## Implementation Plan (`docs/Implementation_Plan.md`)
+
+### v2.3
+
+**Changes from v2.2 (Step 8 merged, live in production):** Round 2's tram-hiss throttle fix was redeployed to the `step8` test revision and walked again — clean, no further dropouts. With both field-walk findings fixed and confirmed, Step 8's "Done means" gate closed and `step-8-reintegration` was merged to `main` via `git merge --no-ff` (commit `646b8a3`, 2026-10-02), with zero conflicts despite both branches independently touching several doc files. Production traffic was separately found to be pinned to an old revision and not auto-promoting on deploy — a pre-existing infra issue unrelated to this branch's code, fixed with `gcloud run services update-traffic ... --to-latest` (see `CLAUDE.md`'s "standing gotcha" note). Updated Step 8's status line, "Done"/"Done means" text, and the `audio-layers.js`-retention callout to reflect the closed gate and completed merge; left round 1/round 2's own changelog entries (v2.0→2.1, v2.1→2.2) as historical record of what was true when written, per this changelog's standing convention.

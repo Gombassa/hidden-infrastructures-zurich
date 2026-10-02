@@ -1,8 +1,8 @@
 # Hidden Infrastructures: Zürich — Technical Architecture
 
-**Document version:** v5.5 — September 2026
+**Document version:** v5.6 — October 2026
 
-**Changes from v5.4 (diagram labeling + phase2-data-layer.md frozen):** The System Architecture Overview's Data Flow and Audio Graph diagrams are now explicitly labeled production/`main` — both were accurate for `main` but the document elsewhere describes Step 8's `src/instrument-layers.js` orchestrator, which they didn't reflect. Added a short delta note after each diagram describing what changes on `step-8-reintegration` (not a second diagram): `InstrumentLayers.update()`/`.onListenerMove()` replacing `AudioLayers`'s, the same 5-node shared-reverb topology now built from 17 instances across 15 classes under `src/instruments/*.js`, and the -9dB electricity master-gain trim from field-walk round 1. Also simplified two `docs/phase2-data-layer.md` cross-references (Data Layer section, Performance Optimisation) now that that document carries its own frozen-historical-snapshot banner — the per-document "flagged, not corrected" explanation was redundant once the source document says so itself.
+**Changes from v5.5 (Step 8 merged, live in production):** `step-8-reintegration` merged to `main` on 2026-10-02 (commit `646b8a3`) after a second field-walk round (tram-hiss audio glitching at tram speed, fixed with a claim-rate throttle) came back clean, satisfying Step 8's "Done means" gate alongside round 1's electricity trim. Rewrote the System Architecture Overview's Data Flow and Audio Graph diagrams to show `InstrumentLayers`/`src/instruments/*.js` as what production actually runs now, with `AudioLayers`/`audio-layers.js` demoted to a historical note (previously the reverse — the diagrams showed the old architecture as current and the new one as a branch-only "delta," which stopped being true the moment this merged). Updated Future Development Work's instrument-architecture bullet to say merged and live rather than "on the step-8-reintegration branch, pending a field walk." Deployment was verified by inspecting the live production JS bundle for code fingerprints, not just by the build reporting success — see `docs/Implementation_Plan.md` Step 8 for why that extra check mattered here.
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -250,12 +250,12 @@ ProximityEngine.js ← lk-*.geojson (7 files, loaded once)
         ↓               ↑
    calculate()    listener lat/lng/heading (GPS)
         ↓
-   AudioLayers.update(proximity, lat, lng, heading)
+   InstrumentLayers.update(proximity, lat, lng, heading, speed)
         ↓
 Web Audio API (destination → headphones)
 ```
 
-This is what `main`/Cloud Run actually runs today. On the `step-8-reintegration` branch (not yet merged), the last hop changes: `index.html` calls `InstrumentLayers.update(proximity, lat, lng, heading, speed)` instead of `AudioLayers.update(...)` — same shape and same caller, different orchestrator. See the Audio Graph section below for the fuller delta.
+This is what `main`/Cloud Run actually runs today, as of the Step 8 merge (2026-10-02, commit `646b8a3`). Before that merge, this last hop was `AudioLayers.update(proximity, lat, lng, heading)` — same shape, same caller, different orchestrator; `audio-layers.js` is superseded and retained in the repo only as reference, no longer live. See the Audio Graph section below for what changed underneath this call.
 
 ## ProximityEngine Output Shape
 
@@ -281,22 +281,19 @@ This is what `main`/Cloud Run actually runs today. On the `step-8-reintegration`
 ```
 TramEngine tick / GPS fix
         ↓
-AudioLayers.update() / onListenerMove()
+InstrumentLayers.update() / onListenerMove()
         ↓
-Per-layer synthesis nodes (all in audio-layers.js)
-  ├── Tram: droneGain → destination + droneConvolver (private reverb) + sharedReverbBus
-  ├── Sewage: sewageGain → destination + sharedReverbBus
-  ├── Electricity: elecMasterGain → destination + sharedReverbBus
-  ├── Telecom: telecomBurstMasterGain → destination + sharedReverbBus
-  └── Fernwärme: fernMasterGain → StereoPanner → destination + sharedReverbBus
+src/instruments/*.js classes (17 instances, 15 classes — orchestrated by instrument-layers.js)
+  ├── Tram: TramDrone's gain → destination + private reverb + sharedReverbBus
+  ├── Sewage: SewageRumble's gain → destination + sharedReverbBus
+  ├── Electricity: ElectricityOscillatorPool's master gain (-9dB field trim applied) → destination + sharedReverbBus
+  ├── Telecom: TelecomBurstPool's master gain → destination + sharedReverbBus
+  └── Fernwärme: FernwaermeThermal's gain → StereoPanner → destination + sharedReverbBus
         ↓
 sharedReverbBus → Convolver (1.8s IR) → sharedReverbOut (density-driven wet) → destination
 ```
 
-**Delta on `step-8-reintegration` (not yet merged to `main`) — not a second diagram, just what changes:**
-- Entry point: `InstrumentLayers.update()` / `.onListenerMove()` (`src/instrument-layers.js`) replaces `AudioLayers.update()` / `.onListenerMove()` above.
-- The five per-layer nodes shown above are no longer inline in one file — each is now a real class under `src/instruments/*.js` (17 instances built from 15 classes, since some behaviours consolidated onto shared classes — see the Granularity section above). The graph topology they build is otherwise the same shape: same five continuous-gain nodes feeding the same `sharedReverbBus` → `Convolver` (1.8s IR) → `sharedReverbOut` chain shown above, ported node-for-node into `_initSharedReverb()`/`_buildReverb()` in `instrument-layers.js`.
-- One node value differs from the diagram above: `elecMasterGain`'s target now carries an additional **-9dB trim** (`FIELD_TRIM_DB = -9` in `electricity-oscillator-pool.js`), applied after the existing density/proximity formula and before both the `destination` and `sharedReverbBus` sends — so it scales electricity's whole output uniformly, reverb send included. This came from round 1 of the Step 8 field walk (2026-09: electricity read as too loud) and has no counterpart in `main`'s `audio-layers.js`, which is unmodified.
+**Historical note — this is the second generation of this graph, not a hypothetical.** Until the Step 8 merge (2026-10-02, commit `646b8a3`), production ran `AudioLayers.update()`/`.onListenerMove()` with all five continuous-gain nodes inline in one file (`audio-layers.js`), same topology, no per-instrument class boundaries — same five nodes feeding the same `sharedReverbBus` → `Convolver` (1.8s IR) → `sharedReverbOut` chain shown above. `audio-layers.js` is retained in the repo as the field-tested reference those classes were built against (`ab-compare.html`'s Path A still imports it directly), but `index.html` no longer does. Two node values above have no counterpart in `audio-layers.js` — both are field-walk fixes made during the Step 8 branch's own validation, not parity ports: electricity's master gain carries an additional **-9dB trim** (`FIELD_TRIM_DB = -9` in `electricity-oscillator-pool.js`, applied after the density/proximity formula, before both the `destination` and `sharedReverbBus` sends, so it scales the whole layer uniformly); and the tram-hiss pool's claim/release/steal pass is rate-limited to 500ms (`CLAIM_THROTTLE_MS` in `tram-hiss-pool.js`, not visible in this simplified diagram) to stop audio glitching at tram speed.
 
 ## Performance Optimisation
 
@@ -357,7 +354,7 @@ See `docs/phase2-data-layer.md` for the extraction pipeline and decision history
 
 See `docs/Project_Plan_v3_5.md` for the phased timeline to public launch and `docs/Implementation_Plan.md` for the instrument build plan specifically. In brief, ahead of launch:
 
-- Instrument architecture: interface contract resolved (Option A, Step 1), both pool-paradigm checkpoints closed (Steps 4, 6); electricity, water, tram, sewage, telecom, and Fernwärme (Steps 2–7) fully rebuilt against it — all 24 behaviours built (see `docs/instrument-reference.html`). `index.html` is reintegrated onto the new `src/instrument-layers.js` orchestrator in place of `audio-layers.js` (Step 8), but only on the `step-8-reintegration` branch — production traffic on `main`/Cloud Run is unaffected until a field walk confirms no regression. Round 1 of that field walk (2026-09) found the electricity layer too loud and it's been trimmed -9dB; the fix is live on a `--no-traffic`, `step8`-tagged Cloud Run test revision for further walk-throughs. `audio-layers.js` stays in the repo, untouched, as the reference implementation until this gate closes and the branch merges
+- Instrument architecture: interface contract resolved (Option A, Step 1), both pool-paradigm checkpoints closed (Steps 4, 6); electricity, water, tram, sewage, telecom, and Fernwärme (Steps 2–7) fully rebuilt against it — all 24 behaviours built (see `docs/instrument-reference.html`). `index.html` is reintegrated onto the new `src/instrument-layers.js` orchestrator in place of `audio-layers.js` (Step 8) — **merged to `main` and live in production since 2026-10-02** (commit `646b8a3`). Two field-walk rounds found and fixed real issues before the gate closed: electricity read too loud, trimmed -9dB; and audio glitched riding a tram, fixed with a claim-rate throttle in the tram-hiss pool. `audio-layers.js` stays in the repo, untouched, as reference — no longer imported by `index.html`, pending a decision on deleting it
 - PWA: Service Worker, Web App Manifest, offline caching — not yet started
 - User testing across District 1
 - Documentation and launch materials
@@ -368,7 +365,7 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.5
+**Document Version:** 5.6
 **Last Updated:** September 2026
 **Author:** Robin Pender
 **Contact:** robinpender23@gmail.com

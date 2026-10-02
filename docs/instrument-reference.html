@@ -137,8 +137,9 @@
     <h1>Instrument <span>Reference</span></h1>
     <div class="sub">
       <span><b>10</b> control surfaces</span>
-      <span><b>22</b> of 24 behaviours</span>
+      <span><b>24</b> of 24 behaviours</span>
       <span><b>2</b> GPS-wired</span>
+      <span>Integrated — Step 8 merged to main, 2026-10-02</span>
       <span>Browser-native Web Audio</span>
     </div>
   </header>
@@ -634,7 +635,7 @@
     <div class="statusgrid">
       <div class="stat"><div class="n">24/24</div><div class="l">Behaviours built</div></div>
       <div class="stat"><div class="n">2/10</div><div class="l">GPS-wired</div></div>
-      <div class="stat"><div class="n">0</div><div class="l">Integrated</div></div>
+      <div class="stat"><div class="n">6/6</div><div class="l">Layers integrated</div></div>
       <div class="stat"><div class="n">0</div><div class="l">Behaviours remaining</div></div>
     </div>
 
@@ -644,8 +645,13 @@
     from pipe endpoints at 8 m) and <b>telecom node-entry chirp</b> (Step 6, structurally identical to the
     water entry pulse) — are both manual-test-only on their control surfaces, since neither's upstream
     computation (<code>computeSewageJunctions()</code>; node proximity is given directly for telecom, so this
-    one was simpler than expected) is simulated in these prototypes. Remaining work is reintegration into
-    <code>index.html</code> (Step 8), not further behaviour-building.</p>
+    one was simpler than expected) is simulated in these prototypes. <b>Reintegration into <code>index.html</code>
+    (Step 8) is now done</b> — <code>src/instrument-layers.js</code> orchestrates all 17 instrument instances and
+    is what <code>index.html</code> runs on in production, merged to <code>main</code> on 2026-10-02 (commit <code>646b8a3</code>) after
+    two field-walk rounds. The "move forward" roadmap below predates that merge and the module split it assumed;
+    it's kept as a historical record of the sequencing reasoning rather than rewritten item-by-item — see
+    <code>docs/Implementation_Plan.md</code> for the plan that actually describes Step 8 and what remains
+    (the <code>audio-layers.js</code> deletion decision, and Step 9).</p>
 
     <ol class="steps">
       <li>

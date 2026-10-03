@@ -207,12 +207,14 @@ Default export. Orchestrates the 17 `src/instruments/*.js` instances that voice 
 
 ```javascript
 import InstrumentLayers from './src/instrument-layers.js';
-InstrumentLayers.init(audioContext);                                    // call on Start — builds shared reverb bus first, then all 17 instances
+InstrumentLayers.init(audioContext);                                    // call on Start — builds the master chain first, then the shared reverb bus, then all 17 instances
 InstrumentLayers.update(proximity, listenerLat, listenerLng, heading);  // call each TramEngine tick
 InstrumentLayers.onListenerMove(lat, lng, heading);                     // call on GPS fix — updates hiss panner positions between tram ticks
-InstrumentLayers.stop();                                                // destroy()s all instances, tears down reverb bus
+InstrumentLayers.stop();                                                // destroy()s all instances, tears down reverb bus + master chain
 InstrumentLayers.LAYER_ENABLED                                          // { tram, water, sewage, electricity, telecom, fernwaerme }
 ```
+
+**Signal chain (`feature/layer-trim`):** each layer's instruments feed a per-layer `GainNode` bus (the mixer fader, `setLayerLevel`/`getLayerLevel`), whose gain is `fader × LAYER_TRIM_DB[layer]` as a linear multiplier — a fixed, measured-not-tuned per-layer trim from a calibration run (tram -21.3dB, water +7.5dB peak-matched, sewage +4.0dB, electricity 0.0dB reference, telecom -7.3dB, fernwaerme -10.7dB; electricity's own separate `FIELD_TRIM_DB=-9` in `electricity-oscillator-pool.js` is untouched). `getLayerLevel()` still returns the bare fader value (0–1), never the trim-adjusted gain. Every layer bus and the shared reverb's output now join a master chain instead of connecting to `ctx.destination` directly: `_masterMakeup` (fixed `MASTER_MAKEUP_DB=+12`, make-up for the net-negative trims) → `_limiter` (a `DynamicsCompressorNode` run as a fast limiter — threshold -1dB, knee 0, ratio 20:1, 3ms attack, 100ms release; not a true brickwall) → `ctx.destination`. Per-layer meter analysers still tap each bus pre-master (unaffected by the makeup/limiter stage), so the mixer's meters now read post-trim levels.
 
 Three things are deliberate redesigns/fixes, not parity ports — see `docs/Implementation_Plan.md` Steps 4/5: tram hiss is a persistent per-feeder-identity pool (`tram-hiss-pool.js`), not production's stateless nearest-N reassignment; sewage's gurgle/alongside retunes its burst to a circle-of-fifths note (`sewage-gurgle.js`) instead of production's fixed 100Hz; and `tram-drone.js` no longer has its own private convolver (the "private convolver reverb" in the AudioLayers description below) — it sends only into the shared density reverb bus now, so that bus is the only reverb anywhere in the live app. Everything else below is strict parity — the per-layer synthesis descriptions still hold, they're just voiced by the new classes now, not `audio-layers.js`'s inline functions.
 

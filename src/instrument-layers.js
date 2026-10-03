@@ -9,9 +9,11 @@
 // import/name change, not a shape change); the last three are the per-layer
 // mixer (feature/layer-mixer branch) — a fader (setLayerLevel/getLayerLevel)
 // and a meter tap (getLayerMeter) per layer, sitting between each layer's
-// instruments and ctx.destination. Mute (setLayerEnabled) is unchanged by
-// this — it still silences a layer by feeding its instruments an
-// out-of-range update, independently of the fader/bus.
+// instruments and the master chain (feature/layer-trim: layer buses + the
+// shared reverb output -> master makeup gain -> limiter -> ctx.destination;
+// see LAYER_TRIM_DB and MASTER_MAKEUP_DB below). Mute (setLayerEnabled) is
+// unchanged by this — it still silences a layer by feeding its instruments
+// an out-of-range update, independently of the fader/bus/trim.
 //
 // audio-layers.js is NOT deleted or modified — it stays in the repo as the
 // reference implementation until a field walk confirms no regression (Step
@@ -84,14 +86,78 @@ let _reverbConvolver = null;
 let _reverbOut = null;
 
 // Per-layer mixer: one GainNode (fader) and one AnalyserNode (meter tap) per
-// layer, interposed between each layer's instruments and ctx.destination.
-// _layerLevel is deliberately NOT reset in stop() — fader positions must
-// survive a Stop/Start cycle (same AudioContext persists across both, see
-// index.html's btn-audio/btn-start/btn-stop handlers).
+// layer, interposed between each layer's instruments and the master chain
+// (see _initMasterChain below). _layerLevel is deliberately NOT reset in
+// stop() — fader positions must survive a Stop/Start cycle (same
+// AudioContext persists across both, see index.html's
+// btn-audio/btn-start/btn-stop handlers).
 let _layerBus = {};
 let _layerAnalyser = {};
 let _layerMeterBuf = {}; // one reusable Float32Array per layer, for getLayerMeter
 let _layerLevel = { tram: 1, water: 1, sewage: 1, electricity: 1, telecom: 1, fernwaerme: 1 };
+
+// Per-layer trim (feature/layer-trim), MEASURED VALUES from a calibration run
+// — not tuning knobs. calibrate-layers.html (feature/layer-calibration
+// branch) built each layer's real instruments in isolation, in a documented
+// reference state, and measured 45s-window RMS and sample peak in dBFS via a
+// sample-accurate AudioWorklet (see docs/layer-calibration-*.json and
+// docs/CHANGELOG.md for the full run). Electricity is the reference layer
+// (trim 0 — its own FIELD_TRIM_DB=-9 in electricity-oscillator-pool.js is
+// left untouched and is NOT part of this trim). Every other layer but water
+// is matched on combined RMS to electricity's combined RMS
+// (electricityRmsDb - thisLayerRmsDb); water has no continuous bed (only
+// one-shot events), so RMS isn't representative of its character — it's
+// matched on combined PEAK to electricity's combined peak instead.
+const LAYER_TRIM_DB = {
+  tram: -21.3,       // RMS-matched: -34.86 (electricity) - (-13.54) (tram)
+  water: 7.5,        // PEAK-matched: -16.12 (electricity) - (-23.65) (water)
+  sewage: 4.0,       // RMS-matched: -34.86 (electricity) - (-38.84) (sewage)
+  electricity: 0.0,  // reference layer
+  telecom: -7.3,     // RMS-matched: -34.86 (electricity) - (-27.61) (telecom)
+  fernwaerme: -10.7, // RMS-matched: -34.86 (electricity) - (-24.17) (fernwaerme)
+};
+
+function _trimLinear(key) {
+  return Math.pow(10, LAYER_TRIM_DB[key] / 20);
+}
+
+// Master chain (feature/layer-trim): every layer bus and the shared reverb's
+// output join here, post-trim, pre-destination — layerBus -> _masterMakeup ->
+// _limiter -> ctx.destination. Nothing connects to ctx.destination directly
+// any more.
+let _masterMakeup = null;
+let _limiter = null;
+
+// Several of the trims above are negative (tram -21.3dB, telecom -7.3dB,
+// fernwaerme -10.7dB), so the trimmed mix sits quieter overall than before
+// calibration — this single makeup gain, applied once after every layer and
+// the reverb join, brings the whole mix back up to a usable level without
+// touching the relative per-layer balance the trims above already set.
+const MASTER_MAKEUP_DB = 12;
+const MASTER_MAKEUP_LINEAR = Math.pow(10, MASTER_MAKEUP_DB / 20);
+
+// Fast limiter, not a true brickwall (the Web Audio API has no brickwall
+// limiter node) — a DynamicsCompressorNode configured aggressively (20:1
+// ratio, 0 knee, 3ms attack) is the standard way to approximate one with
+// what the API provides. Safety net against the +12dB makeup gain, or
+// several loud layers overlapping at once, pushing the mix into clipping.
+function _buildLimiter(ctx) {
+  const limiter = ctx.createDynamicsCompressor();
+  limiter.threshold.value = -1;
+  limiter.knee.value = 0;
+  limiter.ratio.value = 20;
+  limiter.attack.value = 0.003;
+  limiter.release.value = 0.1;
+  return limiter;
+}
+
+function _initMasterChain(ctx) {
+  _masterMakeup = ctx.createGain();
+  _masterMakeup.gain.value = MASTER_MAKEUP_LINEAR;
+  _limiter = _buildLimiter(ctx);
+  _masterMakeup.connect(_limiter);
+  _limiter.connect(ctx.destination);
+}
 
 // How long to wait after destroy() before disconnecting a layer's bus from
 // destination. Each instrument's own destroy() ramps its gain to silence
@@ -140,7 +206,7 @@ function _initSharedReverb(ctx) {
   _reverbOut.gain.value = 0;
   _reverbBus.connect(_reverbConvolver);
   _reverbConvolver.connect(_reverbOut);
-  _reverbOut.connect(ctx.destination);
+  _reverbOut.connect(_masterMakeup); // was ctx.destination — now joins the master chain, same as every layer bus
 }
 
 function init(ctx) {
@@ -148,21 +214,23 @@ function init(ctx) {
   _initialized = true;
   _ctx = ctx;
 
-  _initSharedReverb(ctx); // must come first — instruments send into it during construction
+  _initMasterChain(ctx); // must come first — every layer bus and the reverb output below connect into it
+  _initSharedReverb(ctx); // must come before the instruments — they send into it during construction
 
-  // Per-layer mixer bus + meter tap. Each instrument's dry output now goes to
-  // its layer's bus instead of straight to ctx.destination; the shared
+  // Per-layer mixer bus + meter tap. Each instrument's dry output goes to its
+  // layer's bus, scaled by that layer's fader AND its calibration trim
+  // (LAYER_TRIM_DB — see above), then into the master chain. The shared
   // density-reverb sends (reverbBus, above) stay wired directly to
-  // _reverbBus independently of this, so faders don't touch the shared
+  // _reverbBus independently of this, so faders/trims don't touch the shared
   // reverb's wet level.
   for (const key of LAYER_KEYS) {
     const bus = ctx.createGain();
-    bus.gain.value = _layerLevel[key];
-    bus.connect(ctx.destination);
+    bus.gain.value = _layerLevel[key] * _trimLinear(key);
+    bus.connect(_masterMakeup);
 
     const analyser = ctx.createAnalyser();
     analyser.fftSize = 256;
-    bus.connect(analyser); // tap only — analyser is not connected onward
+    bus.connect(analyser); // tap only, pre-master — analyser is not connected onward
 
     _layerBus[key] = bus;
     _layerAnalyser[key] = analyser;
@@ -430,38 +498,48 @@ function stop() {
 
   _reverbBus = null; _reverbConvolver = null; _reverbOut = null;
 
-  // Disconnect the layer buses/analysers only after every instrument's own
-  // destroy() tail has finished (see BUS_DISCONNECT_DELAY_MS above) — cutting
-  // a bus while an instrument on it is still ramping down would click.
-  // Capture references before resetting the module-level maps, so this timer
-  // tears down the right (old) nodes even if init() runs again before it
-  // fires and repopulates _layerBus/_layerAnalyser with new ones.
+  // Disconnect the layer buses/analysers/master chain only after every
+  // instrument's own destroy() tail has finished (see BUS_DISCONNECT_DELAY_MS
+  // above) — cutting a bus while an instrument on it is still ramping down
+  // would click. Capture references before resetting the module-level vars,
+  // so this timer tears down the right (old) nodes even if init() runs again
+  // before it fires and creates fresh ones.
   const busesToDisconnect = _layerBus;
   const analysersToDisconnect = _layerAnalyser;
+  const masterMakeupToDisconnect = _masterMakeup;
+  const limiterToDisconnect = _limiter;
   setTimeout(() => {
     for (const key of LAYER_KEYS) {
       if (busesToDisconnect[key]) busesToDisconnect[key].disconnect();
       if (analysersToDisconnect[key]) analysersToDisconnect[key].disconnect();
     }
+    if (masterMakeupToDisconnect) masterMakeupToDisconnect.disconnect();
+    if (limiterToDisconnect) limiterToDisconnect.disconnect();
   }, BUS_DISCONNECT_DELAY_MS);
   _layerBus = {};
   _layerAnalyser = {};
   _layerMeterBuf = {};
+  _masterMakeup = null;
+  _limiter = null;
 
   _initialized = false;
   _ctx = null;
 }
 
-// v in [0, 1]. Always stores the value, even with no AudioContext yet, so a
-// fader moved before Start is respected once init() creates the buses
-// (reads _layerLevel[key] as that bus's initial gain — see init() above).
+// v in [0, 1] — the FADER value, not the trimmed bus gain. Always stores the
+// value, even with no AudioContext yet, so a fader moved before Start is
+// respected once init() creates the buses (reads _layerLevel[key] * the
+// layer's trim as that bus's initial gain — see init() above). Fader at 1
+// now means "calibrated level" (fader x trim), not "unity gain".
 function setLayerLevel(key, v) {
   const clamped = Math.max(0, Math.min(1, v));
   _layerLevel[key] = clamped;
   const bus = _layerBus[key];
-  if (bus && _ctx) bus.gain.setTargetAtTime(clamped, _ctx.currentTime, 0.02);
+  if (bus && _ctx) bus.gain.setTargetAtTime(clamped * _trimLinear(key), _ctx.currentTime, 0.02);
 }
 
+// Returns the FADER value (0-1), never the trim-adjusted bus gain — callers
+// (index.html's fader UI) only ever need to know where the slider sits.
 function getLayerLevel(key) {
   return _layerLevel[key];
 }

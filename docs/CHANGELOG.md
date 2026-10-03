@@ -6,6 +6,18 @@ Version history for the project's planning and architecture documents, moved out
 
 ---
 
+## Audio Architecture (`src/instrument-layers.js`)
+
+Not a planning/architecture document like the sections below — this section tracks consequential changes to the live orchestrator code itself, same newest-first convention, since those changes don't correspond to a version bump in any of the three documents above.
+
+### Layer trims + master makeup/limiter (feature/layer-trim)
+
+**Change:** added `LAYER_TRIM_DB` (tram -21.3, water +7.5, sewage +4.0, electricity 0.0, telecom -7.3, fernwaerme -10.7) and applied it as a linear multiplier on each layer bus's gain (fader × trim), at both `init()`'s initial bus gain and in `setLayerLevel()` — `getLayerLevel()` still returns the bare fader value (0-1), not the trim-adjusted gain, so index.html's fader UI is unaffected. Added a master chain every layer bus and the shared reverb's output now join into instead of connecting to `ctx.destination` directly: `_masterMakeup` (a fixed `MASTER_MAKEUP_DB = +12` gain, make-up for the net-negative trims above) → `_limiter` (a `DynamicsCompressorNode` configured as a fast limiter — threshold -1dB, knee 0, ratio 20:1, attack 3ms, release 100ms; not a true brickwall, the Web Audio API has none) → `ctx.destination`. Per-layer meter analysers are unaffected — they still tap each layer bus pre-master, so the mixer's meters now read post-trim, pre-makeup levels (e.g. water's meter now reads visibly louder than before, since its +7.5dB trim is upstream of the tap). `stop()` disconnects the master chain nodes in the same delayed (`BUS_DISCONNECT_DELAY_MS`) teardown pass as the layer buses, for the same anti-click reason.
+
+**Source of the trim values:** a calibration run (`calibrate-layers.html`, `feature/layer-calibration` branch, not merged to `main`) measured each layer's real instruments in isolation, in a documented reference state, over a 45s window — sample-accurate RMS and peak in dBFS via an `AudioWorkletNode`. Electricity is the reference layer (trim 0; its own `FIELD_TRIM_DB = -9` in `electricity-oscillator-pool.js` is untouched and separate from this trim). Every layer but water is matched on combined RMS to electricity's combined RMS; water (no continuous bed, only one-shot events, so RMS isn't representative) is matched on combined peak to electricity's combined peak instead. See `docs/layer-calibration-*.json` for the raw run this was derived from — tram's reference state was re-tuned mid-calibration after an initial run at an extreme state (drone at 0m, all 6 hiss-pool slots claimed) clipped (+2.99 dBFS combined peak), which the superseded run's numbers (preserved under `tramExtremeSuperseded` in that JSON) document.
+
+---
+
 ## Project Plan (`docs/Project_Plan_v3_5.md`)
 
 ### v3.5.9

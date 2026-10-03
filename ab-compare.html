@@ -73,7 +73,12 @@
       production's fixed 100Hz (see sewage-gurgle.js) — neither will or should sound like Path A. Fernwärme is
       a parity port but is NOT panned hard right like everything else here — its own bearing panner is the
       behaviour under test, so nesting it inside the hard-right panner would corrupt exactly what's being
-      compared; it plays through its own pan on both paths instead (see startEngines()). Everything else
+      compared; it plays through its own pan on both paths instead (see startEngines()). The tram drone is a
+      new exception as of <code>fix/single-reverb-bus</code>: its own private convolver was removed from
+      <code>tram-drone.js</code>, so Path B's drone is now fully dry (droneB is also constructed with no
+      <code>reverbBus</code>, same omission as every other pool instrument here) while Path A's drone in
+      <code>Archive/audio-layers.js</code> still has its private reverb, untouched — the two will no longer
+      sound alike on this one point. Everything else
       should still closely match.</b></p>
     </div>
   </div>

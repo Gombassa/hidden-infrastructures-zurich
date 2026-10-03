@@ -66,6 +66,10 @@ Version history for the project's planning and architecture documents, moved out
 
 ## Technical Architecture (`docs/Technical_Architecture_v5.md`)
 
+### v5.8
+
+**Changes from v5.7 (single reverb bus — TramDrone's private convolver removed):** `src/instruments/tram-drone.js`'s own private convolver (2.0s, 3% wet) is removed — the drone now sends only into the shared density reverb bus, which is the only reverb anywhere in the live app (`fix/single-reverb-bus` branch). Updated the Audio Graph diagram's tram line to drop "+ private reverb". Section 3 ("Audio Layer Implementations (current, pre-rebuild)") and its Shared Density Reverb figures are intentionally untouched — they document `Archive/audio-layers.js`, which still has its own private drone reverb unchanged, and remain the accurate parity-target description of that frozen file.
+
 ### v5.7
 
 **Changes from v5.6 (audio-layers.js archived; step8 Cloud Run tag cleaned up):** `src/audio-layers.js` — superseded since the Step 8 merge but kept rather than deleted — has been moved to `Archive/audio-layers.js` (file untouched otherwise); `ab-compare.html`'s Path A import updated to the new path. The `step8`-tagged Cloud Run test revision, redundant since the merge, has been cleaned up: tag removed via `gcloud run services update-traffic ... --remove-tags=step8` and the orphaned revision deleted (2026-10-02). Updated path references in the Data Flow/Audio Graph sections and the Future Development Work bullet accordingly; left the older "Development Status" section's pre-rebuild baseline description as a historical snapshot rather than rewritten, consistent with how that section was already written before this pass.

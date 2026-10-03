@@ -5,30 +5,16 @@
 // docs/Implementation_Plan.md Step 4.
 //
 // No spatialization — production's drone is dry/mono, unlike feeder crackle
-// and the hiss pool. Only the reverb sends (private convolver + optional
-// shared bus) give it any sense of space.
+// and the hiss pool. Its only sense of space is the optional shared
+// reverbBus send (fix/single-reverb-bus: the drone's own private convolver
+// was removed so the shared density reverb bus, src/instrument-layers.js's
+// _reverbBus, is the only reverb in the app).
 
 import { Instrument } from './instrument-base.js';
 
 const DRONE_LFO_RATE_1 = 0.017; // Hz
 const DRONE_LFO_RATE_2 = 0.023; // Hz
 const DRONE_LFO_DEPTH  = 8;     // Hz — +/-8Hz sweep around centre frequency
-const REVERB_DECAY = 2.0;  // seconds
-const REVERB_WET   = 0.03; // 3% wet mix
-
-function buildReverb(ctx, decaySeconds) {
-  const length = ctx.sampleRate * decaySeconds;
-  const impulse = ctx.createBuffer(2, length, ctx.sampleRate);
-  for (let ch = 0; ch < 2; ch++) {
-    const data = impulse.getChannelData(ch);
-    for (let i = 0; i < length; i++) {
-      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 2);
-    }
-  }
-  const convolver = ctx.createConvolver();
-  convolver.buffer = impulse;
-  return convolver;
-}
 
 export default class TramDrone extends Instrument {
   constructor(ctx, outputNode, { reverbBus } = {}) {
@@ -58,17 +44,10 @@ export default class TramDrone extends Instrument {
     this._droneGain = ctx.createGain();
     this._droneGain.gain.value = 0;
 
-    this._convolver = buildReverb(ctx, REVERB_DECAY);
-    this._reverbGain = ctx.createGain();
-    this._reverbGain.gain.value = REVERB_WET;
-
     this._osc1.connect(this._droneGain);
     this._osc2.connect(this._droneGain);
     this._droneGain.connect(outputNode);
-    this._droneGain.connect(this._convolver);
     if (reverbBus) this._droneGain.connect(reverbBus);
-    this._convolver.connect(this._reverbGain);
-    this._reverbGain.connect(outputNode);
 
     this._osc1.start();
     this._osc2.start();

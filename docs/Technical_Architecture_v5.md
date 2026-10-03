@@ -1,10 +1,8 @@
 # Hidden Infrastructures: Zürich — Technical Architecture
 
-**Document version:** v5.8 — October 2026
+**Document version:** v5.9 — October 2026
 
-**Changes from v5.7 (single reverb bus — TramDrone's private convolver removed):** `src/instruments/tram-drone.js`'s own private convolver (2.0s, 3% wet) is removed — the drone now sends only into the shared density reverb bus, which is the only reverb anywhere in the live app (`fix/single-reverb-bus` branch). Updated the Audio Graph diagram's tram line to drop "+ private reverb". Section 3 ("Audio Layer Implementations (current, pre-rebuild)") and its Shared Density Reverb figures are intentionally untouched — they document `Archive/audio-layers.js`, which still has its own private drone reverb unchanged, and remain the accurate parity-target description of that frozen file.
-
-**Changes from v5.6 (audio-layers.js archived; step8 Cloud Run tag cleaned up):** `src/audio-layers.js` — superseded since the Step 8 merge but kept rather than deleted — has been moved to `Archive/audio-layers.js` (file untouched otherwise); `ab-compare.html`'s Path A import updated to the new path. The `step8`-tagged Cloud Run test revision, redundant since the merge, has been cleaned up: tag removed via `gcloud run services update-traffic ... --remove-tags=step8` and the orphaned revision deleted (2026-10-02). Updated path references in the Data Flow/Audio Graph sections and the Future Development Work bullet accordingly; left the older "Development Status" section's pre-rebuild baseline description as a historical snapshot rather than rewritten, consistent with how that section was already written before this pass.
+**Changes from v5.8 (per-layer calibration trims + master makeup/limiter):** every layer bus and the shared reverb output now join a master chain — `_masterMakeup` (+12dB) → `_limiter` (a `DynamicsCompressorNode` run as a fast limiter) → `ctx.destination` — instead of connecting to destination directly, and each layer bus's gain now carries a fixed, measured `LAYER_TRIM_DB` (`feature/layer-trim`, merged to `main` 2026-10-03). Rewrote the Audio Graph diagram to show this; added a note to the Data Flow diagram's last line. Not yet field-tested — see `CLAUDE.md`'s "Next Steps" for the open checks (balance, limiter transparency, click-free Stop → Start).
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -250,14 +248,14 @@ transport.opendata.ch API (10s)
         ↓
 ProximityEngine.js ← lk-*.geojson (7 files, loaded once)
         ↓               ↑
-   calculate()    listener lat/lng/heading (GPS)
+   calculate()    listener lat/lng/heading (GPS, or src/sim-walker.js's randomised walk — "Simulate Walk" toggle)
         ↓
    InstrumentLayers.update(proximity, lat, lng, heading, speed)
         ↓
-Web Audio API (destination → headphones)
+Web Audio API (per-layer bus → master makeup/limiter → destination → headphones — see Audio Graph, below)
 ```
 
-This is what `main`/Cloud Run actually runs today, as of the Step 8 merge (2026-10-02, commit `646b8a3`). Before that merge, this last hop was `AudioLayers.update(proximity, lat, lng, heading)` — same shape, same caller, different orchestrator; `audio-layers.js` is superseded, no longer live, and has been moved to `Archive/audio-layers.js` as a kept-not-deleted reference. See the Audio Graph section below for what changed underneath this call.
+This is what `main`/Cloud Run actually runs today, as of the Step 8 merge (2026-10-02, commit `646b8a3`). Before that merge, this last hop was `AudioLayers.update(proximity, lat, lng, heading)` — same shape, same caller, different orchestrator; `audio-layers.js` is superseded, no longer live, and has been moved to `Archive/audio-layers.js` as a kept-not-deleted reference. The GPS/compass source became swappable later (`feature/simulated-walk`, merged 2026-10-03) — `index.html`'s real `watchPosition`/`deviceorientation` callbacks early-return while `sim-walker.js` drives `handleFix`/`handleHeading` instead, so this diagram's shape is unchanged either way, only the source of `lat/lng/heading` differs. See the Audio Graph section below for what changed underneath the `InstrumentLayers.update()` call.
 
 ## ProximityEngine Output Shape
 
@@ -286,16 +284,30 @@ TramEngine tick / GPS fix
 InstrumentLayers.update() / onListenerMove()
         ↓
 src/instruments/*.js classes (17 instances, 15 classes — orchestrated by instrument-layers.js)
-  ├── Tram: TramDrone's gain → destination + sharedReverbBus
-  ├── Sewage: SewageRumble's gain → destination + sharedReverbBus
-  ├── Electricity: ElectricityOscillatorPool's master gain (-9dB field trim applied) → destination + sharedReverbBus
-  ├── Telecom: TelecomBurstPool's master gain → destination + sharedReverbBus
-  └── Fernwärme: FernwaermeThermal's gain → StereoPanner → destination + sharedReverbBus
+  ├── Tram: TramDrone's gain → tramBus + sharedReverbBus
+  ├── Water: WaterProximityPulse / WaterFittingDrip / LineCrossingVoice → waterBus (no reverb send)
+  ├── Sewage: SewageRumble's gain → sewageBus + sharedReverbBus
+  ├── Electricity: ElectricityOscillatorPool's master gain (-9dB field trim applied) → electricityBus + sharedReverbBus
+  ├── Telecom: TelecomBurstPool's master gain → telecomBus + sharedReverbBus
+  └── Fernwärme: FernwaermeThermal's gain → StereoPanner → fernwaermeBus + sharedReverbBus
         ↓
-sharedReverbBus → Convolver (1.8s IR) → sharedReverbOut (density-driven wet) → destination
+each <layer>Bus (GainNode): gain = fader (0-1) × LAYER_TRIM_DB[layer] (linear) — the per-layer mixer fader and
+                             calibration trim (feature/layer-mixer, feature/layer-trim) — then on to:
+        ↓
+sharedReverbBus → Convolver (1.8s IR) → sharedReverbOut (density-driven wet) ─┐
+                                                                               ├→ _masterMakeup (+12dB)
+                           every <layer>Bus above ───────────────────────────┘        ↓
+                                                                              _limiter (DynamicsCompressorNode,
+                                                                              run as a fast limiter: threshold
+                                                                              -1dB, knee 0, ratio 20:1, 3ms
+                                                                              attack, 100ms release)
+                                                                                       ↓
+                                                                                destination
 ```
 
-**Historical note — this is the second generation of this graph, not a hypothetical.** Until the Step 8 merge (2026-10-02, commit `646b8a3`), production ran `AudioLayers.update()`/`.onListenerMove()` with all five continuous-gain nodes inline in one file (`audio-layers.js`), same topology, no per-instrument class boundaries — same five nodes feeding the same `sharedReverbBus` → `Convolver` (1.8s IR) → `sharedReverbOut` chain shown above. That file is kept, not deleted, now archived at `Archive/audio-layers.js` as the field-tested reference those classes were built against (`ab-compare.html`'s Path A imports it from there), but `index.html` no longer does. Two node values above have no counterpart in `audio-layers.js` — both are field-walk fixes made during the Step 8 branch's own validation, not parity ports: electricity's master gain carries an additional **-9dB trim** (`FIELD_TRIM_DB = -9` in `electricity-oscillator-pool.js`, applied after the density/proximity formula, before both the `destination` and `sharedReverbBus` sends, so it scales the whole layer uniformly); and the tram-hiss pool's claim/release/steal pass is rate-limited to 500ms (`CLAIM_THROTTLE_MS` in `tram-hiss-pool.js`, not visible in this simplified diagram) to stop audio glitching at tram speed.
+**Historical note — this is the second generation of this graph, not a hypothetical.** Until the Step 8 merge (2026-10-02, commit `646b8a3`), production ran `AudioLayers.update()`/`.onListenerMove()` with all five continuous-gain nodes inline in one file (`audio-layers.js`), same topology, no per-instrument class boundaries — same five nodes feeding the same `sharedReverbBus` → `Convolver` (1.8s IR) → `sharedReverbOut` chain shown above, which in that generation connected straight to `destination`. That file is kept, not deleted, now archived at `Archive/audio-layers.js` as the field-tested reference those classes were built against (`ab-compare.html`'s Path A imports it from there), but `index.html` no longer does. Two node values above have no counterpart in `audio-layers.js` — both are field-walk fixes made during the Step 8 branch's own validation, not parity ports: electricity's master gain carries an additional **-9dB trim** (`FIELD_TRIM_DB = -9` in `electricity-oscillator-pool.js`, applied after the density/proximity formula, before both the layer bus and `sharedReverbBus` sends, so it scales the whole layer uniformly); and the tram-hiss pool's claim/release/steal pass is rate-limited to 500ms (`CLAIM_THROTTLE_MS` in `tram-hiss-pool.js`, not visible in this simplified diagram) to stop audio glitching at tram speed.
+
+**Third generation, added since (`feature/layer-mixer`, `feature/layer-trim`, both merged to `main` 2026-10-02/03):** the per-layer buses and the master makeup/limiter stage didn't exist in the Step 8 generation above — every instrument connected straight to `destination`, and `sharedReverbOut` did too. `LAYER_TRIM_DB` (tram -21.3dB, water +7.5dB peak-matched, sewage +4.0dB, electricity 0.0dB reference, telecom -7.3dB, fernwaerme -10.7dB) is a fixed, *measured* value per layer — from a calibration run on `calibrate-layers.html` (`feature/layer-calibration`, a dev-only tool, deliberately not merged) — not a tuning knob, and separate from electricity's own `FIELD_TRIM_DB` above. `_masterMakeup`'s +12dB exists because several of those trims are negative, so the net mix would otherwise sit quieter than before calibration; `_limiter` is a safety net against that makeup gain (or several loud layers at once) clipping — a `DynamicsCompressorNode` configured aggressively approximates a limiter, since the Web Audio API has no true brickwall node. Per-layer meter analysers (not shown above) tap each `<layer>Bus` *before* the master stage, so they read post-trim, pre-makeup levels. None of this has been field-tested yet.
 
 ## Performance Optimisation
 
@@ -357,6 +369,7 @@ See `docs/phase2-data-layer.md` for the extraction pipeline and decision history
 See `docs/Project_Plan_v3_5.md` for the phased timeline to public launch and `docs/Implementation_Plan.md` for the instrument build plan specifically. In brief, ahead of launch:
 
 - Instrument architecture: interface contract resolved (Option A, Step 1), both pool-paradigm checkpoints closed (Steps 4, 6); electricity, water, tram, sewage, telecom, and Fernwärme (Steps 2–7) fully rebuilt against it — all 24 behaviours built (see `docs/instrument-reference.html`). `index.html` is reintegrated onto the new `src/instrument-layers.js` orchestrator in place of `audio-layers.js` (Step 8) — **merged to `main` and live in production since 2026-10-02** (commit `646b8a3`). Two field-walk rounds found and fixed real issues before the gate closed: electricity read too loud, trimmed -9dB; and audio glitched riding a tram, fixed with a claim-rate throttle in the tram-hiss pool. `audio-layers.js` stays in the repo, untouched, as reference — no longer imported by `index.html`, moved to `Archive/audio-layers.js` rather than deleted
+- Post-Step-8 additions, all merged to `main` and deployed 2026-10-02/03, **none field-tested yet**: single reverb bus (tram drone's private convolver removed); per-layer mute/fader/meter mixer; per-layer calibration trims + master makeup gain/limiter (see Audio Graph, above); "Simulate Walk" toggle for testing away from Zürich. Field-test work ahead of launch now includes: confirm the six layers are actually balanced against each other, confirm the limiter doesn't audibly pump, confirm Stop → Start stays click-free, and confirm the Simulate Walk marker/audio behave sensibly
 - PWA: Service Worker, Web App Manifest, offline caching — not yet started
 - User testing across District 1
 - Documentation and launch materials
@@ -367,7 +380,7 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.8
+**Document Version:** 5.9
 **Last Updated:** October 2026
 **Author:** Robin Pender
 **Contact:** robinpender23@gmail.com

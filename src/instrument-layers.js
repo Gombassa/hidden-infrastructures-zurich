@@ -154,9 +154,7 @@ function init(ctx) {
   // its layer's bus instead of straight to ctx.destination; the shared
   // density-reverb sends (reverbBus, above) stay wired directly to
   // _reverbBus independently of this, so faders don't touch the shared
-  // reverb's wet level — only TramDrone's own private convolver (which
-  // outputs through its outputNode like any other instrument) follows the
-  // tram fader, which is expected.
+  // reverb's wet level.
   for (const key of LAYER_KEYS) {
     const bus = ctx.createGain();
     bus.gain.value = _layerLevel[key];

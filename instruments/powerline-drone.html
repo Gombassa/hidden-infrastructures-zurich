@@ -101,7 +101,7 @@
   <p class="strapline">
     Voiced by the real <b>TramDrone</b> class now, not this page's old harmonic-rich synth — parameters
     fixed to production's values: two oscillators (110/112Hz) each swept by its own LFO (0.017Hz /
-    0.023Hz, ±8Hz), gate linear 20m→5m with a 0.01 floor, private 2.0s reverb at fixed 3% wet. The tightest
+    0.023Hz, ±8Hz), gate linear 20m→5m with a 0.01 floor. The tightest
     gate in the project, modulated by the slowest LFOs — <em>0.017 Hz</em> is a 59-second cycle. Cross the
     tracks and you are inside the gate for seconds; walk along them and it runs for minutes. The lower
     panel shows how much of the cycle each encounter actually contains.
@@ -137,10 +137,11 @@
         <b>Two oscillators</b>, 110Hz and 112Hz, each swept by its own sine LFO (<b>0.017Hz / 0.023Hz, ±8Hz
         depth</b> — incommensurate rates, so the beat never repeats exactly). No harmonics, no adjustable
         tone level. <b>Gate</b>: silent beyond 20m, full at 5m, linear in between with a 0.01 floor (not 0)
-        — ramped via a 2s time-constant, not an adjustable ramp. <b>Private reverb</b>: fixed 2.0s decay,
-        fixed 3% wet, no damping filter — plus a send to whatever shared reverb bus this page constructs
-        below (a stand-in for production's real shared density bus, which doesn't exist in this standalone
-        harness).
+        — ramped via a 2s time-constant, not an adjustable ramp. <b>Dry</b>: the class's own private
+        convolver reverb was removed (<code>fix/single-reverb-bus</code>) so the shared density reverb bus
+        is the only reverb anywhere in the live app — and this page constructs <code>TramDrone</code>
+        with no <code>reverbBus</code> option at all, so what you hear here is fully dry, not a stand-in
+        for a shared bus.
       </p>
     </section>
 

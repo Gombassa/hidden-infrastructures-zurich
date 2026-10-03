@@ -170,6 +170,7 @@
     <button id="btn-audio">Unlock Audio</button>
     <button id="btn-start" disabled>Start</button>
     <button id="btn-stop" disabled>Stop</button>
+    <button id="btn-sim">Simulate Walk</button>
   </div>
 
   <div class="mixer">
@@ -234,6 +235,7 @@
     import TramEngine       from './src/tram-engine.js';
     import ProximityEngine  from './src/proximity-engine.js';
     import InstrumentLayers from './src/instrument-layers.js';
+    import SimWalker        from './src/sim-walker.js';
 
     window._tramEngine      = TramEngine;
     window._proximityEngine = ProximityEngine;
@@ -284,6 +286,7 @@
       if (navigator.geolocation) {
         gpsWatcherId = navigator.geolocation.watchPosition(
           (pos) => {
+            if (simActive) return; // simulation owns position while active
             // ── TEST LOCATION OVERRIDE ───────────────────────────────────────
             // To activate: uncomment the two override lines, comment out the two real lines.
             // Paradeplatz (west end of route, dense water/elec/telecom infrastructure):
@@ -291,16 +294,7 @@
             // Stadelhofen (east end, tram-dense terminus):
             // pos = { coords: { latitude: 47.3769, longitude: 8.5417, speed: null, accuracy: 1 } };
             // ────────────────────────────────────────────────────────────────
-            realLat   = pos.coords.latitude;
-            realLng   = pos.coords.longitude;
-            realSpeed = pos.coords.speed; // m/s, or null if unavailable
-            setCard('card-pos', `${realLat.toFixed(5)}, ${realLng.toFixed(5)} | ${realHeading !== null ? realHeading.toFixed(1) + '°' : '—'}`);
-            appendLog(`[GPS] ${realLat} ${realLng} accuracy: ${pos.coords.accuracy}`, 'll');
-            if (listenerMarker) listenerMarker.setLatLng([realLat, realLng]);
-            if (following && map) map.setView([realLat, realLng], 19);
-            if (pos.coords.accuracy <= 50) {
-              InstrumentLayers.onListenerMove(realLat, realLng, realHeading);
-            }
+            handleFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, speed: pos.coords.speed, accuracy: pos.coords.accuracy });
           },
           (err) => appendLog(`GPS error: ${err.message}`, 'lerr'),
           { enableHighAccuracy: true, maximumAge: 5000 },
@@ -309,21 +303,42 @@
         appendLog('Geolocation not available — using simulated position', 'linf');
       }
       window.addEventListener('deviceorientation', (event) => {
+        if (simActive) return; // simulation owns heading while active
         if (event.alpha !== null) {
-          realHeading = event.alpha;
-          if (ctx && ctx.listener) {
-            const headingRad = event.alpha * Math.PI / 180;
-            const fx = -Math.sin(headingRad);
-            const fz = -Math.cos(headingRad);
-            ctx.listener.forwardX.setTargetAtTime(fx, ctx.currentTime, 0.1);
-            ctx.listener.forwardY.setTargetAtTime(0,  ctx.currentTime, 0.1);
-            ctx.listener.forwardZ.setTargetAtTime(fz, ctx.currentTime, 0.1);
-            ctx.listener.upX.setTargetAtTime(0, ctx.currentTime, 0.1);
-            ctx.listener.upY.setTargetAtTime(1, ctx.currentTime, 0.1);
-            ctx.listener.upZ.setTargetAtTime(0, ctx.currentTime, 0.1);
-          }
+          handleHeading(event.alpha);
         }
       });
+    }
+
+    // Shared by the real GPS/compass callbacks above and SimWalker below —
+    // does exactly what the real watchPosition/deviceorientation callbacks
+    // used to do inline, so real-GPS behaviour is unchanged.
+    function handleFix({ lat, lng, speed, accuracy }) {
+      realLat   = lat;
+      realLng   = lng;
+      realSpeed = speed; // m/s, or null if unavailable
+      setCard('card-pos', `${realLat.toFixed(5)}, ${realLng.toFixed(5)} | ${realHeading !== null ? realHeading.toFixed(1) + '°' : '—'}`);
+      appendLog(`[GPS] ${realLat} ${realLng} accuracy: ${accuracy}`, 'll');
+      if (listenerMarker) listenerMarker.setLatLng([realLat, realLng]);
+      if (following && map) map.setView([realLat, realLng], 19);
+      if (accuracy <= 50) {
+        InstrumentLayers.onListenerMove(realLat, realLng, realHeading);
+      }
+    }
+
+    function handleHeading(deg) {
+      realHeading = deg;
+      if (ctx && ctx.listener) {
+        const headingRad = deg * Math.PI / 180;
+        const fx = -Math.sin(headingRad);
+        const fz = -Math.cos(headingRad);
+        ctx.listener.forwardX.setTargetAtTime(fx, ctx.currentTime, 0.1);
+        ctx.listener.forwardY.setTargetAtTime(0,  ctx.currentTime, 0.1);
+        ctx.listener.forwardZ.setTargetAtTime(fz, ctx.currentTime, 0.1);
+        ctx.listener.upX.setTargetAtTime(0, ctx.currentTime, 0.1);
+        ctx.listener.upY.setTargetAtTime(1, ctx.currentTime, 0.1);
+        ctx.listener.upZ.setTargetAtTime(0, ctx.currentTime, 0.1);
+      }
     }
 
     // ── STATE ────────────────────────────────────────────────────────────────
@@ -336,6 +351,7 @@
     let realSpeed       = null;
     let following       = false;
     let gpsWatcherId    = null;
+    let simActive       = false;
 
     // ── UI HELPERS ───────────────────────────────────────────────────────────
     const logDiv = document.getElementById('log');
@@ -549,6 +565,7 @@
     });
 
     btnStop.addEventListener('click', () => {
+      if (simActive) stopSimulation();
       TramEngine.stop();
       following = false;
       if (gpsWatcherId !== null) {
@@ -562,6 +579,42 @@
       btnStart.classList.remove('active');
       btnStop.disabled = true;
       appendLog('Engines stopped', 'linf');
+    });
+
+    // ── SIMULATE WALK ─────────────────────────────────────────────────────────
+    // Replaces the real GPS/compass inputs with src/sim-walker.js while active
+    // (see handleFix/handleHeading above, and their `simActive` early-return
+    // guards) — map marker, position card, ProximityEngine, InstrumentLayers,
+    // overlays and the mixer are all unaffected; TramEngine keeps using live
+    // tram data regardless.
+    const btnSim = document.getElementById('btn-sim');
+
+    function stopSimulation() {
+      simActive = false;
+      following = false;
+      SimWalker.stop();
+      btnSim.textContent = 'Simulate Walk';
+      btnSim.classList.remove('active');
+      appendLog('[SIM] stopped', 'linf');
+    }
+
+    btnSim.addEventListener('click', () => {
+      if (simActive) { stopSimulation(); return; }
+      simActive = true;
+      following = true; // map recentres on every simulated fix, same as real Start
+      btnSim.textContent = 'Stop Simulation';
+      btnSim.classList.add('active');
+      let firstFix = true;
+      SimWalker.start(
+        (fix) => {
+          if (firstFix) {
+            firstFix = false;
+            appendLog(`[SIM] started at ${fix.lat.toFixed(5)}, ${fix.lng.toFixed(5)}`, 'linf');
+          }
+          handleFix(fix);
+        },
+        handleHeading,
+      );
     });
 
     // ── LAYER MIXER (mute + fader + meter per layer) ─────────────────────────

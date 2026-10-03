@@ -50,7 +50,8 @@ index.html         # Main application (root) — GPS + Web Audio API pipeline; r
 src/
 ├── tram-engine.js         # Live tram positions from transport.opendata.ch
 ├── proximity-engine.js    # Tram ↔ infrastructure distance calculations (all 6 layers)
-└── instrument-layers.js   # Orchestrates the 17 src/instruments/*.js instances that voice all 24 behaviours — what index.html actually runs on, confirmed live in production
+├── instrument-layers.js   # Orchestrates the 17 src/instruments/*.js instances that voice all 24 behaviours — what index.html actually runs on, confirmed live in production
+└── sim-walker.js          # Randomised simulated walk (index.html's "Simulate Walk" toggle) for testing away from Zürich — walks public/data/processed/walk-graph.json, feeding the same handleFix/handleHeading real GPS/compass use
 instruments/       # Phase 3: standalone HTML instrument control surfaces — see docs/instrument-reference.html
 public/
 ├── lk-tram-lk.geojson       # VBZ tram infrastructure (nodes + trasse)
@@ -60,12 +61,12 @@ public/
 ├── lk-telecom.geojson        # ewz telecom nodes + cables
 ├── lk-fernwaerme.geojson     # District heating pipes
 └── data/
-    ├── processed/       # substations.geojson, route-waypoints.json
+    ├── processed/       # substations.geojson, route-waypoints.json, walk-graph.json (street-like graph for sim-walker.js, built by scripts/build-walk-graph.js from lk-water.geojson's pipes — regenerate by hand after new water tiles land, not hooked into import-new-tiles.js)
     └── raw/             # route-tram-masts.geojson (archived reference)
 data/
 ├── raw/           # VBZ GeoJSON: feeders, masts, powerlines (source files)
 └── processed/     # substations.geojson, route-waypoints.json, maps, lk/ (processed GeoJSON)
-scripts/           # One-time data processing (Node.js)
+scripts/           # One-time data processing (Node.js) — includes build-walk-graph.js (sim-walker.js's walk graph, see above)
 docs/              # Phase planning and specifications
 Archive/           # Archived prototypes and analysis scripts
 ├── audio-layers.js # Superseded by src/instrument-layers.js (Step 8, 2026-10-02) — kept, not deleted, as the field-tested reference; ab-compare.html imports it directly for Path A
@@ -251,6 +252,7 @@ Live GPS via `navigator.geolocation.watchPosition()`. No separate module.
 - Moves listener marker on Leaflet map
 - Follows position at zoom 19 while `following = true` (Start → Stop)
 - Logs each fix to on-screen log panel via `appendLog`
+- "Simulate Walk" toggle button (`feature/simulated-walk`) replaces real GPS/compass with `src/sim-walker.js`'s randomised walk along `public/data/processed/walk-graph.json` (a street-like graph built from water pipes by `scripts/build-walk-graph.js`) — real `watchPosition`/`deviceorientation` callbacks early-return while a `simActive` flag is set, so simulated and real fixes can't fight each other; everything downstream of the fix (map marker, `ProximityEngine`, `InstrumentLayers`, overlays, mixer) is unchanged either way. `TramEngine` still polls live tram data regardless.
 
 ## RNBO Integration — DEPRECATED (July 2026)
 

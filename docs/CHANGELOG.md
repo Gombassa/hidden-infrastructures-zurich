@@ -94,6 +94,10 @@ Not a planning/architecture document like the sections below — this section tr
 
 ## Technical Architecture (`docs/Technical_Architecture_v5.md`)
 
+### v5.10
+
+**Changes from v5.9 (mute gates the layer bus; GPS re-subscribes on Start):** `setLayerEnabled(key, false)` now ramps the layer's bus gain to 0 (`fix/mute-bus-gain`), so muted tram hiss stops, as it was never released by the instrument path while the layer is disabled. In `index.html`, Start now re-creates the real GPS watch if Stop cleared it, via an idempotent `startGpsWatch()` (`fix/restart-gps-watch`). Both merged to `main` 2026-10-06, with a data-flow note added for the GPS re-subscribe. Robin's onsite check on 2026-10-06 reports the app works after these fixes.
+
 ### v5.9
 
 **Changes from v5.8 (per-layer calibration trims + master makeup/limiter):** every layer bus and the shared reverb output now join a master chain — `_masterMakeup` (+12dB) → `_limiter` (a `DynamicsCompressorNode` run as a fast limiter) → `ctx.destination` — instead of connecting to destination directly, and each layer bus's gain now carries a fixed, measured `LAYER_TRIM_DB` (`feature/layer-trim`, merged to `main` 2026-10-03). Rewrote the Audio Graph diagram to show this; added a note to the Data Flow diagram's last line. Not yet field-tested — see `CLAUDE.md`'s "Next Steps" for the open checks (balance, limiter transparency, click-free Stop → Start).

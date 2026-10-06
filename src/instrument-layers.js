@@ -225,7 +225,7 @@ function init(ctx) {
   // reverb's wet level.
   for (const key of LAYER_KEYS) {
     const bus = ctx.createGain();
-    bus.gain.value = _layerLevel[key] * _trimLinear(key);
+    bus.gain.value = LAYER_ENABLED[key] ? _layerLevel[key] * _trimLinear(key) : 0;
     bus.connect(_masterMakeup);
 
     const analyser = ctx.createAnalyser();
@@ -430,9 +430,18 @@ function onListenerMove(lat, lng, heading) {
   }
 }
 
+function _applyBusGain(key) {
+  const bus = _layerBus[key];
+  if (!bus || !_ctx) return;
+  const target = LAYER_ENABLED[key] ? _layerLevel[key] * _trimLinear(key) : 0;
+  bus.gain.setTargetAtTime(target, _ctx.currentTime, 0.02);
+}
+
 function setLayerEnabled(key, enabled) {
   LAYER_ENABLED[key] = enabled;
-  if (!_ctx || !_initialized || enabled) return;
+  if (!_ctx || !_initialized) return;
+  _applyBusGain(key);
+  if (enabled) return;
   // Immediate silence on toggle-off, mirroring production's setLayerEnabled
   // (audio-layers.js ~L1246-1274) — without this, a disabled layer would
   // only go quiet on the next update() tick, which could be up to ~10s away
@@ -534,8 +543,7 @@ function stop() {
 function setLayerLevel(key, v) {
   const clamped = Math.max(0, Math.min(1, v));
   _layerLevel[key] = clamped;
-  const bus = _layerBus[key];
-  if (bus && _ctx) bus.gain.setTargetAtTime(clamped * _trimLinear(key), _ctx.currentTime, 0.02);
+  _applyBusGain(key);
 }
 
 // Returns the FADER value (0-1), never the trim-adjusted bus gain — callers

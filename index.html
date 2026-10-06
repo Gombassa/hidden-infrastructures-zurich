@@ -283,31 +283,37 @@
       );
 
       // Real GPS — centre map on actual device position
-      if (navigator.geolocation) {
-        gpsWatcherId = navigator.geolocation.watchPosition(
-          (pos) => {
-            if (simActive) return; // simulation owns position while active
-            // ── TEST LOCATION OVERRIDE ───────────────────────────────────────
-            // To activate: uncomment the two override lines, comment out the two real lines.
-            // Paradeplatz (west end of route, dense water/elec/telecom infrastructure):
-            // pos = { coords: { latitude: 47.3707, longitude: 8.5384, speed: null, accuracy: 1 } };
-            // Stadelhofen (east end, tram-dense terminus):
-            // pos = { coords: { latitude: 47.3769, longitude: 8.5417, speed: null, accuracy: 1 } };
-            // ────────────────────────────────────────────────────────────────
-            handleFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, speed: pos.coords.speed, accuracy: pos.coords.accuracy });
-          },
-          (err) => appendLog(`GPS error: ${err.message}`, 'lerr'),
-          { enableHighAccuracy: true, maximumAge: 5000 },
-        );
-      } else {
+      if (!navigator.geolocation) {
         appendLog('Geolocation not available — using simulated position', 'linf');
       }
+      startGpsWatch();
       window.addEventListener('deviceorientation', (event) => {
         if (simActive) return; // simulation owns heading while active
         if (event.alpha !== null) {
           handleHeading(event.alpha);
         }
       });
+    }
+
+    // Idempotent: a live watch id is never replaced, so Start can call this
+    // again after Stop without stacking a second watcher.
+    function startGpsWatch() {
+      if (gpsWatcherId !== null || !navigator.geolocation) return;
+      gpsWatcherId = navigator.geolocation.watchPosition(
+        (pos) => {
+          if (simActive) return; // simulation owns position while active
+          // ── TEST LOCATION OVERRIDE ───────────────────────────────────────
+          // To activate: uncomment the two override lines, comment out the two real lines.
+          // Paradeplatz (west end of route, dense water/elec/telecom infrastructure):
+          // pos = { coords: { latitude: 47.3707, longitude: 8.5384, speed: null, accuracy: 1 } };
+          // Stadelhofen (east end, tram-dense terminus):
+          // pos = { coords: { latitude: 47.3769, longitude: 8.5417, speed: null, accuracy: 1 } };
+          // ────────────────────────────────────────────────────────────────
+          handleFix({ lat: pos.coords.latitude, lng: pos.coords.longitude, speed: pos.coords.speed, accuracy: pos.coords.accuracy });
+        },
+        (err) => appendLog(`GPS error: ${err.message}`, 'lerr'),
+        { enableHighAccuracy: true, maximumAge: 5000 },
+      );
     }
 
     // Shared by the real GPS/compass callbacks above and SimWalker below —
@@ -553,6 +559,7 @@
     });
 
     btnStart.addEventListener('click', () => {
+      startGpsWatch();
       InstrumentLayers.init(ctx);
       appendLog('InstrumentLayers ready (tram / water / sewage / elec / telecom / fernwärme)', 'lok');
       TramEngine.start();

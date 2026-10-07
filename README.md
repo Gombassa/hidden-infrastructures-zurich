@@ -73,7 +73,7 @@ To ingest new GeoShop tile deliveries:
 node scripts/import-new-tiles.js
 ```
 
-**Provenance:** all infrastructure geodata originates from Stadt Zürich's Open Government Data program (VBZ, WVZ, ERZ, ewz, SIA405 LKMap via GeoShop) and transport.opendata.ch. **Code license:** not yet chosen — no `LICENSE` file exists in this repository yet; open item ahead of any public/open-source release.
+**Provenance:** all infrastructure geodata originates from Stadt Zürich's Open Government Data program (VBZ, WVZ, ERZ, ewz, SIA405 LKMap via GeoShop) and transport.opendata.ch. **Code license:** All rights reserved — see `LICENSE`. No open-source licence is granted; use, copying, modification, or distribution requires the copyright holder's express written permission.
 
 ## Architecture
 

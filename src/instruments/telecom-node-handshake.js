@@ -23,6 +23,9 @@ const COOLDOWN_MS = 8_000;
 // telecom-node-chirp.js's CHIRP_FALLOFF_RADIUS.
 const HANDSHAKE_FALLOFF_RADIUS = 25; // metres — gain -> 0 at this distance
 
+// -9dB per Robin's field-by-ear request, 2026-10-07 (was a flat 0.18 peak)
+const PEAK_GAIN = 0.18 * Math.pow(10, -9 / 20); // ≈ 0.0639
+
 export default class TelecomNodeHandshake extends Instrument {
   constructor(ctx, outputNode) {
     super(ctx, outputNode);
@@ -56,8 +59,8 @@ export default class TelecomNodeHandshake extends Instrument {
 
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0, t0);
-    gain.gain.linearRampToValueAtTime(0.18 * gainScalar, t0 + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.18 * gainScalar * (0.001 / 0.18), t0 + duration);
+    gain.gain.linearRampToValueAtTime(PEAK_GAIN * gainScalar, t0 + 0.02);
+    gain.gain.exponentialRampToValueAtTime(PEAK_GAIN * gainScalar * (0.001 / 0.18), t0 + duration);
 
     osc.connect(gain);
     gain.connect(this.outputNode);

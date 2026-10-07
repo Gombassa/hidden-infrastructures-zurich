@@ -19,6 +19,9 @@ import { Instrument } from './instrument-base.js';
 // new 25m trigger radius itself (gain -> 0 right at the gate edge).
 const CHIRP_FALLOFF_RADIUS = 25; // metres — gain -> 0 at this distance
 
+// -9dB per Robin's field-by-ear request, 2026-10-07 (was a flat 0.08 peak)
+const PEAK_GAIN = 0.08 * Math.pow(10, -9 / 20); // ≈ 0.0284
+
 export default class TelecomNodeChirp extends Instrument {
   constructor(ctx, outputNode) {
     super(ctx, outputNode);
@@ -51,8 +54,8 @@ export default class TelecomNodeChirp extends Instrument {
 
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0, t0);
-    gain.gain.linearRampToValueAtTime(0.08 * gainScalar, t0 + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.08 * gainScalar * 0.0125, t0 + duration);
+    gain.gain.linearRampToValueAtTime(PEAK_GAIN * gainScalar, t0 + 0.01);
+    gain.gain.exponentialRampToValueAtTime(PEAK_GAIN * gainScalar * 0.0125, t0 + duration);
 
     osc.connect(gain);
     gain.connect(this.outputNode);

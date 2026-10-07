@@ -15,6 +15,14 @@ import { Instrument } from './instrument-base.js';
 
 const COOLDOWN_MS = 8_000;
 
+// Sharper (squared) proximity falloff, independent from ProximityEngine's own
+// TELECOM_NODE_RADIUS trigger gate — same trigger-gate-vs-falloff-radius split
+// feeder-crackle.js documents and uses. No distance was specified by Robin's
+// "closer to the data nodes, sharper rolloff" request, so this defaults to the
+// 25m trigger radius itself (gain -> 0 right at the gate edge), matching
+// telecom-node-chirp.js's CHIRP_FALLOFF_RADIUS.
+const HANDSHAKE_FALLOFF_RADIUS = 25; // metres — gain -> 0 at this distance
+
 export default class TelecomNodeHandshake extends Instrument {
   constructor(ctx, outputNode) {
     super(ctx, outputNode);
@@ -25,11 +33,17 @@ export default class TelecomNodeHandshake extends Instrument {
     return Date.now() - (this._cooldown.get(id) || 0) < COOLDOWN_MS;
   }
 
-  // { id }
-  trigger({ id }) {
+  // { id, dist }
+  trigger({ id, dist }) {
     const now = Date.now();
     if (now - (this._cooldown.get(id) || 0) < COOLDOWN_MS) return;
     this._cooldown.set(id, now);
+
+    // Floored, not 0 — exponentialRampToValueAtTime below throws if the gain
+    // node's value is ever exactly 0 at the time the ramp starts.
+    const gainScalar = (typeof dist === 'number')
+      ? Math.max(Math.pow(1 - Math.min(dist / HANDSHAKE_FALLOFF_RADIUS, 1), 2), 0.001)
+      : 1;
 
     const ctx = this.ctx;
     const t0 = ctx.currentTime;
@@ -42,8 +56,8 @@ export default class TelecomNodeHandshake extends Instrument {
 
     const gain = ctx.createGain();
     gain.gain.setValueAtTime(0, t0);
-    gain.gain.linearRampToValueAtTime(0.18, t0 + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.001, t0 + duration);
+    gain.gain.linearRampToValueAtTime(0.18 * gainScalar, t0 + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.18 * gainScalar * (0.001 / 0.18), t0 + duration);
 
     osc.connect(gain);
     gain.connect(this.outputNode);

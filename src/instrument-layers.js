@@ -112,7 +112,7 @@ const LAYER_TRIM_DB = {
   tram: -21.3,       // RMS-matched: -34.86 (electricity) - (-13.54) (tram)
   water: 7.5,        // PEAK-matched: -16.12 (electricity) - (-23.65) (water)
   sewage: 4.0,       // RMS-matched: -34.86 (electricity) - (-38.84) (sewage)
-  electricity: 0.0,  // reference layer
+  electricity: -6.0, // 6dB quieter per Robin's field-by-ear request, 2026-10-07 (was 0.0 reference)
   telecom: -7.3,     // RMS-matched: -34.86 (electricity) - (-27.61) (telecom)
   fernwaerme: -10.7, // RMS-matched: -34.86 (electricity) - (-24.17) (fernwaerme)
 };
@@ -349,14 +349,15 @@ function update(proximity, listenerLat, listenerLng, heading, speed) {
     const telecomNodes = proximity.telecom?.nodes || [];
     const telecomCables = proximity.telecom?.cables || [];
 
-    for (const n of telecomNodes) if (n.triggered) telecomChirp.trigger({ id: n.id });
+    for (const n of telecomNodes) if (n.triggered) telecomChirp.trigger({ id: n.id, dist: n.dist });
 
     const nowT = Date.now();
     const triggeredNodeIds = new Set(telecomNodes.filter(n => n.triggered).map(n => n.id));
+    const telecomNodeDistById = new Map(telecomNodes.map(n => [n.id, n.dist]));
     for (const id of [...telecomNodeDwell.keys()]) if (!triggeredNodeIds.has(id)) telecomNodeDwell.delete(id);
     for (const id of triggeredNodeIds) {
       if (!telecomNodeDwell.has(id)) telecomNodeDwell.set(id, nowT);
-      else if (nowT - telecomNodeDwell.get(id) > 5000) telecomHandshake.trigger({ id });
+      else if (nowT - telecomNodeDwell.get(id) > 5000) telecomHandshake.trigger({ id, dist: telecomNodeDistById.get(id) });
     }
 
     let nearestCableDist = Infinity;

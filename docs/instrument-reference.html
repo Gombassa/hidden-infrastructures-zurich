@@ -404,15 +404,21 @@
       <div class="instr-body">
         <p>Three behaviours, Step 6: burst pool (<code>src/instruments/telecom-burst-pool.js</code>), node-entry
         chirp (<code>telecom-node-chirp.js</code> — previously unbuilt), and node dwell handshake
-        (<code>telecom-node-handshake.js</code>), all strict parity ports. The one pool confirmed to need no
+        (<code>telecom-node-handshake.js</code>), all built as strict parity ports. The one pool confirmed to need no
         allocator — four fixed slots, nothing claimed per feature, gated collectively by aggregate proximity
         (nearest-cable distance, cable count). Also the layer with no acoustic original: fibre makes no sound,
         so this is where the piece stops sonifying and starts representing.</p>
+        <div class="note"><span class="lab">Field-tuned post-launch, 2026-10-07 — no longer strict parity</span>
+        Chirp and handshake were both field-tuned by ear on <code>main</code>, outside this Step 6 build: each
+        gained a squared proximity falloff (neither had any distance-based gain scaling before — fixed peak gain
+        anywhere within the trigger radius), peak gain was cut a further -9dB, and the trigger radius itself
+        narrowed 40m→25m. The table below describes the Step 6 parity-port values; see
+        <code>docs/CHANGELOG.md</code>'s Audio Architecture section for the current tuned values.</div>
         <table>
           <thead><tr><th>Parameter</th><th>Value</th><th>What it does, and why</th></tr></thead>
           <tbody>
             <tr><td class="p">Gate rate</td><td class="v">22–78 Hz, fixed sine LFO</td><td class="why">Below pitch and above rhythm, where amplitude modulation reads as roughness rather than pulse. Density scales these 0.5–2.0×. This page's earlier Packets/Shape/Duty exploration (framed bursts, variable-duty gate) had no production counterpart and was retired once the real class landed — production's gate is a plain sine.</td></tr>
-            <tr><td class="p">Node chirp</td><td class="v">2000→4000 Hz, 0.2s</td><td class="why">Debounced per node id until its own oscillator's <code>onended</code> fires — not a time cooldown. Fires on entry within 40m.</td></tr>
+            <tr><td class="p">Node chirp</td><td class="v">2000→4000 Hz, 0.2s</td><td class="why">Debounced per node id until its own oscillator's <code>onended</code> fires — not a time cooldown. Fired on entry within 40m at Step 6; that radius has since narrowed to 25m (see note above).</td></tr>
             <tr><td class="p">Dwell threshold</td><td class="v">5 s</td><td class="why">The only time-based trigger in the project. Fires only if you stop near a node and stay stopped. Tracked caller-side (this page owns the dwell Map), not inside the handshake class — same precedent as feeder crackle's re-fire guard.</td></tr>
             <tr><td class="p">Handshake sweep</td><td class="v">1000→8000 Hz, 0.4s, 8s cooldown</td><td class="why">Cooldown is internal to the class. No jitter in production — this page's earlier ±500Hz jitter exploration was its own addition, not carried into the port.</td></tr>
           </tbody>

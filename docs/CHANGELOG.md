@@ -10,6 +10,22 @@ Version history for the project's planning and architecture documents, moved out
 
 Not a planning/architecture document like the sections below — this section tracks consequential changes to the live orchestrator code itself, same newest-first convention, since those changes don't correspond to a version bump in any of the three documents above.
 
+### Telecom node chirp + handshake: -9dB (tune/electricity-telecom, second commit)
+
+**Change:** both one-shot node-triggered events (chirp's 2kHz→4kHz tick, handshake's 1kHz→8kHz sweep) had their peak gain cut a further -9dB (0.08→~0.0284 chirp, 0.18→~0.0639 handshake), per Robin's field-by-ear request, immediately after the radius/rolloff change below. Introduced a named `PEAK_GAIN` constant in each instrument rather than inlining the new number. The proximity-scaled falloff curve and the proportional exponential-ramp tail added in the prior commit both apply on top of this new peak unchanged — only the peak itself moved.
+
+### Hiss Voice Instrument link removed (fix/remove-hiss-voice-link)
+
+**Change:** the "HISS VOICE INSTRUMENT →" button was removed from `index.html` — Robin no longer wanted it on the main page. `instruments/hiss-voice.html` itself is untouched and still reachable by direct URL.
+
+### Master volume rotary knob + top-bar cleanup (feature/master-volume-knob)
+
+**Change:** added a `_masterVolume` GainNode to the master chain, inserted after `_limiter`, before `ctx.destination` (`_masterMakeup → _limiter → _masterVolume → ctx.destination`) — deliberately placed post-limiter so it's a pure output-level trim that doesn't change what signal the limiter itself processes. `setMasterVolume`/`getMasterVolume` follow the same 0..1 "fader" convention, before-Start-safe storage, and Stop/Start persistence as `setLayerLevel`/`getLayerLevel`. Wired in `index.html` to a new rotary-knob control (a styled div, no native rotary input exists) next to the Listener Position card — dragged vertically via Pointer Events (mouse + touch), with arrow-key support for keyboard users; the knob face rotates -135°..+135° to read like a hardware volume dial. In the same commit, the "Trams within 150m" and "Nearest Feeder Dist" cards were removed from `index.html` along with their supporting JS, since Robin no longer wanted them in the UI — the feeder-marker colouring loop they sat next to is unaffected, since it doesn't read either removed value.
+
+### Electricity -6dB, telecom node trigger closer with sharper rolloff (tune/electricity-telecom)
+
+**Change:** `LAYER_TRIM_DB.electricity` dropped from 0.0 (reference) to -6.0, per Robin's "electricity needs to be 6dB quieter" request — `electricity-oscillator-pool.js`'s own separate `FIELD_TRIM_DB=-9` is untouched. Separately, per Robin's "telecom proximity trigger needs to be closer to the data nodes, with a sharper rolloff" (clarified via explicit choice: the node-trigger radius/chirp+handshake interpretation, not the continuous cable bed, which already had a linear rolloff and was left alone): `TELECOM_NODE_RADIUS` in `src/proximity-engine.js` narrowed 40m→25m, and both `telecom-node-chirp.js` and `telecom-node-handshake.js` — neither of which had any distance-based gain scaling before, just a fixed peak gain anywhere within the trigger radius — gained a squared proximity falloff curve (`gainScalar = (1 - dist/RADIUS)²`) following `feeder-crackle.js`'s established precedent, each with its own independent local falloff-radius constant defaulted to the new 25m trigger radius. Floored at 0.001 rather than true 0, since `exponentialRampToValueAtTime` throws if the gain node's automated value is ever exactly 0 when the ramp starts; the tail target scales proportionally with the floored peak instead of a fixed value, so the decay ratio stays consistent at any distance. `instrument-layers.js`'s telecom `update()` block now threads `dist` through to both `trigger()` calls — straightforward for chirp (direct node iteration), handshake needed a new `telecomNodeDistById` Map since it fires from a Set of ids via the dwell-tracking loop, not direct node iteration.
+
 ### Mute silences the layer bus (fix/mute-bus-gain)
 
 **Change:** `setLayerEnabled(key, false)` now also ramps that layer's bus gain to 0 (and back to fader × trim on enable), so a muted tram layer's hiss pool voices — which nothing releases while the layer is disabled — no longer keep sounding; `setLayerLevel` and `init()` respect the muted state too, and `getLayerLevel` still returns the fader value.
@@ -94,6 +110,10 @@ Not a planning/architecture document like the sections below — this section tr
 
 ## Technical Architecture (`docs/Technical_Architecture_v5.md`)
 
+### v5.11
+
+**Changes from v5.10 (electricity/telecom field tuning; master volume knob; UI cleanup):** `LAYER_TRIM_DB.electricity` cut -6.0dB (was 0.0dB reference), per Robin's field-by-ear request. `TELECOM_NODE_RADIUS` narrowed 40m→25m; `telecom-node-chirp.js`/`telecom-node-handshake.js` gained a squared proximity falloff (neither had distance-based gain scaling before) and a further -9dB peak-gain cut. Added a `_masterVolume` GainNode after the limiter, driven by a new rotary knob in `index.html`. Removed the tram/feeder-count cards and the Hiss Voice Instrument link from `index.html`. Rewrote the Audio Graph diagram to show the new `_masterVolume` stage, added a "Fourth generation" paragraph after the existing "Third generation" one, updated the Data Layer table's telecom radius, and updated the Future Development Work bullet list. All merged to `main` and deployed 2026-10-07 (commits `e62b0c0`, `c3ba72b`, `f64fb8a`, `623b690`; Cloud Build `9c14571a` SUCCESS; Cloud Run revision `hidden-infrastructures-zurich-00075-h7f` at 100% traffic) — not yet confirmed by ear or browser check.
+
 ### v5.10
 
 **Changes from v5.9 (mute gates the layer bus; GPS re-subscribes on Start):** `setLayerEnabled(key, false)` now ramps the layer's bus gain to 0 (`fix/mute-bus-gain`), so muted tram hiss stops, as it was never released by the instrument path while the layer is disabled. In `index.html`, Start now re-creates the real GPS watch if Stop cleared it, via an idempotent `startGpsWatch()` (`fix/restart-gps-watch`). Both merged to `main` 2026-10-06, with a data-flow note added for the GPS re-subscribe. Robin's onsite check on 2026-10-06 reports the app works after these fixes.
@@ -141,6 +161,10 @@ Not a planning/architecture document like the sections below — this section tr
 ---
 
 ## Implementation Plan (`docs/Implementation_Plan.md`)
+
+### v2.5
+
+**Changes from v2.4 (post-launch field tuning, 2026-10-07 — not a build step):** Noted in the header that telecom's node-entry chirp (#17) and node dwell handshake (#18) — documented as strict parity ports when Step 6 built them, rows 52-53 below, unchanged — were subsequently field-tuned by ear on `main`, outside this document's Phase 3 step sequence: a squared proximity falloff curve added (neither had any before), trigger radius narrowed 40m→25m, and peak gain cut a further -9dB. Electricity's mixer trim also cut -6dB by ear (an `instrument-layers.js` concern, not a per-instrument row here). Did not rewrite rows 52-53 themselves — "strict parity" there correctly describes the Step 6 porting work, just not the current output level. See `docs/CHANGELOG.md`'s Audio Architecture section for the full detail.
 
 ### v2.4
 

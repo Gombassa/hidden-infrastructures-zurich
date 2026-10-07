@@ -21,7 +21,7 @@
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       margin-bottom: 10px;
     }
@@ -29,6 +29,32 @@
     .card-label { color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
     .card-value { color: #00e87a; font-size: 15px; }
     .card-value.alert { color: #ff6b35; }
+
+    /* ── Master volume rotary knob ───────────────────────────────────────── */
+    .rotary-knob-wrap { display: flex; align-items: center; gap: 10px; }
+    .rotary-knob {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #0a0a0a;
+      border: 1px solid #2a2a2a;
+      position: relative;
+      flex: 0 0 auto;
+      cursor: grab;
+      touch-action: none; /* drag moves the knob, not the page, on touch */
+    }
+    .rotary-knob::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 50%;
+      width: 2px;
+      height: 11px;
+      background: #00e87a;
+      transform: translateX(-50%);
+    }
+    .rotary-knob:active { cursor: grabbing; }
+    .rotary-knob:focus { outline: 1px solid #00e87a; }
 
     .buttons { display: flex; gap: 8px; margin-bottom: 10px; }
     button {
@@ -158,12 +184,12 @@
       <div class="card-value" id="card-pos">—</div>
     </div>
     <div class="card">
-      <div class="card-label">Trams within 150m</div>
-      <div class="card-value" id="card-trams">—</div>
-    </div>
-    <div class="card">
-      <div class="card-label">Nearest Feeder Dist</div>
-      <div class="card-value" id="card-feeder">—</div>
+      <div class="card-label">Master Volume</div>
+      <div class="rotary-knob-wrap">
+        <div class="rotary-knob" id="knob-master-vol" tabindex="0" role="slider"
+             aria-label="Master volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"></div>
+        <div class="card-value" id="master-vol-value">100%</div>
+      </div>
     </div>
   </div>
 
@@ -441,9 +467,6 @@
         }
       }
 
-      const tramCount = tramState.trams.length;
-      setCard('card-trams', String(tramCount), tramCount > 0);
-
       // Update feeder colours based purely on tram proximity (no listener required)
       if (feederMarkers) {
         const proximity = ProximityEngine.calculate(tramState, realLat, realLng, realHeading, realSpeed);
@@ -484,20 +507,6 @@
             : { color: '#333',    fillColor: '#444'    }
           );
         }
-        const feederTriggered = proximity.feeders.some(f => f.triggered);
-        let nearestFeederDist = Infinity;
-        if (realLat !== null && realLng !== null) {
-          for (const f of proximity.feeders) {
-            const dlat = (f.lat - realLat) * 111320;
-            const dlng = (f.lng - realLng) * 111320 * Math.cos(realLat * Math.PI / 180);
-            const d = Math.sqrt(dlat * dlat + dlng * dlng);
-            if (d < nearestFeederDist) nearestFeederDist = d;
-          }
-        }
-        setCard('card-feeder',
-          nearestFeederDist === Infinity ? '—' : `${Math.round(nearestFeederDist)}m`,
-          feederTriggered
-        );
         if (ctx) InstrumentLayers.update(proximity, realLat, realLng, realHeading);
         _updateTriggerOverlays(proximity);
       }
@@ -661,6 +670,66 @@
       }
       meterRafId = requestAnimationFrame(meterLoop);
     }
+
+    // ── MASTER VOLUME (rotary knob) ───────────────────────────────────────────
+    // Drag up/down (mouse or touch, via Pointer Events) to adjust — a straight
+    // vertical drag, not a true circular gesture, but the knob face still
+    // rotates -135deg (0) .. +135deg (1) to read like a hardware volume knob.
+    // Safe to call setMasterVolume before Start, same as the layer faders:
+    // InstrumentLayers stores the value regardless of AudioContext state and
+    // applies it when init() creates the master-volume gain node.
+    const KNOB_MIN_DEG = -135;
+    const KNOB_MAX_DEG = 135;
+    const KNOB_DRAG_PX = 150; // vertical px dragged for the full 0..1 sweep
+
+    const knobMaster = document.getElementById('knob-master-vol');
+    const knobMasterValueEl = document.getElementById('master-vol-value');
+
+    function setKnobVisual(v) {
+      const deg = KNOB_MIN_DEG + v * (KNOB_MAX_DEG - KNOB_MIN_DEG);
+      knobMaster.style.transform = `rotate(${deg}deg)`;
+      knobMaster.setAttribute('aria-valuenow', String(Math.round(v * 100)));
+      knobMasterValueEl.textContent = `${Math.round(v * 100)}%`;
+    }
+
+    setKnobVisual(InstrumentLayers.getMasterVolume());
+
+    let knobDragStartY = null;
+    let knobDragStartValue = 1;
+
+    knobMaster.addEventListener('pointerdown', (e) => {
+      knobDragStartY = e.clientY;
+      knobDragStartValue = InstrumentLayers.getMasterVolume();
+      knobMaster.setPointerCapture(e.pointerId);
+    });
+
+    knobMaster.addEventListener('pointermove', (e) => {
+      if (knobDragStartY === null) return;
+      const deltaY = knobDragStartY - e.clientY; // drag up = louder
+      const v = Math.max(0, Math.min(1, knobDragStartValue + deltaY / KNOB_DRAG_PX));
+      InstrumentLayers.setMasterVolume(v);
+      setKnobVisual(v);
+    });
+
+    function knobDragEnd(e) {
+      if (knobDragStartY === null) return;
+      knobDragStartY = null;
+      try { knobMaster.releasePointerCapture(e.pointerId); } catch {}
+    }
+    knobMaster.addEventListener('pointerup', knobDragEnd);
+    knobMaster.addEventListener('pointercancel', knobDragEnd);
+
+    // Keyboard equivalent (arrow keys), since the knob isn't a native <input>
+    knobMaster.addEventListener('keydown', (e) => {
+      const step = 0.05;
+      let v = InstrumentLayers.getMasterVolume();
+      if (e.key === 'ArrowUp' || e.key === 'ArrowRight') v = Math.min(1, v + step);
+      else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') v = Math.max(0, v - step);
+      else return;
+      e.preventDefault();
+      InstrumentLayers.setMasterVolume(v);
+      setKnobVisual(v);
+    });
 
     // ── TRAM ERROR SURFACE ────────────────────────────────────────────────────
     window.addEventListener('tram-error', (e) => appendLog(e.detail, 'lerr'));

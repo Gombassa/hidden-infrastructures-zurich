@@ -96,6 +96,11 @@ let _layerAnalyser = {};
 let _layerMeterBuf = {}; // one reusable Float32Array per layer, for getLayerMeter
 let _layerLevel = { tram: 1, water: 1, sewage: 1, electricity: 1, telecom: 1, fernwaerme: 1 };
 
+// Master volume (rotary knob, index.html) — 0..1, same "fader" convention as
+// _layerLevel above, and deliberately NOT reset in stop() for the same
+// reason: the knob's position must survive a Stop/Start cycle.
+let _masterVolumeLevel = 1;
+
 // Per-layer trim (feature/layer-trim), MEASURED VALUES from a calibration run
 // — not tuning knobs. calibrate-layers.html (feature/layer-calibration
 // branch) built each layer's real instruments in isolation, in a documented
@@ -123,10 +128,14 @@ function _trimLinear(key) {
 
 // Master chain (feature/layer-trim): every layer bus and the shared reverb's
 // output join here, post-trim, pre-destination — layerBus -> _masterMakeup ->
-// _limiter -> ctx.destination. Nothing connects to ctx.destination directly
-// any more.
+// _limiter -> _masterVolume -> ctx.destination. Nothing connects to
+// ctx.destination directly any more. _masterVolume sits AFTER the limiter
+// deliberately — it's a final output-level trim driven by index.html's
+// rotary knob, independent of the limiter's dynamics processing (turning the
+// knob down doesn't change what signal the limiter sees or how hard it works).
 let _masterMakeup = null;
 let _limiter = null;
+let _masterVolume = null;
 
 // Several of the trims above are negative (tram -21.3dB, telecom -7.3dB,
 // fernwaerme -10.7dB), so the trimmed mix sits quieter overall than before
@@ -155,8 +164,11 @@ function _initMasterChain(ctx) {
   _masterMakeup = ctx.createGain();
   _masterMakeup.gain.value = MASTER_MAKEUP_LINEAR;
   _limiter = _buildLimiter(ctx);
+  _masterVolume = ctx.createGain();
+  _masterVolume.gain.value = _masterVolumeLevel;
   _masterMakeup.connect(_limiter);
-  _limiter.connect(ctx.destination);
+  _limiter.connect(_masterVolume);
+  _masterVolume.connect(ctx.destination);
 }
 
 // How long to wait after destroy() before disconnecting a layer's bus from
@@ -518,6 +530,7 @@ function stop() {
   const analysersToDisconnect = _layerAnalyser;
   const masterMakeupToDisconnect = _masterMakeup;
   const limiterToDisconnect = _limiter;
+  const masterVolumeToDisconnect = _masterVolume;
   setTimeout(() => {
     for (const key of LAYER_KEYS) {
       if (busesToDisconnect[key]) busesToDisconnect[key].disconnect();
@@ -525,12 +538,14 @@ function stop() {
     }
     if (masterMakeupToDisconnect) masterMakeupToDisconnect.disconnect();
     if (limiterToDisconnect) limiterToDisconnect.disconnect();
+    if (masterVolumeToDisconnect) masterVolumeToDisconnect.disconnect();
   }, BUS_DISCONNECT_DELAY_MS);
   _layerBus = {};
   _layerAnalyser = {};
   _layerMeterBuf = {};
   _masterMakeup = null;
   _limiter = null;
+  _masterVolume = null;
 
   _initialized = false;
   _ctx = null;
@@ -569,7 +584,25 @@ function getLayerMeter(key) {
   return peak;
 }
 
+// v in [0, 1] — the rotary knob's value, applied as a plain linear gain
+// multiplier on _masterVolume (post-limiter, see _initMasterChain above).
+// Safe to call before Start, same as setLayerLevel: stores the value
+// regardless of AudioContext state, and _initMasterChain reads it as the
+// node's initial gain once init() creates it.
+function setMasterVolume(v) {
+  const clamped = Math.max(0, Math.min(1, v));
+  _masterVolumeLevel = clamped;
+  if (_masterVolume && _ctx) {
+    _masterVolume.gain.setTargetAtTime(clamped, _ctx.currentTime, 0.02);
+  }
+}
+
+function getMasterVolume() {
+  return _masterVolumeLevel;
+}
+
 export default {
   init, update, onListenerMove, stop, setLayerEnabled, LAYER_ENABLED,
   setLayerLevel, getLayerLevel, getLayerMeter,
+  setMasterVolume, getMasterVolume,
 };

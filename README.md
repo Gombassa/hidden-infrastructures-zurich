@@ -17,7 +17,7 @@ Phase 2 complete. All 6 infrastructure layers working with event-driven audio an
 | Sewage | Looped lowpass rumble (distance-modulated), rhythmic gurgle | Junction thud, pipe crossing, alongside loop, gurgle below 20m |
 | Electricity | 8-slot sawtooth pool (1490–1510Hz spread, per-slot beating), density gain | Node entry, cable crossing snap, alongside loop |
 | Telecom | 4-slot LFO-gated burst pool (22–78Hz), density-modulated rate | Node chirp, 5s dwell handshake, cable crossing click, alongside loop |
-| Fernwärme | 60Hz sine + tremolo, StereoPanner driven by pipe bearing | Entry (30m), pipe crossing burst, alongside loop |
+| Fernwärme | 60Hz sine + tremolo, StereoPanner driven by pipe bearing | Entry (20m, tightened from 30m 2026-10-10), pipe crossing burst, alongside loop |
 
 **Shared density reverb:** active layer count (0–6) drives a shared convolver wet level (0→0.07). Dense infrastructure overlap — Bahnhofstrasse has tram + water + electricity + telecom — feels noticeably richer spatially.
 
@@ -30,6 +30,8 @@ All synthesis *shipped in production* is direct Web Audio API code — no Max/MS
 **Since Step 8 (2026-10-02/03):** `tram-drone.js`'s own private reverb was removed — the shared density reverb bus is now the only reverb in the app. A per-layer mixer strip (mute, 0–1 fader, live meter per layer) replaced the old on/off toggles, and each layer's fader now carries a fixed, *measured* calibration trim (tram -21.3dB, water +7.5dB peak-matched, sewage +4.0dB, electricity 0.0dB reference at the time, telecom -7.3dB, fernwaerme -10.7dB — electricity's value has since changed, see below) — every layer bus and the reverb output feed a master makeup-gain (+12dB) then a limiter (`DynamicsCompressorNode`) before destination, instead of connecting to it directly. A "Simulate Walk" toggle can drive the whole app from a randomised walker (`src/sim-walker.js`) along a street-like graph built from water-pipe geometry, for testing away from Zürich. The mute fix and GPS re-subscribe fix (2026-10-06) are confirmed working onsite; the trims, limiter and simulated-walk specifics are still to be confirmed. The dev-only measurement tool these trims came from (`calibrate-layers.html`) lives on its own `feature/layer-calibration` branch, deliberately not merged.
 
 **Since 2026-10-07:** electricity's mixer trim was cut a further -6dB by ear. Telecom's node-triggered sounds (chirp, dwell handshake) — previously fixed-gain anywhere within a flat 40m trigger radius — now fade in over a narrower 25m radius with a sharper (squared) proximity curve, and their peak gain is cut a further -9dB. A rotary master-volume knob sits next to the Listener Position readout, dragged with mouse/touch or nudged with arrow keys, wired as a final output-level stage after the limiter. The "Trams within 150m"/"Nearest Feeder Dist" readouts and the Hiss Voice Instrument link are both gone from the main page. All deployed and confirmed live on Cloud Run, not yet confirmed by ear.
+
+**Since 2026-10-10 (Robin's own direct edit on `main`, not a branch merge):** nearly every proximity radius across every layer collapsed to a uniform 20m — water, sewage, electricity, telecom, and fernwärme's trigger gates were previously 25–80m each, and most per-instrument falloff radii (feeder crackle, electricity, telecom, tram hiss) came down from 25–150m to match. One exception: sewage's continuous rumble bed sits at 5m, tighter than everything else — not yet confirmed whether that's intentional. Separately, `ProximityEngine.calculate()` was split into `calculateTrams()` (tram↔feeder state, driven by the 10s TramEngine tick) and `calculateListener()` (the five infrastructure layers, now driven by GPS fixes instead of waiting on the tram tick) — the app should feel noticeably more responsive between tram updates. Deployed; not yet confirmed by ear or in the field — this is a bigger change than most prior tuning passes, both in how close things need to be and in how often they can now update.
 
 ## Running locally
 
@@ -82,7 +84,7 @@ node scripts/import-new-tiles.js
 ```
 src/
 ├── tram-engine.js         # Live tram positions (transport.opendata.ch, 10s poll)
-├── proximity-engine.js    # Distance calc for all 6 layers; crossing/alongside detection
+├── proximity-engine.js    # Distance calc for all 6 layers; crossing/alongside detection — split into calculateTrams()/calculateListener() (2026-10-10)
 ├── instrument-layers.js   # Orchestrates src/instruments/*.js — what index.html runs on in production
 ├── sim-walker.js          # Randomised simulated walk ("Simulate Walk" toggle) for testing away from Zürich
 └── instruments/           # One self-contained class per sonic behaviour (24 total)

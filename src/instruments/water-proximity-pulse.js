@@ -40,7 +40,7 @@ export default class WaterProximityPulse extends Instrument {
     const freq     = isFitting ? 1200 : 800;
     const duration = isFitting ? 0.08 : 0.25;
 
-    const radius  = isFitting ? 25 : 50;
+    const radius  = 20;
     const proxT   = Math.max(0, 1 - dist / radius);
     const maxGain = 0.04 + proxT * 0.14;
 

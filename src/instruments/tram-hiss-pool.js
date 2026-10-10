@@ -56,7 +56,7 @@ import { PoolAllocator } from './pool-allocator.js';
 import TramHissVoice from './tram-hiss-voice.js';
 import { flatEarthDist, feederKey } from './tram-spatial.js';
 
-const RADIUS = 25; // metres — matches production's FEEDER_HISS_RADIUS
+const RADIUS = 20; // metres — matches production's FEEDER_HISS_RADIUS
 const POOL_SIZE = 6; // matches production's slot count
 const CLAIM_THROTTLE_MS = 500; // minimum interval between claim/release/steal passes
 

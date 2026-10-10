@@ -2,19 +2,22 @@
 // Pure logic module: no DOM dependencies. Requires fetch for GeoJSON loading.
 
 // ── RADII (metres) ───────────────────────────────────────────────────────────
+// 2026-10-10: every listener-to-feature gate capped at 20 m (was: feeder-listener 50, water pipe 50,
+// water fitting 25, sewage 80, elec node/cable 40, telecom node 25 / cable 30, fernwärme 30).
+// Tram-to-feeder (FEEDER_TRIGGER_RADIUS) and substation radii are tram-based and unchanged.
 const SUBSTATION_RADIUS      = 150;  // trams within this count toward tramCount
 const FEEDER_TRIGGER_RADIUS  = 50;   // tram-to-node distance to trigger feeder event
-const FEEDER_LISTENER_RADIUS = 50;   // listener-to-node gate for feeder events
+const FEEDER_LISTENER_RADIUS = 20;   // listener-to-feeder gate for AUDIO only (flags feeders inListenerRange); does not affect `triggered`
 const POWERLINE_DRONE_RADIUS = 5;    // listener within this of tram trasse activates drone
 
-const WATER_PIPE_RADIUS      = 50;   // listener-to-pipe (nearest point on segment)
-const WATER_FITTING_RADIUS   = 25;   // listener-to-fitting (point distance)
-const SEWAGE_PIPE_RADIUS     = 80;   // listener-to-collector (nearest point on segment)
-const ELEC_NODE_RADIUS       = 40;   // listener-to-transformer node
-const ELEC_CABLE_RADIUS      = 40;   // listener-to-cable (nearest point on segment)
-const TELECOM_NODE_RADIUS    = 25;   // listener-to-telecom node — shrunk from 40 per Robin's "closer to the data nodes" request, 2026-10-07
-const TELECOM_CABLE_RADIUS   = 30;   // listener-to-cable (nearest point on segment)
-const FERNWAERME_PIPE_RADIUS  = 30;   // listener-to-heat pipe (nearest point on segment)
+const WATER_PIPE_RADIUS      = 20;   // listener-to-pipe (nearest point on segment)
+const WATER_FITTING_RADIUS   = 20;   // listener-to-fitting (point distance)
+const SEWAGE_PIPE_RADIUS     = 20;   // listener-to-collector (nearest point on segment)
+const ELEC_NODE_RADIUS       = 20;   // listener-to-transformer node
+const ELEC_CABLE_RADIUS      = 20;   // listener-to-cable (nearest point on segment)
+const TELECOM_NODE_RADIUS    = 20;   // listener-to-telecom node — shrunk from 40 per Robin's "closer to the data nodes" request, 2026-10-07
+const TELECOM_CABLE_RADIUS   = 20;   // listener-to-cable (nearest point on segment)
+const FERNWAERME_PIPE_RADIUS  = 20;   // listener-to-heat pipe (nearest point on segment)
 const SEWAGE_JUNCTION_RADIUS  = 15;   // listener-to-sewage junction
 
 // Per-layer alongside detection thresholds (radius metres, angle degrees from segment)
@@ -44,7 +47,19 @@ function cullLines(features, b) {
   return features.filter(f => f.midLat >= b.minLat && f.midLat <= b.maxLat && f.midLng >= b.minLng && f.midLng <= b.maxLng);
 }
 
+// Feeders within the cull radius of the listener, annotated with listener distance.
+// `triggered` (tram proximity) is left as computed from the trams; `inListenerRange`
+// (listener within FEEDER_LISTENER_RADIUS) is the gate for what reaches the audio.
+function annotateFeeders(all, lat, lng) {
+  const b = cullBounds(lat, lng);
+  return cullPoints(all, b).map((f) => {
+    const d = haversineDistance(lng, lat, f.lng, f.lat);
+    return { ...f, dist: Math.round(d * 2) / 2, inListenerRange: d <= FEEDER_LISTENER_RADIUS };
+  });
+}
+
 // ── STATE ────────────────────────────────────────────────────────────────────
+let _tramResult = null;  // last calculateTrams() result {substations, feeders} — feeders = ALL feeders, tram-based `triggered` only
 let _prevCalcLat = null;  // listener position from previous calculate() call
 let _prevCalcLng = null;
 
@@ -345,7 +360,7 @@ function proximityLines(listenerLng, listenerLat, features, radius) {
       id: f.id,
       midLat: f.midLat,
       midLng: f.midLng,
-      dist: Math.round(dist),
+      dist: Math.round(dist * 2) / 2, // 0.5 m resolution
       triggered: dist <= radius,
     };
   });
@@ -359,7 +374,7 @@ function proximityPoints(listenerLng, listenerLat, features, radius) {
       id: f.id,
       lat: f.lat,
       lng: f.lng,
-      dist: Math.round(dist),
+      dist: Math.round(dist * 2) / 2, // 0.5 m resolution
       triggered: dist <= radius,
     };
   });
@@ -452,8 +467,10 @@ const ProximityEngine = {
   /**
    * Compute proximity results for all layers.
    *
-   * Tram feeders are triggered when (a) a tram is within FEEDER_TRIGGER_RADIUS of a node
-   * AND (b) the listener is within FEEDER_LISTENER_RADIUS, or the listener is on a tram.
+   * Feeder `triggered` depends on trams only: a tram within FEEDER_TRIGGER_RADIUS of the node.
+   * Feeders returned to the listener side are those within CULL_RADIUS of the listener, each with
+   * `dist` (listener distance) and `inListenerRange` (listener within FEEDER_LISTENER_RADIUS).
+   * Only feeders with triggered && inListenerRange should reach the audio.
    *
    * All other layer results are listener-only (no tram involvement).
    * LineString proximity uses nearest point on segment, not endpoints.
@@ -468,7 +485,12 @@ const ProximityEngine = {
    *   fernwaerme: {pipes}
    * }}
    */
-  calculate(tramState, listenerLat = null, listenerLng = null, heading = null, speed = null) {
+  /**
+   * Tram-dependent results only: substations and feeders (tram <-> feeder distance).
+   * Uses no listener position. Called on the TramEngine tick; the result is cached
+   * and merged into every calculateListener() result until the next tram tick.
+   */
+  calculateTrams(tramState, listenerLat = null, listenerLng = null) {
     const trams = tramState.trams;
 
     // ── Substations ──────────────────────────────────────────────────────────
@@ -490,9 +512,6 @@ const ProximityEngine = {
     });
 
     // ── Tram feeders (lk-tram-lk nodes) ─────────────────────────────────────
-    const ON_TRAM_SPEED = 3; // m/s ≈ 10 km/h
-    const onTram = speed !== null && speed > ON_TRAM_SPEED;
-
     // ── DEBUG: tram → nearest-feeder distances ───────────────────────────────
     // Remove once feeder triggering is confirmed working in the field.
     if (trams.length > 0 && feeders.length > 0) {
@@ -524,6 +543,28 @@ const ProximityEngine = {
 
       return { id: fed.id, lat: fed.lat, lng: fed.lng, triggered, triggeringTram };
     });
+
+    _tramResult = { substations: substationResults, feeders: feederResults };
+    const listenerKnown = listenerLat !== null && listenerLng !== null;
+    return {
+      substations: substationResults,
+      feeders: listenerKnown ? annotateFeeders(feederResults, listenerLat, listenerLng) : feederResults,
+      allFeeders: feederResults,
+    };
+  },
+
+  /**
+   * Listener-dependent results only: drone distance and the five infrastructure layers.
+   * Substations and feeders come from the last calculateTrams() result. Call this
+   * whenever the listener has moved; it does not depend on the tram tick.
+   */
+  calculateListener(listenerLat = null, listenerLng = null, heading = null, speed = null) {
+    const substationResults = _tramResult ? _tramResult.substations : [];
+    const allFeederResults = _tramResult ? _tramResult.feeders
+      : feeders.map((fed) => ({ id: fed.id, lat: fed.lat, lng: fed.lng, triggered: false, triggeringTram: null }));
+    const feederResults = (listenerLat !== null && listenerLng !== null)
+      ? annotateFeeders(allFeederResults, listenerLat, listenerLng)
+      : allFeederResults;
 
     // ── Nearest tram trasse distance (drone) ─────────────────────────────────
     let nearestPowerlineDist = null;
@@ -626,6 +667,12 @@ const ProximityEngine = {
         pipes: fernPipeResults,
       },
     };
+  },
+
+  /** Both halves in one call (initial snapshot, tests). */
+  calculate(tramState, listenerLat = null, listenerLng = null, heading = null, speed = null) {
+    this.calculateTrams(tramState, listenerLat, listenerLng);
+    return this.calculateListener(listenerLat, listenerLng, heading, speed);
   },
 };
 

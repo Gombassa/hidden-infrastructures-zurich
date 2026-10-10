@@ -17,7 +17,7 @@
 import { Instrument } from './instrument-base.js';
 import { feederToXYZ } from './tram-spatial.js';
 
-const RADIUS = 25;       // metres — matches production's FEEDER_HISS_RADIUS
+const RADIUS = 20;       // metres — matches production's FEEDER_HISS_RADIUS
 const PEAK_GAIN = 0.15;  // matches production's (1-dist/25)*0.15
 const FALLOFF_EXP = 1;   // linear, matches production
 const ATTACK_S = 0.9;

@@ -17,7 +17,7 @@ import { Instrument } from './instrument-base.js';
 // feeder-crackle.js documents and uses. No distance was specified by Robin's
 // "closer to the data nodes, sharper rolloff" request, so this defaults to the
 // new 25m trigger radius itself (gain -> 0 right at the gate edge).
-const CHIRP_FALLOFF_RADIUS = 25; // metres — gain -> 0 at this distance
+const CHIRP_FALLOFF_RADIUS = 20; // metres — gain -> 0 at this distance
 
 // -9dB per Robin's field-by-ear request, 2026-10-07 (was a flat 0.08 peak)
 const PEAK_GAIN = 0.08 * Math.pow(10, -9 / 20); // ≈ 0.0284

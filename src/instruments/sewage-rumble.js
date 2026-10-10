@@ -12,7 +12,7 @@ import { Instrument } from './instrument-base.js';
 
 const LOWPASS_HZ = 180;
 const LOWPASS_Q = 0.8;
-const RADIUS_M = 80;
+const RADIUS_M = 5;
 const PEAK_GAIN = 0.18;
 const GAIN_TC = 1.5; // seconds
 

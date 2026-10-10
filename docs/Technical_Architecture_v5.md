@@ -1,8 +1,8 @@
 # Hidden Infrastructures: Zürich — Technical Architecture
 
-**Document version:** v5.11 — October 2026
+**Document version:** v5.12 — October 2026
 
-**Changes from v5.10 (electricity/telecom field tuning; master volume knob; UI cleanup):** Electricity's mixer trim cut -6.0dB (was 0.0dB reference) per Robin's field-by-ear request. Telecom's node-trigger radius narrowed 40m→25m, with a new sharper (squared) proximity falloff added to the node-chirp and node-dwell-handshake instruments — neither had any distance-based gain scaling before — and both instruments' peak gain cut a further -9dB, also by ear. A master-volume rotary knob was added next to the Listener Position card, wired to a new `_masterVolume` GainNode inserted after the limiter. The "Trams within 150m"/"Nearest Feeder Dist" cards and the Hiss Voice Instrument link were removed from `index.html`. All merged to `main` and deployed 2026-10-07, confirmed live via Cloud Build/Cloud Run traffic check — not yet confirmed by ear or browser check. See the Audio Graph section below for the signal-chain change and the Data Layer table for the radius change.
+**Changes from v5.11 (proximity radii tightened to 20m; ProximityEngine split tram/listener ticks):** Robin's own direct edit on `main` (not a branch merge), 2026-10-10. Nearly every proximity radius across every layer — `ProximityEngine`'s trigger gates and most per-instrument falloff radii — converged on a uniform 20m, down from a varied 25–150m. One exception: `sewage-rumble.js`'s own continuous-bed radius went to 5m, not 20m — not yet confirmed whether that's intentional. Separately, `ProximityEngine.calculate()` was split into `calculateTrams()` (tram↔feeder state, driven by the 10s TramEngine tick) and `calculateListener()` (the five infrastructure layers, now driven by GPS fixes via a new `runListenerPass()` in `index.html`, throttled to 1.5m of listener movement) — decoupling most of the audio from the tram-poll cadence it was previously stuck on. `calculate()` is kept as a combined wrapper for callers that haven't moved to the split API (`ab-compare.html`). Not yet deployed-and-confirmed by ear at the time of writing. See the System Architecture Overview section below for the rewritten Data Flow diagram and the Data Layer table for the radius change.
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -233,7 +233,7 @@ Each behaviour becomes its own small module (a factory function returning `{ upd
 
 - **Does the HTML control surface ship in the production build, or stay authoring-only?** **Reopened.** Was decided as authoring-only by default: all 24 instruments still get a control surface as a dev tool for sound design and MIDI-driven auditioning, with any specific control promoted into the production UI only per-control, later, once it exists and can be tried, and only with schedule headroom to harden it for production use. In practice, `docs/instrument-reference.html` reports the built surfaces are reachable on the deployed URL and one is linked from `index.html` — i.e. this question is currently being answered by default rather than deliberately. See `docs/Implementation_Plan.md`, Decision Points, item 2, for the live status.
 - **Pool-exhaustion behaviour.** **Resolved.** Steal-furthest + margin (20% margin), decided in Step 1 against the electricity pool proof instrument and implemented in `src/instruments/pool-allocator.js`'s `PoolAllocator.claim()`. Applies as the single policy for all three pools (electricity now; tram hiss and telecom burst when they're built in Steps 4 and 6) rather than three separate per-pool decisions. Replaces electricity's previous silent-drop, which was production's accidental default, never a chosen policy.
-- **Mapping-curve audit.** Still open, and it's a task rather than a decision. Feeder crackle's (1−t)² falloff over 150m is validated and should be carried forward as-is. The other layers' proximity-to-gain curves (mostly linear) have not had the same scrutiny — flagged in `docs/archive/max/TECHNICAL_NOTES.md` and repeated here so it doesn't get lost in the pivot.
+- **Mapping-curve audit.** Still open, and it's a task rather than a decision. Feeder crackle's (1−t)² falloff *shape* is validated and should be carried forward as-is — its radius, however, is no longer 150m: tightened to 20m in the 2026-10-10 field-tuning pass (see Data Layer, above), along with most other instruments' falloff radii. The other layers' proximity-to-gain curves (mostly linear) have not had the same scrutiny — flagged in `docs/archive/max/TECHNICAL_NOTES.md` and repeated here so it doesn't get lost in the pivot.
 
 ---
 
@@ -241,28 +241,53 @@ Each behaviour becomes its own small module (a factory function returning `{ upd
 
 ## Data Flow (production / `main`)
 
+**Two independent ticks, decoupled 2026-10-10** (previously one pipeline driven only by the 10s TramEngine tick):
+
 ```
-transport.opendata.ch API (10s)
+TRAM TICK (every 10s)                      LISTENER TICK (every GPS fix moving
+                                            ≥ EVAL_STEP_M = 1.5m — index.html's
+transport.opendata.ch API                  runListenerPass())
         ↓
-   TramEngine.js
-        ↓
-ProximityEngine.js ← lk-*.geojson (7 files, loaded once)
-        ↓               ↑
-   calculate()    listener lat/lng/heading (GPS, or src/sim-walker.js's randomised walk — "Simulate Walk" toggle)
-        ↓
-   InstrumentLayers.update(proximity, lat, lng, heading, speed)
-        ↓
-Web Audio API (per-layer bus → master makeup/limiter → destination → headphones — see Audio Graph, below)
+   TramEngine.js                           listener lat/lng/heading (GPS, or
+        ↓                                  src/sim-walker.js's randomised walk —
+ProximityEngine.calculateTrams()           "Simulate Walk" toggle)
+  (tram <-> feeder distance only;                  ↓
+   caches result for the listener tick     ProximityEngine.calculateListener()
+   to read between tram ticks)             (drone + 5 infrastructure layers;
+        ↓                                   reads the cached tram-tick result
+   InstrumentLayers.updateFeeders()         for feeders, re-annotated with the
+   (feeder crackle + hiss pool only)        listener's current distance)
+        ↓                                          ↓
+   feeder marker colours on the map         InstrumentLayers.update(proximity,
+                                             lat, lng, heading, speed)
+                                                    ↓
+                                             Web Audio API (per-layer bus →
+                                             master makeup/limiter/volume →
+                                             destination → headphones — see
+                                             Audio Graph, below)
 ```
 
-This is what `main`/Cloud Run actually runs today, as of the Step 8 merge (2026-10-02, commit `646b8a3`). Before that merge, this last hop was `AudioLayers.update(proximity, lat, lng, heading)` — same shape, same caller, different orchestrator; `audio-layers.js` is superseded, no longer live, and has been moved to `Archive/audio-layers.js` as a kept-not-deleted reference. The GPS/compass source became swappable later (`feature/simulated-walk`, merged 2026-10-03) — `index.html`'s real `watchPosition`/`deviceorientation` callbacks early-return while `sim-walker.js` drives `handleFix`/`handleHeading` instead, so this diagram's shape is unchanged either way, only the source of `lat/lng/heading` differs. Start re-creates the real GPS watch if Stop cleared it (`fix/restart-gps-watch`, merged 2026-10-06). See the Audio Graph section below for what changed underneath the `InstrumentLayers.update()` call.
+`ProximityEngine.calculate()` still exists as a combined wrapper (calls both halves, returns `calculateListener()`'s shape) for callers that haven't moved to the split API — `ab-compare.html` still uses it this way, unaffected by the split. `InstrumentLayers.onListenerMove()` (hiss panner repositioning) is unaffected by either tick and still fires on every raw GPS fix, independent of both `update()` and `updateFeeders()`.
+
+This split exists because the five infrastructure layers (water/sewage/electricity/telecom/fernwärme) have nothing to do with tram position — they were only ever waiting on the 10s tram tick because `calculate()` computed everything in one call. Before this split (as of the Step 8 merge, 2026-10-02, commit `646b8a3`, through 2026-10-07), this was one pipeline: `TramEngine` tick → `ProximityEngine.calculate()` → `InstrumentLayers.update()`, with `AudioLayers.update()` as the pre-Step-8 equivalent. The GPS/compass source became swappable earlier (`feature/simulated-walk`, merged 2026-10-03) — `index.html`'s real `watchPosition`/`deviceorientation` callbacks early-return while `sim-walker.js` drives `handleFix`/`handleHeading` instead, unaffected by this split. Start re-creates the real GPS watch if Stop cleared it (`fix/restart-gps-watch`, merged 2026-10-06). See the Audio Graph section below for what's underneath the `InstrumentLayers.update()`/`updateFeeders()` calls.
 
 ## ProximityEngine Output Shape
+
+Below is `calculateListener()`'s shape (and `calculate()`'s, since it's a thin wrapper
+around both halves) — what `InstrumentLayers.update()` receives. `calculateTrams()`
+returns a narrower `{ substations, feeders, allFeeders }`, where `feeders` is annotated
+with the listener-side fields only if a listener position was passed in, and `allFeeders`
+never is (used for the one-time feeder-marker setup in `index.html`, before any GPS fix
+exists).
 
 ```javascript
 {
   substations: [{id, lat, lng, tramCount, nearestTramDist}],
-  feeders:     [{id, lat, lng, triggered, triggeringTram}],
+  feeders:     [{id, lat, lng, triggered, triggeringTram, dist, inListenerRange}],
+  // `triggered` = tram-based (tram within FEEDER_TRIGGER_RADIUS of this node).
+  // `dist`/`inListenerRange` = listener-based (added by calculateListener(), re-annotating
+  // the cached calculateTrams() result with the listener's CURRENT distance). Audio should
+  // gate on `triggered && inListenerRange === true`, not `triggered` alone.
   nearestPowerlineDist,          // metres to nearest tram trasse
   water:       { pipes: [{id, midLat, midLng, dist, triggered, crossing, alongside}],
                  fittings: [{id, lat, lng, dist, triggered}] },
@@ -335,12 +360,14 @@ Extraction pipeline: `scripts/extract-lk-geojson.js` processes GeoShop DXF tile 
 
 | File | Content | ProximityEngine radius |
 |---|---|---|
-| `lk-water.geojson` | Pipes + fittings (WVZ, hydrants excluded) | 50m pipe / 25m fitting |
-| `lk-sewage.geojson` | Pipes only (manholes, Nebenleitung excluded) | 80m pipe / 15m junction |
-| `lk-electricity.geojson` | Cables + nodes (area footprints excluded) | 40m nodes / 40m cables |
-| `lk-tram-lk.geojson` | Trasse + nodes (overhead excluded — area is not, see counts/warnings below) | 50m feeders / 5m drone |
-| `lk-telecom.geojson` | Cables + nodes (overhead excluded — area is not, see counts/warnings below) | 25m nodes (narrowed from 40m, 2026-10-07) / 30m cables |
-| `lk-fernwaerme.geojson` | District heating pipes | 30m pipes |
+| `lk-water.geojson` | Pipes + fittings (WVZ, hydrants excluded) | 20m pipe / 20m fitting (was 50m/25m before 2026-10-10) |
+| `lk-sewage.geojson` | Pipes only (manholes, Nebenleitung excluded) | 20m pipe (was 80m) / 15m junction (unchanged) |
+| `lk-electricity.geojson` | Cables + nodes (area footprints excluded) | 20m nodes / 20m cables (was 40m/40m) |
+| `lk-tram-lk.geojson` | Trasse + nodes (overhead excluded — area is not, see counts/warnings below) | 50m feeders (tram-side `FEEDER_TRIGGER_RADIUS`, unchanged) / 5m drone (unchanged) — listener-side `FEEDER_LISTENER_RADIUS` (gates audio, not `triggered`) is 20m, was 50m before 2026-10-10 |
+| `lk-telecom.geojson` | Cables + nodes (overhead excluded — area is not, see counts/warnings below) | 20m nodes / 20m cables (was 25m/30m — the 25m value was itself only days old, from 2026-10-07) |
+| `lk-fernwaerme.geojson` | District heating pipes | 20m pipes (was 30m before 2026-10-10) |
+
+All radii above are `ProximityEngine`'s trigger/annotation gates. Most (but not all) `src/instruments/*.js` classes carry an independent falloff-radius constant of their own — see `feeder-crackle.js`'s header comment for why that split exists — and those were tightened in the same 2026-10-10 pass to match (also 20m), with one exception: `sewage-rumble.js`'s continuous-bed radius is 5m, not 20m.
 
 Current per-file counts (plus `substations.geojson`, 71 features, loaded separately — see ProximityEngine Output Shape above):
 <!-- COUNTS:BEGIN -->
@@ -379,6 +406,7 @@ See `docs/Project_Plan_v3_5.md` for the phased timeline to public launch and `do
 - Instrument architecture: interface contract resolved (Option A, Step 1), both pool-paradigm checkpoints closed (Steps 4, 6); electricity, water, tram, sewage, telecom, and Fernwärme (Steps 2–7) fully rebuilt against it — all 24 behaviours built (see `docs/instrument-reference.html`). `index.html` is reintegrated onto the new `src/instrument-layers.js` orchestrator in place of `audio-layers.js` (Step 8) — **merged to `main` and live in production since 2026-10-02** (commit `646b8a3`). Two field-walk rounds found and fixed real issues before the gate closed: electricity read too loud, trimmed -9dB; and audio glitched riding a tram, fixed with a claim-rate throttle in the tram-hiss pool. `audio-layers.js` stays in the repo, untouched, as reference — no longer imported by `index.html`, moved to `Archive/audio-layers.js` rather than deleted
 - Post-Step-8 additions, all merged to `main` and deployed 2026-10-02/03, Robin's onsite check (2026-10-06) reports the app works after the mute-bus and GPS re-subscribe fixes; the trims, limiter and simulated walk specifics are still to confirm: single reverb bus (tram drone's private convolver removed); per-layer mute/fader/meter mixer; per-layer calibration trims + master makeup gain/limiter (see Audio Graph, above); "Simulate Walk" toggle for testing away from Zürich. Field-test work ahead of launch now includes: confirm the six layers are actually balanced against each other, confirm the limiter doesn't audibly pump, confirm Stop → Start stays click-free, and confirm the Simulate Walk marker/audio behave sensibly
 - 2026-10-07 additions, also merged to `main` and deployed, also not yet confirmed by ear/browser: electricity's mixer trim cut a further -6dB; telecom's node-trigger radius narrowed to 25m with a new sharper proximity falloff and a further -9dB cut on the chirp/handshake instruments; a master-volume rotary knob (post-limiter `_masterVolume` stage, see Audio Graph, above); and two UI removals (tram/feeder count cards, Hiss Voice Instrument link). Field-test work: does electricity now balance against the other five, do the telecom node sounds read as "closer" with the sharper cutoff, is the knob's drag gesture usable on a touchscreen
+- 2026-10-10: Robin's own direct edit on `main` (not a branch merge) — nearly every proximity radius tightened to a uniform 20m (was 25–150m, see Data Layer, above, and System Architecture Overview's Audio Graph section), and `ProximityEngine.calculate()` split into `calculateTrams()`/`calculateListener()` so the five infrastructure layers now update on every GPS fix instead of waiting for the 10s TramEngine tick (see Data Flow, above). Deployed; not yet confirmed by ear or in the field. Field-test work: does 20m read as "close" rather than unreliable against GPS's own 20-30m startup drift (see `CLAUDE.md`'s Key Learnings), does the higher update frequency introduce any new glitching, and is sewage's 5m rumble radius (the one layer that didn't converge on 20m) actually intentional
 - PWA: Service Worker, Web App Manifest, offline caching — not yet started
 - User testing across District 1
 - Documentation and launch materials
@@ -389,7 +417,7 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.11
+**Document Version:** 5.12
 **Last Updated:** October 2026
 **Author:** Robin Pender
 **Contact:** robinpender23@gmail.com

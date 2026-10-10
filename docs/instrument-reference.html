@@ -225,7 +225,7 @@
           </tbody>
         </table>
         <div class="note dec"><span class="lab">Waiting on</span>
-        Whether allocation churns audibly at the production 25 m radius. Needs street GPS — a slider cannot answer it.</div>
+        Whether allocation churns audibly at the production radius — 20 m as of 2026-10-10 (was 25 m). Needs street GPS — a slider cannot answer it.</div>
       </div>
     </div>
 
@@ -241,11 +241,11 @@
         <table>
           <thead><tr><th>Parameter</th><th>Default</th><th>What it does, and why</th></tr></thead>
           <tbody>
-            <tr><td class="p">Radius / exponent</td><td class="v">150 m / 2.0</td><td class="why">The validated <code>(1−t)²</code> curve. The draw effect comes from removing the listener gate entirely, so distant events stay faintly audible instead of hard-cutting.</td></tr>
+            <tr><td class="p">Radius / exponent</td><td class="v">20 m / 2.0 (was 150 m, tightened 2026-10-10)</td><td class="why">The validated <code>(1−t)²</code> curve — the radius itself is a separate, since-retuned number. The draw effect comes from removing the listener gate entirely, so distant events stay faintly audible instead of hard-cutting.</td></tr>
             <tr><td class="p">Grain count</td><td class="v">5–14</td><td class="why">Contact arcing is a burst of micro-impulses, not one transient. Set count to 1 and window to 8 ms for the single-burst version.</td></tr>
             <tr><td class="p">Clump</td><td class="v">1.8</td><td class="why">Above 1 front-loads grains so the event has attack and tail rather than an even scatter.</td></tr>
             <tr><td class="p">Ring / surge</td><td class="v">430 Hz / 72 Hz</td><td class="why">Cable resonance and current draw. Both to zero gives a dry contact crackle — worth hearing at 100 m to check the event still carries without body.</td></tr>
-            <tr><td class="p">Mode</td><td class="v">On foot</td><td class="why">On tram, every feeder fires at zero distance and the draw disappears. Production detects this from GPS speed at about 3 m/s.</td></tr>
+            <tr><td class="p">Mode</td><td class="v">On foot</td><td class="why">On tram, every feeder fires at zero distance and the draw disappears. <b>Stale as of 2026-10-10:</b> the GPS-speed-based "on tram" detection this described (<code>ON_TRAM_SPEED</code>/<code>onTram</code> in <code>proximity-engine.js</code>) was found to be dead code — computed but never read anywhere — and removed. Production currently has no GPS-speed mode detection at all; this control surface's "On foot"/mode toggle no longer corresponds to anything live.</td></tr>
           </tbody>
         </table>
         <div class="note"><span class="lab">Note</span>
@@ -345,8 +345,14 @@
         (<code>src/instruments/sewage-rumble.js</code>, <code>sewage-junction-thud.js</code> — thud was
         previously unbuilt). The gurgle is voiced by <code>sewage-gurgle.js</code>, which also drives the
         alongside loop on <code>crossing-family.html</code> — see below for why that's not the usual
-        crossing/alongside pairing. The widest radius of any layer at 80 m, so in District 1 this is
-        almost always present.</p>
+        crossing/alongside pairing.</p>
+        <div class="note"><span class="lab">Reversed, 2026-10-10</span>
+        This used to be the widest radius of any layer at 80 m ("almost always present" in District 1).
+        <code>sewage-rumble.js</code>'s own <code>RADIUS_M</code> is now <b>5 m</b> — tighter than every
+        other layer, most of which converged on a uniform 20 m in the same pass (see
+        <code>docs/CHANGELOG.md</code>'s Audio Architecture section). Not yet confirmed with Robin whether
+        5m specifically (rather than 20m, matching everything else) was intentional. If it stands, this is
+        now one of the rarer encounters in the piece, not the most common.</div>
         <table>
           <thead><tr><th>Parameter</th><th>Value</th><th>What it does, and why</th></tr></thead>
           <tbody>
@@ -408,17 +414,18 @@
         allocator — four fixed slots, nothing claimed per feature, gated collectively by aggregate proximity
         (nearest-cable distance, cable count). Also the layer with no acoustic original: fibre makes no sound,
         so this is where the piece stops sonifying and starts representing.</p>
-        <div class="note"><span class="lab">Field-tuned post-launch, 2026-10-07 — no longer strict parity</span>
+        <div class="note"><span class="lab">Field-tuned post-launch, 2026-10-07 and 2026-10-10 — no longer strict parity</span>
         Chirp and handshake were both field-tuned by ear on <code>main</code>, outside this Step 6 build: each
         gained a squared proximity falloff (neither had any distance-based gain scaling before — fixed peak gain
         anywhere within the trigger radius), peak gain was cut a further -9dB, and the trigger radius itself
-        narrowed 40m→25m. The table below describes the Step 6 parity-port values; see
+        narrowed 40m→25m (2026-10-07), then — alongside nearly every other layer's radius in the same pass —
+        20m (2026-10-10). The table below describes the Step 6 parity-port values; see
         <code>docs/CHANGELOG.md</code>'s Audio Architecture section for the current tuned values.</div>
         <table>
           <thead><tr><th>Parameter</th><th>Value</th><th>What it does, and why</th></tr></thead>
           <tbody>
             <tr><td class="p">Gate rate</td><td class="v">22–78 Hz, fixed sine LFO</td><td class="why">Below pitch and above rhythm, where amplitude modulation reads as roughness rather than pulse. Density scales these 0.5–2.0×. This page's earlier Packets/Shape/Duty exploration (framed bursts, variable-duty gate) had no production counterpart and was retired once the real class landed — production's gate is a plain sine.</td></tr>
-            <tr><td class="p">Node chirp</td><td class="v">2000→4000 Hz, 0.2s</td><td class="why">Debounced per node id until its own oscillator's <code>onended</code> fires — not a time cooldown. Fired on entry within 40m at Step 6; that radius has since narrowed to 25m (see note above).</td></tr>
+            <tr><td class="p">Node chirp</td><td class="v">2000→4000 Hz, 0.2s</td><td class="why">Debounced per node id until its own oscillator's <code>onended</code> fires — not a time cooldown. Fired on entry within 40m at Step 6; that radius has since narrowed to 20m, via 25m (see note above).</td></tr>
             <tr><td class="p">Dwell threshold</td><td class="v">5 s</td><td class="why">The only time-based trigger in the project. Fires only if you stop near a node and stay stopped. Tracked caller-side (this page owns the dwell Map), not inside the handshake class — same precedent as feeder crackle's re-fire guard.</td></tr>
             <tr><td class="p">Handshake sweep</td><td class="v">1000→8000 Hz, 0.4s, 8s cooldown</td><td class="why">Cooldown is internal to the class. No jitter in production — this page's earlier ±500Hz jitter exploration was its own addition, not carried into the port.</td></tr>
           </tbody>
@@ -619,7 +626,7 @@
     <p>Each of these is answerable by using a surface. None is answerable by argument.</p>
 
     <ul class="plain">
-      <li><b>Allocation policy</b> — steal-furthest, margin, or refuse. Hiss and hum both expose all three. Needs street GPS at 25 m, not a slider.</li>
+      <li><b>Allocation policy</b> — steal-furthest, margin, or refuse. Hiss and hum both expose all three. Needs street GPS at the production radius (20 m as of 2026-10-10, was 25 m), not a slider.</li>
       <li><b>Falloff exponent per layer</b> — <code>(1−t)²</code> is validated on crackle only. Every other layer defaults to linear. The exponent control on each surface is the audit.</li>
       <li><b>Water resonance mode</b> — if Bank does not beat Fixed, the pipe-function mapping is not earning its complexity and should go.</li>
       <li><b>Water pulse frequency</b> — 800/1200 Hz as documented, or dropped onto 185/640 Hz so the pipe rings at the pitch it hums at.</li>
@@ -662,7 +669,7 @@
     <ol class="steps">
       <li>
         <strong>Walk the two GPS-wired surfaces</strong>
-        <p>Hiss at 25 m first — that is production truth, and the allocation question needs street
+        <p>Hiss at 20 m first (production truth as of 2026-10-10, was 25 m) — the allocation question needs street
         conditions. Then 50 m as the deliberate experiment. Water flow: Bank against Fixed, through the
         headphones you will actually use. Bring the log downloads back.</p>
       </li>

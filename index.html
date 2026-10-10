@@ -357,6 +357,9 @@
       if (following && map) map.setView([realLat, realLng], 19);
       if (accuracy <= 50) {
         InstrumentLayers.onListenerMove(realLat, realLng, realHeading);
+        if (feederMarkers && (lastEvalLat === null || metresBetween(lastEvalLat, lastEvalLng, realLat, realLng) >= EVAL_STEP_M)) {
+          runListenerPass();
+        }
       }
     }
 
@@ -450,6 +453,55 @@
           dot(...mid(f), LAYER_COLORS.fernwaerme).addTo(overlayGroups.fernwaerme);
     }
 
+    // ── LISTENER PROXIMITY PASS ──────────────────────────────────────────────
+    // Runs on any GPS fix that has moved the listener >= EVAL_STEP_M since the
+    // last pass. Independent of the TramEngine tick, which only updates
+    // tram <-> feeder state (see TramEngine.onUpdate below).
+    const EVAL_STEP_M = 1.5;
+    let lastEvalLat = null, lastEvalLng = null;
+    function metresBetween(lat1, lng1, lat2, lng2) {
+      const dLat = (lat2 - lat1) * 111320;
+      const dLng = (lng2 - lng1) * 111320 * Math.cos(lat1 * Math.PI / 180);
+      return Math.sqrt(dLat * dLat + dLng * dLng);
+    }
+    function runListenerPass() {
+      if (!feederMarkers) return;
+      lastEvalLat = realLat; lastEvalLng = realLng;
+      const proximity = ProximityEngine.calculateListener(realLat, realLng, realHeading, realSpeed);
+      const tramState = TramEngine.getState();
+      {
+        const _nd = (arr) => { if (!arr?.length) return '—'; let m = Infinity; for (const it of arr) if (it.dist < m) m = it.dist; return m === Infinity ? '—' : Math.round(m) + 'm'; };
+        const _tr = (arr) => arr?.filter(i => i.triggered).length ?? 0;
+        const _lat = realLat !== null ? realLat.toFixed(5) : 'null';
+        const _lng = realLng !== null ? realLng.toFixed(5) : 'null';
+        appendLog(
+          `[PROXIMITY] lat: ${_lat} lng: ${_lng}` +
+          ` | trams: ${tramState.trams.length} feeders: ${_tr(proximity.feeders)}` +
+          ` | water pipes: ${_nd(proximity.water?.pipes)}/${_tr(proximity.water?.pipes)}` +
+          ` sewage: ${_nd(proximity.sewage?.pipes)}/${_tr(proximity.sewage?.pipes)}` +
+          ` elec: ${_nd([...(proximity.electricity?.nodes??[]), ...(proximity.electricity?.cables??[])])}/${_tr(proximity.electricity?.nodes) + _tr(proximity.electricity?.cables)}` +
+          ` telecom: ${_nd([...(proximity.telecom?.nodes??[]), ...(proximity.telecom?.cables??[])])}/${_tr(proximity.telecom?.nodes) + _tr(proximity.telecom?.cables)}` +
+          ` fernw: ${_nd(proximity.fernwaerme?.pipes)}/${_tr(proximity.fernwaerme?.pipes)}`,
+          'll'
+        );
+      }
+      if (!firstTickLogged) {
+        firstTickLogged = true;
+        const nd = (arr) => { if (!arr?.length) return '—'; let m = Infinity; for (const it of arr) if (it.dist < m) m = it.dist; return m + 'm'; };
+        const tr = (arr) => arr?.filter(i => i.triggered).length ?? 0;
+        appendLog('[FIRST TICK] ── proximity snapshot ──', 'linf');
+        appendLog(`  listener: ${realLat !== null ? realLat.toFixed(5)+', '+realLng.toFixed(5) : 'null (no GPS yet)'} | trams: ${tramState.trams.length}`, 'linf');
+        appendLog(`  powerline (drone): ${proximity.nearestPowerlineDist !== null ? Math.round(proximity.nearestPowerlineDist)+'m' : 'null'}`, 'linf');
+        appendLog(`  water  pipes: ${proximity.water.pipes.length} (nearest ${nd(proximity.water.pipes)}, ${tr(proximity.water.pipes)} triggered) | fittings: ${proximity.water.fittings.length} (nearest ${nd(proximity.water.fittings)}, ${tr(proximity.water.fittings)} triggered)`, 'linf');
+        appendLog(`  sewage pipes: ${proximity.sewage.pipes.length} (nearest ${nd(proximity.sewage.pipes)}, ${tr(proximity.sewage.pipes)} triggered)`, 'linf');
+        appendLog(`  elec   nodes: ${proximity.electricity.nodes.length} (nearest ${nd(proximity.electricity.nodes)}, ${tr(proximity.electricity.nodes)} triggered) | cables: ${proximity.electricity.cables.length} (nearest ${nd(proximity.electricity.cables)}, ${tr(proximity.electricity.cables)} triggered)`, 'linf');
+        appendLog(`  telecom nodes: ${proximity.telecom.nodes.length} (nearest ${nd(proximity.telecom.nodes)}, ${tr(proximity.telecom.nodes)} triggered) | cables: ${proximity.telecom.cables.length} (nearest ${nd(proximity.telecom.cables)}, ${tr(proximity.telecom.cables)} triggered)`, 'linf');
+        appendLog(`  fernwärme pipes: ${proximity.fernwaerme.pipes.length} (nearest ${nd(proximity.fernwaerme.pipes)}, ${tr(proximity.fernwaerme.pipes)} triggered)`, 'linf');
+      }
+      if (ctx) InstrumentLayers.update(proximity, realLat, realLng, realHeading);
+      _updateTriggerOverlays(proximity);
+    }
+
     // ── TRAM MARKER UPDATES ──────────────────────────────────────────────────
     TramEngine.onUpdate((tramState) => {
       if (!tramMarkerPool) return;
@@ -466,39 +518,10 @@
         }
       }
 
-      // Update feeder colours based purely on tram proximity (no listener required)
+      // Tram tick: tram <-> feeder state only. No listener position involved here.
       if (feederMarkers) {
-        const proximity = ProximityEngine.calculate(tramState, realLat, realLng, realHeading, realSpeed);
-        {
-          const _nd = (arr) => { if (!arr?.length) return '—'; let m = Infinity; for (const it of arr) if (it.dist < m) m = it.dist; return m === Infinity ? '—' : Math.round(m) + 'm'; };
-          const _tr = (arr) => arr?.filter(i => i.triggered).length ?? 0;
-          const _lat = realLat !== null ? realLat.toFixed(5) : 'null';
-          const _lng = realLng !== null ? realLng.toFixed(5) : 'null';
-          appendLog(
-            `[PROXIMITY] lat: ${_lat} lng: ${_lng}` +
-            ` | trams: ${tramState.trams.length} feeders: ${_tr(proximity.feeders)}` +
-            ` | water pipes: ${_nd(proximity.water?.pipes)}/${_tr(proximity.water?.pipes)}` +
-            ` sewage: ${_nd(proximity.sewage?.pipes)}/${_tr(proximity.sewage?.pipes)}` +
-            ` elec: ${_nd([...(proximity.electricity?.nodes??[]), ...(proximity.electricity?.cables??[])])}/${_tr(proximity.electricity?.nodes) + _tr(proximity.electricity?.cables)}` +
-            ` telecom: ${_nd([...(proximity.telecom?.nodes??[]), ...(proximity.telecom?.cables??[])])}/${_tr(proximity.telecom?.nodes) + _tr(proximity.telecom?.cables)}` +
-            ` fernw: ${_nd(proximity.fernwaerme?.pipes)}/${_tr(proximity.fernwaerme?.pipes)}`,
-            'll'
-          );
-        }
-        if (!firstTickLogged) {
-          firstTickLogged = true;
-          const nd = (arr) => { if (!arr?.length) return '—'; let m = Infinity; for (const it of arr) if (it.dist < m) m = it.dist; return m + 'm'; };
-          const tr = (arr) => arr?.filter(i => i.triggered).length ?? 0;
-          appendLog('[FIRST TICK] ── proximity snapshot ──', 'linf');
-          appendLog(`  listener: ${realLat !== null ? realLat.toFixed(5)+', '+realLng.toFixed(5) : 'null (no GPS yet)'} | trams: ${tramState.trams.length}`, 'linf');
-          appendLog(`  powerline (drone): ${proximity.nearestPowerlineDist !== null ? Math.round(proximity.nearestPowerlineDist)+'m' : 'null'}`, 'linf');
-          appendLog(`  water  pipes: ${proximity.water.pipes.length} (nearest ${nd(proximity.water.pipes)}, ${tr(proximity.water.pipes)} triggered) | fittings: ${proximity.water.fittings.length} (nearest ${nd(proximity.water.fittings)}, ${tr(proximity.water.fittings)} triggered)`, 'linf');
-          appendLog(`  sewage pipes: ${proximity.sewage.pipes.length} (nearest ${nd(proximity.sewage.pipes)}, ${tr(proximity.sewage.pipes)} triggered)`, 'linf');
-          appendLog(`  elec   nodes: ${proximity.electricity.nodes.length} (nearest ${nd(proximity.electricity.nodes)}, ${tr(proximity.electricity.nodes)} triggered) | cables: ${proximity.electricity.cables.length} (nearest ${nd(proximity.electricity.cables)}, ${tr(proximity.electricity.cables)} triggered)`, 'linf');
-          appendLog(`  telecom nodes: ${proximity.telecom.nodes.length} (nearest ${nd(proximity.telecom.nodes)}, ${tr(proximity.telecom.nodes)} triggered) | cables: ${proximity.telecom.cables.length} (nearest ${nd(proximity.telecom.cables)}, ${tr(proximity.telecom.cables)} triggered)`, 'linf');
-          appendLog(`  fernwärme pipes: ${proximity.fernwaerme.pipes.length} (nearest ${nd(proximity.fernwaerme.pipes)}, ${tr(proximity.fernwaerme.pipes)} triggered)`, 'linf');
-        }
-        for (const feeder of proximity.feeders) {
+        const tramResult = ProximityEngine.calculateTrams(tramState, realLat, realLng);
+        for (const feeder of tramResult.allFeeders) {
           const marker = feederMarkers.get(feeder.id);
           if (!marker) continue;
           marker.setStyle(feeder.triggered
@@ -506,8 +529,7 @@
             : { color: '#333',    fillColor: '#444'    }
           );
         }
-        if (ctx) InstrumentLayers.update(proximity, realLat, realLng, realHeading);
-        _updateTriggerOverlays(proximity);
+        if (ctx) InstrumentLayers.updateFeeders(tramResult.feeders, realLat, realLng, realHeading);
       }
     });
 
@@ -525,7 +547,7 @@
         appendLog(`ProximityEngine ready`, 'lok');
 
         // Feeder markers — added after ProximityEngine data is available
-        const initialProximity = ProximityEngine.calculate({ trams: [] }, realLat, realLng, realHeading, realSpeed);
+        const initialProximity = { feeders: ProximityEngine.calculateTrams({ trams: [] }).allFeeders };
         feederMarkers = new Map();
         for (const feeder of initialProximity.feeders) {
           const marker = L.circleMarker([feeder.lat, feeder.lng], {

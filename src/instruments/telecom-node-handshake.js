@@ -21,7 +21,7 @@ const COOLDOWN_MS = 8_000;
 // "closer to the data nodes, sharper rolloff" request, so this defaults to the
 // 25m trigger radius itself (gain -> 0 right at the gate edge), matching
 // telecom-node-chirp.js's CHIRP_FALLOFF_RADIUS.
-const HANDSHAKE_FALLOFF_RADIUS = 25; // metres — gain -> 0 at this distance
+const HANDSHAKE_FALLOFF_RADIUS = 20; // metres — gain -> 0 at this distance
 
 // -9dB per Robin's field-by-ear request, 2026-10-07 (was a flat 0.18 peak)
 const PEAK_GAIN = 0.18 * Math.pow(10, -9 / 20); // ≈ 0.0639

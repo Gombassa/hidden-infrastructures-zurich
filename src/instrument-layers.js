@@ -273,6 +273,33 @@ function init(ctx) {
   fernThermal = new FernwaermeThermal(ctx, _layerBus.fernwaerme, { reverbBus: _reverbBus });
 }
 
+// Feeder-driven tram voices (crackle triggers + hiss pool). Shared by update() and
+// updateFeeders(), which the tram tick calls on its own: feeder state depends on
+// tram positions, not on the listener moving.
+function _updateFeeders(feeders, listenerLat, listenerLng, heading) {
+  // Audio gate: tram-triggered AND listener within the engine's feeder listener radius.
+  const audible = (f) => f.triggered && f.inListenerRange === true;
+  const triggeredIds = new Set(feeders.filter(audible).map(f => f.id));
+  for (const id of crackleTriggeredIds) if (!triggeredIds.has(id)) crackleTriggeredIds.delete(id);
+  for (const f of feeders) {
+    if (audible(f) && !crackleTriggeredIds.has(f.id)) {
+      crackle.trigger({
+        feederLat: f.lat, feederLng: f.lng,
+        listenerLat, listenerLng, listenerHeading: heading,
+      });
+      crackleTriggeredIds.add(f.id);
+    }
+  }
+  _lastFeeders = feeders;
+  hissPool.update({ feeders, listenerLat, listenerLng, listenerHeading: heading });
+}
+
+// Tram-tick entry point: new feeder state only, no listener-layer work.
+function updateFeeders(feeders, listenerLat, listenerLng, heading) {
+  if (!_ctx || !_initialized || !LAYER_ENABLED.tram) return;
+  _updateFeeders(feeders || [], listenerLat, listenerLng, heading);
+}
+
 // proximity: ProximityEngine.calculate()'s return value.
 function update(proximity, listenerLat, listenerLng, heading, speed) {
   if (!_ctx || !_initialized) return;
@@ -283,20 +310,7 @@ function update(proximity, listenerLat, listenerLng, heading, speed) {
   if (LAYER_ENABLED.tram) {
     drone.update({ nearestPowerlineDist: proximity.nearestPowerlineDist });
 
-    const triggeredIds = new Set(feeders.filter(f => f.triggered).map(f => f.id));
-    for (const id of crackleTriggeredIds) if (!triggeredIds.has(id)) crackleTriggeredIds.delete(id);
-    for (const f of feeders) {
-      if (f.triggered && !crackleTriggeredIds.has(f.id)) {
-        crackle.trigger({
-          feederLat: f.lat, feederLng: f.lng,
-          listenerLat, listenerLng, listenerHeading: heading,
-        });
-        crackleTriggeredIds.add(f.id);
-      }
-    }
-
-    _lastFeeders = feeders;
-    hissPool.update({ feeders, listenerLat, listenerLng, listenerHeading: heading });
+    _updateFeeders(feeders, listenerLat, listenerLng, heading);
   } else {
     drone.update({ nearestPowerlineDist: null });
     _lastFeeders = feeders;
@@ -374,7 +388,7 @@ function update(proximity, listenerLat, listenerLng, heading, speed) {
 
     let nearestCableDist = Infinity;
     for (const c of telecomCables) if (c.dist < nearestCableDist) nearestCableDist = c.dist;
-    const cableCount = telecomCables.filter(c => c.dist <= 30).length;
+    const cableCount = telecomCables.filter(c => c.dist <= 20).length;
     telecomPool.update({ nearestCableDist, cableCount });
 
     for (const c of telecomCables) if (c.crossing) telecomClick.trigger({ id: c.id });
@@ -405,7 +419,7 @@ function update(proximity, listenerLat, listenerLng, heading, speed) {
   if (_reverbOut) {
     let density = 0;
     if (LAYER_ENABLED.tram &&
-        ((proximity.feeders || []).some(f => f.triggered) ||
+        ((proximity.feeders || []).some(f => f.triggered && f.inListenerRange === true) ||
          (proximity.nearestPowerlineDist !== null && proximity.nearestPowerlineDist <= 20)))
       density++;
     if (LAYER_ENABLED.water &&
@@ -602,7 +616,7 @@ function getMasterVolume() {
 }
 
 export default {
-  init, update, onListenerMove, stop, setLayerEnabled, LAYER_ENABLED,
+  init, update, updateFeeders, onListenerMove, stop, setLayerEnabled, LAYER_ENABLED,
   setLayerLevel, getLayerLevel, getLayerMeter,
   setMasterVolume, getMasterVolume,
 };

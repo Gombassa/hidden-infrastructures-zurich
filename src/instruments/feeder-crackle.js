@@ -20,7 +20,7 @@
 import { Instrument } from './instrument-base.js';
 import { feederToXYZ, flatEarthDist } from './tram-spatial.js';
 
-const CRACKLE_FALLOFF_RADIUS = 150; // metres — gain -> 0 at this distance
+const CRACKLE_FALLOFF_RADIUS = 20; // metres — gain -> 0 at this distance
 
 export default class FeederCrackle extends Instrument {
   // { feederLat, feederLng, listenerLat, listenerLng, listenerHeading } — no

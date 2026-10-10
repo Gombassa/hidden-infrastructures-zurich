@@ -20,7 +20,7 @@
 
 import { Instrument } from './instrument-base.js';
 
-const RADIUS_M = 30;
+const RADIUS_M = 20;
 const GAIN_TC = 0.4; // seconds — fast ramp for dramatic entry
 const PAN_TC = 1.0; // seconds
 const PEAK_GAIN = 0.12;

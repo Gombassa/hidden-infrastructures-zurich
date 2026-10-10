@@ -136,6 +136,9 @@ function _trimLinear(key) {
 let _masterMakeup = null;
 let _limiter = null;
 let _masterVolume = null;
+let _masterAnalyser = null; // tap AFTER _masterVolume — reads the true final output level,
+                             // post-knob, same as what's actually sent to destination
+let _masterMeterBuf = null;
 
 // Several of the trims above are negative (tram -21.3dB, telecom -7.3dB,
 // fernwaerme -10.7dB), so the trimmed mix sits quieter overall than before
@@ -169,6 +172,11 @@ function _initMasterChain(ctx) {
   _masterMakeup.connect(_limiter);
   _limiter.connect(_masterVolume);
   _masterVolume.connect(ctx.destination);
+
+  _masterAnalyser = ctx.createAnalyser();
+  _masterAnalyser.fftSize = 256;
+  _masterVolume.connect(_masterAnalyser); // tap only, not connected onward
+  _masterMeterBuf = new Float32Array(_masterAnalyser.fftSize);
 }
 
 // How long to wait after destroy() before disconnecting a layer's bus from
@@ -545,6 +553,7 @@ function stop() {
   const masterMakeupToDisconnect = _masterMakeup;
   const limiterToDisconnect = _limiter;
   const masterVolumeToDisconnect = _masterVolume;
+  const masterAnalyserToDisconnect = _masterAnalyser;
   setTimeout(() => {
     for (const key of LAYER_KEYS) {
       if (busesToDisconnect[key]) busesToDisconnect[key].disconnect();
@@ -553,6 +562,7 @@ function stop() {
     if (masterMakeupToDisconnect) masterMakeupToDisconnect.disconnect();
     if (limiterToDisconnect) limiterToDisconnect.disconnect();
     if (masterVolumeToDisconnect) masterVolumeToDisconnect.disconnect();
+    if (masterAnalyserToDisconnect) masterAnalyserToDisconnect.disconnect();
   }, BUS_DISCONNECT_DELAY_MS);
   _layerBus = {};
   _layerAnalyser = {};
@@ -560,6 +570,8 @@ function stop() {
   _masterMakeup = null;
   _limiter = null;
   _masterVolume = null;
+  _masterAnalyser = null;
+  _masterMeterBuf = null;
 
   _initialized = false;
   _ctx = null;
@@ -615,8 +627,23 @@ function getMasterVolume() {
   return _masterVolumeLevel;
 }
 
+// Peak (0-1) of the true final output — tapped AFTER _masterVolume (see
+// _initMasterChain above), so this reflects the knob's effect, unlike the
+// per-layer meters (which tap pre-master). Returns 0 before Start or after
+// Stop, same as getLayerMeter.
+function getMasterMeter() {
+  if (!_masterAnalyser) return 0;
+  _masterAnalyser.getFloatTimeDomainData(_masterMeterBuf);
+  let peak = 0;
+  for (let i = 0; i < _masterMeterBuf.length; i++) {
+    const abs = Math.abs(_masterMeterBuf[i]);
+    if (abs > peak) peak = abs;
+  }
+  return peak;
+}
+
 export default {
   init, update, updateFeeders, onListenerMove, stop, setLayerEnabled, LAYER_ENABLED,
   setLayerLevel, getLayerLevel, getLayerMeter,
-  setMasterVolume, getMasterVolume,
+  setMasterVolume, getMasterVolume, getMasterMeter,
 };

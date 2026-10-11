@@ -1,8 +1,8 @@
 # Hidden Infrastructures: Zürich — Technical Architecture
 
-**Document version:** v5.12 — October 2026
+**Document version:** v5.13 — October 2026
 
-**Changes from v5.11 (proximity radii tightened to 20m; ProximityEngine split tram/listener ticks):** Robin's own direct edit on `main` (not a branch merge), 2026-10-10. Nearly every proximity radius across every layer — `ProximityEngine`'s trigger gates and most per-instrument falloff radii — converged on a uniform 20m, down from a varied 25–150m. One exception: `sewage-rumble.js`'s own continuous-bed radius went to 5m, not 20m — confirmed intentional by Robin. Separately, `ProximityEngine.calculate()` was split into `calculateTrams()` (tram↔feeder state, driven by the 10s TramEngine tick) and `calculateListener()` (the five infrastructure layers, now driven by GPS fixes via a new `runListenerPass()` in `index.html`, throttled to 1.5m of listener movement) — decoupling most of the audio from the tram-poll cadence it was previously stuck on. `calculate()` is kept as a combined wrapper for callers that haven't moved to the split API (`ab-compare.html`). Not yet deployed-and-confirmed by ear at the time of writing. See the System Architecture Overview section below for the rewritten Data Flow diagram and the Data Layer table for the radius change.
+**Changes from v5.12 (control-surface deployment claim corrected — un-reopens Decision #2):** The "Open questions — status" entry below for HTML control surfaces claimed they were "reachable on the deployed URL," reopening a decision that had been resolved as authoring-only by default. Checked directly against the live site (2026-10-11): `vite.config.js` only declares `index.html`/`infrastructure-map.html` as build entries, so `instruments/*.html` never reaches the Docker image. Hitting an instrument path on the live URL returns HTTP 200, but that's `nginx.conf`'s SPA fallback serving `index.html`, not the real file — confirmed by checking the response content (title, length), not just the status code. The claim was false; the decision reverts to resolved. See `docs/instrument-reference.html` for the same correction at its source.
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -231,7 +231,7 @@ Each behaviour becomes its own small module (a factory function returning `{ upd
 
 ## Open questions — status
 
-- **Does the HTML control surface ship in the production build, or stay authoring-only?** **Reopened.** Was decided as authoring-only by default: all 24 instruments still get a control surface as a dev tool for sound design and MIDI-driven auditioning, with any specific control promoted into the production UI only per-control, later, once it exists and can be tried, and only with schedule headroom to harden it for production use. In practice, `docs/instrument-reference.html` reports the built surfaces are reachable on the deployed URL and one is linked from `index.html` — i.e. this question is currently being answered by default rather than deliberately. See `docs/Implementation_Plan.md`, Decision Points, item 2, for the live status.
+- **Does the HTML control surface ship in the production build, or stay authoring-only?** **Resolved: authoring-only by default**, as originally decided. All 24 instruments get a control surface as a dev tool for sound design and MIDI-driven auditioning, with any specific control promoted into the production UI only per-control, later, once it exists and can be tried, and only with schedule headroom to harden it for production use. **Correction, 2026-10-11:** this was marked "Reopened" on the strength of a claim — "the built surfaces are reachable on the deployed URL and one is linked from `index.html`" — that turned out to be false. `vite.config.js` only builds `index.html`/`infrastructure-map.html`; `instruments/*.html` never reaches the deployed image, and the HTTP 200 an instrument path returns on the live URL is `nginx.conf`'s SPA fallback serving `index.html`, not the real file. The Hiss Voice Instrument link this claim also referenced was itself removed from `index.html` on 2026-10-07, independently. See `docs/Implementation_Plan.md`, Decision Points, item 2, for the matching correction.
 - **Pool-exhaustion behaviour.** **Resolved.** Steal-furthest + margin (20% margin), decided in Step 1 against the electricity pool proof instrument and implemented in `src/instruments/pool-allocator.js`'s `PoolAllocator.claim()`. Applies as the single policy for all three pools (electricity now; tram hiss and telecom burst when they're built in Steps 4 and 6) rather than three separate per-pool decisions. Replaces electricity's previous silent-drop, which was production's accidental default, never a chosen policy.
 - **Mapping-curve audit.** Still open, and it's a task rather than a decision. Feeder crackle's (1−t)² falloff *shape* is validated and should be carried forward as-is — its radius, however, is no longer 150m: tightened to 20m in the 2026-10-10 field-tuning pass (see Data Layer, above), along with most other instruments' falloff radii. The other layers' proximity-to-gain curves (mostly linear) have not had the same scrutiny — flagged in `docs/archive/max/TECHNICAL_NOTES.md` and repeated here so it doesn't get lost in the pivot.
 
@@ -417,7 +417,7 @@ Scale to postal codes 8002–8006 with a unique musical theme per district. Auto
 
 ---
 
-**Document Version:** 5.12
+**Document Version:** 5.13
 **Last Updated:** October 2026
 **Author:** Robin Pender
 **Contact:** robinpender23@gmail.com

@@ -637,7 +637,7 @@
       <li><b>Private reverb</b> — whether the powerline drone's own reverb does something the shared bus cannot.</li>
       <li><b>Density bus recalibration</b> — the wet curve assumes five continuous sends. Water flow makes six.</li>
       <li><b>Tonal centre</b> — A2 is already established by the drone. The district theme either accepts it or works against it deliberately.</li>
-      <li><b>Control surfaces in production</b> — still open, and currently being answered by default: the surfaces are reachable on the deployed URL and one is linked from <code>index.html</code>.</li>
+      <li><b>Control surfaces in production</b> — resolved as authoring-only by default, as originally decided. Corrected 2026-10-11: this row previously claimed the surfaces were "reachable on the deployed URL" and one was "linked from <code>index.html</code>" — both false. <code>vite.config.js</code> only declares <code>index.html</code>/<code>infrastructure-map.html</code> as build entries, so <code>instruments/*.html</code> never reaches <code>dist/</code> or the Nginx image; hitting an instrument path on the live URL returns HTTP 200 only because <code>nginx.conf</code>'s SPA fallback serves <code>index.html</code> for any unmatched route, not the real file (confirmed by checking the response content, not just the status code). The Hiss Voice Instrument link was also removed from <code>index.html</code> entirely on 2026-10-07 (<code>fix/remove-hiss-voice-link</code>), so even the "one is linked" half was separately stale.</li>
     </ul>
   </section>
 

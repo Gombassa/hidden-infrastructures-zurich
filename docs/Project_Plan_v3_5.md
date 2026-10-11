@@ -2,9 +2,9 @@
 
 ## **Project Plan — 6 Infrastructure Layers, District 1**
 
-**Document version:** v3.5.9 — October 2026
+**Document version:** v3.5.10 — October 2026
 
-**Changes from v3.5.8 (audio-layers.js archived; step8 Cloud Run tag cleaned up):** `audio-layers.js` — superseded since the Step 8 merge, kept rather than deleted — has been moved to `Archive/audio-layers.js`. The `step8`-tagged Cloud Run test revision, redundant since the merge, has been cleaned up (tag removed, orphaned revision deleted, 2026-10-02). Updated the Timeline Reality Check's "still open" list and the Risk Mitigation fallback note to reflect the new path and the resolved decision (archive, not delete).
+**Changes from v3.5.9 (control-surface deployment claim corrected):** The Timeline Reality Check's closing note claimed control surfaces "are actually reachable in production already," treating Decision Point 2 as still reopened. Checked directly against the live site (2026-10-11): they aren't — `vite.config.js` only builds `index.html`/`infrastructure-map.html`, and the HTTP 200 an instrument path returns on the live URL is `nginx.conf`'s SPA fallback serving `index.html`, not the real file. Corrected to say the control-surface assumption is settled, same as the granularity one. See `docs/Technical_Architecture_v5.md` v5.13 and `docs/Implementation_Plan.md` v2.7 for the matching correction.
 
 **Prior version history moved to `docs/CHANGELOG.md`.**
 
@@ -269,7 +269,7 @@ Today is 27 July 2026. The public launch target was September 2026. **Update, Se
 
 **Not re-run here:** by October 2026, all 24 behaviours are built and reintegration (Step 8) is complete, merged, and live in production (`docs/instrument-reference.html`, `docs/Implementation_Plan.md` v2.2) — well past the "21 remaining instruments" this accounting assumed. The interface contract is resolved (Option A, ratified Step 1) and all six layers (Steps 2–7) are fully rebuilt against it. This makes the accounting above stale in the optimistic direction (less build time left than stated) but it isn't re-computed here, consistent with this document's own convention of not inventing derived numbers without a real basis (see CLAUDE.md's standing instruction on derived claims) — do that at the "Next Review" point below, with the actual remaining scope (the still-reopened control-surface shipping decision, and Step 9's district theme, which hasn't started). `audio-layers.js`'s disposition is no longer open — kept, not deleted, moved to `Archive/audio-layers.js`.
 
-This was weighed against cutting scope to hit September instead — reducing control-surface count, shrinking the pre-launch testing pool, or consolidating instrument granularity — and October was chosen over those cuts. Instrument granularity was decided to stay at 24 but that decision is **now resolved toward partial consolidation, not held at 24** (see `docs/Implementation_Plan.md` Decision Point 4 and `docs/Technical_Architecture_v5.md`'s Granularity section — `crossing-family.html`'s consolidation finding held for electricity and water, partially for sewage, and not at all for telecom, so the 24-behaviour inventory ends up realised by 15 instrument classes, not 24 separate ones), and control surfaces were meant to be authoring-only by default but are **actually reachable in production already** (Decision Point 2, still reopened) — the control-surface assumption this time estimate rests on remains a live question; the granularity one no longer is. Pre-launch testing scope (15 vs. a smaller pilot) remains open and is the one lever still available if mid-to-late October slips further — see Phase 4, Week 2–3 below.
+This was weighed against cutting scope to hit September instead — reducing control-surface count, shrinking the pre-launch testing pool, or consolidating instrument granularity — and October was chosen over those cuts. Instrument granularity was decided to stay at 24 but that decision is **now resolved toward partial consolidation, not held at 24** (see `docs/Implementation_Plan.md` Decision Point 4 and `docs/Technical_Architecture_v5.md`'s Granularity section — `crossing-family.html`'s consolidation finding held for electricity and water, partially for sewage, and not at all for telecom, so the 24-behaviour inventory ends up realised by 15 instrument classes, not 24 separate ones), and control surfaces are authoring-only by default as originally decided (Decision Point 2 — a 2026-10-11 correction found the "actually reachable in production already" claim that had briefly reopened this decision was false, see `docs/Implementation_Plan.md`) — the control-surface assumption this time estimate rests on is settled; so is the granularity one. Pre-launch testing scope (15 vs. a smaller pilot) remains open and is the one lever still available if mid-to-late October slips further — see Phase 4, Week 2–3 below.
 
 **Development continues, not contingent on any funding** — this was true before the pivot and remains true now. No application is pending: the Digitale Künste — Umsetzung und Präsentation application was never submitted (see the update above), and none is currently being pursued. The toolchain narrowing described in this revision was never contingent on it either.
 
@@ -475,6 +475,6 @@ District 1 musical theme composition (CHF 1,500 in v3.5) is removed from the bud
 
 ---
 
-**Document Version:** 3.5.9
+**Document Version:** 3.5.10
 **Last Updated:** October 2026
 **Next Review:** Step 8's field-walk gate closed 2026-10-02 (`step-8-reintegration` merged to `main`, commit `646b8a3`) — the Timeline Reality Check above should now be revisited with the actual build-time data point this section always said it was waiting for.

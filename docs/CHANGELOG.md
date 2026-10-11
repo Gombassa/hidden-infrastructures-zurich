@@ -61,6 +61,10 @@ Verified: `node --check` on all 13 touched files, `npx vite build`. Not yet depl
 
 ## Project Plan (`docs/Project_Plan_v3_5.md`)
 
+### v3.5.10
+
+**Changes from v3.5.9 (control-surface deployment claim corrected):** The Timeline Reality Check's closing note claimed control surfaces "are actually reachable in production already," treating Decision Point 2 as still reopened. Checked directly against the live site (2026-10-11): they aren't — `vite.config.js` only builds `index.html`/`infrastructure-map.html`, and the HTTP 200 an instrument path returns on the live URL is `nginx.conf`'s SPA fallback serving `index.html`, not the real file. Corrected to say the control-surface assumption is settled, same as the granularity one. See `docs/Technical_Architecture_v5.md` v5.13 and `docs/Implementation_Plan.md` v2.7 for the matching correction.
+
 ### v3.5.9
 
 **Changes from v3.5.8 (audio-layers.js archived; step8 Cloud Run tag cleaned up):** `audio-layers.js` — superseded since the Step 8 merge, kept rather than deleted — has been moved to `Archive/audio-layers.js`. The `step8`-tagged Cloud Run test revision, redundant since the merge, has been cleaned up (tag removed, orphaned revision deleted, 2026-10-02). Updated the Timeline Reality Check's "still open" list and the Risk Mitigation fallback note to reflect the new path and the resolved decision (archive, not delete).
@@ -119,6 +123,10 @@ Verified: `node --check` on all 13 touched files, `npx vite build`. Not yet depl
 
 ## Technical Architecture (`docs/Technical_Architecture_v5.md`)
 
+### v5.13
+
+**Changes from v5.12 (control-surface deployment claim corrected — un-reopens Decision #2):** The "Open questions — status" entry for HTML control surfaces claimed they were "reachable on the deployed URL," reopening a decision that had been resolved as authoring-only by default. Checked directly against the live site (2026-10-11): `vite.config.js` only declares `index.html`/`infrastructure-map.html` as build entries, so `instruments/*.html` never reaches the Docker image. Hitting an instrument path on the live URL returns HTTP 200, but that's `nginx.conf`'s SPA fallback serving `index.html`, not the real file — confirmed by checking the response content (title, length), not just the status code. The claim was false; the decision reverts to resolved. See `docs/instrument-reference.html` for the same correction at its source.
+
 ### v5.12
 
 **Changes from v5.11 (proximity radii tightened to 20m; ProximityEngine split tram/listener ticks):** Robin's own direct edit on `main`, 2026-10-10 — see the Audio Architecture section above for the full detail. Rewrote the Data Flow diagram to show the two independent ticks (tram tick → `calculateTrams()`/`updateFeeders()`; listener tick → `calculateListener()`/`update()`), updated the ProximityEngine Output Shape section to document `inListenerRange` and the `calculateTrams()`/`calculateListener()` split, updated the Data Layer radius table (all converged on 20m except sewage's rumble bed at 5m), and corrected the Mapping-curve audit note's stale "150m" feeder-crackle figure. Updated Future Development Work. Not yet deployed-and-confirmed by ear at the time of writing.
@@ -174,6 +182,14 @@ Verified: `node --check` on all 13 touched files, `npx vite build`. Not yet depl
 ---
 
 ## Implementation Plan (`docs/Implementation_Plan.md`)
+
+### v2.7
+
+**Changes from v2.6 (control-surface deployment claim corrected — un-reopens Decision Point 2):** Decision Points item 2 (and this document's PWA and risk notes referencing it) claimed the HTML control surfaces were "actually reachable in production already." Checked directly against the live site (2026-10-11): `vite.config.js` only builds `index.html`/`infrastructure-map.html`; `instruments/*.html` never reaches the deployed image. An instrument path on the live URL returns HTTP 200 only because `nginx.conf`'s SPA fallback serves `index.html` for any unmatched route — confirmed by checking the response content, not just the status code. The claim was false; Decision Point 2 reverts to resolved (authoring-only by default, as originally decided), and the PWA/risk notes that assumed otherwise are corrected. See `docs/Technical_Architecture_v5.md` v5.13 and `docs/instrument-reference.html` for the same correction at its source.
+
+### v2.6
+
+**Changes from v2.5 (post-launch radius retuning + ProximityEngine split, 2026-10-10 — not a build step):** Robin's own direct edit on `main` (not a branch), outside this document's Phase 3 step sequence entirely, same as v2.5's own note below. Nearly every `ProximityEngine` trigger radius and most per-instrument falloff radii converged on a uniform 20m (down from 25-150m, varying per layer/instrument) — including the telecom node radius v2.5 described as narrowed to 25m, now folded into the same 20m. `ProximityEngine.calculate()` was also split into `calculateTrams()`/`calculateListener()`, decoupling the five infrastructure-layer instruments from the 10s TramEngine tick. None of this changes which rows in the Instrument Inventory table exist or how they were built — it's a second round of the same kind of post-launch tuning v2.5 documents, this time touching nearly every row's radius constant rather than just telecom's two. See `docs/CHANGELOG.md`'s Audio Architecture section for the full detail.
 
 ### v2.5
 

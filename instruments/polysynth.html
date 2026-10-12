@@ -1,4 +1,5 @@
-<title>Web Audio Polysynth</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Basic Beach</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -237,12 +238,14 @@ canvas{display:block;width:100%;height:150px}
 .mod.perf{gap:8px}
 .perf-body .knobs{grid-template-columns:repeat(2,64px);gap:6px 12px}
 .row .push{margin-left:auto}
+.knob[hidden]{display:none}
+.learnbar select{font:400 12px var(--font-mono);color:var(--text);background:var(--panel-2);border:1px solid var(--line);border-radius:4px;padding:3px 6px;min-height:28px}
 </style>
 
 <div class="wrap">
   <div class="top">
     <div>
-      <h1>Web Audio Polysynth</h1>
+      <h1>Basic Beach</h1>
       <p class="chain">OSC 1 + OSC 2 + SUB + NOISE → FILTER → AMP → DRIVE → DELAY → REVERB → LIMITER</p>
     </div>
     <div class="ctl">
@@ -257,7 +260,12 @@ canvas{display:block;width:100%;height:150px}
   <div class="learnbar" id="learnbar" role="status">
     <span>Learn mode: click a knob or switch, then move a control on your controller.</span>
     <span>Target <b id="lbTarget">none</b></span>
-    <span>Last CC <b id="lbCC">—</b></span>
+    <span>Last MIDI <b id="lbCC">—</b></span>
+    <label>Knobs <select id="lbMode" aria-label="Knob type">
+      <option value="abs">Absolute (0–127)</option>
+      <option value="rel2c">Relative (1 up / 127 down)</option>
+      <option value="relofs">Relative (65 up / 63 down)</option>
+    </select></label>
     <span class="spacer"></span>
     <button class="btn" id="lbClear" type="button" disabled>Clear selected</button>
     <button class="btn" id="lbClearAll" type="button">Clear all</button>
@@ -377,8 +385,8 @@ const DEFS = [
   { id:'rDamp', name:'Damping',  min:0,   max:1, def:0.5, fmt:fmt.pct },
   { id:'rMix',  name:'Mix',      min:0,   max:1, def:0.2, fmt:fmt.pct },
   { id:'bpm',      name:'Tempo', min:10,   max:350, def:120, step:1, fmt:v => v + ' bpm' },
-  { id:'lfoDiv',   name:'Div',   min:0,    max:14,  def:6,   step:1, fmt:v => DIV_LABEL[v] },
-  { id:'dDiv',     name:'Div',   min:0,    max:14,  def:8,   step:1, fmt:v => DIV_LABEL[v] },
+  { id:'lfoDiv',   name:'Rate',   min:0,    max:14,  def:6,   step:1, fmt:v => DIV_LABEL[v] },
+  { id:'dDiv',     name:'Time',   min:0,    max:14,  def:8,   step:1, fmt:v => DIV_LABEL[v] },
   { id:'arpDiv',   name:'Rate',  min:0,    max:14,  def:12,  step:1, fmt:v => DIV_LABEL[v] },
   { id:'arpGate',  name:'Gate',  min:0.05, max:1,   def:0.6, fmt:fmt.pct },
   { id:'arpSwing', name:'Swing', min:0,    max:0.5, def:0,   fmt:fmt.pct },
@@ -1425,7 +1433,10 @@ window.addEventListener('keyup', e => {
 window.addEventListener('blur', () => { heldCodes.clear(); ptr.clear(); releaseAll(); });
 
 /* ---------- MIDI input, learn mode, mapping ---------- */
-let midiInitDone = false;
+let midiInitDone = false, midiAccess = null, midiLast = '', midiTitle = '';
+const MODE_KEY = 'wapoly.midimode';
+let midiMode = store.get(MODE_KEY);
+if (midiMode !== 'rel2c' && midiMode !== 'relofs') midiMode = 'abs';
 function initMidi(){
   if (midiInitDone) return;
   midiInitDone = true;
@@ -1433,18 +1444,33 @@ function initMidi(){
   midiState = 'waiting';
   try {
     navigator.requestMIDIAccess().then(acc => {
+      midiAccess = acc;   /* keep a reference: browsers can drop MIDI input if the access object is garbage-collected */
       const hook = () => {
-        let n = 0;
-        acc.inputs.forEach(inp => { inp.onmidimessage = onMidi; n++; });
-        midiState = n + (n === 1 ? ' input' : ' inputs');
+        const names = [];
+        acc.inputs.forEach(inp => { inp.onmidimessage = onMidi; if (inp.state !== 'disconnected') names.push(inp.name || 'input'); });
+        midiState = names.length === 0 ? 'no inputs' : names.length === 1 ? names[0] : names.length + ' inputs';
+        midiTitle = names.join(', ');
       };
       acc.onstatechange = hook;
       hook();
     }).catch(() => { midiState = 'blocked'; });
   } catch (e) { midiState = 'blocked'; }
 }
+function midiText(st, d1, d2){
+  const cmd = st & 0xf0, ch = (st & 15) + 1;
+  if (cmd === 0xb0) return 'CC ' + d1 + ' = ' + d2 + ' (ch ' + ch + ')';
+  if (cmd === 0x90) return 'Note ' + d1 + (d2 ? ' on' : ' off');
+  if (cmd === 0x80) return 'Note ' + d1 + ' off';
+  if (cmd === 0xe0) return 'Pitch bend';
+  if (cmd === 0xc0) return 'Program ' + d1;
+  if (cmd === 0xd0 || cmd === 0xa0) return 'Aftertouch';
+  return '';
+}
 function onMidi(m){
   const st = m.data[0], d1 = m.data[1], d2 = m.data[2], cmd = st & 0xf0;
+  if (st >= 0xf0) return;   /* clock, active sensing and other system messages */
+  const txt = midiText(st, d1, d2);
+  if (txt) { midiLast = txt; const lb = $('#lbCC'); if (lb && learnMode) lb.textContent = txt; }
   if (cmd === 0x90 && d2 > 0) playNote(d1, d2 / 127);
   else if (cmd === 0x80 || (cmd === 0x90 && d2 === 0)) stopNote(d1);
   else if (cmd === 0xe0) setBend(((d1 | (d2 << 7)) - 8192) / 8192);
@@ -1512,13 +1538,26 @@ function applyNorm(id, n){
   const v = fromNorm(d, n);
   if (v !== P[id]) { P[id] = v; knobs[id].paint(); onParam(id); userEdited(); }
 }
-function onCC(cc, val){
-  if (learnMode) {
-    $('#lbCC').textContent = String(cc);
-    if (learnTarget) { bindCC(cc, learnTarget); return; }
+function relStep(id, delta){
+  if (SEL[id]) {
+    const o = SEL[id].opts, i = Math.max(0, Math.min(o.length - 1, o.indexOf(P[id]) + (delta > 0 ? 1 : -1)));
+    applyNorm(id, (i + 0.5) / o.length);
+    return;
   }
+  const d = DEF[id];
+  if (!d) return;
+  const unit = d.step ? d.step / (d.max - d.min) : 0.008;
+  applyNorm(id, clamp(toNorm(d, P[id]) + delta * unit, 0, 1));
+}
+function onCC(cc, val){
+  if (learnMode && learnTarget) { bindCC(cc, learnTarget); return; }
   const id = ccMap[cc];
-  if (id) applyNorm(id, val / 127);
+  if (!id) return;
+  if (midiMode === 'abs') applyNorm(id, val / 127);
+  else {
+    const delta = midiMode === 'rel2c' ? (val < 64 ? val : val - 128) : val - 64;
+    if (delta) relStep(id, delta);
+  }
 }
 function confirmClick(btn, label, fn){
   let timer = 0;
@@ -1528,6 +1567,8 @@ function confirmClick(btn, label, fn){
     timer = setTimeout(() => { timer = 0; btn.textContent = label; }, 3000);
   });
 }
+$('#lbMode').value = midiMode;
+$('#lbMode').addEventListener('change', e => { midiMode = e.target.value; store.set(MODE_KEY, midiMode); });
 $('#learn').addEventListener('click', () => setLearn(!learnMode));
 $('#lbDone').addEventListener('click', () => setLearn(false));
 $('#lbClear').addEventListener('click', () => {
@@ -1599,6 +1640,18 @@ function showXfer(obj, label){
   } catch (e) { asked = false; }
   if (!asked) msg('xNote', 'The ' + label + ' JSON is selected. Press Ctrl/Cmd+C to copy it.');
 }
+function downloadJson(obj, label){
+  const base = (obj.name || (label === 'patch' && presetSel.value && presetSel.value !== '__custom' ? presetSel.value : '') || label)
+    .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || label;
+  const file = 'basic-beach-' + label + '-' + base + '.json';
+  try {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(obj, null, 1)], { type: 'application/json' }));
+    const a = el('a', '', { href: url, download: file });
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    msg('xNote', 'Saved ' + file + ' to your downloads. If nothing downloaded, this page may block downloads; use Export and copy instead.');
+  } catch (e) { msg('xNote', 'Downloads are blocked here. Use Export and copy the JSON instead.'); }
+}
 function importXfer(){
   let o;
   try { o = JSON.parse(libEls.xfer.value); } catch (e) { msg('xNote', 'That is not valid JSON.'); return; }
@@ -1623,11 +1676,12 @@ function buildLibrary(card){
     '<section><h4>Mapping</h4>' +
     '<div class="field"><input id="mapName" type="text" maxlength="40" placeholder="Mapping name" aria-label="Mapping name" autocomplete="off"><button class="btn" id="mapSave" type="button">Save mapping</button></div>' +
     '<ul class="saved" id="mapList" aria-label="Saved mappings"></ul><p class="note" id="mapNote"></p></section>' +
-    '<section><h4>Copy and paste</h4>' +
+    '<section><h4>Files and copy/paste</h4>' +
+    '<div class="field"><button class="btn" id="fPatch" type="button">Download patch</button><button class="btn" id="fMap" type="button">Download mapping</button><button class="btn" id="fOpen" type="button">Open file…</button><input id="fIn" type="file" accept=".json,application/json" hidden></div>' +
     '<textarea class="xfer" id="xfer" spellcheck="false" aria-label="Patch or mapping as JSON" placeholder="Export fills this box with JSON. Paste JSON here and press Import."></textarea>' +
     '<div class="field"><button class="btn" id="xPatch" type="button">Export patch</button><button class="btn" id="xMap" type="button">Export mapping</button><button class="btn" id="xImport" type="button">Import</button></div>' +
     '<p class="note" id="xNote"></p></section>';
-  ['patchName', 'patchSave', 'patchList', 'patchNote', 'mapName', 'mapSave', 'mapList', 'mapNote', 'xfer', 'xPatch', 'xMap', 'xImport', 'xNote']
+  ['patchName', 'patchSave', 'patchList', 'patchNote', 'mapName', 'mapSave', 'mapList', 'mapNote', 'fPatch', 'fMap', 'fOpen', 'fIn', 'xfer', 'xPatch', 'xMap', 'xImport', 'xNote']
     .forEach(k => { libEls[k] = wrap.querySelector('#' + k); });
   libEls.patchSave.addEventListener('click', () => { msg('patchNote', savePatch(libEls.patchName.value)); libEls.patchName.value = ''; });
   libEls.mapSave.addEventListener('click', () => { msg('mapNote', saveMapping(libEls.mapName.value)); libEls.mapName.value = ''; });
@@ -1636,6 +1690,18 @@ function buildLibrary(card){
   libEls.xPatch.addEventListener('click', () => showXfer(currentPatch(''), 'patch'));
   libEls.xMap.addEventListener('click', () => showXfer(currentMapping(''), 'mapping'));
   libEls.xImport.addEventListener('click', importXfer);
+  libEls.fPatch.addEventListener('click', () => downloadJson(currentPatch(libEls.patchName.value.trim()), 'patch'));
+  libEls.fMap.addEventListener('click', () => downloadJson(currentMapping(libEls.mapName.value.trim()), 'mapping'));
+  libEls.fOpen.addEventListener('click', () => libEls.fIn.click());
+  libEls.fIn.addEventListener('change', () => {
+    const f = libEls.fIn.files && libEls.fIn.files[0];
+    if (!f) return;
+    if (f.size > 1e6) { msg('xNote', 'That file is too large to be a patch.'); libEls.fIn.value = ''; return; }
+    const rd = new FileReader();
+    rd.onload = () => { libEls.xfer.value = String(rd.result); importXfer(); libEls.fIn.value = ''; };
+    rd.onerror = () => { msg('xNote', 'Could not read that file.'); libEls.fIn.value = ''; };
+    rd.readAsText(f);
+  });
   card.appendChild(wrap);
   renderLists();
   msg('patchNote', storageNote());
@@ -2208,7 +2274,8 @@ const rd = { peak: $('#rdPeak'), voices: $('#rdVoices'), rate: $('#rdRate'), lat
 function setTxt(node, s){ if (node.textContent !== s) node.textContent = s; }
 function updateReadouts(){
   setTxt(rd.voices, voices.size + '/' + MAX_VOICES);
-  setTxt(rd.midi, midiState);
+  setTxt(rd.midi, midiState + (midiLast ? ' · ' + midiLast : ''));
+  if (rd.midi.title !== midiTitle) rd.midi.title = midiTitle;
   if (!ctx) return;
   setTxt(rd.peak, peakHold < 1e-4 ? '−∞ dBFS' : (20 * Math.log10(peakHold)).toFixed(1).replace('-', '−') + ' dBFS');
   setTxt(rd.rate, (ctx.sampleRate / 1000).toFixed(1) + ' kHz');
@@ -2238,3 +2305,5 @@ updateReadouts();
 tick();
 })();
 </script>
+
+</body></html>
